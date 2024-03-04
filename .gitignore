@@ -397,7 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-documents/*
-!documents/*.pdf
-!documents/*meeting_updates
-!documents/*data_info
+LaTeX/*
+!LaTeX/*.pdf
