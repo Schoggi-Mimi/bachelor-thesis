@@ -399,5 +399,7 @@ FodyWeavers.xsd
 
 docs/*
 !docs/*.pdf
+!docs/chapters/
+!docs/img
 !docs/meeting_updates
 !docs/resource_info
