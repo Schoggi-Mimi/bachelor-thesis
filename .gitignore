@@ -404,3 +404,5 @@ docs/*
 !docs/meeting_updates
 !docs/resource_info
 !docs/literature
+src/SCIN_v2
+src/test_folder
