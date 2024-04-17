@@ -406,3 +406,6 @@ docs/*
 !docs/literature
 src/SCIN_v2
 src/test_folder
+src/.DS_Store
+playground/.DS_Store
+.DS_Store
