@@ -6,70 +6,62 @@ from typing import Callable, List, Union
 
 import torchvision.transforms.functional as TF
 from PIL.Image import Image as PILImage
+from torchvision import transforms
 
 from utils.distortions import *
 
 distortion_groups = {
-    "orientation": ["perspective"],
+    "orientation": ["perspective_top", "perspective_bottom", "perspective_left", "perspective_right"],
     "focus": ["gaublur", "lensblur", "motionblur"],
-    "resolution": ["jpeg2000", "jpeg"],
-    "lighting": ["brighten", "darken", "meanshift"],
-    "background": ["colorblock"],
-    "color_calibration": ["colorshift", "colorsat1", "colorsat2"],
+    #"resolution": [""],
+    "lighting": ["brighten", "darken"],
+    #"background": [""],
+    "color_calibration": ["colorsat1", "colorsat2"],
 }
 
 distortion_groups_mapping = {
     "gaublur": "focus",
     "lensblur": "focus",
     "motionblur": "focus",
-    "colordiff": "color_calibration",
-    "colorshift": "color_calibration",
     "colorsat1": "color_calibration",
     "colorsat2": "color_calibration",
-    "jpeg2000": "resolution",
-    "jpeg": "resolution",
     "brighten": "lighting",
     "darken": "lighting",
-    "meanshift": "lighting",
-    "colorblock": "background",
-    "perspective": "orientation",
+    "perspective_top": "orientation",
+    "perspective_bottom": "orientation",
+    "perspective_left": "orientation",
+    "perspective_right": "orientation",
 }
 
 distortion_range = {
-    "gaublur": [0.1, 0.5, 1, 2, 5],
-    "lensblur": [1, 2, 4, 6, 8],
-    "motionblur": [1, 2, 4, 6, 10],
-    "colordiff": [1, 3, 6, 8, 12],
-    "colorshift": [1, 3, 6, 8, 12],
-    "colorsat1": [0.4, 0.2, 0.1, 0, -0.4],
-    "colorsat2": [1, 2, 3, 6, 9],
-    "jpeg2000": [16, 32, 45, 120, 170],
-    "jpeg": [43, 36, 24, 7, 4],
-    "brighten": [0.1, 0.2, 0.4, 0.7, 1.1],
-    "darken": [0.05, 0.1, 0.2, 0.4, 0.8],
-    "meanshift": [0, 0.08, -0.08, 0.15, -0.15],
-    "colorblock": [2, 4, 6, 8, 10],
-    "perspective": [0, 1, 2, 3],
+    "gaublur": [0, 1, 2, 3, 5],
+    "lensblur": [0, 2, 4, 6, 8],
+    "motionblur": [0, 2, 4, 6, 8],
+    "colorsat1": [0, 0.2, 0.4, 0.6, 0.8],
+    "colorsat2": [0, 1, 2, 3, 4],
+    "brighten": [0.0, 0.2, 0.4, 0.7, 1.1],
+    "darken": [0.0, 0.2, 0.4, 0.6, 0.8],
+    "perspective_top": [0.0, 0.2, 0.4, 0.6, 0.8],
+    "perspective_bottom": [0.0, 0.2, 0.4, 0.6, 0.8],
+    "perspective_left": [0.0, 0.2, 0.4, 0.6, 0.8],
+    "perspective_right": [0.0, 0.2, 0.4, 0.6, 0.8],
 }
 
 distortion_functions = {
     "gaublur": gaussian_blur,
     "lensblur": lens_blur,
     "motionblur": motion_blur,
-    "colordiff": color_diffusion,
-    "colorshift": color_shift,
     "colorsat1": color_saturation1,
     "colorsat2": color_saturation2,
-    "jpeg2000": jpeg2000,
-    "jpeg": jpeg,
     "brighten": brighten,
     "darken": darken,
-    "meanshift": mean_shift,
-    "colorblock": color_block,
-    "perspective": perspective,
+    "perspective_top": perspective_top,
+    "perspective_bottom": perspective_bottom,
+    "perspective_left": perspective_left,
+    "perspective_right": perspective_right,
 }
 
-def apply_distortion(img_path, distorted_image_path, method, range_val, transform, distortion_functions, counter):
+def apply_distortion(img_path, distorted_image_path, method, range_val, distortion_functions):
     """
     Apply a specific distortion to an image and save the distorted version.
 
@@ -78,17 +70,16 @@ def apply_distortion(img_path, distorted_image_path, method, range_val, transfor
         distortion_type (str): Type of distortion.
         method (str): Distortion method.
         range_val (float): Value of the distortion range.
-        transform (torchvision.transforms.Compose): Image transformation pipeline.
         distortion_functions (dict): Dictionary containing distortion methods and their corresponding functions.
     """
     orig_image = Image.open(img_path).convert('RGB')
-    image = transform(orig_image)
+    image = transforms.ToTensor()(orig_image)
     distort_function = distortion_functions.get(method)
-    if distort_function:
-        image = distort_function(image, range_val)
-        image_pil = transforms.ToPILImage()(image)
-        #print(f'Distortion path: {distorted_image_path}')    
-        image_pil.save(distorted_image_path)
+    image = distort_function(image, range_val)
+    #image = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])(image)
+    image_pil = transforms.ToPILImage()(image)
+    #print(f'Distortion path: {distorted_image_path}')    
+    image_pil.save(distorted_image_path)
     del orig_image, image_pil, image  # Explicitly delete variables to free up memory
     gc.collect()  # Trigger garbage collection
 
@@ -104,10 +95,6 @@ def create_distortions_batch(img_path, folder_path, batch_size=10, counter=None)
         distortion_functions (dict): Dictionary containing distortion methods and their corresponding functions.
         batch_size (int): Number of images to process in each batch.
     """
-    transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ])
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = []
         for distortion_type, methods in distortion_groups.items():
@@ -120,7 +107,7 @@ def create_distortions_batch(img_path, folder_path, batch_size=10, counter=None)
                 for range_val in ranges:
                     distorted_image_path = os.path.join(folder_path, distortion_type, method, f"{counter}_{method}_{range_val}.png")
                     future = executor.submit(
-                        apply_distortion, img_path, distorted_image_path, method, range_val, transform, distortion_functions, counter
+                        apply_distortion, img_path, distorted_image_path, method, range_val, distortion_functions
                     )
                     futures.append(future)
                     if len(futures) >= batch_size:
@@ -128,6 +115,61 @@ def create_distortions_batch(img_path, folder_path, batch_size=10, counter=None)
                         futures.clear()  # Clear the list for the next batch
         # Process any remaining futures
         concurrent.futures.wait(futures)
+
+def distort_images(image: torch.Tensor, distort_functions: list = None, distort_values: list = None, num_levels: int = 5) -> torch.Tensor:
+    """
+    Distorts an image using the distortion composition obtained with the image degradation model proposed in the paper
+    https://arxiv.org/abs/2310.14918.
+
+    Args:
+        image (Tensor): image to distort
+        distort_functions (list): list of the distortion functions to apply to the image. If None, the functions are randomly chosen.
+        distort_values (list): list of the values of the distortion functions to apply to the image. If None, the values are randomly chosen.
+        max_distortions (int): maximum number of distortions to apply to the image
+        num_levels (int): number of levels of distortion that can be applied to the image
+
+    Returns:
+        image (Tensor): distorted image
+        distort_functions (list): list of the distortion functions applied to the image
+        distort_values (list): list of the values of the distortion functions applied to the image
+    """
+    if distort_functions is None or distort_values is None:
+        distort_functions, distort_values = get_distortions_composition(num_levels)
+
+    for distortion, value in zip(distort_functions, distort_values):
+        image = distortion(image, value)
+        image = image.to(torch.float32)
+        image = torch.clip(image, 0, 1)
+
+    return image, distort_functions, distort_values
+
+def get_distortions_composition(num_levels: int = 5):
+    """
+    Image Degradation model proposed in the paper https://arxiv.org/abs/2310.14918. Returns a randomly assembled ordered
+    sequence of distortion functions and their values.
+
+    Args:
+        max_distortions (int): maximum number of distortions to apply to the image
+        num_levels (int): number of levels of distortion that can be applied to the image
+
+    Returns:
+        distort_functions (list): list of the distortion functions to apply to the image
+        distort_values (list): list of the values of the distortion functions to apply to the image
+    """
+    MEAN = 0
+    STD = 2.5
+
+    distortions = [random.choice(distortion_groups[group]) for group in list(distortion_groups.keys())]
+    distort_functions = [distortion_functions[dist] for dist in distortions]
+
+    probabilities = [1 / (STD * np.sqrt(2 * np.pi)) * np.exp(-((i - MEAN) ** 2) / (2 * STD ** 2))
+                     for i in range(num_levels)]  # probabilities according to a gaussian distribution
+    normalized_probabilities = [prob / sum(probabilities)
+                                for prob in probabilities]  # normalize probabilities
+    distort_values = [np.random.choice(distortion_range[dist][:num_levels], p=normalized_probabilities) for dist
+                      in distortions]
+
+    return distort_functions, distort_values
 
 def center_corners_crop(img: PILImage, crop_size: int = 224) -> List[PILImage]:
     """
