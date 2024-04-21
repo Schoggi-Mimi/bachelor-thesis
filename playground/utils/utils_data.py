@@ -4,6 +4,8 @@ import os
 from random import randrange
 from typing import Callable, List, Union
 
+import numpy as np
+import torch
 import torchvision.transforms.functional as TF
 from PIL.Image import Image as PILImage
 from torchvision import transforms
@@ -11,20 +13,20 @@ from torchvision import transforms
 from utils.distortions import *
 
 distortion_groups = {
-    "orientation": ["perspective_top", "perspective_bottom", "perspective_left", "perspective_right"],
-    "focus": ["gaublur", "lensblur", "motionblur"],
-    #"resolution": [""],
     "lighting": ["brighten", "darken"],
+    "focus": ["gaussian_blur", "lens_blur", "motion_blur"],
+    "orientation": ["perspective_top", "perspective_bottom", "perspective_left", "perspective_right"],
+    "color_calibration": ["color_saturation1", "color_saturation2"],
+    #"resolution": [""],
     #"background": [""],
-    "color_calibration": ["colorsat1", "colorsat2"],
 }
 
 distortion_groups_mapping = {
-    "gaublur": "focus",
-    "lensblur": "focus",
-    "motionblur": "focus",
-    "colorsat1": "color_calibration",
-    "colorsat2": "color_calibration",
+    "gaussian_blur": "focus",
+    "lens_blur": "focus",
+    "motion_blur": "focus",
+    "color_saturation1": "color_calibration",
+    "color_saturation2": "color_calibration",
     "brighten": "lighting",
     "darken": "lighting",
     "perspective_top": "orientation",
@@ -34,11 +36,11 @@ distortion_groups_mapping = {
 }
 
 distortion_range = {
-    "gaublur": [0, 1, 2, 3, 5],
-    "lensblur": [0, 2, 4, 6, 8],
-    "motionblur": [0, 2, 4, 6, 8],
-    "colorsat1": [0, 0.2, 0.4, 0.6, 0.8],
-    "colorsat2": [0, 1, 2, 3, 4],
+    "gaussian_blur": [0, 1, 2, 3, 5],
+    "lens_blur": [0, 2, 4, 6, 8],
+    "motion_blur": [0, 2, 4, 6, 8],
+    "color_saturation1": [0, 0.2, 0.4, 0.6, 0.8],
+    "color_saturation2": [0, 1, 2, 3, 4],
     "brighten": [0.0, 0.2, 0.4, 0.7, 1.1],
     "darken": [0.0, 0.2, 0.4, 0.6, 0.8],
     "perspective_top": [0.0, 0.2, 0.4, 0.6, 0.8],
@@ -48,11 +50,11 @@ distortion_range = {
 }
 
 distortion_functions = {
-    "gaublur": gaussian_blur,
-    "lensblur": lens_blur,
-    "motionblur": motion_blur,
-    "colorsat1": color_saturation1,
-    "colorsat2": color_saturation2,
+    "gaussian_blur": gaussian_blur,
+    "lens_blur": lens_blur,
+    "motion_blur": motion_blur,
+    "color_saturation1": color_saturation1,
+    "color_saturation2": color_saturation2,
     "brighten": brighten,
     "darken": darken,
     "perspective_top": perspective_top,
@@ -170,6 +172,18 @@ def get_distortions_composition(num_levels: int = 5):
                       in distortions]
 
     return distort_functions, distort_values
+
+def map_distortion_values(distort_functions, distort_values):
+    distort_functions = [f.__name__ for f in distort_functions]
+    mapped_values = []
+    for func, val in zip(distort_functions, distort_values):
+        range_vals = distortion_range.get(func)
+        if range_vals:
+            mapped_value = np.interp(val, range_vals, [0, 0.25, 0.5, 0.75, 1])
+            mapped_values.append(mapped_value)
+        else:
+            mapped_values.append(val)
+    return mapped_values
 
 def center_corners_crop(img: PILImage, crop_size: int = 224) -> List[PILImage]:
     """
