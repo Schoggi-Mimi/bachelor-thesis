@@ -61,6 +61,7 @@ class GQIDataset(Dataset):
             img = self.normalize(img)
             img_ds = self.normalize(img_ds)
         mapped_values = map_distortion_values(distort_functions, distort_values)
+        mapped_values = torch.tensor(mapped_values, dtype=torch.float16)
 
         return {"img": img, "img_ds": img_ds, "label": mapped_values}
 
