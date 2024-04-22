@@ -150,3 +150,92 @@ The figure \ref{fig:Figure_name}\footnote{Image from \cite{Citation_name}.} show
   url    = {https://storage.googleapis.com/kaggle-competitions/kaggle/51294/logos/thumb76_76.png?GoogleAccessId=web-data@kaggle-161607.iam.gserviceaccount.com&Expires=1697009256&Signature=fKq60Wl6tPiTf5rX%2B8KQlRtQ15HTwfsN8AvFp%2FXeYYpWE6Hz8LB1TS2ZwELQnW5qERnj%2BabQDvaAxEECAEJOWKShQRy9CVNEJCkE82ECmc2FbegW3gzmaPLgIDbQ830mI4JTNp7vJRFfQAfN9rm0tekjWV5yPewI1fmL5BKyZh0rvLvlP9Ln%2FbDlKvYku%2FAo7%2FnheOuwf1m3Pm2PgcdEI5090xXr8r1eyM%2ByVHuRaFli%2FyCcFcigM3Vv5mc2Iv4FVaZTk7UsSHGbOd0jK3d3dh0n28QxB50CDuJ0AINezgB%2FjOsiAzyqaMfE%2BrGy0FFfpVgoc9tiZctXC5FLxet8DA%3D%3D},
   note   = {[Online; accessed October 10, 2023]}
 }
+
+
+
+
+\subsection{Distortion Types} \label{sec:distortion_types}
+Our image degradation model considers 24 different degradation types divided into the 7 distortion groups defined by the \kadid dataset \cite{kadid10k}. Each distortion has 5 levels of increasing intensity. \Cref{fig:brightness_change,fig:blur,fig:spatial_distortions,fig:noise,fig:color_distortions,fig:compression,fig:sharpness_contrast} shows the different levels of intensity for the degradations of each distortion group. The distortion types that we consider are mainly inspired by those of the \kadid dataset and are described in the list below:
+\begin{enumerate}
+    \item Brightness change:
+        \begin{itemize}
+            \item \textit{Brighten}: applies a sequence of color space transformations, curve adjustments, and blending operations to enhance the brightness of an input image, resulting in an output image with increased visual intensity;
+            \item \textit{Darken}: similar to brighten operation, but it leads to a decreased visual intensity;
+            \item \textit{Mean shift}: changes the average intensity of image pixels by adding a fixed amount to all the pixel values. Then, limits the resulting values to remain within the initial image range;
+        \end{itemize}
+    \item Blur:
+        \begin{itemize}
+            \item \textit{Gaussian blur}: filters every pixel of the image with a simple Gaussian kernel.
+            \item \textit{Lens blur}: filters every pixel of the image with a circular kernel;
+            \item \textit{Motion blur}: filters every pixel of the image with a linear motion blur kernel to simulate the effect of a moving camera or a moving object in the scene. Consequently, the image appears blurred in the direction of the motion;
+        \end{itemize}
+    \item Spatial distortions:
+        \begin{itemize}
+            \item \textit{Jitter}: randomly disperses image data by warping each pixel with small offsets;
+            \item \textit{Non-eccentricity patch}: randomly extracts patches from the image and inserts them in random neighboring positions;
+            \item \textit{Pixelate}: combines operations of downscaling and upscaling using nearest-neighbor interpolation;
+            \item \textit{Quantization}: quantizes the image into $N$ uniform levels. The thresholds are computed dynamically using Multi-Otsu’s method \cite{liao2001fast};
+            \item \textit{Color block}: randomly overlays homogeneous colored squared patches onto the image;
+        \end{itemize}
+    \item Noise:
+        \begin{itemize}
+            \item \textit{White noise}: adds Gaussian white noise to the image;
+            \item \textit{White noise in color component}: converts the image to the YCbCr color space, then adds Gaussian white noise to each channel;
+            \item \textit{Impulse noise}: adds salt and pepper noise to the image;
+            \item \textit{Multiplicative noise}: adds speckle noise to the image;
+        \end{itemize}
+    \item Color distortions:
+        \begin{itemize}
+            \item \textit{Color diffusion}: converts the image to the LAB-color space, then applies Gaussian blur to each channel;
+            \item \textit{Color shift}: randomly shifts the green channel and then blends it into the original image, masked by the normalized gradient magnitude of the original image;
+            \item \textit{Color saturation 1}: converts the image to the HSV-color space and then multiplies the saturation channel by a factor;
+            \item \textit{Color saturation 2}: converts the image to the LAB-color space, then multiply each color channel by a factor;
+        \end{itemize}
+    \item Compression:
+        \begin{itemize}
+            \item \textit{JPEG2000}: applies standard JPEG2000 compression to the image;
+            \item \textit{JPEG}: applies standard JPEG compression to the image;
+        \end{itemize}
+    \item Sharpness \& contrast:
+        \begin{itemize}
+            \item \textit{High sharpen}: sharpens the image in the LAB-color space using unsharp masking;
+            \item \textit{Nonlinear contrast change}: calculates a nonlinear tone mapping operation to manipulate the contrast of the image;
+            \item \textit{Linear contrast change}: calculates a linear tone mapping operation to manipulate the contrast of the image;
+        \end{itemize}
+\end{enumerate}
+
+
+
+\begin{table*}[!t]
+    \centering
+    \caption{An overview of IQA databases}
+    \label{tab:iqa_databases}
+    \setlength{\tabcolsep}{0.3em}
+    \scalebox{0.57}{
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{l l l l l l l l l}
+    \toprule
+        Category & Database & Year & \#Ref. & \#Dist. & \#Dist. Type & \#Dist. Level & Resolution Type & Ground-truth \\
+        \hline
+        \multirow{8}{*}{General} 
+        & LIVE \cite{LIVE} & 2004 & 30 & 779 & 5 & 5 or 4 & ~768 x 512 & DMOS \\
+        & TID2008 \cite{TID2008} & 2008 & 25 & 1700 & 17 & 4 & 512 x 384 & MOS \\
+        & TID2013 \cite{TID2013} & 2013 & 25 & 3000 & 24 & 5 & 512 x 384 & MOS \\
+        & CSIQ \cite{CSIQ} & 2009 & 30 & 866 & 6 & 5 or 4 & 512 x 512 & DMOS \\
+        & IVC \cite{IVC} & 2005 & 10 & 54 & 4 & 5 & 512 x 512 & MOS \\
+        & MICT \cite{MICT} & 2001 & 14 & 168 & 2 & 6 & 768 x 512 & MOS \\
+        & A57 \cite{A57} & 2007 & 3 & 54 & 6 & 3 & 512 x 512 & MOS \\
+        & WED \cite{WED} & 2017 & 4744 & 94880 & 4 & 5 & - & - \\
+
+        \hline
+        \multirow{3}{*}{Multiple\\Distortions} 
+        & LIVEMD \cite{LIVEMD} & 2012 & 15 & 405 & 2 & - & 1280 x 720 & DMOS \\
+        & MDID2013 \cite{MDID2013} & 2013 & 12 & 324 & - & - & 768 x 512 or 1280 x 720 & DMOS \\
+        & MDID2016 \cite{MDID2016} & 2016 & 20 & 1600 & - & - & 512 x 384 & MOS \\
+        
+    \bottomrule
+    \end{tabular}
+    }
+\end{table*}
+
+
