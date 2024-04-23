@@ -183,6 +183,7 @@ In the following sections, we will explore some prominent benchmark datasets com
 \end{table*}
 \vspace{\baselineskip}
 \textbf{Traditional IQA Databases}
+\todo{Fill out Dist. Type in Table}
 \begin{itemize}
     \item \textbf{LIVE image quality assessment database} \cite{LIVE}: LIVE includes 29 pristine images and 779 distorted images corrupted by 5 types of distortions: JPEG compression (JPEG), JPEG2000 compression (JP2K), white noise (WN), Gaussian blur (GB), and simulated fast fading Rayleigh channel (FF). Each distortion type contains 5 or 4 distortion levels. Most images are 768 $\times$ 512 pixels in size.
     \item \textbf{Tampere image database 2008 (TID2008)} \cite{TID2008}: TID2008 includes 25 pristine images and 1700 distorted images corrupted by 17 types of distortions, with 4 levels for each distortion type. All images have a fixed resolution of 512 $\times$ 384.
@@ -268,30 +269,18 @@ show good and bad quality images!!\par
 
 \subsection{Quality Criteria for Teledermatology Images}
 \label{sub:QualityCriteriaTeledermatology}
-The table is temporary and will be replaced as subsubsections with more detailed information and images later on. \par
-\begin{tabular}{|p{0.26\linewidth}|p{0.68\linewidth}|}
-\hline
-\textbf{Criteria} & \textbf{Description} \\
-\hline
-Lighting & - make sure skin color/tone are accurately captured.\par - AVOID using flash or light: could whiten skin tone, reduce contrast and cause reflection.\par - USE natural light: best for regional and close up, but impractical in clinical settings.\par \textbf{position light source at an angle to skin (not directly overhead or perpendicular)}\\
-\hline
-Background Color & - reflection from object in background can change appereance of skin color. \par \textbf{solid background color and contrast between background and skin} \\
-\hline
-Field of View for \par Dermoscopic Images & - enough distance from skin to include entire lesion. \par - multiple images help ensure all edges of lesion are visualized and recorded \par \textbf{center lesion of area of interest} \\
-\hline
-Image Orientation & - consistency is important to compare area of interest over time. \par - cephalic, vertical, horizontal orientation \\
-\hline
-Focus and Depth of Field & - camera perpendicular to skin and lens with deep depth of field \par \textbf{center of lesoin or area of interest should be used as focus point} \\
-\hline
-Resolution & - defines how much detail to capture and result in larger file size \par - hair follicles should be sharp in regional images \par - skin markings should be sharp visible in close up images \par \textbf{JPEG and at least 200KB in size} \\
-\hline
-Scale and Measurement & - report lesion size and changes in dimension over time \par - avoid problem of skewed rulers \par \textbf{digital scale incoperated into devices and software} \\
-\hline
-Color Calibration & - should be comparable over time and regulary calibrated.\\
-\hline
-Image Storage & - store for regulatory and clinical reasons \par \textbf{JPEG, TIFF, EXIF, DICOM} \\
-\hline
-\end{tabular}
+In the context of teledermatology, Image Quality Assessment (IQA) must consider specific criteria to ensure accurate diagnosis and effective remote consultations. These quality criteria include:
+
+\begin{enumerate}
+    \item \textbf{Lighting}: Position the light source evenly to avoid shadows and overexposure. Natural light or diffused artificial light can help illuminate the skin lesion uniformly and reduce glare.
+    \item \textbf{Background}: Use a plain, non-reflective background to minimize distractions and ensure the focus remains on the skin lesion. A neutral-colored backdrop, such as white or gray, is ideal for providing contrast with the lesion.
+    \item \textbf{Field of View}: Center the skin lesion or area of interest within the frame to ensure complete coverage and avoid cutting off important details. Maintain a consistent distance between the camera and the skin to prevent distortion.
+    \item \textbf{Orientation}: Orient the camera perpendicular to the skin surface to capture images in the correct orientation. Align the camera with the skin lesion to maintain consistency and facilitate accurate comparison between images.
+    \item \textbf{Focus \& Depth of Field}: Ensure the camera is in focus and adjust the aperture to achieve sufficient depth of field. Focus on the skin lesion to capture sharp, detailed images without blurriness or loss of clarity.
+    \item \textbf{Resolution}: Use a camera with high-resolution capabilities to capture fine details and nuances of the skin lesion. Adjust the camera settings to the highest resolution possible to ensure clarity and precision in the image.
+    \item \textbf{Color Calibration}: Calibrate the camera settings to accurately reproduce colors and skin tones. Avoid harsh lighting or color casts that may distort the color representation of the skin lesion. Use a color reference chart or white balance settings to ensure color accuracy.
+\end{enumerate}
+By following these guidelines, clinicians and patients can capture high-quality images that meet the necessary standards for accurate diagnosis and effective remote consultations in teledermatology.
 
 
 \subsection{Challenges and Opportunities in Teledermatology}
