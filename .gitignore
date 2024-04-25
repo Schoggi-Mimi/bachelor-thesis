@@ -397,14 +397,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-docs/*
-!docs/*.tex
-!docs/*.pdf
-!docs/chapters/
-!docs/img
-!docs/meeting_updates
-!docs/resource_info
-!docs/literature
 src/SCIN_v2
 src/test_folder
 **/.DS_Store

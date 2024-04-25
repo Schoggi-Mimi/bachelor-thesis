@@ -1,0 +1,12 @@
+\thispagestyle {empty}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Comparison between a distorted image and a reference image to compute quality scores.}}{4}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Reduced-reference assessment comparing features extracted from distorted and reference images for quality analysis.}}{4}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Quality assessment based solely on features extracted from the distorted image, without a reference image.}}{5}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Example images illustrating common distortions used in Image Quality Assessment.}}{5}{figure.caption.9}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

@@ -1,0 +1,615 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{apa/apasortcite//global/global}
+    \entry{CSIQ}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c5addfdd7f1dd742dac1643e46f25ee6}{%
+           family={Chandler},
+           familyi={C\bibinitperiod},
+           given={Damon\bibnamedelima M.},
+           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{fullhash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{bibnamehash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{authorbibnamehash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{authornamehash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{authorfullhash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{day}{1}
+      \field{issn}{1017-9909}
+      \field{journaltitle}{Journal of Electronic Imaging}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shortjournal}{J. Electron. Imaging}
+      \field{shorttitle}{Most apparent distortion}
+      \field{title}{Most apparent distortion: full-reference image quality assessment and the role of strategy}
+      \field{urlday}{23}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{volume}{19}
+      \field{year}{2010}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{011006}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1117/1.3267105
+      \endverb
+      \verb{file}
+      \verb Chandler - 2010 - Most apparent distortion full-reference image qua.pdf:/Users/choekyelnyungmartsang/Zotero/storage/ND7PFFNY/Chandler - 2010 - Most apparent distortion full-reference image qua.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://s2.smu.edu/~eclarson/pubs/2010JEI_MAD.pdf
+      \endverb
+      \verb{url}
+      \verb https://s2.smu.edu/~eclarson/pubs/2010JEI_MAD.pdf
+      \endverb
+    \endentry
+    \entry{TID2008}{article}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=6b0ff13763f4a453b1d67bcef505c432}{%
+           family={Ponomarenko},
+           familyi={P\bibinitperiod},
+           given={Nikolay},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fb49a7d26e4975bcb180af4a1fb7c99c}{%
+           family={Lukin},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=666e9bd7b942482665d8772f7b7971bb}{%
+           family={Zelensky},
+           familyi={Z\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=72943da991b92fae8d3fcb28a3080793}{%
+           family={Egiazarian},
+           familyi={E\bibinitperiod},
+           given={Karen},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4e0efd455d29950438dd83f5832f2921}{%
+           family={Astola},
+           familyi={A\bibinitperiod},
+           given={Jaakko},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f63fd57cf4abe0aec29baf824c417de2}{%
+           family={Carli},
+           familyi={C\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=98456d3cec333fcf3f72e5a9a98bebba}{%
+           family={Battisti},
+           familyi={B\bibinitperiod},
+           given={Federica},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{eaa11fffd3aeed1bc200d020c1b222b5}
+      \strng{fullhash}{83f7028eeea63dc208b91cb2fa48a4c0}
+      \strng{bibnamehash}{83f7028eeea63dc208b91cb2fa48a4c0}
+      \strng{authorbibnamehash}{83f7028eeea63dc208b91cb2fa48a4c0}
+      \strng{authornamehash}{eaa11fffd3aeed1bc200d020c1b222b5}
+      \strng{authorfullhash}{83f7028eeea63dc208b91cb2fa48a4c0}
+      \field{extraname}{1}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, a new image database, {TID}2008, for evaluation of full-reference visual quality assessment metrics is described. It contains 1700 test images (25 reference images, 17 types of distortions for each reference image, 4 different levels of each type of distortion). Mean Opinion Scores ({MOS}) for this database have been obtained as a result of more than 800 experiments. During these tests, observers from three countries (Finland, Italy, and Ukraine) have carried out about 256000 individual human quality judgments. The obtained {MOS} can be used for effective testing of different visual quality metrics as well as for the design of new metrics. Using the designed image database, we have tested several known quality metrics. The designed test image database is freely available for downloading and utilization in scientific investigations.}
+      \field{langid}{english}
+      \field{title}{{TID}2008 – A Database for Evaluation of Full- Reference Visual Quality Assessment Metrics}
+      \verb{file}
+      \verb Ponomarenko et al. - TID2008 – A Database for Evaluation of Full- Refer.pdf:/Users/choekyelnyungmartsang/Zotero/storage/M93CPMPI/Ponomarenko et al. - TID2008 – A Database for Evaluation of Full- Refer.pdf:application/pdf
+      \endverb
+    \endentry
+    \entry{TID2013}{article}{}
+      \name{author}{11}{}{%
+        {{un=0,uniquepart=base,hash=6b0ff13763f4a453b1d67bcef505c432}{%
+           family={Ponomarenko},
+           familyi={P\bibinitperiod},
+           given={Nikolay},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=907fb6d00ff75c72b6d853ef1774f7f3}{%
+           family={Jin},
+           familyi={J\bibinitperiod},
+           given={Lina},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1fe31832eb20800c7cd39d1cad85d7c9}{%
+           family={Ieremeiev},
+           familyi={I\bibinitperiod},
+           given={Oleg},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fb49a7d26e4975bcb180af4a1fb7c99c}{%
+           family={Lukin},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=72943da991b92fae8d3fcb28a3080793}{%
+           family={Egiazarian},
+           familyi={E\bibinitperiod},
+           given={Karen},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4e0efd455d29950438dd83f5832f2921}{%
+           family={Astola},
+           familyi={A\bibinitperiod},
+           given={Jaakko},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4a4f6b7f29f29613b2d443fbb6c58666}{%
+           family={Vozel},
+           familyi={V\bibinitperiod},
+           given={Benoit},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=66695ef8124fdf52d033aff69af5bcae}{%
+           family={Chehdi},
+           familyi={C\bibinitperiod},
+           given={Kacem},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f63fd57cf4abe0aec29baf824c417de2}{%
+           family={Carli},
+           familyi={C\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=98456d3cec333fcf3f72e5a9a98bebba}{%
+           family={Battisti},
+           familyi={B\bibinitperiod},
+           given={Federica},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c0aab84e5274fd7546e004e63d60f04e}{%
+           family={Jay\bibnamedelima Kuo},
+           familyi={J\bibinitperiod\bibinitdelim K\bibinitperiod},
+           given={C.-C.},
+           giveni={C\bibinithyphendelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{eaa11fffd3aeed1bc200d020c1b222b5}
+      \strng{fullhash}{4e34179dbf744081b7a35d5b2fa6931a}
+      \strng{bibnamehash}{4e34179dbf744081b7a35d5b2fa6931a}
+      \strng{authorbibnamehash}{4e34179dbf744081b7a35d5b2fa6931a}
+      \strng{authornamehash}{eaa11fffd3aeed1bc200d020c1b222b5}
+      \strng{authorfullhash}{4e34179dbf744081b7a35d5b2fa6931a}
+      \field{extraname}{2}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{This paper describes a recently created image database, {TID}2013, intended for evaluation of full-reference visual quality assessment metrics. With respect to {TID}2008, the new database contains a larger number (3000) of test images obtained from 25 reference images, 24 types of distortions for each reference image, and 5 levels for each type of distortion. Motivations for introducing 7 new types of distortions and one additional level of distortions are given; examples of distorted images are presented. Mean opinion scores ({MOS}) for the new database have been collected by performing 985 subjective experiments with volunteers (observers) from five countries (Finland, France, Italy, Ukraine, and {USA}). The availability of {MOS} allows the use of the designed database as a fundamental tool for assessing the effectiveness of visual quality. Furthermore, existing visual quality metrics have been tested with the proposed database and the collected results have been analyzed using rank order correlation coefficients between {MOS} and considered metrics. These correlation indices have been obtained both considering the full set of distorted images and specific image subsets, for highlighting advantages and drawbacks of existing, state of the art, quality metrics. Approaches to thorough performance analysis for a given metric are presented to detect practical situations or distortion types for which this metric is not adequate enough to human perception. The created image database and the collected {MOS} values are freely available for downloading and utilization for scientific purposes.}
+      \field{issn}{09235965}
+      \field{journaltitle}{Signal Processing: Image Communication}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{shortjournal}{Signal Processing: Image Communication}
+      \field{shorttitle}{Image database {TID}2013}
+      \field{title}{Image database {TID}2013: Peculiarities, results and perspectives}
+      \field{urlday}{23}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{volume}{30}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{57\bibrangedash 77}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1016/j.image.2014.10.009
+      \endverb
+      \verb{file}
+      \verb Ponomarenko et al. - 2015 - Image database TID2013 Peculiarities, results and.pdf:/Users/choekyelnyungmartsang/Zotero/storage/NSWLLPSB/Ponomarenko et al. - 2015 - Image database TID2013 Peculiarities, results and.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0923596514001490
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0923596514001490
+      \endverb
+    \endentry
+    \entry{LIVE}{online}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=df96b9079d2cfa3b08457d18236d4676}{%
+           family={Sheikh},
+           familyi={S\bibinitperiod},
+           given={Hamid\bibnamedelima Rahim},
+           giveni={H\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d9c2ab9a8cbcab08292923a454c88ce7}{%
+           family={Bovik},
+           familyi={B\bibinitperiod},
+           given={Alan\bibnamedelima C.},
+           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=50034ee00dc7577aec789f53c1ede2d1}{%
+           family={Cormack},
+           familyi={C\bibinitperiod},
+           given={Lawrence},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f244e8ae5eff7776cf2b4b5b84ad8c4a}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Zhou},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4e101d78d42ad3bb1f8ce8b01998ba66}
+      \strng{fullhash}{8f8cd46ca42284ae0f069dbe887ef7d1}
+      \strng{bibnamehash}{8f8cd46ca42284ae0f069dbe887ef7d1}
+      \strng{authorbibnamehash}{8f8cd46ca42284ae0f069dbe887ef7d1}
+      \strng{authornamehash}{4e101d78d42ad3bb1f8ce8b01998ba66}
+      \strng{authorfullhash}{8f8cd46ca42284ae0f069dbe887ef7d1}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Laboratory for Image and Video Engineering - The University of Texas at Austin}
+      \field{titleaddon}{{LIVE} Image Quality Assessment Database release 2}
+      \field{urlday}{23}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb Laboratory for Image and Video Engineering - The University of Texas at Austin:/Users/choekyelnyungmartsang/Zotero/storage/FSBIR66A/subjective.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://live.ece.utexas.edu/research/quality/subjective.htm
+      \endverb
+      \verb{url}
+      \verb https://live.ece.utexas.edu/research/quality/subjective.htm
+      \endverb
+    \endentry
+  \enddatalist
+  \datalist[entry]{apa/global//global/global}
+    \entry{CSIQ}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c5addfdd7f1dd742dac1643e46f25ee6}{%
+           family={Chandler},
+           familyi={C\bibinitperiod},
+           given={Damon\bibnamedelima M.},
+           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{fullhash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{bibnamehash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{authorbibnamehash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{authornamehash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \strng{authorfullhash}{c5addfdd7f1dd742dac1643e46f25ee6}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{day}{1}
+      \field{issn}{1017-9909}
+      \field{journaltitle}{Journal of Electronic Imaging}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shortjournal}{J. Electron. Imaging}
+      \field{shorttitle}{Most apparent distortion}
+      \field{title}{Most apparent distortion: full-reference image quality assessment and the role of strategy}
+      \field{urlday}{23}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{volume}{19}
+      \field{year}{2010}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{011006}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1117/1.3267105
+      \endverb
+      \verb{file}
+      \verb Chandler - 2010 - Most apparent distortion full-reference image qua.pdf:/Users/choekyelnyungmartsang/Zotero/storage/ND7PFFNY/Chandler - 2010 - Most apparent distortion full-reference image qua.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://s2.smu.edu/~eclarson/pubs/2010JEI_MAD.pdf
+      \endverb
+      \verb{url}
+      \verb https://s2.smu.edu/~eclarson/pubs/2010JEI_MAD.pdf
+      \endverb
+    \endentry
+    \entry{TID2013}{article}{}
+      \name{author}{11}{}{%
+        {{un=0,uniquepart=base,hash=6b0ff13763f4a453b1d67bcef505c432}{%
+           family={Ponomarenko},
+           familyi={P\bibinitperiod},
+           given={Nikolay},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=907fb6d00ff75c72b6d853ef1774f7f3}{%
+           family={Jin},
+           familyi={J\bibinitperiod},
+           given={Lina},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1fe31832eb20800c7cd39d1cad85d7c9}{%
+           family={Ieremeiev},
+           familyi={I\bibinitperiod},
+           given={Oleg},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fb49a7d26e4975bcb180af4a1fb7c99c}{%
+           family={Lukin},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=72943da991b92fae8d3fcb28a3080793}{%
+           family={Egiazarian},
+           familyi={E\bibinitperiod},
+           given={Karen},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4e0efd455d29950438dd83f5832f2921}{%
+           family={Astola},
+           familyi={A\bibinitperiod},
+           given={Jaakko},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4a4f6b7f29f29613b2d443fbb6c58666}{%
+           family={Vozel},
+           familyi={V\bibinitperiod},
+           given={Benoit},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=66695ef8124fdf52d033aff69af5bcae}{%
+           family={Chehdi},
+           familyi={C\bibinitperiod},
+           given={Kacem},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f63fd57cf4abe0aec29baf824c417de2}{%
+           family={Carli},
+           familyi={C\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=98456d3cec333fcf3f72e5a9a98bebba}{%
+           family={Battisti},
+           familyi={B\bibinitperiod},
+           given={Federica},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c0aab84e5274fd7546e004e63d60f04e}{%
+           family={Jay\bibnamedelima Kuo},
+           familyi={J\bibinitperiod\bibinitdelim K\bibinitperiod},
+           given={C.-C.},
+           giveni={C\bibinithyphendelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{eaa11fffd3aeed1bc200d020c1b222b5}
+      \strng{fullhash}{4e34179dbf744081b7a35d5b2fa6931a}
+      \strng{bibnamehash}{4e34179dbf744081b7a35d5b2fa6931a}
+      \strng{authorbibnamehash}{4e34179dbf744081b7a35d5b2fa6931a}
+      \strng{authornamehash}{eaa11fffd3aeed1bc200d020c1b222b5}
+      \strng{authorfullhash}{4e34179dbf744081b7a35d5b2fa6931a}
+      \field{extraname}{1}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{This paper describes a recently created image database, {TID}2013, intended for evaluation of full-reference visual quality assessment metrics. With respect to {TID}2008, the new database contains a larger number (3000) of test images obtained from 25 reference images, 24 types of distortions for each reference image, and 5 levels for each type of distortion. Motivations for introducing 7 new types of distortions and one additional level of distortions are given; examples of distorted images are presented. Mean opinion scores ({MOS}) for the new database have been collected by performing 985 subjective experiments with volunteers (observers) from five countries (Finland, France, Italy, Ukraine, and {USA}). The availability of {MOS} allows the use of the designed database as a fundamental tool for assessing the effectiveness of visual quality. Furthermore, existing visual quality metrics have been tested with the proposed database and the collected results have been analyzed using rank order correlation coefficients between {MOS} and considered metrics. These correlation indices have been obtained both considering the full set of distorted images and specific image subsets, for highlighting advantages and drawbacks of existing, state of the art, quality metrics. Approaches to thorough performance analysis for a given metric are presented to detect practical situations or distortion types for which this metric is not adequate enough to human perception. The created image database and the collected {MOS} values are freely available for downloading and utilization for scientific purposes.}
+      \field{issn}{09235965}
+      \field{journaltitle}{Signal Processing: Image Communication}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{shortjournal}{Signal Processing: Image Communication}
+      \field{shorttitle}{Image database {TID}2013}
+      \field{title}{Image database {TID}2013: Peculiarities, results and perspectives}
+      \field{urlday}{23}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{volume}{30}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{57\bibrangedash 77}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1016/j.image.2014.10.009
+      \endverb
+      \verb{file}
+      \verb Ponomarenko et al. - 2015 - Image database TID2013 Peculiarities, results and.pdf:/Users/choekyelnyungmartsang/Zotero/storage/NSWLLPSB/Ponomarenko et al. - 2015 - Image database TID2013 Peculiarities, results and.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0923596514001490
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0923596514001490
+      \endverb
+    \endentry
+    \entry{TID2008}{article}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=6b0ff13763f4a453b1d67bcef505c432}{%
+           family={Ponomarenko},
+           familyi={P\bibinitperiod},
+           given={Nikolay},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fb49a7d26e4975bcb180af4a1fb7c99c}{%
+           family={Lukin},
+           familyi={L\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=666e9bd7b942482665d8772f7b7971bb}{%
+           family={Zelensky},
+           familyi={Z\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=72943da991b92fae8d3fcb28a3080793}{%
+           family={Egiazarian},
+           familyi={E\bibinitperiod},
+           given={Karen},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4e0efd455d29950438dd83f5832f2921}{%
+           family={Astola},
+           familyi={A\bibinitperiod},
+           given={Jaakko},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f63fd57cf4abe0aec29baf824c417de2}{%
+           family={Carli},
+           familyi={C\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=98456d3cec333fcf3f72e5a9a98bebba}{%
+           family={Battisti},
+           familyi={B\bibinitperiod},
+           given={Federica},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{eaa11fffd3aeed1bc200d020c1b222b5}
+      \strng{fullhash}{83f7028eeea63dc208b91cb2fa48a4c0}
+      \strng{bibnamehash}{83f7028eeea63dc208b91cb2fa48a4c0}
+      \strng{authorbibnamehash}{83f7028eeea63dc208b91cb2fa48a4c0}
+      \strng{authornamehash}{eaa11fffd3aeed1bc200d020c1b222b5}
+      \strng{authorfullhash}{83f7028eeea63dc208b91cb2fa48a4c0}
+      \field{extraname}{2}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, a new image database, {TID}2008, for evaluation of full-reference visual quality assessment metrics is described. It contains 1700 test images (25 reference images, 17 types of distortions for each reference image, 4 different levels of each type of distortion). Mean Opinion Scores ({MOS}) for this database have been obtained as a result of more than 800 experiments. During these tests, observers from three countries (Finland, Italy, and Ukraine) have carried out about 256000 individual human quality judgments. The obtained {MOS} can be used for effective testing of different visual quality metrics as well as for the design of new metrics. Using the designed image database, we have tested several known quality metrics. The designed test image database is freely available for downloading and utilization in scientific investigations.}
+      \field{langid}{english}
+      \field{title}{{TID}2008 – A Database for Evaluation of Full- Reference Visual Quality Assessment Metrics}
+      \verb{file}
+      \verb Ponomarenko et al. - TID2008 – A Database for Evaluation of Full- Refer.pdf:/Users/choekyelnyungmartsang/Zotero/storage/M93CPMPI/Ponomarenko et al. - TID2008 – A Database for Evaluation of Full- Refer.pdf:application/pdf
+      \endverb
+    \endentry
+    \entry{LIVE}{online}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=df96b9079d2cfa3b08457d18236d4676}{%
+           family={Sheikh},
+           familyi={S\bibinitperiod},
+           given={Hamid\bibnamedelima Rahim},
+           giveni={H\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d9c2ab9a8cbcab08292923a454c88ce7}{%
+           family={Bovik},
+           familyi={B\bibinitperiod},
+           given={Alan\bibnamedelima C.},
+           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=50034ee00dc7577aec789f53c1ede2d1}{%
+           family={Cormack},
+           familyi={C\bibinitperiod},
+           given={Lawrence},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f244e8ae5eff7776cf2b4b5b84ad8c4a}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Zhou},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4e101d78d42ad3bb1f8ce8b01998ba66}
+      \strng{fullhash}{8f8cd46ca42284ae0f069dbe887ef7d1}
+      \strng{bibnamehash}{8f8cd46ca42284ae0f069dbe887ef7d1}
+      \strng{authorbibnamehash}{8f8cd46ca42284ae0f069dbe887ef7d1}
+      \strng{authornamehash}{4e101d78d42ad3bb1f8ce8b01998ba66}
+      \strng{authorfullhash}{8f8cd46ca42284ae0f069dbe887ef7d1}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Laboratory for Image and Video Engineering - The University of Texas at Austin}
+      \field{titleaddon}{{LIVE} Image Quality Assessment Database release 2}
+      \field{urlday}{23}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb Laboratory for Image and Video Engineering - The University of Texas at Austin:/Users/choekyelnyungmartsang/Zotero/storage/FSBIR66A/subjective.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://live.ece.utexas.edu/research/quality/subjective.htm
+      \endverb
+      \verb{url}
+      \verb https://live.ece.utexas.edu/research/quality/subjective.htm
+      \endverb
+    \endentry
+  \enddatalist
+  \missing{A57}
+  \missing{CCT}
+  \missing{CID2013}
+  \missing{HSNID}
+  \missing{IVC}
+  \missing{KADID}
+  \missing{KADIS700K}
+  \missing{LIVEMD}
+  \missing{LIVEWild}
+  \missing{MDID2013}
+  \missing{MDID2016}
+  \missing{MICT}
+  \missing{SCIQ}
+  \missing{SIQAD}
+  \missing{WED}
+  \missing{https://arxiv.org/abs/2310.14918}
+\endrefsection
+\endinput
+
