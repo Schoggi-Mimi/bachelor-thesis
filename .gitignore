@@ -398,6 +398,7 @@ FodyWeavers.xsd
 *.sln.iml
 
 docs/*
+!docs/*.tex
 !docs/*.pdf
 !docs/chapters/
 !docs/img
