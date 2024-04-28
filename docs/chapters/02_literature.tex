@@ -282,70 +282,165 @@ The drive towards standardized image capturing and processing protocols represen
 
 \section{Teledermatology}
 \label{sec:Teledermatology}
+Within the dynamic spectrum of telemedicine, teledermatology emerges as a distinct application that utilizes information and communication technologies to facilitate dermatological consultations remotely. This modality of healthcare has seen widespread adoption, especially in resource-rich regions like Europe and North America, where the availability of advanced technologies has allowed for the provision of high-quality images essential for accurate diagnoses. \par
+
 The following section provides an overview of teledermatology, a specialized field of dermatology that utilizes telecommunications technology to provide remote diagnosis and consultation for skin conditions. This section discusses the importance of image quality in teledermatology, quality criteria for teledermatology images, as well as challenges and opportunities associated with the practice. \par
 \vspace{\baselineskip}
 \noindent
 
 \subsection{Introduction to Teledermatology}
 \label{sub:IntroductionTeledermatology}
-The term "teledermatology" combines "tele", which refers to distance or remote communication, and "dermatology", the medical field focused on skin health. This specialized branch of dermatolgoy utilizes telecommunications technology to provide remote diagnosis and consultation for skin conditions.\par
+Teledermatology can be effectively categorized into two primary approaches: real-time (RT) and store-and-forward (S\&F). RT teledermatology facilitates live interactions between patients and physicians through video calls, while S\&F involves capturing and sending images for later review by a dermatologist. The S\&F method has gained prominence due to its convenience and adaptability to varying schedules.\par
 \vspace{\baselineskip}
 \noindent
-This innovative approach to healthcare delivery is particularly beneficial for patients in remote or underserved areas, as well as for those with mobility issues. Teledermatology services can be provided in real-time, or through store and forward images, wherein the patient captures images of their skin or any skin-related issues using a camera or smartphone and send them electronically to a dermatologist, along with relevant details about their condition, such as symptoms and medical history. This allows dermatologists to assess the skin condition remotely and provide recommendations or treatment plans without the need for an in-person visit.\par
+A typical teledermatology workflow begins with the patient capturing an image of their skin condition using a digital device. This image is then transmitted through a teledermatology platform to a medical expert who reviews the image's quality and details. The dermatologist then provides a report or prescription back to the patient, completing the consultation cycle. This workflow underscores the critical nature of image quality in teledermatology, as diagnostic accuracy is heavily reliant on the clarity and fidelity of the transmitted images.\par
 
 \subsection{Importance of Image Quality in Teledermatology}
 \label{sub:ImportanceIQA_Teledermatology}
-High-quality images are essential for accurate diagnosis in teledermatology. While poor image quality can lead to misinterpretation of skin lesions, incorrect diagnosis or missed diagnosis. \par
+In teledermatology, the caliber of transmitted images is critically pivotal. Clear and detailed images are the foundation upon which dermatologists rely for diagnosing and managing skin conditions from afar. When the images are of high quality, they capture essential details such as texture and color nuances that can be key to distinguishing between benign and more severe dermatological issues.\par
 \vspace{\baselineskip}
 \noindent
-With good image quality the dermatologists can better assess the severity of skin conditions and formulate appropriate treatment plans.\par
+
+The resolution, focus, and accurate color representation in these images can markedly streamline the teledermatological process. They minimize the necessity for additional consultations due to poor image clarity, thereby improving the overall efficiency of the healthcare system and reducing patient wait times.\par
 \vspace{\baselineskip}
 \noindent
-No in-persons visits and improve accessibility to specialized care.\par
+
+As the primary conduit for remote dermatological assessment, the images not only facilitate immediate patient care but also feed into the broader ecosystem of teledermatology that includes emerging technologies such as artificial intelligence. High-fidelity images are integral to training sophisticated AI algorithms, which promise to further enhance diagnostic precision and expedite the triage process.\par
 \vspace{\baselineskip}
 \noindent
-Maintaining consistent image quality standards ensures the reliablility and reproducibility of teledermatology services. It minimizes variability and enhances the overall reliability of remote diagnosis and consultation process\par
-\vspace{\baselineskip}
-\noindent
-show good and bad quality images!!\par
+
+In summary, the emphasis on image quality in teledermatology is not merely a current requirement but a crucial investment in the future of dermatological care, ensuring continued improvements in patient outcomes and the evolution of healthcare delivery methods.
 
 \subsection{Quality Criteria for Teledermatology Images}
 \label{sub:QualityCriteriaTeledermatology}
-In the context of teledermatology, Image Quality Assessment (IQA) must consider specific criteria to ensure accurate diagnosis and effective remote consultations. These quality criteria include:
+In teledermatology, the efficacy of remote diagnoses heavily relies on the quality of the images. Just as Image Quality Assessment (IQA) must confront various distortions affecting image perception, teledermatology faces its own set of quality criteria that are essential for effective practice. Proper lighting, background uniformity, appropriate field of view, accurate orientation, precise focus and depth of field, high resolution, and correct color calibration are paramount in ensuring that the dermatological images transmitted for evaluation are of the highest possible quality.
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{img/Original.jpg}
+        \caption{Original}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{img/Blur.jpg}
+        \caption{Lighting}
+        \label{fig:lighting}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{img/Sharpness.jpg}
+        \caption{Background}
+        \label{fig:background}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{img/Noise.jpg}
+        \caption{Field of View}
+        \label{fig:FoV}
+    \end{subfigure} 
 
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{img/ColorAccuracy.jpg}
+        \caption{Orientation}
+        \label{fig:orientation}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{img/BrightnessContrast.jpg}
+        \caption{Focus}
+        \label{fig:focus}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{img/Artifacts.jpg}
+        \caption{Resolution}
+        \label{fig:resol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{img/Compression.jpg}
+        \caption{Color Calibration}
+        \label{fig:cc}
+    \end{subfigure}
+    \caption{Example images illustrating common distortions used in Teledermatology Image Quality Assessment.}
+    \label{fig:quality_criteria}
+\end{figure}
 \begin{enumerate}
-    \item \textbf{Lighting}: Position the light source evenly to avoid shadows and overexposure. Natural light or diffused artificial light can help illuminate the skin lesion uniformly and reduce glare.
-    \item \textbf{Background}: Use a plain, non-reflective background to minimize distractions and ensure the focus remains on the skin lesion. A neutral-colored backdrop, such as white or gray, is ideal for providing contrast with the lesion.
-    \item \textbf{Field of View}: Center the skin lesion or area of interest within the frame to ensure complete coverage and avoid cutting off important details. Maintain a consistent distance between the camera and the skin to prevent distortion.
-    \item \textbf{Orientation}: Orient the camera perpendicular to the skin surface to capture images in the correct orientation. Align the camera with the skin lesion to maintain consistency and facilitate accurate comparison between images.
-    \item \textbf{Focus \& Depth of Field}: Ensure the camera is in focus and adjust the aperture to achieve sufficient depth of field. Focus on the skin lesion to capture sharp, detailed images without blurriness or loss of clarity.
-    \item \textbf{Resolution}: Use a camera with high-resolution capabilities to capture fine details and nuances of the skin lesion. Adjust the camera settings to the highest resolution possible to ensure clarity and precision in the image.
-    \item \textbf{Color Calibration}: Calibrate the camera settings to accurately reproduce colors and skin tones. Avoid harsh lighting or color casts that may distort the color representation of the skin lesion. Use a color reference chart or white balance settings to ensure color accuracy.
+    \item \textbf{Lighting}:  Adequate illumination is critical. It should be even and diffuse, avoiding harsh shadows or overexposure that could obscure skin lesions or lead to misinterpretation of the skin's condition. \textbf{Remark} Position the light source evenly to avoid shadows and overexposure. Natural light or diffused artificial light can help illuminate the skin lesion uniformly and reduce glare.
+    \item \textbf{Background}: A neutral and uncluttered background helps to focus attention on the dermatological issue without distraction, ensuring that the skin lesion is the most prominent feature in the image. \textbf{Remark} Use a plain, non-reflective background to minimize distractions and ensure the focus remains on the skin lesion. A neutral-colored backdrop, such as white or gray, is ideal for providing contrast with the lesion.
+    \item \textbf{Field of View}: The image should be framed to include a clear view of the lesion as well as sufficient surrounding area to provide context, which can be crucial for accurate diagnosis. \textbf{Remark} Center the skin lesion or area of interest within the frame to ensure complete coverage and avoid cutting off important details. Maintain a consistent distance between the camera and the skin to prevent distortion.
+    \item \textbf{Orientation}: Proper orientation of the image is vital. It should align with standard anatomical positions, allowing the dermatologist to easily interpret the image in relation to the patient's body. \textbf{Remark} Orient the camera perpendicular to the skin surface to capture images in the correct orientation. Align the camera with the skin lesion to maintain consistency and facilitate accurate comparison between images.
+    \item \textbf{Focus \& Depth of Field}: Sharp focus on the lesion is a necessity, with a depth of field that keeps the entire area of interest in clear detail, as blurring can mask important characteristics of skin conditions. \textbf{Remark} Ensure the camera is in focus and adjust the aperture to achieve sufficient depth of field. Focus on the skin lesion to capture sharp, detailed images without blurriness or loss of clarity.
+    \item \textbf{Resolution}: The image must be high resolution to reveal fine details of the skin. A higher pixel count can facilitate a more thorough examination and better clinical decision-making. \textbf{Remark} Use a camera with high-resolution capabilities to capture fine details and nuances of the skin lesion. Adjust the camera settings to the highest resolution possible to ensure clarity and precision in the image.
+    \item \textbf{Color Calibration}:  Accurate color reproduction is necessary for the assessment of skin lesions. Any color distortion can lead to misdiagnosis, especially in conditions where hue is a diagnostic clue. \textbf{Remark} Calibrate the camera settings to accurately reproduce colors and skin tones. Avoid harsh lighting or color casts that may distort the color representation of the skin lesion. Use a color reference chart or white balance settings to ensure color accuracy.
 \end{enumerate}
-By following these guidelines, clinicians and patients can capture high-quality images that meet the necessary standards for accurate diagnosis and effective remote consultations in teledermatology.
+Each of these quality criteria contributes to the diagnostic accuracy in teledermatology by ensuring that the images convey the true nature of the skin condition. Just as in traditional dermatology, where the dermatologist's visual assessment is a key diagnostic tool, in teledermatology, the image serves as the eyes of the dermatologist. Therefore, optimizing these criteria is crucial to the successful application of teledermatology services.
 
-\subsection{Previous Research in Teledermatology}
-\label{sub:PreviousResearchTeledermatology}
-The article by Primary Care Commissioning in 2011 outlined quality standards for teledermatology services using store and forward images. These standards include: \par
-\noindent
+
+\subsection{Teledermatology Datasets}
+\label{sub:DatasetsTD}
+The following datasets are valuable resources for teledermatology research and applications, especially notable for their accessibility and diversity. These datasets are not strictly confined to clinical settings or dermoscopic images and include patient-taken images, making them highly relevant for practical teledermatology purposes where clinical settings may vary:
 \begin{itemize}
-    \item Standard 1: Models of teledermatology services including links to other services
-    \item Standard 2: Selecting patients for teledermatology
-    \item Standard 3: Gaining the patient's informed consent
-    \item Standard 4: Competent staff
-    \item Standard 5: The teledermatology referral: patient history and suitable images
-    \item Standard 6: Communication between referring and reporting clinician
-    \item Standard 7: Information governance and record-keeping
-    \item Standard 8: Audit and quality control
+    \item \textbf{ACNE04}: This dataset focuses on acne severity and lesion counting, containing 1,457 images with detailed annotations for training and testing purposes (\cite{ACNE04}).
+    \item \textbf{DDI}: Provides 656 high-quality images curated by dermatologists for detailed skin tone evaluation and diagnostic accuracy (\cite{DDI}).
+    \item \textbf{Derm7pt}: Utilizes 1,011 lesion cases to train a neural network for classifying skin lesions and melanoma using the 7-point checklist (\cite{Derm7pt}).
+    \item \textbf{Fitzpatrick17k}: Includes 16,577 images annotated for Fitzpatrick skin type across 114 different skin conditions (\cite{F17K}).
+    \item \textbf{Monkeypox Dataset 2022}: Contains approximately 1,905 images focused on monkeypox, useful for developing diagnostic tools (\cite{Monkeypox}).
+    \item \textbf{PAD-UFES-20}: Comprises 2,298 clinical images from smartphones, enriched with clinical metadata for comprehensive research (\cite{PAD-UFES-20}).
+    \item \textbf{SCIN}: Emerged from a crowdsourcing initiative, this dataset contains 10,408 images capturing a broad spectrum of dermatological conditions (\cite{SCIN}).
 \end{itemize}
+\vspace{\baselineskip}
+\noindent
+These datasets collectively contribute to the advancement of teledermatology by providing varied, real-world data crucial for developing effective diagnostic tools and algorithms. \par 
+
+\subsection{Approaches to Image Quality Assessment in Teledermatology}
+\label{sub:ApproachesIQAinTeledermatology}
+To understand the various approaches to Image Quality Assessment (IQA) within teledermatology, it is instructive to review related works that have contributed to the field. These studies not only offer insights into the methodologies employed for assessing image quality but also highlight the specific image distortions that are often targeted. Furthermore, by examining the architectures of the algorithms and the criteria used to classify image quality, we can discern the strengths and weaknesses of each approach. \par
+
+\subsubsection{TrueImage: A Machine Learning Algorithm to Improve the Quality of Telehealth Photos}
+\label{subsub:TrueImage}
+The TrueImage algorithm prioritizes real-time, interactive feedback for patients taking dermatological images via their smartphones. Its three-stage process includes semantic segmentation to identify skin regions, feature generation focusing on blur, lighting, and zoom, and logistic regression classifiers that predict image quality and specific reasons for poor quality (\cite{TrueImage}). \par
+\vspace{\baselineskip}
+\noindent
+The prototype exhibits promise, demonstrating the capability to reject approximately half of sub-par quality images while retaining around 80\% of good quality images. This suggests its potential utility in a clinical setting, where it could save time for both clinicians and patients by pre-screening image quality and offering specific feedback to improve poor submissions (\cite{TrueImage}).
+\par
+\vspace{\baselineskip}
+\noindent
+Yet, TrueImage’s current limitation lies in its modest dataset and the training data's lack of diversity regarding skin types, which could lead to biased quality assessments. Furthermore, while the algorithm excels at detecting blurriness, it is less effective at assessing lighting conditions and zoom, which are critical factors in teledermatology (\cite{TrueImage}).\par
+
+\subsubsection{ImageQX: Explainable Image Quality Assessments in Teledermatological Photography}
+\label{subsub:ImageQX}
+ImageQX offers an automated, deployable method for IQA in teledermatology, addressing common image distortions: such as poor framing, bad lighting, blur, low resolution, and distance issues. With an architecture that employs the EfficientNet-B0 as a lightweight feature extractor. The network then employs linear layers, batch normalization, and dropout layers to predict poor image quality reasons, integrating them to forecast overall image quality (\cite{ImageQX}).
+\par
+\vspace{\baselineskip}
+\noindent
+The approach is data-driven, validated on a substantial dataset annotated by dermatologists, which underscores its potential for real-world applicability. With a macro F1-score of 0.73 for image quality assessment, ImageQX demonstrates expertise comparable to dermatologists and a capability for explainability via attention maps that can guide patients to retake pictures more effectively (\cite{ImageQX}).
+\par
+\vspace{\baselineskip}
+\noindent
+However, while ImageQX achieves high specificity, suggesting minimal disruption to patient experience by incorrectly rejecting high-quality images, its predictive performance for certain poor quality explanations like 'bad framing' remains low, with an F1-score of 0.37 (\cite{ImageQX}). This indicates room for improvement in addressing certain types of distortions, though the network’s size (15MB) makes it an attractive option for mobile deployment.
+\par
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\noindent
+ImageQX stands out with its deep learning approach that uses a convolutional neural network (CNN) trained on a dataset of images labeled for quality by board-certified dermatologists. The network architecture is based on the lightweight EfficientNet-B0, which facilitates deployment on mobile devices. This model's training utilized a large dataset of 36,509 images, where the photographs were annotated for common quality issues, such as framing, lighting, blur, resolution, and distance from the subject.
 \par
 \noindent
-These standards serve as guidelines for ensuring the quality and effectiveness of teledermatology services, particularly in the context of using store and forward images.
-
+\vspace{\baselineskip}
+The strength of ImageQX lies in its explainability and its ability to provide reasons for poor image quality, aligning closely with the common distortions identified by dermatologists. It achieves a high macro F1-score, suggesting that its performance in image quality assessment is on par with expert human raters. However, some limitations include the difficulty of explaining certain quality issues like 'blurry' images, which had lower inter-rater agreement scores. The model's reliance on dermatologist-annotated images also points to the importance of the quality and diversity of the training dataset for its generalizability and accuracy. \par
+\noindent
+\vspace{\baselineskip}
+In conclusion, both ImageQX and TrueImage present pioneering steps towards automated IQA in teledermatology, each with strengths such as deployability and real-time feedback capabilities. Their current challenges include the need for more diverse training data, improved detection of certain distortions, and further validation in real-world settings. Addressing these challenges will be crucial for their successful integration into teledermatological practices, ultimately contributing to more efficient and effective remote dermatological care. \par
 
 \subsection{Challenges and Opportunities in Teledermatology}
 \label{sub:ChallengesOpportunitiesTeledermatology}
-Challenges: picture taken by the patient is not in a good qualtiy, patient data security and privacy, including compliance with regulations. The whole patient cannot be examined, only localised. No touching of skin. Demands diligence in documentation, storage and consent. Who has the clinical accountability or responsibility. Double charging. Teledermatology is not included in training curriculum for doctors. Different patient experience. Barriers in practice such as individual preference of doctors, resistance to change and no benefit in investing time to adapt. \par
-\vspace{\baselineskip}
+Teledermatology has fundamentally changed how dermatological care is accessed, particularly in remote or underserved areas. However, the field faces several challenges that intersect with the focus of this thesis on image quality assessment.\par
 \noindent
-Opportunities: increase access to care, reduce waiting times, reduce travel time and costs, increase patient satisfaction, increase efficiency, increase access to specialist care, increase access to education and training, increase access to research and clinical trials, increase access to data and analytics, increase access to technology and innovation, increase access to collaboration and networking, increase access to telemedicine and telehealth. \par
+\vspace{\baselineskip}
+One major challenge is the variability in image quality, which stems from patients using a wide range of devices in uncontrolled environments to capture images. This variability can severely impact the consistency and reliability of diagnoses made remotely. Additionally, technological barriers such as disparities in access to high-quality digital devices and varying levels of digital literacy among patients can further affect the quality of submitted images. Moreover, ensuring the privacy and security of sensitive dermatological images transmitted over the internet remains a critical concern that needs continuous attention to safeguard patient data.\par
+\noindent
+\vspace{\baselineskip}
+On the opportunity front, recent advancements in image processing and machine learning technologies present significant potential to automatically enhance image quality and correct common distortions. This can greatly aid in improving diagnostic accuracy and efficiency. There is also a considerable opportunity to develop and implement standardized guidelines for image capture in teledermatology. Such standardization can help minimize quality variability and streamline the diagnostic process. Furthermore, the integration of artificial intelligence to provide real-time feedback to patients on improving image quality can enhance the effectiveness of teledermatology services by ensuring that only high-quality images are evaluated by dermatologists.\par
+\noindent
+\vspace{\baselineskip}
+By tackling these challenges and leveraging the emerging opportunities, teledermatology can continue to evolve and play a crucial role in modern healthcare, enhancing access and efficiency in dermatological care across diverse populations.\par

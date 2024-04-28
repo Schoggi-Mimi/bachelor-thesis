@@ -171,23 +171,6 @@
   file = {/Users/choekyelnyungmartsang/Zotero/storage/JY7KJWKT/Sun et al. - 2017 - MDID A multiply distorted image database for imag.pdf}
 }
 
-@online{SCIN,
-  title = {Crowdsourcing {{Dermatology Images}} with {{Google Search Ads}}: {{Creating}} a {{Real-World Skin Condition Dataset}}},
-  shorttitle = {Crowdsourcing {{Dermatology Images}} with {{Google Search Ads}}},
-  author = {Ward, Abbi and Li, Jimmy and Wang, Julie and Lakshminarasimhan, Sriram and Carrick, Ashley and Campana, Bilson and Hartford, Jay and S, Pradeep Kumar and Tiyasirichokchai, Tiya and Virmani, Sunny and Wong, Renee and Matias, Yossi and Corrado, Greg S. and Webster, Dale R. and Siegel, Dawn and Lin, Steven and Ko, Justin and Karthikesalingam, Alan and Semturs, Christopher and Rao, Pooja},
-  date = {2024-02-28},
-  eprint = {2402.18545},
-  eprinttype = {arxiv},
-  eprintclass = {cs},
-  url = {http://arxiv.org/abs/2402.18545},
-  urldate = {2024-04-23},
-  abstract = {Background: Health datasets from clinical sources do not reflect the breadth and diversity of disease in the real world, impacting research, medical education, and artificial intelligence (AI) tool development. Dermatology is a suitable area to develop and test a new and scalable method to create representative health datasets. Methods: We used Google Search advertisements to invite contributions to an open access dataset of images of dermatology conditions, demographic, and symptom information. With informed contributor consent, we describe and release this dataset containing 10,408 images from 5,033 contributions from internet users in the United States over 8 months starting March 2023. The dataset includes dermatologist condition labels as well as estimated Fitzpatrick Skin Type (eFST) and Monk Skin Tone (eMST) labels for the images. Results: We received a median of 22 submissions/day (IQR 14–30). Female (66.72\%) and younger (52\% {$<$} age 40) contributors had a higher representation in the dataset compared to the US population, and 32.6\% of contributors reported a non-White racial or ethnic identity. Over 97.5\% of contributions were genuine images of skin conditions. Dermatologist confidence in assigning a differential diagnosis increased with the number of available variables, and showed a weak correlation with image sharpness (Spearman’s P values {$<$} 0.001 and 0.01 respectively). Most contributions were short-duration (54\% with onset {$<$} 7 days ago ) and 89\% were allergic, infectious, or inflammatory conditions. eFST and eMST distributions reflected the geographical origin of the dataset. The dataset is available at github.com/google-researchdatasets/scin. Conclusion: Search ads are effective at crowdsourcing images of health conditions. The SCIN dataset bridges important gaps in the availability of representative images of common skin conditions.},
-  langid = {english},
-  pubstate = {preprint},
-  keywords = {Computer Science - Computers and Society},
-  file = {/Users/choekyelnyungmartsang/Zotero/storage/CAC4SASZ/Ward et al. - 2024 - Crowdsourcing Dermatology Images with Google Searc.pdf}
-}
-
 @article{SCIQ,
   title = {{{ESIM}}: {{Edge Similarity}} for {{Screen Content Image Quality Assessment}}},
   shorttitle = {{{ESIM}}},
@@ -268,4 +251,173 @@
   abstract = {The great content diversity of real-world digital images poses a grand challenge to image quality assessment (IQA) models, which are traditionally designed and validated on a handful of commonly used IQA databases with very limited content variation. To test the generalization capability and to facilitate the wide usage of IQA techniques in real-world applications, we establish a large-scale database named the Waterloo Exploration Database, which in its current state contains 4744 pristine natural images and 94 880 distorted images created from them. Instead of collecting the mean opinion score for each image via subjective testing, which is extremely difficult if not impossible, we present three alternative test criteria to evaluate the performance of IQA models, namely, the pristine/distorted image discriminability test, the listwise ranking consistency test, and the pairwise preference consistency test (P-test). We compare 20 well-known IQA models using the proposed criteria, which not only provide a stronger test in a more challenging testing environment for existing models, but also demonstrate the additional benefits of using the proposed database. For example, in the P-test, even for the best performing no-reference IQA model, more than 6 million failure cases against the model are “discovered” automatically out of over 1 billion test pairs. Furthermore, we discuss how the new database may be exploited using innovative approaches in the future, to reveal the weaknesses of existing IQA models, to provide insights on how to improve the models, and to shed light on how the next-generation IQA models may be developed. The database and codes are made publicly available at: https://ece.uwaterloo.ca/\textasciitilde k29ma/exploration/.},
   langid = {english},
   file = {/Users/choekyelnyungmartsang/Zotero/storage/CZGVWNWD/Ma et al. - 2017 - Waterloo Exploration Database New Challenges for .pdf}
+}
+
+@inproceedings{ACNE04,
+  title = {Joint {{Acne Image Grading}} and {{Counting}} via {{Label Distribution Learning}}},
+  booktitle = {2019 {{IEEE}}/{{CVF International Conference}} on {{Computer Vision}} ({{ICCV}})},
+  author = {Wu, Xiaoping and Wen, Ni and Liang, Jie and Lai, Yu-Kun and She, Dongyu and Cheng, Ming-Ming and Yang, Jufeng},
+  date = {2019-10},
+  pages = {10641--10650},
+  publisher = {IEEE},
+  location = {Seoul, Korea (South)},
+  doi = {10.1109/ICCV.2019.01074},
+  url = {https://ieeexplore.ieee.org/document/9010021/},
+  urldate = {2024-04-28},
+  abstract = {Accurate grading of skin disease severity plays a crucial role in precise treatment for patients. Acne vulgaris, the most common skin disease in adolescence, can be graded by evidence-based lesion counting as well as experiencebased global estimation in the medical field. However, due to the appearance similarity of acne with close severity, it is challenging to count and grade acne accurately. In this paper, we address the problem of acne image analysis via Label Distribution Learning (LDL) considering the ambiguous information among acne severity. Based on the professional grading criterion, we generate two acne label distributions considering the relationship between the similar number of lesions and severity of acne, respectively. We also propose a unified framework for joint acne image grading and counting, which is optimized by the multi-task learning loss. In addition, we further build the ACNE04 dataset with annotations of acne severity and lesion number of each image for evaluation. Experiments demonstrate that our proposed framework performs favorably against stateof-the-art methods. We make the code and dataset publicly available at https://github.com/xpwu95/ldl.},
+  eventtitle = {2019 {{IEEE}}/{{CVF International Conference}} on {{Computer Vision}} ({{ICCV}})},
+  isbn = {978-1-72814-803-8},
+  langid = {english},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/43KJG5LJ/Wu et al. - 2019 - Joint Acne Image Grading and Counting via Label Di.pdf}
+}
+
+@article{DDI,
+  title = {Disparities in Dermatology {{AI}} Performance on a Diverse, Curated Clinical Image Set},
+  author = {Daneshjou, Roxana and Vodrahalli, Kailas and Novoa, Roberto A. and Jenkins, Melissa and Liang, Weixin and Rotemberg, Veronica and Ko, Justin and Swetter, Susan M. and Bailey, Elizabeth E. and Gevaert, Olivier and Mukherjee, Pritam and Phung, Michelle and Yekrang, Kiana and Fong, Bradley and Sahasrabudhe, Rachna and Allerup, Johan A. C. and Okata-Karigane, Utako and Zou, James and Chiou, Albert S.},
+  date = {2022-08-12},
+  journaltitle = {Science Advances},
+  shortjournal = {Sci. Adv.},
+  volume = {8},
+  number = {32},
+  pages = {eabq6147},
+  issn = {2375-2548},
+  doi = {10.1126/sciadv.abq6147},
+  url = {https://www.science.org/doi/10.1126/sciadv.abq6147},
+  urldate = {2024-04-28},
+  abstract = {An estimated 3 billion people lack access to dermatological care globally. Artificial intelligence (AI) may aid in triaging skin diseases and identifying malignancies. However, most AI models have not been assessed on images of diverse skin tones or uncommon diseases. Thus, we created the Diverse Dermatology Images (DDI) dataset—the first publicly available, expertly curated, and pathologically confirmed image dataset with diverse skin tones. We show that state-of-the-art dermatology AI models exhibit substantial limitations on the DDI dataset, particularly on dark skin tones and uncommon diseases. We find that dermatologists, who often label AI datasets, also perform worse on images of dark skin tones and uncommon diseases. Fine-tuning AI models on the DDI images closes the performance gap between light and dark skin tones. These findings identify important weaknesses and biases in dermatology AI that should be addressed for reliable application to diverse patients and diseases.           ,              A diverse, curated clinical dermatology image set can help address AI in dermatology limitations.},
+  langid = {english},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/ECM8UI47/Daneshjou et al. - 2022 - Disparities in dermatology AI performance on a div.pdf}
+}
+
+@article{Derm7pt,
+  title = {Seven-{{Point Checklist}} and {{Skin Lesion Classification Using Multitask Multimodal Neural Nets}}},
+  author = {Kawahara, Jeremy and Daneshvar, Sara and Argenziano, Giuseppe and Hamarneh, Ghassan},
+  date = {2019-03},
+  journaltitle = {IEEE Journal of Biomedical and Health Informatics},
+  shortjournal = {IEEE J. Biomed. Health Inform.},
+  volume = {23},
+  number = {2},
+  pages = {538--546},
+  issn = {2168-2194, 2168-2208},
+  doi = {10.1109/JBHI.2018.2824327},
+  url = {https://ieeexplore.ieee.org/document/8333693/},
+  urldate = {2024-04-28},
+  abstract = {We propose a multitask deep convolutional neural network, trained on multimodal data (clinical and dermoscopic images, and patient metadata), to classify the 7-point melanoma checklist criteria and perform skin lesion diagnosis. Our neural network is trained using several multitask loss functions, where each loss considers different combinations of the input modalities, which allows our model to be robust to missing data at inference time. Our final model classifies the 7-point checklist and skin condition diagnosis, produces multimodal feature vectors suitable for image retrieval, and localizes clinically discriminant regions. We benchmark our approach using 1011 lesion cases, and report comprehensive results over all 7-point criteria and diagnosis. We also make our dataset (images and metadata) publicly available online at http://derm.cs.sfu.ca.},
+  langid = {english},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/X3NDWJDI/Kawahara et al. - 2019 - Seven-Point Checklist and Skin Lesion Classificati.pdf}
+}
+
+@online{F17K,
+  title = {Evaluating {{Deep Neural Networks Trained}} on {{Clinical Images}} in {{Dermatology}} with the {{Fitzpatrick}} 17k {{Dataset}}},
+  author = {Groh, Matthew and Harris, Caleb and Soenksen, Luis and Lau, Felix and Han, Rachel and Kim, Aerin and Koochek, Arash and Badri, Omar},
+  date = {2021-04-20},
+  eprint = {2104.09957},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  url = {http://arxiv.org/abs/2104.09957},
+  urldate = {2024-04-28},
+  abstract = {How does the accuracy of deep neural network models trained to classify clinical images of skin conditions vary across skin color? While recent studies demonstrate computer vision models can serve as a useful decision support tool in healthcare and provide dermatologist-level classification on a number of specific tasks, darker skin is underrepresented in the data. Most publicly available data sets do not include Fitzpatrick skin type labels. We annotate 16,577 clinical images sourced from two dermatology atlases with Fitzpatrick skin type labels and open-source these annotations. Based on these labels, we find that there are significantly more images of light skin types than dark skin types in this dataset. We train a deep neural network model to classify 114 skin conditions and find that the model is most accurate on skin types similar to those it was trained on. In addition, we evaluate how an algorithmic approach to identifying skin tones, individual typology angle, compares with Fitzpatrick skin type labels annotated by a team of human labelers.},
+  langid = {english},
+  pubstate = {preprint},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/7CFK8V66/Groh et al. - 2021 - Evaluating Deep Neural Networks Trained on Clinica.pdf}
+}
+
+@online{Monkeypox,
+  title = {Monkeypox {{Image Data}} Collection},
+  author = {Ahsan, Md Manjurul and Uddin, Muhammad Ramiz and Luna, Shahana Akter},
+  date = {2022-06-03},
+  eprint = {2206.01774},
+  eprinttype = {arxiv},
+  eprintclass = {cs, eess},
+  url = {http://arxiv.org/abs/2206.01774},
+  urldate = {2024-04-28},
+  abstract = {This paper explains the initial Monkeypox Open image data collection procedure. It was created by assembling images collected from websites, newspapers, and online portals and currently contains around 1905 images after data augmentation.},
+  langid = {english},
+  pubstate = {preprint},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Electrical Engineering and Systems Science - Image and Video Processing},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/J3MR87R2/Ahsan et al. - 2022 - Monkeypox Image Data collection.pdf}
+}
+
+@article{PAD-UFES-20,
+  title = {The Impact of Patient Clinical Information on Automated Skin Cancer Detection},
+  author = {Pacheco, Andre G.C. and Krohling, Renato A.},
+  date = {2020-01},
+  journaltitle = {Computers in Biology and Medicine},
+  shortjournal = {Computers in Biology and Medicine},
+  volume = {116},
+  pages = {103545},
+  issn = {00104825},
+  doi = {10.1016/j.compbiomed.2019.103545},
+  url = {https://linkinghub.elsevier.com/retrieve/pii/S0010482519304019},
+  urldate = {2024-04-28},
+  abstract = {Skin cancer is one of the most common types of cancer worldwide. Over the past few years, different approaches have been proposed to deal with automated skin cancer detection. Nonetheless, most of them are based only on dermoscopic images and do not take into account the patient clinical information, an important clue towards clinical diagnosis. In this work, we present an approach to fill this gap. First, we introduce a new dataset composed of clinical images, collected using smartphones, and clinical data related to the patient. Next, we propose a straightforward method that includes an aggregation mechanism in well-known deep learning models to combine features from images and clinical data. Last, we carry out experiments to compare the models’ performance with and without using this mechanism. The results present an improvement of approximately 7\% in balanced accuracy when the aggregation method is applied. Overall, the impact of clinical data on models’ performance is significant and shows the importance of including these features on automated skin cancer detection.},
+  langid = {english},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/8GRBMVLI/Pacheco und Krohling - 2020 - The impact of patient clinical information on auto.pdf}
+}
+
+@online{SCIN,
+  title = {Crowdsourcing {{Dermatology Images}} with {{Google Search Ads}}: {{Creating}} a {{Real-World Skin Condition Dataset}}},
+  shorttitle = {Crowdsourcing {{Dermatology Images}} with {{Google Search Ads}}},
+  author = {Ward, Abbi and Li, Jimmy and Wang, Julie and Lakshminarasimhan, Sriram and Carrick, Ashley and Campana, Bilson and Hartford, Jay and S, Pradeep Kumar and Tiyasirichokchai, Tiya and Virmani, Sunny and Wong, Renee and Matias, Yossi and Corrado, Greg S. and Webster, Dale R. and Siegel, Dawn and Lin, Steven and Ko, Justin and Karthikesalingam, Alan and Semturs, Christopher and Rao, Pooja},
+  date = {2024-02-28},
+  eprint = {2402.18545},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  url = {http://arxiv.org/abs/2402.18545},
+  urldate = {2024-04-28},
+  abstract = {Background: Health datasets from clinical sources do not reflect the breadth and diversity of disease in the real world, impacting research, medical education, and artificial intelligence (AI) tool development. Dermatology is a suitable area to develop and test a new and scalable method to create representative health datasets. Methods: We used Google Search advertisements to invite contributions to an open access dataset of images of dermatology conditions, demographic, and symptom information. With informed contributor consent, we describe and release this dataset containing 10,408 images from 5,033 contributions from internet users in the United States over 8 months starting March 2023. The dataset includes dermatologist condition labels as well as estimated Fitzpatrick Skin Type (eFST) and Monk Skin Tone (eMST) labels for the images. Results: We received a median of 22 submissions/day (IQR 14–30). Female (66.72\%) and younger (52\% {$<$} age 40) contributors had a higher representation in the dataset compared to the US population, and 32.6\% of contributors reported a non-White racial or ethnic identity. Over 97.5\% of contributions were genuine images of skin conditions. Dermatologist confidence in assigning a differential diagnosis increased with the number of available variables, and showed a weak correlation with image sharpness (Spearman’s P values {$<$} 0.001 and 0.01 respectively). Most contributions were short-duration (54\% with onset {$<$} 7 days ago ) and 89\% were allergic, infectious, or inflammatory conditions. eFST and eMST distributions reflected the geographical origin of the dataset. The dataset is available at github.com/google-researchdatasets/scin. Conclusion: Search ads are effective at crowdsourcing images of health conditions. The SCIN dataset bridges important gaps in the availability of representative images of common skin conditions.},
+  langid = {english},
+  pubstate = {preprint},
+  keywords = {Computer Science - Computers and Society},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/UQGXAEAY/Ward et al. - 2024 - Crowdsourcing Dermatology Images with Google Searc.pdf}
+}
+
+@online{ARNIQA,
+  title = {{{ARNIQA}}: {{Learning Distortion Manifold}} for {{Image Quality Assessment}}},
+  shorttitle = {{{ARNIQA}}},
+  author = {Agnolucci, Lorenzo and Galteri, Leonardo and Bertini, Marco and Del Bimbo, Alberto},
+  date = {2023-11-04},
+  eprint = {2310.14918},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  url = {http://arxiv.org/abs/2310.14918},
+  urldate = {2024-04-23},
+  abstract = {No-Reference Image Quality Assessment (NR-IQA) aims to develop methods to measure image quality in alignment with human perception without the need for a high-quality reference image. In this work, we propose a self-supervised approach named ARNIQA (leArning distoRtion maNifold for Image Quality Assessment) for modeling the image distortion manifold to obtain quality representations in an intrinsic manner. First, we introduce an image degradation model that randomly composes ordered sequences of consecutively applied distortions. In this way, we can synthetically degrade images with a large variety of degradation patterns. Second, we propose to train our model by maximizing the similarity between the representations of patches of different images distorted equally, despite varying content. Therefore, images degraded in the same manner correspond to neighboring positions within the distortion manifold. Finally, we map the image representations to the quality scores with a simple linear regressor, thus without fine-tuning the encoder weights. The experiments show that our approach achieves state-of-the-art performance on several datasets. In addition, ARNIQA demonstrates improved data efficiency, generalization capabilities, and robustness compared to competing methods. The code and the model are publicly available at https://github.com/ miccunifi/ARNIQA.},
+  langid = {english},
+  pubstate = {preprint},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/FT9WTHT5/Agnolucci et al. - 2023 - ARNIQA Learning Distortion Manifold for Image Qua.pdf}
+}
+
+@online{ImageQX,
+  title = {Explainable {{Image Quality Assessments}} in {{Teledermatological Photography}}},
+  author = {Jalaboi, Raluca and Winther, Ole and Galimzianova, Alfiia},
+  date = {2023-01-23},
+  eprint = {2209.04699},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  url = {http://arxiv.org/abs/2209.04699},
+  urldate = {2024-04-23},
+  abstract = {Image quality is a crucial factor in the effectiveness and efficiency of teledermatological consultations. However, up to 50\% of images sent by patients have quality issues, thus increasing the time to diagnosis and treatment. An automated, easily deployable, explainable method for assessing image quality is necessary to improve the current teledermatological consultation flow. We introduce ImageQX, a convolutional neural network for image quality assessment with a learning mechanism for identifying the most common poor image quality explanations: bad framing, bad lighting, blur, low resolution, and distance issues. ImageQX was trained on 26,635 photographs and validated on 9,874 photographs, each annotated with image quality labels and poor image quality explanations by up to 12 board-certified dermatologists. The photographic images were taken between 2017 and 2019 using a mobile skin disease tracking application accessible worldwide. Our method achieves expert-level performance for both image quality assessment and poor image quality explanation. For image quality assessment, ImageQX obtains a macro F1-score of 0.73 ± 0.01, which places it within standard deviation of the pairwise inter-rater F1-score of 0.77 ± 0.07. For poor image quality explanations, our method obtains F1-scores of between 0.37 ± 0.01 and 0.70 ± 0.01, similar to the inter-rater pairwise F1-score of between 0.24 ± 0.15 and 0.83 ± 0.06. Moreover, with a size of only 15 MB, ImageQX is easily deployable on mobile devices. With an image quality detection performance similar to that of dermatologists, incorporating ImageQX into the teledermatology flow can enable a better, faster flow for remote consultations.},
+  langid = {english},
+  pubstate = {preprint},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/5JFM3Q9H/Jalaboi et al. - 2023 - Explainable Image Quality Assessments in Telederma.pdf}
+}
+
+@online{TrueImage,
+  title = {{{TrueImage}}: {{A Machine Learning Algorithm}} to {{Improve}} the {{Quality}} of {{Telehealth Photos}}},
+  shorttitle = {{{TrueImage}}},
+  author = {Vodrahalli, Kailas and Daneshjou, Roxana and Novoa, Roberto A. and Chiou, Albert and Ko, Justin M. and Zou, James},
+  date = {2020-10-01},
+  eprint = {2010.02086},
+  eprinttype = {arxiv},
+  eprintclass = {cs, eess},
+  url = {http://arxiv.org/abs/2010.02086},
+  urldate = {2024-04-23},
+  abstract = {Telehealth is an increasingly critical component of the health care ecosystem, especially due to the COVID-19 pandemic. Rapid adoption of telehealth has exposed limitations in the existing infrastructure. In this paper, we study and highlight photo quality as a major challenge in the telehealth workflow. We focus on teledermatology, where photo quality is particularly important; the framework proposed here can be generalized to other health domains. For telemedicine, dermatologists request that patients submit images of their lesions for assessment. However, these images are often of insufficient quality to make a clinical diagnosis since patients do not have experience taking clinical photos. A clinician has to manually triage poor quality images and request new images to be submitted, leading to wasted time for both the clinician and the patient. We propose an automated image assessment machine learning pipeline, TrueImage, to detect poor quality dermatology photos and to guide patients in taking better photos. Our experiments indicate that TrueImage can reject 50\% of the sub-par quality images, while retaining 80\% of good quality images patients send in, despite heterogeneity and limitations in the training data. These promising results suggest that our solution is feasible and can improve the quality of teledermatology care.},
+  pubstate = {preprint},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Computers and Society,Computer Science - Machine Learning,Electrical Engineering and Systems Science - Signal Processing},
+  file = {/Users/choekyelnyungmartsang/Zotero/storage/ZHAJZ8H3/Vodrahalli et al. - 2020 - TrueImage A Machine Learning Algorithm to Improve.pdf;/Users/choekyelnyungmartsang/Zotero/storage/J95RUXP7/2010.html}
 }
