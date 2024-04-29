@@ -1,0 +1,55 @@
+% TODO Anhänge anfügen
+% Wir haben dies jeweils über \chapter gelöst
+% \includepdf[pages=-]{PDF-ANHANG}
+\chapter{Supplementary Material}
+\label{ch:Supplementary}
+
+% Brightness change
+
+\begin{figure*}
+    \centering
+    \setlength{\tabcolsep}{1pt}
+    \Large
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{C{5em}ccccc}
+            & Level 1 & Level 2 & Level 3 & Level 4 & Level 5 \\
+            Brighten & \includegraphics[width=\gridimagewidth,valign=m]{img/Blur.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{img/Artifacts.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{img/Artifacts.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{img/Artifacts.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{img/Artifacts.jpg} \\ [6.15ex]
+            Darken & \includegraphics[width=\gridimagewidth,valign=m]{img/Artifacts.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{img/Artifacts.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{img/Artifacts.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{img/Artifacts.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{img/Artifacts.jpg} \\ [6.15ex]
+        \end{tabular}
+    }
+    \caption{Visualization of the degradation types belonging to the \textit{Brightness change} group for increasing levels of intensity.}
+    \label{fig:brightness_change_supplementary}
+\end{figure*}
+
+
+\begin{comment}
+% Blur
+\begin{figure*}
+    \centering
+    \setlength{\tabcolsep}{1pt}
+    \Large
+    \resizebox{\textwidth}{!}{ %< auto-adjusts font size to fill line
+\begin{tabular}{C{6em}ccccc}
+         & Level 1 & Level 2 & Level 3 & Level 4 & Level 5 \\
+ Gaussian blur & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/gaublur0.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/gaublur1.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/gaublur2.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/gaublur3.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/gaublur4.jpg} \\ [6.15ex]
+ Lens blur & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/lensblur0.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/lensblur1.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/lensblur2.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/lensblur3.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/lensblur4.jpg} \\ [6.15ex]
+ Motion blur & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/motionblur0.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/motionblur1.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/motionblur2.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/motionblur3.jpg} & \includegraphics[width=\gridimagewidth,valign=m]{images/supplementary/distortions/blur/motionblur4.jpg} \\ 
+\end{tabular}
+}
+\caption{Visualization of the degradation types belonging to the \textit{Blur} group for increasing levels of intensity.}
+\label{fig:blur_supplementary}
+\end{figure*}
+\end{comment}
+
+
+\chapter{Code}
+\label{ch:Code}
+Anhang, Abkürzungs-, Abbildungs-, Tabellen-, Formel-Verzeichnis, Literaturverzeichnis nicht vergessen!\par
+\textbf{Anhänge}
+
+Projektspezifisch können weitere Dokumentationsteile angefügt werden wie:
+
+Aufgabenstellung, Projektmanagement-Plan/Bericht, Testplan/Testbericht, Bedienungsanleitungen, Details zu Umfragen, detaillierte Anforderungslisten, Referenzen auf projektspezifische Daten in externen Entwicklungs- und Datenverwaltungstools etc.
+\begin{lstlisting}[caption={Caption on PDF}, label={lst:reference_this}, language=Python]
+import numpy as np
+\end{lstlisting}

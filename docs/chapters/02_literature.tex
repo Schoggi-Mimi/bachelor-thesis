@@ -60,7 +60,7 @@ For this thesis, the focus will be on NR-IQA, especially considering its relevan
 \subsection{Common Distortions in IQA}
 \label{sub:CommonDistortionsIQA}
 Image Quality Assessment (IQA) must address various distortions that can significantly affect the perceived quality of images. Understanding these common distortions is essential for developing effective IQA algorithms, particularly in contexts like teledermatology where accurate image assessment is critical. Here are the primary distortions typically considered in IQA: \par
-The common distortions are \cite{https://arxiv.org/abs/2310.14918}:
+The common distortions are \footnote{https://arxiv.org/abs/2310.14918}:
 \begin{figure}[ht]
     \centering
     \begin{subfigure}[b]{0.24\textwidth}
@@ -147,39 +147,40 @@ The availability of these datasets allows researchers to thoroughly test the rob
         Category & Database & Year & \#Ref. & \#Dist. & \#Dist. Type & \#Dist. Level & Resolution Type & Ground-truth \\
         \hline
         \multirow{8}{*}{General} 
-        & LIVE \cite{LIVE} & 2004 & 30 & 779 & JPEG, JP2K, WN, GB, FF& 5 or 4 & 768 $\times$ 512 & DMOS \\
-        & TID2008 \cite{TID2008} & 2008 & 25 & 1700 & 17 & 4 & 512 $\times$ 384 & MOS \\
-        & TID2013 \cite{TID2013} & 2013 & 25 & 3000 & 24 & 5 & 512 $\times$ 384 & MOS \\
-        & CSIQ \cite{CSIQ} & 2009 & 30 & 866 & JPEG, JP2K, WN, GB, APGN,  GCD & 5 or 4 & 512 $\times$ 512 & DMOS \\
-        & A57 \cite{A57} & 2007 & 3 & 54 & 6 & 3 & 512 $\times$ 512 & MOS \\
-        & WED \cite{WED} & 2017 & 4744 & 94880 & JPEG, JP2K, GB, WN& 5 & - & - \\
-        & KADIS700K \cite{KADIS700K} & - & - & - & - & - & - & - \\
-        & KADID \cite{KADID} & - & - & - & - & - & - & - \\
+        & LIVE & 2004 & 30 & 779 & JPEG, JP2K, WN, GB, FF& 5 or 4 & 768 $\times$ 512 & DMOS \\
+        & TID2008 & 2008 & 25 & 1700 & 17 \footnote{See detailed types on database page: \url{https://www.ponomarenko.info/tid2008.htm}} & 4 & 512 $\times$ 384 & MOS \\
+        & TID2013 & 2013 & 25 & 3000 & 24 \footnote{See detailed types on database page: \url{https://www.ponomarenko.info/tid2013.htm}} & 5 & 512 $\times$ 384 & MOS \\
+        & CSIQ & 2009 & 30 & 866 & JPEG, JP2K, WN, GB, APGN,  GCD & 5 or 4 & 512 $\times$ 512 & DMOS \\
+        & A57 & 2007 & 3 & 54 & DWT, AGWN, JPEG, JP2K, JP2K-DCQ, GB& 3 & 512 $\times$ 512 & MOS \\
+        & WED & 2017 & 4744 & 94880 & JPEG, JP2K, GB, WN& 5 & - & - \\
+        & KADID-10k & 2019& 81& 10125& 25 \footnote{See detailed types on database page: \url{https://database.mmsp-kn.de/kadid-10k-database.html}} & 5& 512 $\times$ 384 & DMOS\\
+        & KADIS-700k & 2020& 140000& 700000& 25 \footnote{See detailed types on database page: \url{https://database.mmsp-kn.de/kadid-10k-database.html}} & 5& 512 $\times$ 384 & DMOS\\
         \hline
         \multirow{3}{*}{Multiple Dist.} 
-        & LIVEMD \cite{LIVEMD} & 2012 & 15 & 405 & GB followed by JPEG, GB followed by WN& - & 1280 $\times$ 720 & DMOS \\
-        & MDID2013 \cite{MDID2013} & 2013 & 12 & 324 & corrupted successively by GB, WN, and JPEG& - & 768 $\times$ 512 or 1280 $\times$ 720 & DMOS \\
-        & MDID2016 \cite{MDID2016} & 2016 & 20 & 1600 & GB or CC ﬁrst, JPEG or JP2K second and WN last& - & 512 $\times$ 384 & MOS \\
+        & LIVEMD & 2012 & 15 & 405 & GB followed by JPEG, GB followed by WN& - & 1280 $\times$ 720 & DMOS \\
+        & MDID2013 & 2013 & 12 & 324 & corrupted successively by GB, WN, and JPEG& - & 768 $\times$ 512 or 1280 $\times$ 720 & DMOS \\
+        & MDID2016 & 2016 & 20 & 1600 & GB or CC ﬁrst, JPEG or JP2K second and WN last& - & 512 $\times$ 384 & MOS \\
         \hline
         \multirow{4}{*}{Screen content} 
-        & SIQAD \cite{SIQAD} & 2014 & 20 & 980 & WN, GB, CC, JPEG, JP2K, MB, LSBC& 7 & 700 $\times$ 700 & DMOS \\
-        & SCIQ \cite{SCIQ} & 2017 & 40 & 1800 & WN, GB, MB, CC, JPEG, JP2K, CSC, CQD& 5 & 1280 $\times$ 720 & MOS \\
-        & CCT \cite{CCT} & 2017 & 72 & 1320 & HEVC and HEVC-SCC coding& 11 & 1280 $\times$ 720 to 1920 $\times$ 1080 & MOS \\
-        & HSNID \cite{HSNID} & 2019 & 20 & 600 & WN, GB, MB, CC, JPEG, JP2K& 5 &  - & MOS \\
+        & SIQAD & 2014 & 20 & 980 & WN, GB, CC, JPEG, JP2K, MB, LSBC& 7 & 700 $\times$ 700 & DMOS \\
+        & SCIQ & 2017 & 40 & 1800 & WN, GB, MB, CC, JPEG, JP2K, CSC, CQD& 5 & 1280 $\times$ 720 & MOS \\
+        & CCT & 2017 & 72 & 1320 & HEVC and HEVC-SCC coding& 11 & 1280 $\times$ 720 to 1920 $\times$ 1080 & MOS \\
+        & HSNID & 2019 & 20 & 600 & WN, GB, MB, CC, JPEG, JP2K& 5 &  - & MOS \\
         \hline
         \multirow{2}{*}{Authentic Dist.} 
-        & LIVE Wild \cite{LIVEWild} & 2016 & 0 & 1162 & - & - & 500 $\times$ 500 & MOS \\
-        & CID2013 \cite{CID2013} & 2015 & 0 & 480 & - & - & 1600 $\times$ 1200 & MOS \\
+        & LIVE Wild & 2016 & 0 & 1162 & - & - & 500 $\times$ 500 & MOS \\
+        & CID2013 & 2015 & 0 & 480 & - & - & 1600 $\times$ 1200 & MOS \\
     \bottomrule
     \end{tabular}
     }
     \raggedright
     \scalebox{0.59}{
     \begin{tabular}{l}
-        Note: \#Ref.: Total number of pristine images. \quad \#Dist.: Total number of distorted images. \quad JPEG: JPEG compression. \quad JP2K: JPEG2000 compression. \\ 
-         \quad  \quad  \quad WN.: White noise. \quad GB: Gaussian blur. \quad FF: Simulated fast fading Rayleigh channel. \quad CSC: Color saturation change. \quad CC: Contrast change. \\
-         \quad  \quad  \quad CQD: Color quantization with dithering. \quad APGN: Additive pink Gaussian noise. \quad GCD: Global contrast decrements. \quad MB.: motion blue. \\ 
-         \quad  \quad  \quad LSBC.: Layer segmentation based compression. \quad HEVC-SCC: Screen content coding extension of high eﬃciency video coding. 
+        Note: \#Ref.: Total number of pristine images. \quad \#Dist.: Total number of distorted images. \quad AGWN: Additive Gaussian white noise. \quad WN: White noise.\\
+        \quad  \quad  \quad APGN: Additive pink Gaussian noise. \quad CC: Contrast change. \quad CSC: Color saturation change. \quad CQD: Color quantization with dithering.\\
+        \quad  \quad  \quad DWT: Quantization of the LH subbands of a 5-level DWT. \quad FF: Simulated fast fading Rayleigh channel. \quad GB: Gaussian blur. \quad MB: Motion blur.\\
+        \quad  \quad  \quad GCD: Global contrast decrements. \quad HEVC-SCC: Screen content coding extension of high efficiency video coding. \quad JPEG: JPEG compression. \\
+        \quad  \quad  \quad JP2K: JPEG2000 compression. \quad JP2K-DCQ: JPEG-2000 compression with DCQ. \quad LSBC: Layer segmentation based compression.
     \end{tabular}
     }
 \end{table*}
@@ -211,7 +212,7 @@ The availability of these datasets allows researchers to thoroughly test the rob
 
 \textbf{Authentic Distortions IQA Databases}
 \begin{itemize}
-    \item \textbf{LIVE in the wild image quality challenge database} \cite{LIVEWild} includes 1162 authentically distorted images captured using a variety of mobile devices. Complex real distortions, which are not well-modeled by the synthetic distortions are included. All images are cropped to the resolution of 500 $\times$ 500. A novel crowdsourcing system was employed to gather over 350,000 opinion scores from 8100 observers, ensuring the objectivity of the MOS values obtained.
+    \item \textbf{LIVE in the wild image quality challenge database} \cite{LIVE_Wild} includes 1162 authentically distorted images captured using a variety of mobile devices. Complex real distortions, which are not well-modeled by the synthetic distortions are included. All images are cropped to the resolution of 500 $\times$ 500. A novel crowdsourcing system was employed to gather over 350,000 opinion scores from 8100 observers, ensuring the objectivity of the MOS values obtained.
     \item \textbf{Camera image database (CID2013)} \cite{CID2013}: CID2013 is designed to test no-reference IQA algorithms. It includes 480 real images captured from 8 typical scenes using 79 consumer cameras and mobile phones. The images are rated from 5 aspects: the overall quality, sharpness, graininess, lightness, and color saturation scales. The images are scaled to a size of 1600 $\times$ 1200.
 \end{itemize}
 
@@ -322,43 +323,43 @@ In teledermatology, the efficacy of remote diagnoses heavily relies on the quali
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Blur.jpg}
+        \includegraphics[width=\textwidth]{img/Original.jpg}
         \caption{Lighting}
         \label{fig:lighting}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Sharpness.jpg}
+        \includegraphics[width=\textwidth]{img/Original.jpg}
         \caption{Background}
         \label{fig:background}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Noise.jpg}
+        \includegraphics[width=\textwidth]{img/Original.jpg}
         \caption{Field of View}
         \label{fig:FoV}
     \end{subfigure} 
 
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/ColorAccuracy.jpg}
+        \includegraphics[width=\textwidth]{img/Original.jpg}
         \caption{Orientation}
         \label{fig:orientation}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/BrightnessContrast.jpg}
+        \includegraphics[width=\textwidth]{img/Original.jpg}
         \caption{Focus}
         \label{fig:focus}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Artifacts.jpg}
+        \includegraphics[width=\textwidth]{img/Original.jpg}
         \caption{Resolution}
         \label{fig:resol}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Compression.jpg}
+        \includegraphics[width=\textwidth]{img/Original.jpg}
         \caption{Color Calibration}
         \label{fig:cc}
     \end{subfigure}
@@ -425,22 +426,22 @@ However, while ImageQX achieves high specificity, suggesting minimal disruption 
 \noindent
 ImageQX stands out with its deep learning approach that uses a convolutional neural network (CNN) trained on a dataset of images labeled for quality by board-certified dermatologists. The network architecture is based on the lightweight EfficientNet-B0, which facilitates deployment on mobile devices. This model's training utilized a large dataset of 36,509 images, where the photographs were annotated for common quality issues, such as framing, lighting, blur, resolution, and distance from the subject.
 \par
-\noindent
 \vspace{\baselineskip}
+\noindent
 The strength of ImageQX lies in its explainability and its ability to provide reasons for poor image quality, aligning closely with the common distortions identified by dermatologists. It achieves a high macro F1-score, suggesting that its performance in image quality assessment is on par with expert human raters. However, some limitations include the difficulty of explaining certain quality issues like 'blurry' images, which had lower inter-rater agreement scores. The model's reliance on dermatologist-annotated images also points to the importance of the quality and diversity of the training dataset for its generalizability and accuracy. \par
-\noindent
 \vspace{\baselineskip}
+\noindent
 In conclusion, both ImageQX and TrueImage present pioneering steps towards automated IQA in teledermatology, each with strengths such as deployability and real-time feedback capabilities. Their current challenges include the need for more diverse training data, improved detection of certain distortions, and further validation in real-world settings. Addressing these challenges will be crucial for their successful integration into teledermatological practices, ultimately contributing to more efficient and effective remote dermatological care. \par
 
 \subsection{Challenges and Opportunities in Teledermatology}
 \label{sub:ChallengesOpportunitiesTeledermatology}
 Teledermatology has fundamentally changed how dermatological care is accessed, particularly in remote or underserved areas. However, the field faces several challenges that intersect with the focus of this thesis on image quality assessment.\par
-\noindent
 \vspace{\baselineskip}
+\noindent
 One major challenge is the variability in image quality, which stems from patients using a wide range of devices in uncontrolled environments to capture images. This variability can severely impact the consistency and reliability of diagnoses made remotely. Additionally, technological barriers such as disparities in access to high-quality digital devices and varying levels of digital literacy among patients can further affect the quality of submitted images. Moreover, ensuring the privacy and security of sensitive dermatological images transmitted over the internet remains a critical concern that needs continuous attention to safeguard patient data.\par
-\noindent
 \vspace{\baselineskip}
+\noindent
 On the opportunity front, recent advancements in image processing and machine learning technologies present significant potential to automatically enhance image quality and correct common distortions. This can greatly aid in improving diagnostic accuracy and efficiency. There is also a considerable opportunity to develop and implement standardized guidelines for image capture in teledermatology. Such standardization can help minimize quality variability and streamline the diagnostic process. Furthermore, the integration of artificial intelligence to provide real-time feedback to patients on improving image quality can enhance the effectiveness of teledermatology services by ensuring that only high-quality images are evaluated by dermatologists.\par
-\noindent
 \vspace{\baselineskip}
+\noindent
 By tackling these challenges and leveraging the emerging opportunities, teledermatology can continue to evolve and play a crucial role in modern healthcare, enhancing access and efficiency in dermatological care across diverse populations.\par

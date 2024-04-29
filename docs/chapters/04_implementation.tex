@@ -1,0 +1,49 @@
+\chapter{Implementation}
+\label{ch:Implementation}
+text
+
+\section{Literature Review on IQA and Teledermatology}
+\label{sec:LiteratureReviewMethodology}
+Purpose: Start by discussing the significance of the literature review in framing your research questions and methodology.\par
+\vspace{\baselineskip}
+\noindent
+Content: Outline how the literature influenced the selection of your methods and tools, particularly focusing on past approaches to IQA and their applicability or limitations in teledermatology.\par
+\vspace{\baselineskip}
+\noindent
+Rationale: Explain the choice of ARNIQA based on gaps or strengths identified in the literature, establishing why it's well-suited for addressing current challenges in teledermatology image quality assessment.\par
+\vspace{\baselineskip}
+\noindent
+
+\section{Image Quality Assessment Methodology}
+\label{sec:IQAMethodology}
+Introduction to ARNIQA: Detail why ARNIQA was chosen for IQA in teledermatology, emphasizing its strengths such as the sophisticated image degradation model and its ability to train with fewer labeled examples.\par
+\vspace{\baselineskip}
+\noindent
+Explaining SimCLR: Provide an in-depth explanation of SimCLR, discussing how it works (contrastive learning mechanism), why it is effective (ability to learn useful representations from unlabeled data), and its particular advantages for your research (e.g., robustness to various distortions).\par
+\vspace{\baselineskip}
+\noindent
+Utility and Implementation: Describe how you implemented ARNIQA and SimCLR, including any modifications or optimizations made for teledermatology. Mention the availability of code and weights, which ensures reproducibility and facilitates future research.\par
+\vspace{\baselineskip}
+\noindent
+
+\section{Teledermatology Image Quality Assessment}
+\label{sec:TeledermatologyMethodology}
+Dataset Description: Introduce the SCIN dataset, explaining why it's suitable for your study, its composition, and any preprocessing steps involved.\par
+\vspace{\baselineskip}
+\noindent
+Distortion Model Creation: Discuss the design of your custom distortion model, detailing the types and layers of distortions you included. Justify why these particular distortions are relevant to teledermatology.\par
+\vspace{\baselineskip}
+\noindent
+Test Set and Labeling: Explain how you created and labeled your test set, including the criteria used for labeling and the process of validation.\par
+\vspace{\baselineskip}
+\noindent
+Architecture Overview: Provide a comprehensive overview of the entire system architecture, showing how each component (data input, processing, analysis, and output) integrates to form a cohesive workflow. \par
+\vspace{\baselineskip}
+\noindent
+
+\section{Summary of Methodological Approach}
+\label{sec:SummaryMethodology}
+Synthesis: Briefly summarize how each part of your methodology contributes to addressing the research questions or hypotheses stated in earlier chapters.\par
+\vspace{\baselineskip}
+\noindent
+Justification: Reinforce the rationale behind your methodological choices, linking back to the literature review and the specific challenges identified in teledermatology IQA.\par

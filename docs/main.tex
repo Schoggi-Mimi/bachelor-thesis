@@ -79,6 +79,8 @@
 % From the documentation: "Make sure it comeslastof your loaded packages, to give it a fighting chance of not beingover-written, since its job is to redefine many LATEX commands"
 \usepackage{hyperref}
 \renewcommand{\chapterautorefname}{Chapter}
+\renewcommand{\sectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Subsection}
 
 %%% COMMAND REBINDINGS %%%
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
@@ -147,6 +149,16 @@
 % Apply the custom style to all other page styles
 \pagestyle{fancy}
 
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox} 
+\usepackage{array}
+\usepackage{adjustbox}
+
+\newlength{\gridimagewidth}
+\setlength{\gridimagewidth}{3cm} % Adjust the width as necessary
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
 
 %%% TODO Notes %%%
 \usepackage{todonotes}
@@ -169,6 +181,9 @@
 %%% Tables %%%
 \usepackage{booktabs}
 \usepackage{caption} % Required for customizing the caption
+\usepackage{tablefootnote}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\usepackage{url} % For URL formatting
 
 % Customizing the caption to make it bold
 \captionsetup{
