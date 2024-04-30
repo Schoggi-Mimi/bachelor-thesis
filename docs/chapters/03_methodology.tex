@@ -7,7 +7,7 @@ This chapter outlines the methodologies used throughout the project to achieve t
 Teledermatology, particularly focused on IQA, presents a broad scope for innovation due to the variety of possible image distortions and the different ways these can be addressed. The exploratory approach adopted in this research is characterized by its high degree of innovation and flexibility, which sometimes comes at the expense of linearity. Traditional phased approaches are not always applicable, leading to the adoption of a methodology based on explorative cycles with decision-making processes and agile practices. \par
 \vspace{\baselineskip}
 \noindent
-Initially, the problem statement for this project was only broadly defined, setting the stage for an adaptive and fluid approach as the research unfolded. As the project progressed, it increasingly focused on creative problem-solving, facilitated through multiple learning cycles that allowed for iterative refinement of ideas and methods. The research was structured into two distinct phases to manage this process effectively. In the early stages, known as the Diverging Phase, the scope of the research question was deliberately expanded. This expansion enabled the continuous generation of new ideas, each informed by the insights gathered during the ongoing investigation. Later, in the Converging Phase of the project, the emphasis shifted towards synthesizing these ideas into a cohesive set of findings and conclusions, aiming to consolidate the diverse insights into a unified understanding of the initial problem statement (\cite{DesignThinking}). A schematic of this exploratory model is depicted in  \ref{fig:decision_cycle}.\par
+Initially, the problem statement for this project was only broadly defined, setting the stage for an adaptive and fluid approach as the research unfolded. As the project progressed, it increasingly focused on creative problem-solving, facilitated through multiple learning cycles that allowed for iterative refinement of ideas and methods. The research was structured into two distinct phases to manage this process effectively. In the early stages, known as the Diverging Phase, the scope of the research question was deliberately expanded. This expansion enabled the continuous generation of new ideas, each informed by the insights gathered during the ongoing investigation. Later, in the Converging Phase of the project, the emphasis shifted towards synthesizing these ideas into a cohesive set of findings and conclusions, aiming to consolidate the diverse insights into a unified understanding of the initial problem statement (\cite{DesignThinking}). A schematic of this exploratory model is depicted in  \autoref{fig:decision_cycle}.\par
 \begin{figure}[ht]
     \centering
     \includegraphics[keepaspectratio,width=15cm]{img/DecisionCycle.png}
@@ -118,3 +118,30 @@ This training and validation process is critical as it directly influences the r
 \noindent
 Considerations:\par
 It's essential to ensure that the distribution and application of distortions during the training phase closely mimic realistic scenarios to prevent the model from overfitting to unrealistic patterns. Additionally, considering ethical aspects and the potential impact on patient outcomes, it is crucial to maintain high accuracy and reliability in the model's predictions to support effective and safe teledermatology practices.\par
+Literature Review on IQA and Teledermatology \par
+Purpose: Start by discussing the significance of the literature review in framing your research questions and methodology.\par
+\noindent
+Content: Outline how the literature influenced the selection of your methods and tools, particularly focusing on past approaches to IQA and their applicability or limitations in teledermatology.\par
+\noindent
+Rationale: Explain the choice of ARNIQA based on gaps or strengths identified in the literature, establishing why it's well-suited for addressing current challenges in teledermatology image quality assessment.\par
+\noindent
+Image Quality Assessment Methodology \par
+Introduction to ARNIQA: Detail why ARNIQA was chosen for IQA in teledermatology, emphasizing its strengths such as the sophisticated image degradation model and its ability to train with fewer labeled examples.\par
+\noindent
+Explaining SimCLR: Provide an in-depth explanation of SimCLR, discussing how it works (contrastive learning mechanism), why it is effective (ability to learn useful representations from unlabeled data), and its particular advantages for your research (e.g., robustness to various distortions).\par
+\noindent
+Utility and Implementation: Describe how you implemented ARNIQA and SimCLR, including any modifications or optimizations made for teledermatology. Mention the availability of code and weights, which ensures reproducibility and facilitates future research.\par
+\noindent
+Teledermatology Image Quality Assessment \par
+Dataset Description: Introduce the SCIN dataset, explaining why it's suitable for your study, its composition, and any preprocessing steps involved.\par
+\noindent
+Distortion Model Creation: Discuss the design of your custom distortion model, detailing the types and layers of distortions you included. Justify why these particular distortions are relevant to teledermatology.\par
+\noindent
+Test Set and Labeling: Explain how you created and labeled your test set, including the criteria used for labeling and the process of validation.\par
+\noindent
+Architecture Overview: Provide a comprehensive overview of the entire system architecture, showing how each component (data input, processing, analysis, and output) integrates to form a cohesive workflow. \par
+\noindent
+Summary of Methodological Approach \par
+Synthesis: Briefly summarize how each part of your methodology contributes to addressing the research questions or hypotheses stated in earlier chapters.\par
+\noindent
+Justification: Reinforce the rationale behind your methodological choices, linking back to the literature review and the specific challenges identified in teledermatology IQA.\par

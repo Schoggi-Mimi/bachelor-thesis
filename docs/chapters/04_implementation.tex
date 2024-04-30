@@ -1,49 +1,133 @@
 \chapter{Implementation}
 \label{ch:Implementation}
-text
+This chapter delves into the detailed implementation of the methodologies outlined in (\autoref{ch:Methodology}), focusing on the specific processes, experiments, and analyses conducted. It includes the practical steps taken to prepare data, apply distortions, extract features, and train the regression model to assess image quality in teledermatology.
 
-\section{Literature Review on IQA and Teledermatology}
-\label{sec:LiteratureReviewMethodology}
-Purpose: Start by discussing the significance of the literature review in framing your research questions and methodology.\par
-\vspace{\baselineskip}
-\noindent
-Content: Outline how the literature influenced the selection of your methods and tools, particularly focusing on past approaches to IQA and their applicability or limitations in teledermatology.\par
-\vspace{\baselineskip}
-\noindent
-Rationale: Explain the choice of ARNIQA based on gaps or strengths identified in the literature, establishing why it's well-suited for addressing current challenges in teledermatology image quality assessment.\par
+\section{Image Selection and Labeling Process}
+\label{sec:ImgSelectLabel}
+This section describes the initial stages of the implementation, focusing on the selection and preparation of the image datasets used in the study. \par
 \vspace{\baselineskip}
 \noindent
 
-\section{Image Quality Assessment Methodology}
-\label{sec:IQAMethodology}
-Introduction to ARNIQA: Detail why ARNIQA was chosen for IQA in teledermatology, emphasizing its strengths such as the sophisticated image degradation model and its ability to train with fewer labeled examples.\par
+\subsection{Image Filtering and Selection}
+\label{sub:ImgFilter}
+The first step in preparing the images involves carefully choosing high-quality pictures from the SCIN dataset, which mainly includes pictures of early-stage dermatological conditions. This selection is done manually as it ensures that each image is clear and useful for clinical use. The primary focus during selection is for images that are well-framed and free of any distortions that might affect their usefulness in diagnosis.\par
 \vspace{\baselineskip}
 \noindent
-Explaining SimCLR: Provide an in-depth explanation of SimCLR, discussing how it works (contrastive learning mechanism), why it is effective (ability to learn useful representations from unlabeled data), and its particular advantages for your research (e.g., robustness to various distortions).\par
+Each selected image is checked to make sure it doesn't have any blurring that might hide important details of the skin condition, as clear images are crucial for accurate diagnosis. Additionally, it's important that the images are properly lit and show true contrast, this means they shouldn't be too bright or too dark. Proper lighting and contrast help in accurately showing the skin's condition. Lastly, the images must represent realistic skin tones and colors. Accurate color representation is critical because wrong colors can lead to incorrect diagnoses. This careful selection process of images ensures that the baseline images used for further distortion and analysis are of good quality, providing a solid foundation for the subsequent experimental stages. \par
+
+
+\subsection{Labeling of the Test Set}
+\label{sub:ImgLabel}
+The labeling process involves manually scoring approximately 50 high-quality images and 200 images with various distortions. These images are evaluated based on seven key quality criteria crucial for teledermatology: lighting, focus, orientation, color calibration, background, resolution, and field of view. Each image is scored on a scale from 0 to 1 for each criterion, where 0 indicates no distortion and 1 indicates extreme distortion. \par
 \vspace{\baselineskip}
 \noindent
-Utility and Implementation: Describe how you implemented ARNIQA and SimCLR, including any modifications or optimizations made for teledermatology. Mention the availability of code and weights, which ensures reproducibility and facilitates future research.\par
+This manual labeling is facilitated through a custom Python script, which displays each image and prompts the user to enter scores for each distortion criterion. The scores are collected in a structured format and stored in a JSON file for subsequent analysis. This structured and meticulous approach ensures that each image is evaluated consistently and comprehensively.\par
+\noindent
+\subsubsection{Visualization of Label Distribution}
+\label{subsub:VizTestLabel}
+To understand the distribution of labels and how frequently distortions occur across different criteria, histograms are generated. These histograms are particularly useful for visualizing the prevalence and severity of distortions in the dataset. Two histograms are plotted for each criterion:\par
+\vspace{\baselineskip}
+\noindent
+The first histogram shows the distribution of images scored as '0' for a specific criterion, representing images where no distortion is observed. \par
+\noindent
+The second histogram displays the distribution for images where a distortion is present (scores >0), showing the varying levels of distortion severity.\par
+\vspace{\baselineskip}
+\noindent
+These histograms provide valuable insights into the commonality and impact of each type of distortion, aiding in the analysis of how distortions affect overall image quality. They also highlight the criteria that may require more focused attention during the model training and validation process. \par
+\todo{Histogram: "Distribution of images scored as 0 for the focus criterion, indicating no distortion." or "Distribution of scores for the focus criterion where distortion is present, illustrating the range and frequency of severity."}
+
+\section{Distortion Pipeline}
+\label{sec:DistPipeline}
+The distortion pipeline is central to simulating realistic image quality issues. Each quality criterion has multiple types of distortions, each subdivided into five ranges of severity, structured to ensure that the higher the range, the stronger the distortion. Visual representations of the types of degradations at different ranges for each quality criterion will be provided in the appendix (\autoref{ch:Supplementary}).  \par
+Each distortion type is briefly described to clarify its impact on image quality. This section underscores the adaptability of the pipeline in generating training images that reflect a range of realistic conditions. \par
+\vspace{\baselineskip}
+\noindent
+This subsection details the systematic approach to simulating image distortions that reflect realistic variations in quality as would be encountered in teledermatology. This process is essential for training the model to accurately assess and predict image quality based on the presence and severity of various distortions.\par
 \vspace{\baselineskip}
 \noindent
 
-\section{Teledermatology Image Quality Assessment}
-\label{sec:TeledermatologyMethodology}
-Dataset Description: Introduce the SCIN dataset, explaining why it's suitable for your study, its composition, and any preprocessing steps involved.\par
+\subsection{Distortion Types}
+\label{sub:DistTypes}
+Here, each distortion type is briefly described, highlighting how they simulate different aspects of image degradation: \par
+\begin{enumerate}
+    \item Lighting:
+        \begin{itemize}
+            \item \textit{Brighten}: applies a sequence of color space transformations, curve adjustments, and blending operations to enhance the brightness of an input image, resulting in an output image with increased visual intensity;
+            \item \textit{Darken}: similar to brighten operation, but it leads to a decreased visual intensity;
+        \end{itemize}
+    \item Focus:
+        \begin{itemize}
+            \item \textit{Gaussian blur}: filters every pixel of the image with a simple Gaussian kernel.
+            \item \textit{Lens blur}: filters every pixel of the image with a circular kernel;
+            \item \textit{Motion blur}: filters every pixel of the image with a linear motion blur kernel to simulate the effect of a moving camera or a moving object in the scene. Consequently, the image appears blurred in the direction of the motion;
+        \end{itemize}
+    \item Orientation:
+        \begin{itemize}
+            \item \textit{Top perspective}: temp;
+            \item \textit{Bottom perspective}: temp;
+            \item \textit{Left perspective}: temp;
+            \item \textit{Right perspective}: temp;
+        \end{itemize}
+    \item Color calibration:
+        \begin{itemize}
+            \item \textit{Color saturation 1}: converts the image to the HSV-color space and then multiplies the saturation channel by a factor;
+            \item \textit{Color saturation 2}: converts the image to the LAB-color space, then multiply each color channel by a factor;
+        \end{itemize}
+    \item Background:
+        \begin{itemize}
+            \item \textit{temp}: temp;
+        \end{itemize}
+    \item Resolution:
+        \begin{itemize}
+            \item \textit{temp}: temp;
+        \end{itemize}
+    \item Field of view:
+        \begin{itemize}
+            \item \textit{temp}: temp;
+        \end{itemize}
+\end{enumerate}
+
+\subsection{Distortion Implementation Process}
+\label{sub:DistImplement}
+The good quality images selected from the SCIN dataset are processed through a distortion pipeline where each image is subjected to multiple types of distortions corresponding to seven critical quality criteria. Each criterion includes different types of distortions, each having five ranges of intensity, increasing in severity. All distortion types begin at zero, indicating no distortion applied, and progress to higher values that represent increasing levels of the specified distortion. \par
 \vspace{\baselineskip}
 \noindent
-Distortion Model Creation: Discuss the design of your custom distortion model, detailing the types and layers of distortions you included. Justify why these particular distortions are relevant to teledermatology.\par
-\vspace{\baselineskip}
+This structure allows for the creation of a uniform labeling system where the distortions are mapped to a range from 0 to 1, facilitating consistent assessment across different types of distortions:\par
+
+
+
 \noindent
-Test Set and Labeling: Explain how you created and labeled your test set, including the criteria used for labeling and the process of validation.\par
-\vspace{\baselineskip}
-\noindent
-Architecture Overview: Provide a comprehensive overview of the entire system architecture, showing how each component (data input, processing, analysis, and output) integrates to form a cohesive workflow. \par
+These mappings are crucial for maintaining a standard scale for training the model, ensuring that it can uniformly interpret and learn from the different levels of distortions applied to the images. \par
+
+
+\section{Feature Extraction with SimCLR}
+\label{sec:SimCLR}
+The SimCLR framework from ARNIQA is utilized to extract features from the distorted images. This process is essential for learning the distortion manifold, which helps the model recognize similar patterns of degradation across varying images. \par
 \vspace{\baselineskip}
 \noindent
 
-\section{Summary of Methodological Approach}
-\label{sec:SummaryMethodology}
-Synthesis: Briefly summarize how each part of your methodology contributes to addressing the research questions or hypotheses stated in earlier chapters.\par
+\subsection{Framework Details}
+\label{sub:FrameworkSimCLR}
+
+
+\section{Regression Model Training and Validation}
+\label{sec:Regression}
+text \par
 \vspace{\baselineskip}
 \noindent
-Justification: Reinforce the rationale behind your methodological choices, linking back to the literature review and the specific challenges identified in teledermatology IQA.\par
+
+\subsection{Model Selection and Training}
+\label{sub:ModelTraining}
+
+\subsection{Performance Metrics}
+\label{sub:PerformanceMetrics}
+
+
+\section{Model Testing}
+\label{sec:Test}
+The final model is tested against the labeled test set to evaluate its performance in real-world scenarios. Plots illustrating the model’s performance across various quality criteria will be shown, highlighting areas where the model performs well or where there is significant variance, indicating uncertainty in quality assessment. \par
+\vspace{\baselineskip}
+\noindent
+
+\subsection{Testing with Labeled Test Set}
+\label{sub:ModelTraining}

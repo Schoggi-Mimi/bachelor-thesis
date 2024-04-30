@@ -30,7 +30,7 @@ Objective quality assessment relies on mathematical algorithms rather than human
     \caption{Comparison between a distorted image and a reference image to compute quality scores.}
     \label{fig:FRIQA}
 \end{figure}
-\textbf{Full-Reference IQA (FR-IQA)} \ref{fig:FRIQA}  involves a comprehensive comparison between a distorted image and a reference image. In this method, features are extracted from both the distorted and the reference image, and their differences are quantitatively analyzed to compute a quality score. FR-IQA offers a detailed assessment of image quality but requires the availability of a reference image for every distorted image evaluated, which can sometimes limit its applicability. \par
+\textbf{Full-Reference IQA (FR-IQA)} \autoref{fig:FRIQA}  involves a comprehensive comparison between a distorted image and a reference image. In this method, features are extracted from both the distorted and the reference image, and their differences are quantitatively analyzed to compute a quality score. FR-IQA offers a detailed assessment of image quality but requires the availability of a reference image for every distorted image evaluated, which can sometimes limit its applicability. \par
 \vspace{\baselineskip}
 \begin{figure}[ht]
     \centering
@@ -38,7 +38,7 @@ Objective quality assessment relies on mathematical algorithms rather than human
     \caption{Reduced-reference assessment comparing features extracted from distorted and reference images for quality analysis.}
     \label{fig:RRIQA}
 \end{figure}
-\textbf{Reduced-Reference IQA (RR-IQA)} \ref{fig:RRIQA} operates under a similar principle to FR-IQA but does not require the complete reference image. Instead, it uses a reduced set of features extracted from both the distorted and reference images. This method strikes a balance between the exhaustive comparison of FR-IQA and the complete independence of NR-IQA, reducing computational demands while still providing meaningful quality assessments based on partial reference data. \par
+\textbf{Reduced-Reference IQA (RR-IQA)} \autoref{fig:RRIQA} operates under a similar principle to FR-IQA but does not require the complete reference image. Instead, it uses a reduced set of features extracted from both the distorted and reference images. This method strikes a balance between the exhaustive comparison of FR-IQA and the complete independence of NR-IQA, reducing computational demands while still providing meaningful quality assessments based on partial reference data. \par
 \vspace{\baselineskip}
 Both FR-IQA and RR-IQA utilize two methods to analyze quality:
 \begin{itemize}
@@ -53,7 +53,7 @@ Both FR-IQA and RR-IQA utilize two methods to analyze quality:
     \label{fig:NRIQA}
 \end{figure}
 
-\textbf{No-Reference IQA (NR-IQA)} \ref{fig:NRIQA} is the third category, which does not rely on any reference image. Instead, it analyzes the distorted image alone by extracting features that are indicative of quality. This method is particularly useful in situations where no reference images are available, such as in many practical applications of teledermatology. NR-IQA can be tailored to address specific types of distortions or designed for general-purpose quality assessment, providing versatility across various domains. \par
+\textbf{No-Reference IQA (NR-IQA)} \autoref{fig:NRIQA} is the third category, which does not rely on any reference image. Instead, it analyzes the distorted image alone by extracting features that are indicative of quality. This method is particularly useful in situations where no reference images are available, such as in many practical applications of teledermatology. NR-IQA can be tailored to address specific types of distortions or designed for general-purpose quality assessment, providing versatility across various domains. \par
 \vspace{\baselineskip}
 For this thesis, the focus will be on NR-IQA, especially considering its relevance in evaluating teledermatology images where reference images are not typically available. This focus on NR-IQA aims to enhance the robustness and applicability of quality assessment in real-world teledermatology scenarios, addressing the diverse and specific challenges encountered in this field.
 
@@ -113,13 +113,13 @@ The common distortions are \footnote{https://arxiv.org/abs/2310.14918}:
     \label{fig:distortions}
 \end{figure}
 \begin{enumerate}
-    \item \textbf{Blur}: Blurred images lack sharpness and clarity, often resulting from motion during capturing, incorrect focus settings, or imperfections in the camera lens. Example lens blured image: \ref{fig:blur}.
-    \item \textbf{Sharpness}: Sharpness refers to how well-defined the edges and fine details in an image appear. High sharpness is indicative of clear, crisp images, whereas a lack of sharpness can make an image look soft and unclear. Example high sharpened image: \ref{fig:sharpness}.
-    \item \textbf{Noise}: Noise appears as random variations in brightness or color in an image and is often due to the limitations of the camera's sensor, particularly under low light conditions or at high ISO settings. Example white noise image: \ref{fig:noise}.
-    \item \textbf{Color Accuracy}: Color accuracy pertains to the faithful reproduction of colors in an image. Distortions in color accuracy can lead to inaccurate or unrealistic color representation. Example saturated image: \ref{fig:color_accuracy}.
-    \item \textbf{Brightness \& Contrast}: Brightness is the overall light level of an image, while contrast refers to the range between its darkest and lightest areas. Proper balance of both is crucial for maintaining image visibility and detail. Excessive or insufficient brightness and contrast can render an image unusable for detailed analysis. Example brightened image: \ref{fig:brightness_contrast}.
-    \item \textbf{Artifacts}: Artifacts are unwanted visual anomalies introduced during image acquisition or processing, such as halos, or jagged edges. Example artifact in image: \ref{fig:artifacts}.
-    \item \textbf{Compression}: When images are compressed to reduce file size, this often results in lost detail and visible quality degradation. Example JPEG compressed image: \ref{fig:compression}.
+    \item \textbf{Blur}: Blurred images lack sharpness and clarity, often resulting from motion during capturing, incorrect focus settings, or imperfections in the camera lens. Example lens blured image: \autoref{fig:blur}.
+    \item \textbf{Sharpness}: Sharpness refers to how well-defined the edges and fine details in an image appear. High sharpness is indicative of clear, crisp images, whereas a lack of sharpness can make an image look soft and unclear. Example high sharpened image: \autoref{fig:sharpness}.
+    \item \textbf{Noise}: Noise appears as random variations in brightness or color in an image and is often due to the limitations of the camera's sensor, particularly under low light conditions or at high ISO settings. Example white noise image: \autoref{fig:noise}.
+    \item \textbf{Color Accuracy}: Color accuracy pertains to the faithful reproduction of colors in an image. Distortions in color accuracy can lead to inaccurate or unrealistic color representation. Example saturated image: \autoref{fig:color_accuracy}.
+    \item \textbf{Brightness \& Contrast}: Brightness is the overall light level of an image, while contrast refers to the range between its darkest and lightest areas. Proper balance of both is crucial for maintaining image visibility and detail. Excessive or insufficient brightness and contrast can render an image unusable for detailed analysis. Example brightened image: \autoref{fig:brightness_contrast}.
+    \item \textbf{Artifacts}: Artifacts are unwanted visual anomalies introduced during image acquisition or processing, such as halos, or jagged edges. Example artifact in image: \autoref{fig:artifacts}.
+    \item \textbf{Compression}: When images are compressed to reduce file size, this often results in lost detail and visible quality degradation. Example JPEG compressed image: \autoref{fig:compression}.
 \end{enumerate}
 Each distortion type affects the visual quality and perceptual fidelity of images, influencing the effectiveness of IQA methodologies in assessing image quality. Understanding these distortions is crucial for developing robust quality assessment algorithms and enhancing image fidelity in various applications, including teledermatology.
 
