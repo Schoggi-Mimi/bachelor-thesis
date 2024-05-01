@@ -1,6 +1,6 @@
 \chapter{Implementation}
 \label{ch:Implementation}
-This chapter delves into the detailed implementation of the methodologies outlined in (\autoref{ch:Methodology}), focusing on the specific processes, experiments, and analyses conducted. It includes the practical steps taken to prepare data, apply distortions, extract features, and train the regression model to assess image quality in teledermatology.
+This chapter delves into the detailed implementation of the methodologies outlined in \autoref{ch:Methodology}, focusing on the specific processes, experiments, and analyses conducted. It includes the practical steps taken to prepare data, apply distortions, extract features, and train the regression model to assess image quality in teledermatology.
 
 \section{Image Selection and Labeling Process}
 \label{sec:ImgSelectLabel}
@@ -9,7 +9,7 @@ This section describes the initial stages of the implementation, focusing on the
 \noindent
 
 \subsection{Image Filtering and Selection}
-\label{sub:ImgFilter}
+\label{sub:ImgFilterSelect}
 The first step in preparing the images involves carefully choosing high-quality pictures from the SCIN dataset, which mainly includes pictures of early-stage dermatological conditions. This selection is done manually as it ensures that each image is clear and useful for clinical use. The primary focus during selection is for images that are well-framed and free of any distortions that might affect their usefulness in diagnosis.\par
 \vspace{\baselineskip}
 \noindent
@@ -17,14 +17,14 @@ Each selected image is checked to make sure it doesn't have any blurring that mi
 
 
 \subsection{Labeling of the Test Set}
-\label{sub:ImgLabel}
+\label{sub:LabelingTestSet}
 The labeling process involves manually scoring approximately 50 high-quality images and 200 images with various distortions. These images are evaluated based on seven key quality criteria crucial for teledermatology: lighting, focus, orientation, color calibration, background, resolution, and field of view. Each image is scored on a scale from 0 to 1 for each criterion, where 0 indicates no distortion and 1 indicates extreme distortion. \par
 \vspace{\baselineskip}
 \noindent
 This manual labeling is facilitated through a custom Python script, which displays each image and prompts the user to enter scores for each distortion criterion. The scores are collected in a structured format and stored in a JSON file for subsequent analysis. This structured and meticulous approach ensures that each image is evaluated consistently and comprehensively.\par
 \noindent
 \subsubsection{Visualization of Label Distribution}
-\label{subsub:VizTestLabel}
+\label{subsub:LabelDist}
 To understand the distribution of labels and how frequently distortions occur across different criteria, histograms are generated. These histograms are particularly useful for visualizing the prevalence and severity of distortions in the dataset. Two histograms are plotted for each criterion:\par
 \vspace{\baselineskip}
 \noindent
@@ -38,7 +38,7 @@ These histograms provide valuable insights into the commonality and impact of ea
 
 \section{Distortion Pipeline}
 \label{sec:DistPipeline}
-The distortion pipeline is central to simulating realistic image quality issues. Each quality criterion has multiple types of distortions, each subdivided into five ranges of severity, structured to ensure that the higher the range, the stronger the distortion. Visual representations of the types of degradations at different ranges for each quality criterion will be provided in the appendix (\autoref{ch:Supplementary}).  \par
+The distortion pipeline is central to simulating realistic image quality issues. Each quality criterion has multiple types of distortions, each subdivided into five ranges of severity, structured to ensure that the higher the range, the stronger the distortion. Visual representations of the types of degradations at different ranges for each quality criterion will be provided in the \autoref{ch:Supplementary}.  \par
 Each distortion type is briefly described to clarify its impact on image quality. This section underscores the adaptability of the pipeline in generating training images that reflect a range of realistic conditions. \par
 \vspace{\baselineskip}
 \noindent
@@ -88,30 +88,76 @@ Here, each distortion type is briefly described, highlighting how they simulate 
 \end{enumerate}
 
 \subsection{Distortion Implementation Process}
-\label{sub:DistImplement}
+\label{sub:DistProcess}
 The good quality images selected from the SCIN dataset are processed through a distortion pipeline where each image is subjected to multiple types of distortions corresponding to seven critical quality criteria. Each criterion includes different types of distortions, each having five ranges of intensity, increasing in severity. All distortion types begin at zero, indicating no distortion applied, and progress to higher values that represent increasing levels of the specified distortion. \par
 \vspace{\baselineskip}
 \noindent
 This structure allows for the creation of a uniform labeling system where the distortions are mapped to a range from 0 to 1, facilitating consistent assessment across different types of distortions:\par
 
 
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+    \hline
+    \textbf{0} & \textbf{0.25} & \textbf{0.5} & \textbf{0.75} & \textbf{1} \\ \hline
+    No distortion applied & Slight distortion & Moderate distortion & Significant distortion & Extreme distortion \\ \hline
+\end{tabularx}
+\caption{Mapping of numerical values to levels of distortion.}
+\label{tab:distortion_levels}
+\end{table}
 
 \noindent
 These mappings are crucial for maintaining a standard scale for training the model, ensuring that it can uniformly interpret and learn from the different levels of distortions applied to the images. \par
 
+\subsection{Gaussian Distribution Application}
+\label{sub:GaussianDist}
+To add a realistic randomness to the application of distortion levels, a Gaussian distribution is employed with a mean of 0 and a standard deviation of 2.5. This distribution decides the probability with which each level of distortion is applied, ensuring that the application of distortions mimics the variability seen in real-world scenarios. This randomness helps in testing the robustness of the model against a wide range of possible image conditions. \par
+\vspace{\baselineskip}
+\noindent
+Once the images are distorted, they undergo feature extraction using the SimCLR framework from ARNIQA, detailed in the next subsection. \par
 
 \section{Feature Extraction with SimCLR}
-\label{sec:SimCLR}
-The SimCLR framework from ARNIQA is utilized to extract features from the distorted images. This process is essential for learning the distortion manifold, which helps the model recognize similar patterns of degradation across varying images. \par
+\label{sec:FeatureExtraction}
+The implementation of the SimCLR framework from ARNIQA forms a pivotal part of the feature extraction process for this project. SimCLR stands out due to its robust self-supervised learning capabilities, particularly suited for handling the complex distortions applied to the images in this study.
+
+Overview of SimCLR in ARNIQA:
+
+SimCLR operates by maximizing the similarity between embeddings of differently cropped images from the same source but subjected to identical distortions, while also minimizing their similarity to embeddings from differently distorted crops. This methodology effectively trains the model to recognize and quantify similar degradation patterns across diverse image content, leveraging a contrastive loss function that is critical for learning detailed distortion characteristics.
+
+Training Strategy with SimCLR:
+
+The training strategy involves processing pairs of images through a series of steps:
+
+Image Pair Selection: Two pristine images are selected randomly from the dataset.
+Distortion Application: Each image is cropped and subjected to the same distortion, based on predefined distortion compositions.
+Embedding Comparison: The embeddings of the distorted image crops are compared to ensure that similar distortions produce similar embeddings.
+This process is visualized in Figure 3 from the ARNIQA paper, which illustrates how the embeddings of similarly degraded image crops are aligned, while those of differently degraded crops serve as hard negative examples. This setup is crucial for training the model to discriminate subtle differences in degradation, enhancing its sensitivity to variations in image quality.
+
+Hard Negative Examples:
+
+To enhance the model’s ability to discern subtle degradation differences, images are also downscaled before cropping and distorting, creating hard negative examples. These examples are crucial for training because they share similar content but differ in distortion due to the downsampling process, challenging the model to fine-tune its discrimination capabilities.
+
+Reproducibility and Practical Implementation:
+
+The availability of code and weights for the SimCLR implementation in ARNIQA ensures that this methodology is not only reproducible but also accessible for future research. This open access to resources supports ongoing improvements and adaptations in the field, fostering further developments in image quality assessment for teledermatology.
+
+Benefits of SimCLR in Image Quality Assessment:
+
+Utilizing SimCLR provides significant advantages:
+
+Unlabeled Data Usage: It can effectively learn from unlabeled data, which is particularly beneficial in scenarios where high-quality labeled datasets are scarce.
+Robust Feature Extraction: By learning to identify and differentiate between various image distortions, SimCLR helps in building a robust model capable of accurate image quality assessment.
+Enhanced Learning from Distortions: The framework’s focus on maximizing similarity for similarly distorted images and maximizing dissimilarity for differently distorted images (even when content is similar) enables the model to learn a comprehensive distortion manifold.
+These capabilities make SimCLR an ideal choice for this project, addressing the challenges of assessing image quality in teledermatology where diverse and subtle image distortions can significantly impact diagnostic accuracy. The implementation details and insights gained from using SimCLR are foundational for the subsequent stages of model training and validation discussed in the following sections. \par
 \vspace{\baselineskip}
 \noindent
 
 \subsection{Framework Details}
-\label{sub:FrameworkSimCLR}
+\label{sub:FrameworkDetails}
 
 
 \section{Regression Model Training and Validation}
-\label{sec:Regression}
+\label{sec:ModelTrainVal}
 text \par
 \vspace{\baselineskip}
 \noindent
@@ -120,14 +166,14 @@ text \par
 \label{sub:ModelTraining}
 
 \subsection{Performance Metrics}
-\label{sub:PerformanceMetrics}
+\label{sub:PerfMetrics}
 
 
 \section{Model Testing}
-\label{sec:Test}
+\label{sec:ModelTesting}
 The final model is tested against the labeled test set to evaluate its performance in real-world scenarios. Plots illustrating the model’s performance across various quality criteria will be shown, highlighting areas where the model performs well or where there is significant variance, indicating uncertainty in quality assessment. \par
 \vspace{\baselineskip}
 \noindent
 
 \subsection{Testing with Labeled Test Set}
-\label{sub:ModelTraining}
+\label{sub:TestLabeledSet}

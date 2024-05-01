@@ -12,43 +12,44 @@
 \contentsline {subsubsection}{\nonumberline Datasets Commonly Used in IQA}{8}{subsubsection*.10}%
 \contentsline {subsection}{\numberline {2.1.5}State-of-the-Art in IQA}{11}{subsection.2.1.5}%
 \contentsline {subsubsection}{\nonumberline Overview ARNIQA}{11}{subsubsection*.14}%
-\contentsline {subsection}{\numberline {2.1.6}Challenges and Opportunities in IQA}{13}{subsection.2.1.6}%
-\contentsline {section}{\numberline {2.2}Teledermatology}{13}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Introduction to Teledermatology}{14}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Importance of Image Quality in Teledermatology}{14}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Quality Criteria for Teledermatology Images}{14}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}Teledermatology Datasets}{16}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.1.6}Challenges and Opportunities in IQA}{14}{subsection.2.1.6}%
+\contentsline {section}{\numberline {2.2}Teledermatology}{14}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Introduction to Teledermatology}{15}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Importance of Image Quality in Teledermatology}{15}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Quality Criteria for Teledermatology Images}{15}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Teledermatology Datasets}{17}{subsection.2.2.4}%
 \contentsline {subsection}{\numberline {2.2.5}Approaches to Image Quality Assessment in Teledermatology}{17}{subsection.2.2.5}%
-\contentsline {subsubsection}{\nonumberline TrueImage: A Machine Learning Algorithm to Improve the Quality of Telehealth Photos}{17}{subsubsection*.18}%
-\contentsline {subsubsection}{\nonumberline ImageQX: Explainable Image Quality Assessments in Teledermatological Photography}{17}{subsubsection*.20}%
-\contentsline {subsection}{\numberline {2.2.6}Challenges and Opportunities in Teledermatology}{18}{subsection.2.2.6}%
-\contentsline {chapter}{\numberline {3}Methodology}{19}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Explorative Approach}{19}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Project Control}{19}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Research Steps}{20}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Literature Review}{20}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Data Collection and Preparation}{21}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Training and Validation}{22}{subsection.3.3.3}%
-\contentsline {subsubsection}{\nonumberline Overview of Training and Validation Processes}{22}{subsubsection*.23}%
-\contentsline {subsection}{\numberline {3.3.4}Testing and Experiments}{22}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Discussion and Further Development}{22}{subsection.3.3.5}%
-\contentsline {chapter}{\numberline {4}Implementation}{25}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Image Selection and Labeling Process}{25}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Image Filtering and Selection}{25}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Labeling of the Test Set}{25}{subsection.4.1.2}%
-\contentsline {subsubsection}{\nonumberline Visualization of Label Distribution}{26}{subsubsection*.25}%
-\contentsline {section}{\numberline {4.2}Distortion Pipeline}{26}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Distortion Types}{26}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Distortion Implementation Process}{27}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Feature Extraction with SimCLR}{27}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Framework Details}{28}{subsection.4.3.1}%
-\contentsline {section}{\numberline {4.4}Regression Model Training and Validation}{28}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Model Selection and Training}{28}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Performance Metrics}{28}{subsection.4.4.2}%
-\contentsline {section}{\numberline {4.5}Model Testing}{28}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Testing with Labeled Test Set}{28}{subsection.4.5.1}%
-\contentsline {chapter}{\numberline {5}Results and Analysis}{29}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Discussion and Conclusion}{30}{chapter.6}%
+\contentsline {subsubsection}{\nonumberline TrueImage: A Machine Learning Algorithm to Improve the Quality of Telehealth Photos}{18}{subsubsection*.20}%
+\contentsline {subsubsection}{\nonumberline ImageQX: Explainable Image Quality Assessments in Teledermatological Photography}{18}{subsubsection*.22}%
+\contentsline {subsection}{\numberline {2.2.6}Challenges and Opportunities in Teledermatology}{19}{subsection.2.2.6}%
+\contentsline {chapter}{\numberline {3}Methodology}{20}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Explorative Approach}{20}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Project Control}{20}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Research Steps}{21}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Literature Review}{21}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Data Collection and Preparation}{22}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Training and Validation}{23}{subsection.3.3.3}%
+\contentsline {subsubsection}{\nonumberline Overview of Training and Validation Processes}{23}{subsubsection*.25}%
+\contentsline {subsection}{\numberline {3.3.4}Testing and Experiments}{23}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Discussion and Further Development}{23}{subsection.3.3.5}%
+\contentsline {chapter}{\numberline {4}Implementation}{26}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Image Selection and Labeling Process}{26}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Image Filtering and Selection}{26}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Labeling of the Test Set}{26}{subsection.4.1.2}%
+\contentsline {subsubsection}{\nonumberline Visualization of Label Distribution}{27}{subsubsection*.27}%
+\contentsline {section}{\numberline {4.2}Distortion Pipeline}{27}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Distortion Types}{27}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Distortion Implementation Process}{28}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Gaussian Distribution Application}{29}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Feature Extraction with SimCLR}{29}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Framework Details}{30}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Regression Model Training and Validation}{30}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Model Selection and Training}{30}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Performance Metrics}{30}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}Model Testing}{30}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Testing with Labeled Test Set}{30}{subsection.4.5.1}%
+\contentsline {chapter}{\numberline {5}Results and Analysis}{31}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Discussion and Conclusion}{32}{chapter.6}%
 \setcounter {tocdepth}{0}
 \contentsline {chapter}{\numberline {A}Supplementary Material}{III}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Code}{V}{appendix.B}%

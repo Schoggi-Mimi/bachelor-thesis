@@ -27,7 +27,7 @@ Objective quality assessment relies on mathematical algorithms rather than human
 \begin{figure}[ht]
     \centering
     \includegraphics[keepaspectratio,width=15cm]{img/FRIQA.png}
-    \caption{Comparison between a distorted image and a reference image to compute quality scores.}
+    \caption{Comparison between a distorted image and a reference image to compute quality scores. (Created by the Author)}
     \label{fig:FRIQA}
 \end{figure}
 \textbf{Full-Reference IQA (FR-IQA)} \autoref{fig:FRIQA}  involves a comprehensive comparison between a distorted image and a reference image. In this method, features are extracted from both the distorted and the reference image, and their differences are quantitatively analyzed to compute a quality score. FR-IQA offers a detailed assessment of image quality but requires the availability of a reference image for every distorted image evaluated, which can sometimes limit its applicability. \par
@@ -35,7 +35,7 @@ Objective quality assessment relies on mathematical algorithms rather than human
 \begin{figure}[ht]
     \centering
     \includegraphics[keepaspectratio,width=15cm]{img/RRIQA.png}
-    \caption{Reduced-reference assessment comparing features extracted from distorted and reference images for quality analysis.}
+    \caption{Reduced-reference assessment comparing features extracted from distorted and reference images for quality analysis. (Created by the Author)}
     \label{fig:RRIQA}
 \end{figure}
 \textbf{Reduced-Reference IQA (RR-IQA)} \autoref{fig:RRIQA} operates under a similar principle to FR-IQA but does not require the complete reference image. Instead, it uses a reduced set of features extracted from both the distorted and reference images. This method strikes a balance between the exhaustive comparison of FR-IQA and the complete independence of NR-IQA, reducing computational demands while still providing meaningful quality assessments based on partial reference data. \par
@@ -49,7 +49,7 @@ Both FR-IQA and RR-IQA utilize two methods to analyze quality:
 \begin{figure}[ht]
     \centering
     \includegraphics[keepaspectratio,width=15cm]{img/NRIQA.png}
-    \caption{Quality assessment based solely on features extracted from the distorted image, without a reference image.}
+    \caption{Quality assessment based solely on features extracted from the distorted image, without a reference image. (Created by the Author)}
     \label{fig:NRIQA}
 \end{figure}
 
@@ -109,7 +109,7 @@ The common distortions are \footnote{https://arxiv.org/abs/2310.14918}:
         \caption{Compression}
         \label{fig:compression}
     \end{subfigure}
-    \caption{Example images illustrating common distortions used in Image Quality Assessment.}
+    \caption{Example images illustrating common distortions used in Image Quality Assessment. (adapted from \autocite{ARNIQA})}
     \label{fig:distortions}
 \end{figure}
 \begin{enumerate}
@@ -187,33 +187,33 @@ The availability of these datasets allows researchers to thoroughly test the rob
 
 \vspace{\baselineskip}
 \begin{itemize}
-    \item \textbf{LIVE} (Laboratory for Image \& Video Engineering) dataset (\cite{LIVE}) includes 29 reference images and 779 manually distorted images corrupted by 5 types of distortions: JPEG compression (JPEG), JPEG2000 compression (JP2K), white noise (WN), Gaussian blur (GB), and simulated fast fading Rayleigh channel (FF). Each distortion type contains 5 or 4 distortion levels. Most images are 768 $\times$ 512 pixels in size. Each distorted image in this dataset is associated with a Differential Mean Opinion Score (DMOS), scaled from 0 to 100, where 0 indicates no perceivable distortion. 
-    \item \textbf{TID2008} (Tampere image database 2008) dataset (\cite{TID2008}) includes 25 reference images and 1700 distorted images corrupted by 17 types of distortions, with 4 levels for each distortion type. All images have a fixed resolution of 512 $\times$ 384. This dataset provides MOS values and their standard deviations, with MOS ranging from 0 to 9, where 9 signifies a distortion-free image.
-    \item \textbf{TID2013} (Tampere image database 2013) dataset (\cite{TID2013}) is extended from TID2008 (\cite{TID2008}) by increasing the number of distortion levels to 5, and the number of distortion types to 24. Therefore, 3000 distorted images are generated from 25 pristine images. The subjective testing and data processing steps are similar to that of TID2008. DMOS values for this dataset were derived from over half a million ratings given by nearly a thousand observers, with values ranging from 0 to 9, where higher values denote poorer image quality.
-    \item \textbf{CSIQ} (Categorical subjective image quality (CSIQ) database) (\cite{CSIQ}) contains 30 pristine images and 866 distorted images corrupted by JPEG, JP2K, WN, GB, additive pink Gaussian noise, and global contrast decrements, with 5 or 4 levels for each distortion type. The resolution is 512 $\times$ 512. Each image in CSIQ is associated with DMOS values obtained from subjective ratings by 25 testers, with DMOS values scaled from 0 to 1, where higher values indicate worse quality.
-    \item \textbf{A57} (\cite{A57}) includes 3 pristine images and 54 distorted images corrupted by 6 types of distortions, with 3 levels for each distortion type. All images are in gray scale. The resolution is 512 $\times$ 512. \todo{search database and maybe add KonIQ-10k and other from ARNIQA!}
-    \item \textbf{WED} (Waterloo exploration database) (\cite{WED}) includes 4744 pristine natural images and 94880 distorted images corrupted by JPEG, JP2K, GB, and WN, with 5 levels for each distortion type. The images have various resolutions. No human opinion score is provided, but the authors introduce several alternative test criteria to evaluate the IQA models.
+    \item \textbf{LIVE} (Laboratory for Image \& Video Engineering) dataset \autocite{LIVE} includes 29 reference images and 779 manually distorted images corrupted by 5 types of distortions: JPEG compression (JPEG), JPEG2000 compression (JP2K), white noise (WN), Gaussian blur (GB), and simulated fast fading Rayleigh channel (FF). Each distortion type contains 5 or 4 distortion levels. Most images are 768 $\times$ 512 pixels in size. Each distorted image in this dataset is associated with a Differential Mean Opinion Score (DMOS), scaled from 0 to 100, where 0 indicates no perceivable distortion. 
+    \item \textbf{TID2008} (Tampere image database 2008) dataset \autocite{TID2008} includes 25 reference images and 1700 distorted images corrupted by 17 types of distortions, with 4 levels for each distortion type. All images have a fixed resolution of 512 $\times$ 384. This dataset provides MOS values and their standard deviations, with MOS ranging from 0 to 9, where 9 signifies a distortion-free image.
+    \item \textbf{TID2013} (Tampere image database 2013) dataset \autocite{TID2013} is extended from TID2008 \autocite{TID2008} by increasing the number of distortion levels to 5, and the number of distortion types to 24. Therefore, 3000 distorted images are generated from 25 pristine images. The subjective testing and data processing steps are similar to that of TID2008. DMOS values for this dataset were derived from over half a million ratings given by nearly a thousand observers, with values ranging from 0 to 9, where higher values denote poorer image quality.
+    \item \textbf{CSIQ} (Categorical subjective image quality (CSIQ) database) \autocite{CSIQ} contains 30 pristine images and 866 distorted images corrupted by JPEG, JP2K, WN, GB, additive pink Gaussian noise, and global contrast decrements, with 5 or 4 levels for each distortion type. The resolution is 512 $\times$ 512. Each image in CSIQ is associated with DMOS values obtained from subjective ratings by 25 testers, with DMOS values scaled from 0 to 1, where higher values indicate worse quality.
+    \item \textbf{A57} \autocite{A57} includes 3 pristine images and 54 distorted images corrupted by 6 types of distortions, with 3 levels for each distortion type. All images are in gray scale. The resolution is 512 $\times$ 512. \todo{search database and maybe add KonIQ-10k and other from ARNIQA!}
+    \item \textbf{WED} (Waterloo exploration database) \autocite{WED} includes 4744 pristine natural images and 94880 distorted images corrupted by JPEG, JP2K, GB, and WN, with 5 levels for each distortion type. The images have various resolutions. No human opinion score is provided, but the authors introduce several alternative test criteria to evaluate the IQA models.
 \end{itemize}
 
 \textbf{Multiple Distortions IQA Databases}
 \begin{itemize}
-    \item \textbf{LIVEMD} (LIVE multiply distorted) (\cite{LIVEMD}) database consists of 15 reference images and 405 multiply distorted images. The database includes one/double-fold artifacts. Each multiply distorted image is corrupted under two multiple distortion scenarios: Gaussian blur followed by JPEG and Gaussian blur followed by white noise. All images have a resolution of 1280 $\times$ 720. DMOS values for each distorted image range from 0 to 100.
-    \item \textbf{Multiply distorted image database 2013 (MDID2013)} \cite{MDID2013}: MDID2013 has a total of 12 pristine images and 324 distorted images. Each pristine image is corrupted successively by Gaussian blur, white noise, and JPEG. The images have resolutions of 768 $\times$ 512 or 1280 $\times$ 720.
-    \item \textbf{Multiply distorted image database 2016 (MDID2016)} \cite{MDID2016}: MDID2016 consists of 20 reference images and 1600 distorted images. Five distortion types are introduced, i.e., white noise, Gaussian blur, JPEG, JPEG2000, and contrast change (CC). The order of distortions is as follows: Gaussian blur or CC first, JPEG or JPEG2000 second, and white noise last. All distorted images are with random types and levels of distortions. The image resolution is 512 $\times$ 384.
+    \item \textbf{LIVEMD} (LIVE multiply distorted) \autocite{LIVEMD} database consists of 15 reference images and 405 multiply distorted images. The database includes one/double-fold artifacts. Each multiply distorted image is corrupted under two multiple distortion scenarios: Gaussian blur followed by JPEG and Gaussian blur followed by white noise. All images have a resolution of 1280 $\times$ 720. DMOS values for each distorted image range from 0 to 100.
+    \item \textbf{Multiply distorted image database 2013 (MDID2013)} \autocite{MDID2013}: MDID2013 has a total of 12 pristine images and 324 distorted images. Each pristine image is corrupted successively by Gaussian blur, white noise, and JPEG. The images have resolutions of 768 $\times$ 512 or 1280 $\times$ 720.
+    \item \textbf{Multiply distorted image database 2016 (MDID2016)} \autocite{MDID2016}: MDID2016 consists of 20 reference images and 1600 distorted images. Five distortion types are introduced, i.e., white noise, Gaussian blur, JPEG, JPEG2000, and contrast change (CC). The order of distortions is as follows: Gaussian blur or CC first, JPEG or JPEG2000 second, and white noise last. All distorted images are with random types and levels of distortions. The image resolution is 512 $\times$ 384.
 \end{itemize}
 
 \textbf{Screen Content IQA Databases}
 \begin{itemize}
-    \item \textbf{Screen Image Quality Assessment Database (SIQAD)} \cite{SIQAD}: SIQAD includes 20 pristine and 980 distorted screen content images (SCIs). Distortion types include white noise (WN), Gaussian blur (GB), color cast (CC), JPEG, JPEG2000 (JP2K), motion blur (MB), and layer segmentation-based compression, with 7 levels for each type. The images have various resolutions near 700 $\times$ 700.
-    \item \textbf{Screen Content Image Quality (SCIQ) Database} \cite{SCIQ}: SCIQ consists of 40 pristine and 1800 distorted SCIs corrupted by 9 types of distortions, including WN, GB, MB, CC, JPEG, JP2K, color saturation change (CSC), color quantization with dithering (CQD), and the screen content coding extension of High Efficiency Video Coding (HEVC-SCC). Five distortion levels are considered. The resolution is fixed at 1280 $\times$ 720.
-    \item \textbf{Cross-Content-Type (CCT) Database} \cite{CCT}: CCT is constructed to conduct cross-content-type IQA research. CCT consists of 72 pristine and 1320 distorted natural scene images (NSIs), computer graphic images (CGIs), and SCIs. Two distortion types are considered, i.e., HEVC and HEVC-SCC coding, with 11 distortion levels for each type. The image resolution is either 1920 $\times$ 1080 or 1280 $\times$ 720.
-    \item \textbf{Hybrid Screen Content and Natural Scene Image Database (HSNID)} \cite{HSNID}: HSNID has 10 pristine NSIs and 10 pristine SCIs, and 600 distorted NSIs and SCIs corrupted by WN, GB, MB, CC, JPEG, and JP2K, with 5 distortion levels for each type.
+    \item \textbf{Screen Image Quality Assessment Database (SIQAD)} \autocite{SIQAD}: SIQAD includes 20 pristine and 980 distorted screen content images (SCIs). Distortion types include white noise (WN), Gaussian blur (GB), color cast (CC), JPEG, JPEG2000 (JP2K), motion blur (MB), and layer segmentation-based compression, with 7 levels for each type. The images have various resolutions near 700 $\times$ 700.
+    \item \textbf{Screen Content Image Quality (SCIQ) Database} \autocite{SCIQ}: SCIQ consists of 40 pristine and 1800 distorted SCIs corrupted by 9 types of distortions, including WN, GB, MB, CC, JPEG, JP2K, color saturation change (CSC), color quantization with dithering (CQD), and the screen content coding extension of High Efficiency Video Coding (HEVC-SCC). Five distortion levels are considered. The resolution is fixed at 1280 $\times$ 720.
+    \item \textbf{Cross-Content-Type (CCT) Database} \autocite{CCT}: CCT is constructed to conduct cross-content-type IQA research. CCT consists of 72 pristine and 1320 distorted natural scene images (NSIs), computer graphic images (CGIs), and SCIs. Two distortion types are considered, i.e., HEVC and HEVC-SCC coding, with 11 distortion levels for each type. The image resolution is either 1920 $\times$ 1080 or 1280 $\times$ 720.
+    \item \textbf{Hybrid Screen Content and Natural Scene Image Database (HSNID)} \autocite{HSNID}: HSNID has 10 pristine NSIs and 10 pristine SCIs, and 600 distorted NSIs and SCIs corrupted by WN, GB, MB, CC, JPEG, and JP2K, with 5 distortion levels for each type.
 \end{itemize}
 
 \textbf{Authentic Distortions IQA Databases}
 \begin{itemize}
-    \item \textbf{LIVE in the wild image quality challenge database} \cite{LIVE_Wild} includes 1162 authentically distorted images captured using a variety of mobile devices. Complex real distortions, which are not well-modeled by the synthetic distortions are included. All images are cropped to the resolution of 500 $\times$ 500. A novel crowdsourcing system was employed to gather over 350,000 opinion scores from 8100 observers, ensuring the objectivity of the MOS values obtained.
-    \item \textbf{Camera image database (CID2013)} \cite{CID2013}: CID2013 is designed to test no-reference IQA algorithms. It includes 480 real images captured from 8 typical scenes using 79 consumer cameras and mobile phones. The images are rated from 5 aspects: the overall quality, sharpness, graininess, lightness, and color saturation scales. The images are scaled to a size of 1600 $\times$ 1200.
+    \item \textbf{LIVE in the wild image quality challenge database} \autocite{LIVE_Wild} includes 1162 authentically distorted images captured using a variety of mobile devices. Complex real distortions, which are not well-modeled by the synthetic distortions are included. All images are cropped to the resolution of 500 $\times$ 500. A novel crowdsourcing system was employed to gather over 350,000 opinion scores from 8100 observers, ensuring the objectivity of the MOS values obtained.
+    \item \textbf{Camera image database (CID2013)} \autocite{CID2013}: CID2013 is designed to test no-reference IQA algorithms. It includes 480 real images captured from 8 typical scenes using 79 consumer cameras and mobile phones. The images are rated from 5 aspects: the overall quality, sharpness, graininess, lightness, and color saturation scales. The images are scaled to a size of 1600 $\times$ 1200.
 \end{itemize}
 
 \subsection{State-of-the-Art in IQA}
@@ -228,6 +228,7 @@ ARNIQA is developed as a self-supervised approach that learns the image distorti
     \caption{Overview of the image degradation model from ARNIQA. Where they randomly assemble distortion compositions in ordered sequences of distortions applied consecutively, to synthetically generate images with a wide variety of degradation patterns. Each distortion composition sampled from 7 distinct distortion groups.}
     \label{fig:ARNIQAdegradation}
 \end{figure}
+\todo{better visualization of the degradation model}
 The model includes an innovative image degradation model that can synthesize images with a sequence of up to 100 times more distinct combinations of distortions compared to existing methods. This capability is critical as it allows for extensive training and robust model performance across a wide array of real-world distortions encountered in practical applications.\par
 \vspace{\baselineskip}
 \noindent
@@ -251,8 +252,24 @@ ARNIQA comprises three main components:
 \vspace{\baselineskip}
 \noindent
 \textbf{SimCLR (Simple Framework for Contrastive Learning)}: At the core of ARNIQA is the SimCLR framework, which is utilized to extract features in an unsupervised manner. This involves learning meaningful representations of data by maximizing the similarity between different views of the same image while also maximizing the dissimilarity between views of different images. This method is crucial for capturing essential patterns and relationships within the data, which are indicative of various image quality levels. \par
+\begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio,width=15cm]{img/method_SimCLR.png}
+    \caption{Overview of the training strategy in SimCLR as implemented in ARNIQA. The figure illustrates the process of extracting features from two different images that undergo identical distortions. It highlights the contrastive learning approach where similarities between similarly degraded crops are maximized and differences with half-scale degraded versions are emphasized, aiding in robust feature learning \autocite{ARNIQA}.}
+    \label{fig:SimCLR}
+\end{figure}
 \vspace{\baselineskip}
 \noindent
+SimCLR constructs positive pairs by degrading two different images with the same distortion configurations, thereby simulating a scenario where despite differing contents, the imposed distortions dictate the learning focus. For each pair, the framework extracts random crops from the images, applies the predefined distortions, and processes these to maximize the similarity of their embeddings while minimizing similarity with respect to embeddings from other degraded crops within the batch. \par
+\vspace{\baselineskip}
+\noindent
+To make the learning process more robust and effective, a strategic element is introduced by including hard negative examples in each batch. This is achieved by downsampling the images before cropping and distortion, which introduces a subtle yet fundamental variation due to information loss from the downsampling. This variation ensures that even images cropped from the same source but at different scales present as hard negatives to each other, enhancing the discriminative capability of the model. \par
+\vspace{\baselineskip}
+\noindent
+\autoref{fig:SimCLR} from the ARNIQA paper illustrates this training strategy beautifully. It shows how two pristine images are cropped, degraded in the same manner, and then used to train the model to recognize similar degradation patterns. It also depicts the use of half-scale degraded crops as hard negatives, which are crucial for teaching the model to differentiate between subtle differences in degradation despite similar content. \par
+\vspace{\baselineskip}
+\noindent
+
 \textbf{Linear Regressor}: A linear regressor is used to map the learned representations to quality scores. This component is vital as it translates the detailed features extracted by SimCLR into a straightforward quality score ranging from 0 to 1, where similar degrees and patterns of degradation yield similar scores, thereby reflecting their relative positions within the distortion manifold. \par
 \vspace{\baselineskip}
 \noindent
@@ -363,7 +380,7 @@ In teledermatology, the efficacy of remote diagnoses heavily relies on the quali
         \caption{Color Calibration}
         \label{fig:cc}
     \end{subfigure}
-    \caption{Example images illustrating common distortions used in Teledermatology Image Quality Assessment.}
+    \caption{Example images illustrating common distortions used in Teledermatology Image Quality Assessment. (Created by the Author)}
     \label{fig:quality_criteria}
 \end{figure}
 \begin{enumerate}
@@ -382,13 +399,13 @@ Each of these quality criteria contributes to the diagnostic accuracy in teleder
 \label{sub:DatasetsTD}
 The following datasets are valuable resources for teledermatology research and applications, especially notable for their accessibility and diversity. These datasets are not strictly confined to clinical settings or dermoscopic images and include patient-taken images, making them highly relevant for practical teledermatology purposes where clinical settings may vary:
 \begin{itemize}
-    \item \textbf{ACNE04}: This dataset focuses on acne severity and lesion counting, containing 1,457 images with detailed annotations for training and testing purposes (\cite{ACNE04}).
-    \item \textbf{DDI}: Provides 656 high-quality images curated by dermatologists for detailed skin tone evaluation and diagnostic accuracy (\cite{DDI}).
-    \item \textbf{Derm7pt}: Utilizes 1,011 lesion cases to train a neural network for classifying skin lesions and melanoma using the 7-point checklist (\cite{Derm7pt}).
-    \item \textbf{Fitzpatrick17k}: Includes 16,577 images annotated for Fitzpatrick skin type across 114 different skin conditions (\cite{F17K}).
-    \item \textbf{Monkeypox Dataset 2022}: Contains approximately 1,905 images focused on monkeypox, useful for developing diagnostic tools (\cite{Monkeypox}).
-    \item \textbf{PAD-UFES-20}: Comprises 2,298 clinical images from smartphones, enriched with clinical metadata for comprehensive research (\cite{PAD-UFES-20}).
-    \item \textbf{SCIN}: Emerged from a crowdsourcing initiative, this dataset contains 10,408 images capturing a broad spectrum of dermatological conditions (\cite{SCIN}).
+    \item \textbf{ACNE04}: This dataset focuses on acne severity and lesion counting, containing 1,457 images with detailed annotations for training and testing purposes \autocite{ACNE04}.
+    \item \textbf{DDI}: Provides 656 high-quality images curated by dermatologists for detailed skin tone evaluation and diagnostic accuracy \autocite{DDI}.
+    \item \textbf{Derm7pt}: Utilizes 1,011 lesion cases to train a neural network for classifying skin lesions and melanoma using the 7-point checklist \autocite{Derm7pt}.
+    \item \textbf{Fitzpatrick17k}: Includes 16,577 images annotated for Fitzpatrick skin type across 114 different skin conditions \autocite{F17K}.
+    \item \textbf{Monkeypox Dataset 2022}: Contains approximately 1,905 images focused on monkeypox, useful for developing diagnostic tools \autocite{Monkeypox}.
+    \item \textbf{PAD-UFES-20}: Comprises 2,298 clinical images from smartphones, enriched with clinical metadata for comprehensive research \autocite{PAD-UFES-20}.
+    \item \textbf{SCIN}: Emerged from a crowdsourcing initiative, this dataset contains 10,408 images capturing a broad spectrum of dermatological conditions \autocite{SCIN}.
 \end{itemize}
 \vspace{\baselineskip}
 \noindent
@@ -400,26 +417,26 @@ To understand the various approaches to Image Quality Assessment (IQA) within te
 
 \subsubsection{TrueImage: A Machine Learning Algorithm to Improve the Quality of Telehealth Photos}
 \label{subsub:TrueImage}
-The TrueImage algorithm prioritizes real-time, interactive feedback for patients taking dermatological images via their smartphones. Its three-stage process includes semantic segmentation to identify skin regions, feature generation focusing on blur, lighting, and zoom, and logistic regression classifiers that predict image quality and specific reasons for poor quality (\cite{TrueImage}). \par
+The TrueImage algorithm prioritizes real-time, interactive feedback for patients taking dermatological images via their smartphones. Its three-stage process includes semantic segmentation to identify skin regions, feature generation focusing on blur, lighting, and zoom, and logistic regression classifiers that predict image quality and specific reasons for poor quality \autocite{TrueImage}. \par
 \vspace{\baselineskip}
 \noindent
-The prototype exhibits promise, demonstrating the capability to reject approximately half of sub-par quality images while retaining around 80\% of good quality images. This suggests its potential utility in a clinical setting, where it could save time for both clinicians and patients by pre-screening image quality and offering specific feedback to improve poor submissions (\cite{TrueImage}).
+The prototype exhibits promise, demonstrating the capability to reject approximately half of sub-par quality images while retaining around 80\% of good quality images. This suggests its potential utility in a clinical setting, where it could save time for both clinicians and patients by pre-screening image quality and offering specific feedback to improve poor submissions \autocite{TrueImage}.
 \par
 \vspace{\baselineskip}
 \noindent
-Yet, TrueImage’s current limitation lies in its modest dataset and the training data's lack of diversity regarding skin types, which could lead to biased quality assessments. Furthermore, while the algorithm excels at detecting blurriness, it is less effective at assessing lighting conditions and zoom, which are critical factors in teledermatology (\cite{TrueImage}).\par
+Yet, TrueImage’s current limitation lies in its modest dataset and the training data's lack of diversity regarding skin types, which could lead to biased quality assessments. Furthermore, while the algorithm excels at detecting blurriness, it is less effective at assessing lighting conditions and zoom, which are critical factors in teledermatology \autocite{TrueImage}.\par
 
 \subsubsection{ImageQX: Explainable Image Quality Assessments in Teledermatological Photography}
 \label{subsub:ImageQX}
-ImageQX offers an automated, deployable method for IQA in teledermatology, addressing common image distortions: such as poor framing, bad lighting, blur, low resolution, and distance issues. With an architecture that employs the EfficientNet-B0 as a lightweight feature extractor. The network then employs linear layers, batch normalization, and dropout layers to predict poor image quality reasons, integrating them to forecast overall image quality (\cite{ImageQX}).
+ImageQX offers an automated, deployable method for IQA in teledermatology, addressing common image distortions: such as poor framing, bad lighting, blur, low resolution, and distance issues. With an architecture that employs the EfficientNet-B0 as a lightweight feature extractor. The network then employs linear layers, batch normalization, and dropout layers to predict poor image quality reasons, integrating them to forecast overall image quality \autocite{ImageQX}.
 \par
 \vspace{\baselineskip}
 \noindent
-The approach is data-driven, validated on a substantial dataset annotated by dermatologists, which underscores its potential for real-world applicability. With a macro F1-score of 0.73 for image quality assessment, ImageQX demonstrates expertise comparable to dermatologists and a capability for explainability via attention maps that can guide patients to retake pictures more effectively (\cite{ImageQX}).
+The approach is data-driven, validated on a substantial dataset annotated by dermatologists, which underscores its potential for real-world applicability. With a macro F1-score of 0.73 for image quality assessment, ImageQX demonstrates expertise comparable to dermatologists and a capability for explainability via attention maps that can guide patients to retake pictures more effectively \autocite{ImageQX}.
 \par
 \vspace{\baselineskip}
 \noindent
-However, while ImageQX achieves high specificity, suggesting minimal disruption to patient experience by incorrectly rejecting high-quality images, its predictive performance for certain poor quality explanations like 'bad framing' remains low, with an F1-score of 0.37 (\cite{ImageQX}). This indicates room for improvement in addressing certain types of distortions, though the network’s size (15MB) makes it an attractive option for mobile deployment.
+However, while ImageQX achieves high specificity, suggesting minimal disruption to patient experience by incorrectly rejecting high-quality images, its predictive performance for certain poor quality explanations like 'bad framing' remains low, with an F1-score of 0.37 \autocite{ImageQX}. This indicates room for improvement in addressing certain types of distortions, though the network’s size (15MB) makes it an attractive option for mobile deployment.
 \par
 \vspace{\baselineskip}
 \vspace{\baselineskip}

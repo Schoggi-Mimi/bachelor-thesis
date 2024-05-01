@@ -1,18 +1,19 @@
 \thispagestyle {empty}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces This diagram illustrates the streamlined process of a teledermatology consultation, starting from the patient capturing images of their skin condition to the receipt of a detailed medical report. Each step highlights the essential role of image quality in ensuring accurate diagnosis and effective patient care.}}{2}{figure.caption.4}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces This diagram illustrates the streamlined process of a teledermatology consultation, starting from the patient capturing images of their skin condition to the receipt of a detailed medical report. Each step highlights the essential role of image quality in ensuring accurate diagnosis and effective patient care. (Created by the Author)}}{2}{figure.caption.4}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Comparison between a distorted image and a reference image to compute quality scores.}}{5}{figure.caption.5}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Reduced-reference assessment comparing features extracted from distorted and reference images for quality analysis.}}{6}{figure.caption.6}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Quality assessment based solely on features extracted from the distorted image, without a reference image.}}{6}{figure.caption.7}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Example images illustrating common distortions used in Image Quality Assessment.}}{7}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Comparison between a distorted image and a reference image to compute quality scores. (Created by the Author)}}{5}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Reduced-reference assessment comparing features extracted from distorted and reference images for quality analysis. (Created by the Author)}}{6}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Quality assessment based solely on features extracted from the distorted image, without a reference image. (Created by the Author)}}{6}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Example images illustrating common distortions used in Image Quality Assessment. (adapted from \blx@tocontentsinit {0}\autocite {ARNIQA})}}{7}{figure.caption.8}%
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Overview of the image degradation model from ARNIQA. Where they randomly assemble distortion compositions in ordered sequences of distortions applied consecutively, to synthetically generate images with a wide variety of degradation patterns. Each distortion composition sampled from 7 distinct distortion groups.}}{11}{figure.caption.15}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Example images illustrating common distortions used in Teledermatology Image Quality Assessment.}}{15}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Overview of the training strategy in SimCLR as implemented in ARNIQA. The figure illustrates the process of extracting features from two different images that undergo identical distortions. It highlights the contrastive learning approach where similarities between similarly degraded crops are maximized and differences with half-scale degraded versions are emphasized, aiding in robust feature learning \blx@tocontentsinit {0}\autocite {ARNIQA}.}}{13}{figure.caption.17}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Example images illustrating common distortions used in Teledermatology Image Quality Assessment. (Created by the Author)}}{16}{figure.caption.18}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Illustration of the explorative approach, including the stages of initialization, idea generation, idea selection, and implementation. The lower part of the figure shows the decision cycles (\blx@tocontentsinit {0}\cite {DesignThinking}).}}{20}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Illustration of the explorative approach, including the stages of initialization, idea generation, idea selection, and implementation. The lower part of the figure shows the decision cycles \blx@tocontentsinit {0}\autocite {DesignThinking}.}}{21}{figure.caption.23}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Visualization of the degradation types belonging to the \textit {Brightness change} group for increasing levels of intensity.}}{IV}{figure.caption.28}%
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Visualization of the degradation types belonging to the \textit {Brightness change} group for increasing levels of intensity.}}{IV}{figure.caption.31}%
 \addvspace {10\p@ }
