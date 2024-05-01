@@ -38,13 +38,10 @@ These histograms provide valuable insights into the commonality and impact of ea
 
 \section{Distortion Pipeline}
 \label{sec:DistPipeline}
-The distortion pipeline is central to simulating realistic image quality issues. Each quality criterion has multiple types of distortions, each subdivided into five ranges of severity, structured to ensure that the higher the range, the stronger the distortion. Visual representations of the types of degradations at different ranges for each quality criterion will be provided in the \autoref{ch:Supplementary}.  \par
-Each distortion type is briefly described to clarify its impact on image quality. This section underscores the adaptability of the pipeline in generating training images that reflect a range of realistic conditions. \par
+The distortion pipeline is central to simulating realistic image quality issues. Each quality criterion has multiple types of distortions, each having five ranges of intensity, increasing in severity. All distortion types begin at zero, indicating no distortion applied, and progress to higher values that represent increasing levels of the specified distortion. Visual representations of the types of degradations at different ranges for each quality criterion is provided in the \autoref{ch:Supplementary}.  \par
 \vspace{\baselineskip}
 \noindent
-This subsection details the systematic approach to simulating image distortions that reflect realistic variations in quality as would be encountered in teledermatology. This process is essential for training the model to accurately assess and predict image quality based on the presence and severity of various distortions.\par
-\vspace{\baselineskip}
-\noindent
+This section describes each distortion type and its impact on image quality, highlighting the adaptability of the pipeline in generating training images that reflect a range of realistic conditions. \par
 
 \subsection{Distortion Types}
 \label{sub:DistTypes}
@@ -87,37 +84,35 @@ Here, each distortion type is briefly described, highlighting how they simulate 
         \end{itemize}
 \end{enumerate}
 
-\subsection{Distortion Implementation Process}
-\label{sub:DistProcess}
-The good quality images selected from the SCIN dataset are processed through a distortion pipeline where each image is subjected to multiple types of distortions corresponding to seven critical quality criteria. Each criterion includes different types of distortions, each having five ranges of intensity, increasing in severity. All distortion types begin at zero, indicating no distortion applied, and progress to higher values that represent increasing levels of the specified distortion. \par
+\section{Distortion Implementation Process}
+\label{sec:DistProcess}
+The good quality images selected from the SCIN \autocite{SCIN} dataset are processed, where each image is first resized to a target resolution of 512 pixels while maintaining the aspect ratio. This resizing is crucial to standardize the input size and improve the consistency of feature extraction across different images. For each image, a downsampled version is created. The downsampled image serves as a means to generate hard negative examples, enhancing the learning process. \par
 \vspace{\baselineskip}
 \noindent
-This structure allows for the creation of a uniform labeling system where the distortions are mapped to a range from 0 to 1, facilitating consistent assessment across different types of distortions:\par
-
-
+The images then undergo a series of distortions through a defined pipeline, as mentioned in \autoref{sec:DistPipeline}, which applies a sequence of distortion functions. These functions are chosen based on a Gaussian distribution with a mean of 0 and a standard deviation of 2.5, ensuring a probabilistic variation and to add a realistic randomness in the severity of applied distortions. The distortion values are mapped to a uniform scale from 0 to 1, representing the intensity of the distortion from none to extreme. This mapping is crucial for training the model to recognize and quantify these distortions accurately. \par
 \begin{table}[h]
-\centering
-\begin{tabularx}{\textwidth}{|X|X|X|X|X|}
-    \hline
-    \textbf{0} & \textbf{0.25} & \textbf{0.5} & \textbf{0.75} & \textbf{1} \\ \hline
-    No distortion applied & Slight distortion & Moderate distortion & Significant distortion & Extreme distortion \\ \hline
-\end{tabularx}
-\caption{Mapping of numerical values to levels of distortion.}
-\label{tab:distortion_levels}
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+        \hline
+        \textbf{0} & \textbf{0.25} & \textbf{0.5} & \textbf{0.75} & \textbf{1} \\ \hline
+        No distortion applied & Slight distortion & Moderate distortion & Significant distortion & Extreme distortion \\ \hline
+    \end{tabularx}
+    \caption{Mapping of numerical values to levels of distortion.}
+    \label{tab:a}
 \end{table}
 
 \noindent
-These mappings are crucial for maintaining a standard scale for training the model, ensuring that it can uniformly interpret and learn from the different levels of distortions applied to the images. \par
-
-\subsection{Gaussian Distribution Application}
-\label{sub:GaussianDist}
-To add a realistic randomness to the application of distortion levels, a Gaussian distribution is employed with a mean of 0 and a standard deviation of 2.5. This distribution decides the probability with which each level of distortion is applied, ensuring that the application of distortions mimics the variability seen in real-world scenarios. This randomness helps in testing the robustness of the model against a wide range of possible image conditions. \par
+After the distortions are applied, both the original and downsampled images are processed to extract smaller crops from significant areas such as the center and the four corners. This step is vital as it ensures that the model learns from various perspectives within the same image, enhancing the robustness of the learned features. The crops are then stacked to form a batch of images ready for feature extraction. But first, the images are normalized using standard values (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) to match the input requirements of the neural network used in SimCLR. This normalization helps in stabilizing the training process by scaling the input features to a common range. \par
 \vspace{\baselineskip}
 \noindent
-Once the images are distorted, they undergo feature extraction using the SimCLR framework from ARNIQA, detailed in the next subsection. \par
+The prepared images are then passed through the SimCLR network to extract features. The network maximizes the similarity of embeddings from images degraded in a similar manner while maximizing the dissimilarity with embeddings from different images or from downsampled versions, which serve as hard negative examples. \par
+
 
 \section{Feature Extraction with SimCLR}
 \label{sec:FeatureExtraction}
+Once the crops from the distorted and downsampled images have been generated, they are processed through the SimCLR framework implemented within the ARNIQA system to extract meaningful features. SimCLR, a pivotal component of ARNIQA, operates based on a self-supervised contrastive learning approach. This framework is adept at maximizing the similarity of features between images that have been distorted in a similar manner, regardless of their initial content. \par
+
+
 The implementation of the SimCLR framework from ARNIQA forms a pivotal part of the feature extraction process for this project. SimCLR stands out due to its robust self-supervised learning capabilities, particularly suited for handling the complex distortions applied to the images in this study.
 
 Overview of SimCLR in ARNIQA:

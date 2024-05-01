@@ -39,15 +39,14 @@
 \contentsline {subsubsection}{\nonumberline Visualization of Label Distribution}{27}{subsubsection*.27}%
 \contentsline {section}{\numberline {4.2}Distortion Pipeline}{27}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Distortion Types}{27}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Distortion Implementation Process}{28}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Gaussian Distribution Application}{29}{subsection.4.2.3}%
-\contentsline {section}{\numberline {4.3}Feature Extraction with SimCLR}{29}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Framework Details}{30}{subsection.4.3.1}%
-\contentsline {section}{\numberline {4.4}Regression Model Training and Validation}{30}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Model Selection and Training}{30}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Performance Metrics}{30}{subsection.4.4.2}%
-\contentsline {section}{\numberline {4.5}Model Testing}{30}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Testing with Labeled Test Set}{30}{subsection.4.5.1}%
+\contentsline {section}{\numberline {4.3}Distortion Implementation Process}{28}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Feature Extraction with SimCLR}{29}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Framework Details}{30}{subsection.4.4.1}%
+\contentsline {section}{\numberline {4.5}Regression Model Training and Validation}{30}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Model Selection and Training}{30}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Performance Metrics}{30}{subsection.4.5.2}%
+\contentsline {section}{\numberline {4.6}Model Testing}{30}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Testing with Labeled Test Set}{30}{subsection.4.6.1}%
 \contentsline {chapter}{\numberline {5}Results and Analysis}{31}{chapter.5}%
 \contentsline {chapter}{\numberline {6}Discussion and Conclusion}{32}{chapter.6}%
 \setcounter {tocdepth}{0}
