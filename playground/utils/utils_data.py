@@ -17,8 +17,9 @@ distortion_groups = {
     "focus": ["gaussian_blur", "lens_blur", "motion_blur"],
     "orientation": ["perspective_top", "perspective_bottom", "perspective_left", "perspective_right"],
     "color_calibration": ["color_saturation1", "color_saturation2"],
-    #"resolution": [""],
-    #"background": [""],
+    "background": ["color_block"],
+    "resolution": ["change_resolution"],
+    "field_of_view": ["crop_image"],
 }
 
 distortion_groups_mapping = {
@@ -33,6 +34,9 @@ distortion_groups_mapping = {
     "perspective_bottom": "orientation",
     "perspective_left": "orientation",
     "perspective_right": "orientation",
+    "color_block": "background",
+    "crop_image": "field_of_view",
+    "change_resolution": "resolution",
 }
 
 distortion_range = {
@@ -47,6 +51,9 @@ distortion_range = {
     "perspective_bottom": [0.0, 0.2, 0.4, 0.6, 0.8],
     "perspective_left": [0.0, 0.2, 0.4, 0.6, 0.8],
     "perspective_right": [0.0, 0.2, 0.4, 0.6, 0.8],
+    "color_block": [0.0, 0.5, 1.0, 1.5, 2.0],
+    "change_resolution": [0.0, 0.4, 0.6, 0.8, 1],
+    "crop_image": [0, 1, 2, 3, 4],
 }
 
 distortion_functions = {
@@ -61,6 +68,9 @@ distortion_functions = {
     "perspective_bottom": perspective_bottom,
     "perspective_left": perspective_left,
     "perspective_right": perspective_right,
+    "color_block": color_block,
+    "crop_image": crop_image,
+    "change_resolution": change_resolution,
 }
 
 def apply_distortion(img_path, distorted_image_path, method, range_val, distortion_functions):
@@ -164,12 +174,9 @@ def get_distortions_composition(num_levels: int = 5):
     distortions = [random.choice(distortion_groups[group]) for group in list(distortion_groups.keys())]
     distort_functions = [distortion_functions[dist] for dist in distortions]
 
-    probabilities = [1 / (STD * np.sqrt(2 * np.pi)) * np.exp(-((i - MEAN) ** 2) / (2 * STD ** 2))
-                     for i in range(num_levels)]  # probabilities according to a gaussian distribution
-    normalized_probabilities = [prob / sum(probabilities)
-                                for prob in probabilities]  # normalize probabilities
-    distort_values = [np.random.choice(distortion_range[dist][:num_levels], p=normalized_probabilities) for dist
-                      in distortions]
+    probabilities = [1 / (STD * np.sqrt(2 * np.pi)) * np.exp(-((i - MEAN) ** 2) / (2 * STD ** 2)) for i in range(num_levels)]  # probabilities according to a gaussian distribution
+    normalized_probabilities = [prob / sum(probabilities) for prob in probabilities]  # normalize probabilities
+    distort_values = [np.random.choice(distortion_range[dist][:num_levels], p=normalized_probabilities) for dist in distortions]
 
     return distort_functions, distort_values
 

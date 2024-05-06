@@ -9,7 +9,7 @@ Image Quality Assessment is crucial for identifying various forms of image degra
 \vspace{\baselineskip}
 Moreover, IQA often intersects with other areas of image assessment. For example, Image Aesthetics Assessment, which focuses on the visual appeal of images as perceived by human observers, shares common tools and objectives with IQA. Similarly, Image Fidelity Assessment deals with how accurately a reconstructed image represents the original scene, a concern that is closely linked to the core pursuits of IQA. These connections highlight the broad applicability and relevance of IQA methods in various domains, including those beyond traditional technical analysis, emphasizing the importance of developing robust IQA techniques.\par
 \vspace{\baselineskip}
-In addition to discussing these fundamental concepts, this section will review benchmark datasets commonly used in IQA research and explore state-of-the-art (SOTA) methods currently leading the field. This exploration not only provides a comprehensive background of IQA but also sets the stage for applying these methods and principles specifically to the challenges faced in teledermatology.\par
+In addition to discussing these fundamental concepts, this section will review benchmark datasets commonly used in IQA research and explore state\-of\-the\-art (SOTA) methods currently leading the field. This exploration not only provides a comprehensive background of IQA but also sets the stage for applying these methods and principles specifically to the challenges faced in teledermatology. \par
 
 \subsection{Subjective Quality Assessment}
 \label{sub:SubjectiveQualityAssessment}
@@ -26,7 +26,7 @@ Objective quality assessment relies on mathematical algorithms rather than human
 \vspace{\baselineskip}
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/FRIQA.png}
+    \includegraphics[keepaspectratio,width=15cm]{img/FRIQA.jpg}
     \caption{Comparison between a distorted image and a reference image to compute quality scores. (Created by the Author)}
     \label{fig:FRIQA}
 \end{figure}
@@ -34,7 +34,7 @@ Objective quality assessment relies on mathematical algorithms rather than human
 \vspace{\baselineskip}
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/RRIQA.png}
+    \includegraphics[keepaspectratio,width=15cm]{img/RRIQA.jpg}
     \caption{Reduced-reference assessment comparing features extracted from distorted and reference images for quality analysis. (Created by the Author)}
     \label{fig:RRIQA}
 \end{figure}
@@ -48,7 +48,7 @@ Both FR-IQA and RR-IQA utilize two methods to analyze quality:
 \vspace{\baselineskip}
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/NRIQA.png}
+    \includegraphics[keepaspectratio,width=15cm]{img/NRIQA.jpg}
     \caption{Quality assessment based solely on features extracted from the distorted image, without a reference image. (Created by the Author)}
     \label{fig:NRIQA}
 \end{figure}
@@ -254,7 +254,7 @@ ARNIQA comprises three main components:
 \textbf{SimCLR (Simple Framework for Contrastive Learning)}: At the core of ARNIQA is the SimCLR framework, which is utilized to extract features in an unsupervised manner. This involves learning meaningful representations of data by maximizing the similarity between different views of the same image while also maximizing the dissimilarity between views of different images. This method is crucial for capturing essential patterns and relationships within the data, which are indicative of various image quality levels. \par
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/method_SimCLR.png}
+    \includegraphics[keepaspectratio,width=15cm]{img/method_SimCLR.jpg}
     \caption{Overview of the training strategy in SimCLR as implemented in ARNIQA. The figure illustrates the process of extracting features from two different images that undergo identical distortions. It highlights the contrastive learning approach where similarities between similarly degraded crops are maximized and differences with half-scale degraded versions are emphasized, aiding in robust feature learning \autocite{ARNIQA}.}
     \label{fig:SimCLR}
 \end{figure}
@@ -335,48 +335,48 @@ In teledermatology, the efficacy of remote diagnoses heavily relies on the quali
 \begin{figure}[ht]
     \centering
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Original.jpg}
+        \includegraphics[width=\textwidth]{img/Reference.jpg}
         \caption{Original}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Original.jpg}
+        \includegraphics[width=\textwidth]{img/Lighting.jpg}
         \caption{Lighting}
         \label{fig:lighting}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Original.jpg}
+        \includegraphics[width=\textwidth]{img/Background.jpg}
         \caption{Background}
         \label{fig:background}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Original.jpg}
+        \includegraphics[width=\textwidth]{img/FoV.jpg}
         \caption{Field of View}
         \label{fig:FoV}
     \end{subfigure} 
 
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Original.jpg}
+        \includegraphics[width=\textwidth]{img/Orientation.jpg}
         \caption{Orientation}
         \label{fig:orientation}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Original.jpg}
+        \includegraphics[width=\textwidth]{img/Focus.jpg}
         \caption{Focus}
         \label{fig:focus}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Original.jpg}
+        \includegraphics[width=\textwidth]{img/Resolution.jpg}
         \caption{Resolution}
         \label{fig:resol}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
-        \includegraphics[width=\textwidth]{img/Original.jpg}
+        \includegraphics[width=\textwidth]{img/Color.jpg}
         \caption{Color Calibration}
         \label{fig:cc}
     \end{subfigure}
