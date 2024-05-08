@@ -1,5 +1,3 @@
-import ctypes
-import io
 import math
 import random
 
@@ -7,9 +5,7 @@ import kornia
 import numpy as np
 import torch
 import torchvision.transforms.functional as TF
-from PIL import Image
 from torch.nn import functional as F
-from torchvision import transforms
 
 from utils.utils_distortions import (curves, filter2D, fspecial,
                                      skin_segmentation)

@@ -2,7 +2,7 @@ import concurrent.futures
 import gc
 import os
 from random import randrange
-from typing import Callable, List, Union
+from typing import List
 
 import numpy as np
 import torch
@@ -52,7 +52,7 @@ distortion_range = {
     "perspective_left": [0.0, 0.2, 0.4, 0.6, 0.8],
     "perspective_right": [0.0, 0.2, 0.4, 0.6, 0.8],
     "color_block": [0.0, 0.5, 1.0, 1.5, 2.0],
-    "change_resolution": [0.0, 0.4, 0.6, 0.8, 1],
+    "change_resolution": [0.0, 0.2, 0.4, 0.6, 0.8],
     "crop_image": [0, 1, 2, 3, 4],
 }
 
@@ -125,7 +125,6 @@ def create_distortions_batch(img_path, folder_path, batch_size=10, counter=None)
                     if len(futures) >= batch_size:
                         concurrent.futures.wait(futures)  # Wait for batch processing to complete
                         futures.clear()  # Clear the list for the next batch
-        # Process any remaining futures
         concurrent.futures.wait(futures)
 
 def distort_images(image: torch.Tensor, distort_functions: list = None, distort_values: list = None, num_levels: int = 5) -> torch.Tensor:
@@ -181,12 +180,25 @@ def get_distortions_composition(num_levels: int = 5):
     return distort_functions, distort_values
 
 def map_distortion_values(distort_functions, distort_values):
+    """
+    Map distortion values to a normalized scale from 0 to 1 based on their defined ranges.
+
+    Args:
+        distort_functions (list): List of distortion functions applied to the images.
+        distort_values (list): List of actual distortion values corresponding to each function.
+
+    Returns:
+        list: Normalized distortion values where 0 represents no distortion and 1 represents the maximum distortion.
+    """
     distort_functions = [f.__name__ for f in distort_functions]
     mapped_values = []
+
     for func, val in zip(distort_functions, distort_values):
         range_vals = distortion_range.get(func)
         if range_vals:
-            mapped_value = np.interp(val, range_vals, [0, 0.25, 0.5, 0.75, 1])
+            min_val = min(range_vals)
+            max_val = max(range_vals)
+            mapped_value = (val - min_val) / (max_val - min_val)
             mapped_values.append(mapped_value)
         else:
             mapped_values.append(val)

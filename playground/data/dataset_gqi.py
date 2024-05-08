@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-import numpy as np
 import torch
 from PIL import Image
 from torch.utils.data import Dataset
@@ -37,7 +36,8 @@ class GQIDataset(Dataset):
             new_height = self.target_size
             new_width = int(self.target_size * aspect_ratio)
         
-        img = img.resize((new_width, new_height), Image.BICUBIC)
+        #img = img.resize((new_width, new_height), Image.BICUBIC)
+        #img = resize_crop(img_A, crop_size=self.crop_size)
         img_ds = resize_crop(img, crop_size=None, downscale_factor=2)
         img = transforms.ToTensor()(img)
         img_ds = transforms.ToTensor()(img_ds)
@@ -61,7 +61,7 @@ class GQIDataset(Dataset):
             img = self.normalize(img)
             img_ds = self.normalize(img_ds)
         mapped_values = map_distortion_values(distort_functions, distort_values)
-        mapped_values = torch.tensor(mapped_values, dtype=torch.float16)
+        mapped_values = torch.tensor(mapped_values, dtype=torch.float32)
 
         return {"img": img, "img_ds": img_ds, "label": mapped_values}
 
