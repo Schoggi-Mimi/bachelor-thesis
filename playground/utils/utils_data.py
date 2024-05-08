@@ -202,7 +202,7 @@ def map_distortion_values(distort_functions, distort_values):
             mapped_values.append(mapped_value)
         else:
             mapped_values.append(val)
-    return mapped_values
+    return torch.tensor(mapped_values, dtype=torch.float32)
 
 def center_corners_crop(img: PILImage, crop_size: int = 224) -> List[PILImage]:
     """

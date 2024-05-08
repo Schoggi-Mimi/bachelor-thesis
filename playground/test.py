@@ -1,29 +1,21 @@
 import os
 import random
-from typing import Tuple
+from typing import Optional, Tuple
 
+import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from einops import rearrange
-from sklearn.preprocessing import StandardScaler
-from sklearn.multioutput import MultiOutputRegressor
-from sklearn.neural_network import MLPRegressor
-from sklearn.svm import SVR
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.pipeline import make_pipeline
-from sklearn.linear_model import LinearRegression, SGDRegressor
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from scipy import stats
 from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.model_selection import train_test_split, cross_val_score
-from torch.optim.lr_scheduler import LRScheduler
+from sklearn.neural_network import MLPRegressor
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-import matplotlib.pyplot as plt
-from scipy import stats
 
 from data import GQIDataset
 
-def train_regressor(
+
+def test(
     root: str = "images",
     crop: bool = True,
     normalize: bool = True,
@@ -32,72 +24,39 @@ def train_regressor(
     model: torch.nn.Module = None,
     device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu"),
     save_dir: str = 'features',
-    cross_val: bool = False,
+    regressor: Optional[MLPRegressor] = None
 ):
     seed_it_all()
-
-    dataset = GQIDataset(root=root, crop=crop, normalize=normalize, phase="train")
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers, pin_memory=True, drop_last=True)
-
+    dataset = GQIDataset(root=root, crop=crop, normalize=normalize, phase="test")
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers, pin_memory=True, drop_last=True)
     features, scores = get_features_scores(model, dataloader, device, save_dir)
-
     image_indices = np.arange(len(dataset))
-    train_img_indices, val_img_indices = train_test_split(image_indices, test_size=0.25, random_state=42, shuffle=True)
-    train_indices = np.repeat(train_img_indices * 5, 5) + np.tile(np.arange(5), len(train_img_indices))
-    val_indices = np.repeat(val_img_indices * 5, 5) + np.tile(np.arange(5), len(val_img_indices))
-
-    train_features = features[train_indices]
-    train_scores = scores[train_indices]
-    val_features = features[val_indices]
-    val_scores = scores[val_indices]
-    val_scores = val_scores[::5]  # Scores are repeated for each crop, so we only keep the first one
-    orig_val_indices = val_indices[::5] // 5  # Get original indices
-
-    #scaler = StandardScaler()
-    #train_features_scaled = scaler.fit_transform(train_features)
-    #val_features_scaled = scaler.transform(val_features)
-    
-    #regressor = LinearRegression().fit(train_features, train_scores)
-    #regressor = RandomForestRegressor(n_estimators=50, random_state=42).fit(train_features, train_scores)
-    #regressor = MultiOutputRegressor(GradientBoostingRegressor(loss='huber', n_estimators=50, learning_rate=0.1, max_depth=3, random_state=42, verbose=1)).fit(train_features, train_scores)
-    #regressor = make_pipeline(PolynomialFeatures(2), LinearRegression()).fit(train_features, train_scores)
-    #regressor = MultiOutputRegressor(SVR(kernel='rbf', C=50, gamma='auto', verbose=True)).fit(train_features, train_scores)
-    #regressor = MLPRegressor(hidden_layer_sizes=(100,), activation='relu', solver='adam', learning_rate='adaptive', max_iter=200, random_state=42, verbose=True).fit(train_features, train_scores)
-    regressor = MLPRegressor(hidden_layer_sizes=(1024, 256, 64), activation='relu', solver='adam', max_iter=200, random_state=42, verbose=True).fit(train_features, train_scores) # (2048, 1024, 512), (1024, 512), (512, 256), (2048, 1024, 512, 256, 128, 64)
-    
-
-    if cross_val:
-        predictions = cross_val_score(regressor, val_features, val_scores, cv=5, scoring='neg_mean_squared_error')
-        predictions = -predictions
-        print("Cross-validation MSE scores:", predictions)
-        print("Average CV MSE:", np.mean(predictions))
-
-    predictions = regressor.predict(val_features)
+    test_indices = np.repeat(image_indices * 5, 5) + np.tile(np.arange(5), len(image_indices))
+    test_features = features[test_indices]
+    test_scores = scores[test_indices]
+    test_scores = test_scores[::5]  # Scores are repeated for each crop, so we only keep the first one
+    predictions = regressor.predict(test_features)
     predictions = np.reshape(predictions, (-1, 5, 7))  # Reshape to group crops per image
     predictions = np.mean(predictions, axis=1) # Average the predictions of the 5 crops of the same image
     predictions = np.clip(predictions, 0, 1)
 
     mae = []
     mse = []
-    
     for i in range(predictions.shape[1]):
-        mae_value = mean_absolute_error(val_scores[:, i], predictions[:, i])
-        mse_value = mean_squared_error(val_scores[:, i], predictions[:, i])
+        mae_value = mean_absolute_error(test_scores[:, i], predictions[:, i])
+        mse_value = mean_squared_error(test_scores[:, i], predictions[:, i])
         mae.append(round(mae_value,4))
         mse.append(round(mse_value,4))
-    global_mae_value = mean_absolute_error(val_scores.flatten(), predictions.flatten())
-    global_mse_value = mean_squared_error(val_scores.flatten(), predictions.flatten())
+    global_mae_value = mean_absolute_error(test_scores.flatten(), predictions.flatten())
+    global_mse_value = mean_squared_error(test_scores.flatten(), predictions.flatten())
 
-    correlations = calculate_global_and_metric_correlations(predictions, val_scores)
-
+    correlations = calculate_global_and_metric_correlations(predictions, test_scores)
     print(f"\n{'MAE':<15} {'MSE':<15} {'SROCC':<15} {'PLCC':<15}")
     print(f"{global_mae_value:<15.4f} {global_mse_value:<15.4f} {correlations['global']['spearman']:<15.4f} {correlations['global']['pearson']:<15.4f}\n")
     print("Metric-by-Metric Pearson Correlations:", correlations['by_metric']['pearson'])
     print("Metric-by-Metric Spearman Correlations:", correlations['by_metric']['spearman'], "\n")
 
-    plot_prediction_scores(val_scores, predictions, mae, mse)
-
-    return regressor
+    plot_prediction_scores(test_scores, predictions, mae, mse)
 
 def get_features_scores(model: torch.nn.Module,
                         dataloader: DataLoader,
