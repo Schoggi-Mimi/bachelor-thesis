@@ -86,6 +86,14 @@ Here, each distortion type is briefly described, highlighting how they simulate 
 
 \section{Distortion Implementation Process}
 \label{sec:DistProcess}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio,width=15cm]{img/Distortion_pipeline.jpg}
+    \caption{Distortion pipeline for generating training images with varying levels of distortion.}
+    \label{fig:DistPipeline}
+\end{figure}
+
 The good quality images selected from the SCIN \autocite{SCIN} dataset are processed, where each image is first resized to a target resolution of 512 pixels while maintaining the aspect ratio. This resizing is crucial to standardize the input size and improve the consistency of feature extraction across different images. For each image, a downsampled version is created. The downsampled image serves as a means to generate hard negative examples, enhancing the learning process. \par
 \vspace{\baselineskip}
 \noindent
@@ -107,6 +115,12 @@ After the distortions are applied, both the original and downsampled images are 
 \noindent
 The prepared images are then passed through the SimCLR network to extract features. The network maximizes the similarity of embeddings from images degraded in a similar manner while maximizing the dissimilarity with embeddings from different images or from downsampled versions, which serve as hard negative examples. \par
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio,width=15cm]{img/Architecture.jpg}
+    \caption{Architecture.}
+    \label{fig:Architecture}
+\end{figure}
 
 \section{Feature Extraction with SimCLR}
 \label{sec:FeatureExtraction}

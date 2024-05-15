@@ -1,0 +1,9 @@
+\glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
+\begin{theglossary}\glossaryheader
+\glsgroupheading{I}\relax \glsresetentrylist %
+\glossentry{iqa}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsignore{III}}}\glsgroupskip
+\glsgroupheading{T}\relax \glsresetentrylist %
+\glossentry{td}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsignore{III}}}%
+\end{theglossary}\glossarypostamble

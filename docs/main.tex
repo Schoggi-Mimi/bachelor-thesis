@@ -59,12 +59,22 @@
 
 \usepackage[absolute]{textpos}
 
-% Glossary, hyperref, babel, polyglossia, inputenc, fontenc must be loaded before this package if they are used
-%\usepackage{glossaries}
 % Redefine the quote charachter as we are using ngerman
 %\GlsSetQuote{+}
 % Define the usage of an acronym, Abbreviation (Abbr.), next usage: The Abbr. of ...
 %\setacronymstyle{long-short}
+% Glossary, hyperref, babel, polyglossia, inputenc, fontenc must be loaded before this package if they are used
+
+%%% Glossary %%%
+\usepackage[acronym]{glossaries}
+
+\makeglossaries
+%pdflatex main.tex
+%makeglossaries main
+%pdflatex main.tex
+%pdflatex main.tex
+\newglossaryentry{iqa}{name={IQA},description={Image Quality Assessment}}
+\newglossaryentry{td}{name={TD},description={Teledermatology}}
 
 % Bibliography & citing
 \usepackage[
@@ -214,9 +224,12 @@ Text
 \clearpage
 
 \pagestyle{empty}
-\tableofcontents \clearpage
+\tableofcontents
 
-\listoffigures 
+\glsaddallunused 
+\printglossary[title={List of Abbreviations}] \clearpage
+
+\listoffigures \clearpage
 
 \listoftables \clearpage
 
