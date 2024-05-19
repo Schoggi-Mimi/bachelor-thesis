@@ -1,16 +1,21 @@
 import math
-from typing import Tuple, Union
-
-import cv2
 import numpy as np
-import scipy
+from typing import Union, Tuple
 import torch
-from skimage.morphology import binary_closing, binary_opening, disk
 from torch.nn import functional as F
+import scipy
 
 
 def sign(x: float) -> int:
     return 1 if x >= 0 else -1
+
+
+def mapmm(x: torch.Tensor) -> torch.Tensor:
+    minx = torch.min(x)
+    maxx = torch.max(x)
+    if minx < maxx:
+        x = (x - minx) / (maxx - minx)
+    return x
 
 
 def fspecial(filter_type: str, p2: Union[int, Tuple[int, int]], p3: Union[int, float] = None) -> np.ndarray:
@@ -260,6 +265,38 @@ def histc(x: torch.Tensor, binranges: torch.Tensor) -> torch.Tensor:
     return torch.remainder(indices, len(binranges)) - 1
 
 
+def imscatter(x: torch.Tensor, amount: float, iterations=1) -> torch.Tensor:
+    y = x
+    for i in range(iterations):
+        shiftmap = torch.randn((2, x.shape[1], x.shape[2]), device=x.device) * amount
+
+        sy = shiftmap[0, :, :]
+        sx = shiftmap[1, :, :]
+
+        m_sx = torch.ceil(torch.abs(torch.max(sx))).to(torch.int32)
+        m_sy = torch.ceil(torch.abs(torch.max(sy))).to(torch.int32)
+
+        y = F.pad(y, (m_sy, m_sy), mode='replicate')
+        y = F.pad(y.transpose(2, 1), (m_sx, m_sx), mode='replicate').transpose(2, 1)
+
+        sy = F.pad(sy, (m_sy, m_sy), mode='replicate')
+        sy = F.pad(sy.transpose(1, 0), (m_sx, m_sx), mode='replicate').transpose(1, 0)
+        sx = F.pad(sx, (m_sy, m_sy), mode='replicate')
+        sx = F.pad(sx.transpose(1, 0), (m_sx, m_sx), mode='replicate').transpose(1, 0)
+
+        xx, yy = torch.as_tensor(np.mgrid[0:y.shape[1], 0:y.shape[2]], device=x.device)
+
+        z = torch.zeros_like(y)
+        bx = (xx - sx)
+        by = (yy - sy)
+        for i in range(3):
+            j = bilinear_interpolate_torch(y[i, ...], by, bx)
+            z[i, :, :] = j
+
+        y = z[:, m_sy:m_sy + x.shape[1], m_sx:m_sx + x.shape[2]]
+    return y
+
+
 def bilinear_interpolate_torch(im: torch.Tensor, x: torch.Tensor, y: torch.Tensor, eps: float = 1e-8) -> torch.Tensor:
     dtype_long = torch.LongTensor
 
@@ -283,36 +320,3 @@ def bilinear_interpolate_torch(im: torch.Tensor, x: torch.Tensor, y: torch.Tenso
     R2 = Ib * (x1 - x) / (x1 - x0 + eps) + Id * (x - x0) / (x1 - x0 + eps)
     P = R1 * (y1 - y) / (y1 - y0 + eps) + R2 * (y - y0) / (y1 - y0 + eps)
     return P
-
-def skin_segmentation(x: torch.Tensor) -> torch.Tensor:
-    # Convert tensor to numpy array and adjust channel order for OpenCV
-    x_np = x.permute(1, 2, 0).cpu().numpy()
-    x_np = (x_np * 255).astype(np.uint8)  # Assuming x is in [0, 1]
-    x_np = cv2.cvtColor(x_np, cv2.COLOR_RGB2BGR)
-
-    # Converting from BGR to HSV and YCrCb color spaces
-    img_HSV = cv2.cvtColor(x_np, cv2.COLOR_BGR2HSV)
-    img_YCrCb = cv2.cvtColor(x_np, cv2.COLOR_BGR2YCrCb)
-
-    # Skin color range for HSV color space
-    HSV_mask = cv2.inRange(img_HSV, (0, 15, 0), (17, 170, 255))
-    HSV_mask = cv2.morphologyEx(HSV_mask, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
-
-    # Skin color range for YCrCb color space
-    YCrCb_mask = cv2.inRange(img_YCrCb, (0, 135, 85), (255, 180, 135))
-    YCrCb_mask = cv2.morphologyEx(YCrCb_mask, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
-
-    # Merge skin detection (YCrCb and HSV)
-    global_mask = cv2.bitwise_and(YCrCb_mask, HSV_mask)
-    global_mask = cv2.medianBlur(global_mask, 3)
-    global_mask = cv2.morphologyEx(global_mask, cv2.MORPH_OPEN, np.ones((4, 4), np.uint8))
-
-    # Convert mask back to tensor
-    global_mask = torch.from_numpy(global_mask).to(torch.float32) / 255.0
-
-    # Apply morphological operations using skimage which expects boolean arrays
-    global_mask = global_mask.bool()
-    global_mask = binary_opening(global_mask, disk(2))
-    global_mask = binary_closing(global_mask, disk(5))
-
-    return global_mask
