@@ -13,6 +13,39 @@ Documents and code relevant to the thesis can be downloaded from the following l
 
 \includepdf[pages=-]{Aufgabenstellung_BAA.pdf}
 \todo{include risk management and project planning pdfs}
+
+\chapter{Dataset}
+\label{ch:Dataset}
+Detailed information on image quality assessment (IQA) databases: \par
+\begin{itemize}
+    \item \textbf{LIVE} (Laboratory for Image \& Video Engineering) dataset \autocite{LIVE} includes 29 reference images and 779 manually distorted images corrupted by 5 types of distortions: JPEG compression (JPEG), JPEG2000 compression (JP2K), white noise (WN), Gaussian blur (GB), and simulated fast fading Rayleigh channel (FF). Each distortion type contains 5 or 4 distortion levels. Most images are 768 $\times$ 512 pixels in size. Each distorted image in this dataset is associated with a Differential Mean Opinion Score (DMOS), scaled from 0 to 100, where 0 indicates no perceivable distortion. 
+    \item \textbf{TID2008} (Tampere image database 2008) dataset \autocite{TID2008} includes 25 reference images and 1700 distorted images corrupted by 17 types of distortions, with 4 levels for each distortion type. All images have a fixed resolution of 512 $\times$ 384. This dataset provides MOS values and their standard deviations, with MOS ranging from 0 to 9, where 9 signifies a distortion-free image.
+    \item \textbf{TID2013} (Tampere image database 2013) dataset \autocite{TID2013} is extended from TID2008 \autocite{TID2008} by increasing the number of distortion levels to 5, and the number of distortion types to 24. Therefore, 3000 distorted images are generated from 25 pristine images. The subjective testing and data processing steps are similar to that of TID2008. DMOS values for this dataset were derived from over half a million ratings given by nearly a thousand observers, with values ranging from 0 to 9, where higher values denote poorer image quality.
+    \item \textbf{CSIQ} (Categorical subjective image quality (CSIQ) database) \autocite{CSIQ} contains 30 pristine images and 866 distorted images corrupted by JPEG, JP2K, WN, GB, additive pink Gaussian noise, and global contrast decrements, with 5 or 4 levels for each distortion type. The resolution is 512 $\times$ 512. Each image in CSIQ is associated with DMOS values obtained from subjective ratings by 25 testers, with DMOS values scaled from 0 to 1, where higher values indicate worse quality.
+    \item \textbf{A57} \autocite{A57} includes 3 pristine images and 54 distorted images corrupted by 6 types of distortions, with 3 levels for each distortion type. All images are in gray scale. The resolution is 512 $\times$ 512. \todo{search database and maybe add KonIQ-10k and other from ARNIQA!}
+    \item \textbf{WED} (Waterloo exploration database) \autocite{WED} includes 4744 pristine natural images and 94880 distorted images corrupted by JPEG, JP2K, GB, and WN, with 5 levels for each distortion type. The images have various resolutions. No human opinion score is provided, but the authors introduce several alternative test criteria to evaluate the IQA models.
+\end{itemize}
+
+\textbf{Multiple Distortions IQA Databases}
+\begin{itemize}
+    \item \textbf{LIVEMD} (LIVE multiply distorted) \autocite{LIVEMD} database consists of 15 reference images and 405 multiply distorted images. The database includes one/double-fold artifacts. Each multiply distorted image is corrupted under two multiple distortion scenarios: Gaussian blur followed by JPEG and Gaussian blur followed by white noise. All images have a resolution of 1280 $\times$ 720. DMOS values for each distorted image range from 0 to 100.
+    \item \textbf{Multiply distorted image database 2013 (MDID2013)} \autocite{MDID2013}: MDID2013 has a total of 12 pristine images and 324 distorted images. Each pristine image is corrupted successively by Gaussian blur, white noise, and JPEG. The images have resolutions of 768 $\times$ 512 or 1280 $\times$ 720.
+    \item \textbf{Multiply distorted image database 2016 (MDID2016)} \autocite{MDID2016}: MDID2016 consists of 20 reference images and 1600 distorted images. Five distortion types are introduced, i.e., white noise, Gaussian blur, JPEG, JPEG2000, and contrast change (CC). The order of distortions is as follows: Gaussian blur or CC first, JPEG or JPEG2000 second, and white noise last. All distorted images are with random types and levels of distortions. The image resolution is 512 $\times$ 384.
+\end{itemize}
+
+\textbf{Screen Content IQA Databases}
+\begin{itemize}
+    \item \textbf{Screen Image Quality Assessment Database (SIQAD)} \autocite{SIQAD}: SIQAD includes 20 pristine and 980 distorted screen content images (SCIs). Distortion types include white noise (WN), Gaussian blur (GB), color cast (CC), JPEG, JPEG2000 (JP2K), motion blur (MB), and layer segmentation-based compression, with 7 levels for each type. The images have various resolutions near 700 $\times$ 700.
+    \item \textbf{Screen Content Image Quality (SCIQ) Database} \autocite{SCIQ}: SCIQ consists of 40 pristine and 1800 distorted SCIs corrupted by 9 types of distortions, including WN, GB, MB, CC, JPEG, JP2K, color saturation change (CSC), color quantization with dithering (CQD), and the screen content coding extension of High Efficiency Video Coding (HEVC-SCC). Five distortion levels are considered. The resolution is fixed at 1280 $\times$ 720.
+    \item \textbf{Cross-Content-Type (CCT) Database} \autocite{CCT}: CCT is constructed to conduct cross-content-type IQA research. CCT consists of 72 pristine and 1320 distorted natural scene images (NSIs), computer graphic images (CGIs), and SCIs. Two distortion types are considered, i.e., HEVC and HEVC-SCC coding, with 11 distortion levels for each type. The image resolution is either 1920 $\times$ 1080 or 1280 $\times$ 720.
+    \item \textbf{Hybrid Screen Content and Natural Scene Image Database (HSNID)} \autocite{HSNID}: HSNID has 10 pristine NSIs and 10 pristine SCIs, and 600 distorted NSIs and SCIs corrupted by WN, GB, MB, CC, JPEG, and JP2K, with 5 distortion levels for each type.
+\end{itemize}
+
+\textbf{Authentic Distortions IQA Databases}
+\begin{itemize}
+    \item \textbf{LIVE in the wild image quality challenge database} \autocite{LIVE_Wild} includes 1162 authentically distorted images captured using a variety of mobile devices. Complex real distortions, which are not well-modeled by the synthetic distortions are included. All images are cropped to the resolution of 500 $\times$ 500. A novel crowdsourcing system was employed to gather over 350,000 opinion scores from 8100 observers, ensuring the objectivity of the MOS values obtained.
+    \item \textbf{Camera image database (CID2013)} \autocite{CID2013}: CID2013 is designed to test no-reference IQA algorithms. It includes 480 real images captured from 8 typical scenes using 79 consumer cameras and mobile phones. The images are rated from 5 aspects: the overall quality, sharpness, graininess, lightness, and color saturation scales. The images are scaled to a size of 1600 $\times$ 1200.
+\end{itemize}
 \chapter{Degradation Types}
 \label{ch:Degradation_Types}
 
