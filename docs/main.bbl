@@ -419,6 +419,128 @@
       \verb https://www.science.org/doi/10.1126/sciadv.abq6147
       \endverb
     \endentry
+    \entry{TDCriteria}{article}{}
+      \name{author}{13}{}{%
+        {{un=0,uniquepart=base,hash=1633bcc649ca2d2b9614f3fa9fecbb1d}{%
+           family={Finnane},
+           familyi={F\bibinitperiod},
+           given={Anna},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=eab7670c5c74674911bcf2e7e665b598}{%
+           family={Curiel-Lewandrowski},
+           familyi={C\bibinithyphendelim L\bibinitperiod},
+           given={Clara},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d772e5d3240b3f9e0e901b146a457fb9}{%
+           family={Wimberley},
+           familyi={W\bibinitperiod},
+           given={Glen},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ddf76df21b10452c365a4a6fd4662a72}{%
+           family={Caffery},
+           familyi={C\bibinitperiod},
+           given={Liam},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fde1c235a987da2ae0d2578aae9b9dab}{%
+           family={Katragadda},
+           familyi={K\bibinitperiod},
+           given={Chinmayee},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=827b409202e4c699ab6d4f2bdf526d58}{%
+           family={Halpern},
+           familyi={H\bibinitperiod},
+           given={Allan},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=af27b06a0d2e5187a06b21a5b73dd071}{%
+           family={Marghoob},
+           familyi={M\bibinitperiod},
+           given={Ashfaq\bibnamedelima A.},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=75591bc43dc1e507a9eda2e102617eec}{%
+           family={Malvehy},
+           familyi={M\bibinitperiod},
+           given={Josep},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=eed1e56a6dc94fc81cfa0da8967a5ac4}{%
+           family={Kittler},
+           familyi={K\bibinitperiod},
+           given={Harald},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3d01c17d84f36782d5a49b0410dc994a}{%
+           family={Hofmann-Wellenhof},
+           familyi={H\bibinithyphendelim W\bibinitperiod},
+           given={Rainer},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=29f6f21d074c12edd3d94995fbe56430}{%
+           family={Abraham},
+           familyi={A\bibinitperiod},
+           given={Ivo},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5edae592b729a065cb6084215a2dbe38}{%
+           family={Soyer},
+           familyi={S\bibinitperiod},
+           given={H.\bibnamedelimi Peter},
+           giveni={H\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=83c595f75ab4426db7fe3d4261598fbe}{%
+           family={{On behalf of the International Society of Digital Imaging of the Skin (ISDIS) for the International Skin Imaging Collaboration (ISIC)}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{4f2d4efd4c686bf3b0a61740e6f59e67}
+      \strng{fullhash}{22ed51eb3034b5646f5e79e37d756be0}
+      \strng{bibnamehash}{22ed51eb3034b5646f5e79e37d756be0}
+      \strng{authorbibnamehash}{22ed51eb3034b5646f5e79e37d756be0}
+      \strng{authornamehash}{4f2d4efd4c686bf3b0a61740e6f59e67}
+      \strng{authorfullhash}{22ed51eb3034b5646f5e79e37d756be0}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{OBJECTIVE To provide guidelines for the clinical application of the Standards for Dermatological Imaging set forward by the ISIC. EVIDENCE REVIEW The ISIC recommendations were developed through a hybrid Delphi methodology. The methods for achieving consensus have been described previously. The practical application of these recommendations was evaluated by 2 clinical photographers with expertise in skin imaging. Images corresponding to each recommendation were taken by a clinical photographer and provided as visual examples of how these recommendations can be implemented in clinical practice. RESULTS The Standards for Dermatological Imaging developed by the ISIC members could be followed in the clinical setting. Images showing appropriate lighting, background color, field of view, image orientation, focus and depth of field, resolution, and scale and color calibration were obtained by the clinical photographer, by following the detailed recommendations for regional, close-up and dermoscopic images. CONCLUSIONS AND RELEVANCE Adhering to the recommendations is both feasible and achievable in practice. Adopting these Standards is the first step in achieving international standardization of skin imaging, with the potential to improve clinical outcomes and research activities.}
+      \field{day}{1}
+      \field{issn}{2168-6068}
+      \field{journaltitle}{JAMA Dermatology}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{number}{5}
+      \field{shortjournal}{JAMA Dermatol}
+      \field{title}{Proposed {{Technical Guidelines}} for the {{Acquisition}} of {{Clinical Images}} of {{Skin-Related Conditions}}}
+      \field{urlday}{23}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{volume}{153}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{453}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1001/jamadermatol.2016.6214
+      \endverb
+      \verb{file}
+      \verb /Users/choekyelnyungmartsang/Zotero/storage/HWNCWHI6/Finnane et al. - 2017 - Proposed Technical Guidelines for the Acquisition .pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://archderm.jamanetwork.com/article.aspx?doi=10.1001/jamadermatol.2016.6214
+      \endverb
+      \verb{url}
+      \verb http://archderm.jamanetwork.com/article.aspx?doi=10.1001/jamadermatol.2016.6214
+      \endverb
+    \endentry
     \entry{LIVE_Wild}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=3e0108af1e78568ae823af503315860a}{%
@@ -929,6 +1051,78 @@
       \endverb
       \verb{url}
       \verb http://ieeexplore.ieee.org/document/6489321/
+      \endverb
+    \endentry
+    \entry{SaF}{article}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=29c02be47bfd462b885e94ffe9425e86}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Simon\bibnamedelima W},
+           giveni={S\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=84ecb94aa1b7f519ee21fc7996b94de7}{%
+           family={Flynn},
+           familyi={F\bibinitperiod},
+           given={Michael\bibnamedelima Seth},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9dfb238fc7c979f9ba21325ffa65d101}{%
+           family={Kwock},
+           familyi={K\bibinitperiod},
+           given={Jeffery\bibnamedelima T},
+           giveni={J\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5c5b2e67a1f17aede37bfff558a341ac}{%
+           family={Nicholas},
+           familyi={N\bibinitperiod},
+           given={Matilda\bibnamedelima W},
+           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{73de8469206ce3b7214e26b87d7bf6a5}
+      \strng{fullhash}{ce472a1401585b342429f1599a6f057d}
+      \strng{bibnamehash}{ce472a1401585b342429f1599a6f057d}
+      \strng{authorbibnamehash}{ce472a1401585b342429f1599a6f057d}
+      \strng{authornamehash}{73de8469206ce3b7214e26b87d7bf6a5}
+      \strng{authorfullhash}{ce472a1401585b342429f1599a6f057d}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Background: Store-and-forward (SAF) teledermatology uses electronically stored information, including patient photographs and demographic information, for clinical decision-making asynchronous to the patient encounter. The integration of SAF teledermatology into clinical practice has been increasing in recent years, especially during the COVID-19 pandemic. Despite this growth, data regarding the outcomes of SAF teledermatology are limited. A key distinction among current literature involves comparing the quality and utility of images obtained by patients and trained clinicians, as these metrics may vary by the clinical expertise of the photographer. Objective: This narrative literature review aimed to characterize the outcomes of SAF teledermatology through the lens of patient- versus clinician-initiated photography and highlight important future directions for and challenges of the field. Methods: A literature search of peer-reviewed research was performed between February and April 2021. Key search terms included patient-initiated, patient-submitted, clinician-initiated, clinician-submitted, store-and-forward, asynchronous, remote, image, photograph, and teledermatology. Only studies published after 2001 in English were included. In total, 47 studies were identified from the PubMed electronic database and Google Scholar after omitting duplicate articles. Results: Image quality and diagnostic concordance are generally lower and more variable with patient-submitted images, which may impact their decision-making utility. SAF teledermatology can improve the efficiency of and access to care when photographs are taken by either clinicians or patients. The clinical outcomes of clinician-submitted images are comparable to those of in-person visits in the few studies that have investigated these outcomes. Coinciding with the onset of the COVID-19 pandemic, asynchronous teledermatology helped minimize unnecessary in-person visits in the outpatient setting, as many uncomplicated conditions could be adequately managed remotely via images captured by patients and referring clinicians. For the inpatient setting, SAF teledermatology minimized unnecessary contact during dermatology consultations, although current studies are limited by the heterogeneity of their outcomes. Conclusions: In general, photographs taken by trained clinicians are higher quality and have better and more relevant diagnostic and clinical outcomes. SAF teledermatology helped clinicians avoid unnecessary physical contact with patients in the outpatient and inpatient settings during the COVID-19 pandemic. Asynchronous teledermatology will likely play a greater role in the future as SAF images become integrated into synchronous teledermatology workflows. However, the obstacles summarized in this review should be addressed before its widespread implementation into clinical practice.}
+      \field{day}{18}
+      \field{issn}{2562-0959}
+      \field{journaltitle}{JMIR Dermatology}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{3}
+      \field{shortjournal}{JMIR Dermatol}
+      \field{shorttitle}{Store-and-{{Forward Images}} in {{Teledermatology}}}
+      \field{title}{Store-and-{{Forward Images}} in {{Teledermatology}}: {{Narrative Literature Review}}}
+      \field{urlday}{21}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{volume}{5}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{e37517}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.2196/37517
+      \endverb
+      \verb{file}
+      \verb /Users/choekyelnyungmartsang/Zotero/storage/IRHBXM7R/Jiang et al. - 2022 - Store-and-Forward Images in Teledermatology Narra.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://derma.jmir.org/2022/3/e37517
+      \endverb
+      \verb{url}
+      \verb https://derma.jmir.org/2022/3/e37517
       \endverb
     \endentry
     \entry{Derm7pt}{article}{}
@@ -2507,6 +2701,128 @@
       \verb https://www.science.org/doi/10.1126/sciadv.abq6147
       \endverb
     \endentry
+    \entry{TDCriteria}{article}{}
+      \name{author}{13}{}{%
+        {{un=0,uniquepart=base,hash=1633bcc649ca2d2b9614f3fa9fecbb1d}{%
+           family={Finnane},
+           familyi={F\bibinitperiod},
+           given={Anna},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=eab7670c5c74674911bcf2e7e665b598}{%
+           family={Curiel-Lewandrowski},
+           familyi={C\bibinithyphendelim L\bibinitperiod},
+           given={Clara},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d772e5d3240b3f9e0e901b146a457fb9}{%
+           family={Wimberley},
+           familyi={W\bibinitperiod},
+           given={Glen},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ddf76df21b10452c365a4a6fd4662a72}{%
+           family={Caffery},
+           familyi={C\bibinitperiod},
+           given={Liam},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fde1c235a987da2ae0d2578aae9b9dab}{%
+           family={Katragadda},
+           familyi={K\bibinitperiod},
+           given={Chinmayee},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=827b409202e4c699ab6d4f2bdf526d58}{%
+           family={Halpern},
+           familyi={H\bibinitperiod},
+           given={Allan},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=af27b06a0d2e5187a06b21a5b73dd071}{%
+           family={Marghoob},
+           familyi={M\bibinitperiod},
+           given={Ashfaq\bibnamedelima A.},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=75591bc43dc1e507a9eda2e102617eec}{%
+           family={Malvehy},
+           familyi={M\bibinitperiod},
+           given={Josep},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=eed1e56a6dc94fc81cfa0da8967a5ac4}{%
+           family={Kittler},
+           familyi={K\bibinitperiod},
+           given={Harald},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3d01c17d84f36782d5a49b0410dc994a}{%
+           family={Hofmann-Wellenhof},
+           familyi={H\bibinithyphendelim W\bibinitperiod},
+           given={Rainer},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=29f6f21d074c12edd3d94995fbe56430}{%
+           family={Abraham},
+           familyi={A\bibinitperiod},
+           given={Ivo},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5edae592b729a065cb6084215a2dbe38}{%
+           family={Soyer},
+           familyi={S\bibinitperiod},
+           given={H.\bibnamedelimi Peter},
+           giveni={H\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=83c595f75ab4426db7fe3d4261598fbe}{%
+           family={{On behalf of the International Society of Digital Imaging of the Skin (ISDIS) for the International Skin Imaging Collaboration (ISIC)}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{4f2d4efd4c686bf3b0a61740e6f59e67}
+      \strng{fullhash}{22ed51eb3034b5646f5e79e37d756be0}
+      \strng{bibnamehash}{22ed51eb3034b5646f5e79e37d756be0}
+      \strng{authorbibnamehash}{22ed51eb3034b5646f5e79e37d756be0}
+      \strng{authornamehash}{4f2d4efd4c686bf3b0a61740e6f59e67}
+      \strng{authorfullhash}{22ed51eb3034b5646f5e79e37d756be0}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{OBJECTIVE To provide guidelines for the clinical application of the Standards for Dermatological Imaging set forward by the ISIC. EVIDENCE REVIEW The ISIC recommendations were developed through a hybrid Delphi methodology. The methods for achieving consensus have been described previously. The practical application of these recommendations was evaluated by 2 clinical photographers with expertise in skin imaging. Images corresponding to each recommendation were taken by a clinical photographer and provided as visual examples of how these recommendations can be implemented in clinical practice. RESULTS The Standards for Dermatological Imaging developed by the ISIC members could be followed in the clinical setting. Images showing appropriate lighting, background color, field of view, image orientation, focus and depth of field, resolution, and scale and color calibration were obtained by the clinical photographer, by following the detailed recommendations for regional, close-up and dermoscopic images. CONCLUSIONS AND RELEVANCE Adhering to the recommendations is both feasible and achievable in practice. Adopting these Standards is the first step in achieving international standardization of skin imaging, with the potential to improve clinical outcomes and research activities.}
+      \field{day}{1}
+      \field{issn}{2168-6068}
+      \field{journaltitle}{JAMA Dermatology}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{number}{5}
+      \field{shortjournal}{JAMA Dermatol}
+      \field{title}{Proposed {{Technical Guidelines}} for the {{Acquisition}} of {{Clinical Images}} of {{Skin-Related Conditions}}}
+      \field{urlday}{23}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{volume}{153}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{453}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1001/jamadermatol.2016.6214
+      \endverb
+      \verb{file}
+      \verb /Users/choekyelnyungmartsang/Zotero/storage/HWNCWHI6/Finnane et al. - 2017 - Proposed Technical Guidelines for the Acquisition .pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://archderm.jamanetwork.com/article.aspx?doi=10.1001/jamadermatol.2016.6214
+      \endverb
+      \verb{url}
+      \verb http://archderm.jamanetwork.com/article.aspx?doi=10.1001/jamadermatol.2016.6214
+      \endverb
+    \endentry
     \entry{LIVE_Wild}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=3e0108af1e78568ae823af503315860a}{%
@@ -3017,6 +3333,78 @@
       \endverb
       \verb{url}
       \verb http://ieeexplore.ieee.org/document/6489321/
+      \endverb
+    \endentry
+    \entry{SaF}{article}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=29c02be47bfd462b885e94ffe9425e86}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Simon\bibnamedelima W},
+           giveni={S\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=84ecb94aa1b7f519ee21fc7996b94de7}{%
+           family={Flynn},
+           familyi={F\bibinitperiod},
+           given={Michael\bibnamedelima Seth},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9dfb238fc7c979f9ba21325ffa65d101}{%
+           family={Kwock},
+           familyi={K\bibinitperiod},
+           given={Jeffery\bibnamedelima T},
+           giveni={J\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5c5b2e67a1f17aede37bfff558a341ac}{%
+           family={Nicholas},
+           familyi={N\bibinitperiod},
+           given={Matilda\bibnamedelima W},
+           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{73de8469206ce3b7214e26b87d7bf6a5}
+      \strng{fullhash}{ce472a1401585b342429f1599a6f057d}
+      \strng{bibnamehash}{ce472a1401585b342429f1599a6f057d}
+      \strng{authorbibnamehash}{ce472a1401585b342429f1599a6f057d}
+      \strng{authornamehash}{73de8469206ce3b7214e26b87d7bf6a5}
+      \strng{authorfullhash}{ce472a1401585b342429f1599a6f057d}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Background: Store-and-forward (SAF) teledermatology uses electronically stored information, including patient photographs and demographic information, for clinical decision-making asynchronous to the patient encounter. The integration of SAF teledermatology into clinical practice has been increasing in recent years, especially during the COVID-19 pandemic. Despite this growth, data regarding the outcomes of SAF teledermatology are limited. A key distinction among current literature involves comparing the quality and utility of images obtained by patients and trained clinicians, as these metrics may vary by the clinical expertise of the photographer. Objective: This narrative literature review aimed to characterize the outcomes of SAF teledermatology through the lens of patient- versus clinician-initiated photography and highlight important future directions for and challenges of the field. Methods: A literature search of peer-reviewed research was performed between February and April 2021. Key search terms included patient-initiated, patient-submitted, clinician-initiated, clinician-submitted, store-and-forward, asynchronous, remote, image, photograph, and teledermatology. Only studies published after 2001 in English were included. In total, 47 studies were identified from the PubMed electronic database and Google Scholar after omitting duplicate articles. Results: Image quality and diagnostic concordance are generally lower and more variable with patient-submitted images, which may impact their decision-making utility. SAF teledermatology can improve the efficiency of and access to care when photographs are taken by either clinicians or patients. The clinical outcomes of clinician-submitted images are comparable to those of in-person visits in the few studies that have investigated these outcomes. Coinciding with the onset of the COVID-19 pandemic, asynchronous teledermatology helped minimize unnecessary in-person visits in the outpatient setting, as many uncomplicated conditions could be adequately managed remotely via images captured by patients and referring clinicians. For the inpatient setting, SAF teledermatology minimized unnecessary contact during dermatology consultations, although current studies are limited by the heterogeneity of their outcomes. Conclusions: In general, photographs taken by trained clinicians are higher quality and have better and more relevant diagnostic and clinical outcomes. SAF teledermatology helped clinicians avoid unnecessary physical contact with patients in the outpatient and inpatient settings during the COVID-19 pandemic. Asynchronous teledermatology will likely play a greater role in the future as SAF images become integrated into synchronous teledermatology workflows. However, the obstacles summarized in this review should be addressed before its widespread implementation into clinical practice.}
+      \field{day}{18}
+      \field{issn}{2562-0959}
+      \field{journaltitle}{JMIR Dermatology}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{3}
+      \field{shortjournal}{JMIR Dermatol}
+      \field{shorttitle}{Store-and-{{Forward Images}} in {{Teledermatology}}}
+      \field{title}{Store-and-{{Forward Images}} in {{Teledermatology}}: {{Narrative Literature Review}}}
+      \field{urlday}{21}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{volume}{5}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{e37517}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.2196/37517
+      \endverb
+      \verb{file}
+      \verb /Users/choekyelnyungmartsang/Zotero/storage/IRHBXM7R/Jiang et al. - 2022 - Store-and-Forward Images in Teledermatology Narra.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://derma.jmir.org/2022/3/e37517
+      \endverb
+      \verb{url}
+      \verb https://derma.jmir.org/2022/3/e37517
       \endverb
     \endentry
     \entry{Derm7pt}{article}{}
