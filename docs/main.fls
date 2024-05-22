@@ -725,6 +725,10 @@ INPUT ./img/DecisionCycle.jpg
 INPUT ./img/DecisionCycle.jpg
 INPUT ./img/DecisionCycle.jpg
 INPUT ./img/DecisionCycle.jpg
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/helvetic/phvr8t.vf
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/helvetic/phvr8t.vf
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
 INPUT ./chapters/04_implementation.tex
 INPUT ./chapters/04_implementation.tex
 OUTPUT chapters/04_implementation.aux
