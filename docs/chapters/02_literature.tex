@@ -204,10 +204,10 @@ An overview of IQA databases is provided in \autoref{tab:iqa_databases}, and mor
 The current state-of-the-art in Image Quality Assessment (IQA) is ARNIQA \autocite{ARNIQA} , with version 2 released on November 4, 2023. ARNIQA (leArning distoRtion maNifold for Image Quality Assessment) represents a major advancement in No-Reference Image Quality Assessment (NR-IQA). This technology aims to measure image quality based on human perception, even without a reference image. This capability is crucial in fields like teledermatology, where the quality of images directly impacts diagnostic accuracy. \par
 \vspace{\baselineskip}
 \noindent
-\textbf{Overview of ARNIQA}: ARNIQA is developed using a self-supervised learning approach. It learns a comprehensive model of all possible image distortions, focusing on the types and quality of distortions rather than the content of the images themselves. This makes it highly adaptable across various domains where image content can differ significantly. \par
+\textbf{Overview}: ARNIQA is developed using a self-supervised learning approach. It learns a comprehensive model of all possible image distortions, focusing on the types and quality of distortions rather than the content of the images themselves. This makes it highly adaptable across various domains where image content can differ significantly. \par
 \vspace{\baselineskip}
 \noindent
-\textbf{Key Features of ARNIQA}:
+\textbf{Key Features}:
 \begin{figure}[ht]
     \centering
     \includegraphics[keepaspectratio,width=15cm]{img/method_SimCLR.jpg}
@@ -221,14 +221,41 @@ The current state-of-the-art in Image Quality Assessment (IQA) is ARNIQA \autoci
 \end{enumerate}
 \vspace{\baselineskip}
 \noindent
-\textbf{Training Strategy of ARNIQA}: ARNIQA’s training strategy involves two main phases: \par
+\textbf{Training Strategy}: ARNIQA’s training strategy involves two main phases: \par
 \begin{enumerate}
     \item Encoder Pre-training: The model is first trained on a large set of unlabeled images that are synthetically degraded. This helps the encoder learn features related to different types and levels of image degradation.
     \item Regressor Training:In the second phase, a specific regressor is trained using the Mean Opinion Scores (MOS) of images. This step translates the learned features into actual quality scores.
 \end{enumerate}
 \vspace{\baselineskip}
 \noindent
-\textbf{Advantages of ARNIQA}: ARNIQA achieves high performance with only up to 0.5\% of the data required by other methods, thanks to its focus on distortion patterns rather than image content. It provides reliable and consistent quality assessments across a wide range of distortions and severities, demonstrating its robustness. Additionally, ARNIQA is particularly suitable for teledermatology as it can handle varying image quality resulting from different lighting conditions, camera quality, and patient handling. \par
+\textbf{Evaluation Metrics}: ARNIQA uses SRCC (Spearman’s Rank Order Correlation Coefficient) and PLCC (Pearson Linear Correlation Coefficient) to evaluate its performance. These metrics measure how well the model's predictions match the actual image quality rankings and scores. \par
+\vspace{\baselineskip}
+\noindent
+SRCC checks how well the predicted rankings of image quality match the actual rankings. It is calculated as: \par
+\begin{equation}
+    SRCC = 1 - \frac{6 \sum_{i=1}^n (d_i^2)}{n(n^2 - 1)}
+\end{equation}
+\noindent
+where, \newline
+$n: \text{Number of images} \\ d_i: \text{Difference in ranks between predicted and actual scores for image } i$ \par
+\vspace{\baselineskip}
+\noindent
+An SRCC of 1 means perfect rank correlation, and -1 means perfect negative correlation. \par
+\vspace{\baselineskip}
+\noindent
+PLCC measures the linear relationship between the predicted and actual quality scores. It is calculated as: \par
+\begin{equation}
+    PLCC = \frac{\sum_{i=1}^n (P_i - \bar{P})(A_i - \bar{A})}{\sqrt{\sum_{i=1}^n (P_i - \bar{P})^2 \sum_{i=1}^n (A_i - \bar{A})^2}}
+\end{equation}
+\noindent
+where, \newline
+$n: \text{Number of images} \\ P_i: \text{Predicted score for image } i \\ A_i: \text{Actual score for image } i \\ \bar{P}: \text{Average predicted score} \\ \bar{A}: \text{Average actual score}$ \par
+\vspace{\baselineskip}
+\noindent
+A PLCC of 1 means a perfect positive linear relationship, and -1 means a perfect negative linear relationship. \par
+\vspace{\baselineskip}
+\noindent
+\textbf{Advantages}: ARNIQA achieves high performance with only up to 0.5\% of the data required by other methods, thanks to its focus on distortion patterns rather than image content. It provides reliable and consistent quality assessments across a wide range of distortions and severities, demonstrating its robustness. Additionally, ARNIQA is particularly suitable for teledermatology as it can handle varying image quality resulting from different lighting conditions, camera quality, and patient handling. \par
 
 \subsection{Challenges and Opportunities in Image Quality Assessment}
 \label{sub:ChallengesOpportunitiesIQA}

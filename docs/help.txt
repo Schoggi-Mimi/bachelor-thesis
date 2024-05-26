@@ -111,7 +111,7 @@ The figure \ref{fig:Figure_name}\footnote{Image from \cite{Citation_name}.} show
 ~\parencite{Name_of_reference}
 
 % Footnote
-footnote{https://url}
+\footnote{https://url}
 
 % Figure
 \begin{figure}[ht]
