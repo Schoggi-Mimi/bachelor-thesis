@@ -1,6 +1,6 @@
 \chapter{Implementation}
 \label{ch:Implementation}
-This chapter explains the detailed implementation of the methods described in \autoref{ch:Methodology}. It covers the specific processes, experiments, and analyses conducted. This includes the practical steps taken to prepare data, apply distortions, extract features, and train the models to assess image quality in teledermatology. \par
+This chapter explains the detailed implementation of the methods described in \autoref{ch:Methodology}. It covers the specific processes, experiments, and analyses conducted. This includes the practical steps taken to prepare images, apply distortions, extract features, and train the models to assess image quality in teledermatology. \par
 
 \section{Image Selection and Labeling Process}
 \label{sec:ImgSelectLabel}
@@ -30,7 +30,14 @@ To understand the distribution of labels and how often distortions occur across 
     \label{fig:DistTestCriteria}
 \end{figure}
 \noindent
-These histograms provide valuable insights into the commonality and impact of each type of distortion, helping analyze how distortions affect overall image quality. They also highlight the criteria that may need more attention during the model training and validation process.\todo{mention further what i see in the plot.} \par
+In \autoref{fig:DistTestCriteria} most criteria show a right-skewed distribution, indicating that higher levels of distortions are less common. This is evident in the criteria such as orientation, color calibration, background, resolution, and field of view. In contrast, the distributions for lighting and focus are more symmetrical, suggesting a more even spread of distortion severity levels. Since an image can have multiple distortions at once, it was difficult to separate them individually. For example, when an image is dark due to lighting issues, it becomes hard to judge other factors like focus, resolution, background, or color accuracy. These findings highlight the need to handle multiple distortions together during model training. They also point out the challenges in accurately labeling and assessing images that have several overlapping distortions. \par
+\begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio,width=15cm]{img/Distribution_test_criteria2.png}
+    \caption{Histograms showing the distribution of distortion scores for each quality criterion.}
+    \label{fig:DistTestCriteria2}
+\end{figure}
+\noindent
 \section{Distortion Pipeline}
 \label{sec:DistPipeline}
 The distortion pipeline is central to simulating realistic image quality issues in teledermatology. Each quality criterion has multiple types of distortions, each having five levels of intensity, increasing in severity. All distortion types begin at zero, indicating no distortion applied, and progress to higher values that represent increasing levels of the specified distortion. Visual representations of the types of degradations at different ranges for each quality criterion are provided in \autoref{ch:Supplementary}.  \par
@@ -84,7 +91,7 @@ The distortions for Lighting, Focus, and Color Calibration were adapted from the
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/Distortion_pipeline.jpg}
+    \includegraphics[keepaspectratio,width=15cm]{img/Distortion_pipeline.png}
     \caption{Distortion pipeline for generating training images with varying levels of distortion.}
     \label{fig:DistPipeline}
 \end{figure}
@@ -105,7 +112,7 @@ This process can generate 3'750'000 possible combinations of distorted images be
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/Architecture.jpg}
+    \includegraphics[keepaspectratio,width=15cm]{img/Architecture.png}
     \caption{Architecture.}
     \label{fig:Architecture}
 \end{figure}

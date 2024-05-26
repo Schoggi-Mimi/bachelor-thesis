@@ -75,6 +75,31 @@ After completing the training, the models are evaluated using independent test d
 \subsection{Evaluation Metrics}
 \label{sub:EvaluationMetrics}
 The evaluation is conducted using defined metrics such as Mean Absolute Error (MAE), R-squared (R\^2), Spearman’s Rank Order Correlation Coefficient (SRCC), and Cohen’s Kappa. The results of this evaluation provide valuable insights into the strengths and weaknesses of the image quality assessment models and serve as a basis for further improvements or adjustments. \par \todo{check this subsection again}
+\subsubsection{Spearmans Rank Order Correlation Coefficient (SRCC)}
+\label{subsub:SRCC}
+SRCC checks how well the predicted rankings of image quality match the actual rankings. It is calculated as: \par
+\begin{equation}
+    SRCC = 1 - \frac{6 \sum_{i=1}^n (d_i^2)}{n(n^2 - 1)}
+\end{equation}
+\noindent
+where, \newline
+$n: \text{Number of images} \\ d_i: \text{Difference in ranks between predicted and actual scores for image } i$ \par
+\vspace{\baselineskip}
+\noindent
+An SRCC of 1 means perfect rank correlation, and -1 means perfect negative correlation. \par
+\subsubsection{Cohens Kappa}
+\label{subsub:CohensKappa}
+Cohens Kappa is used to measure the agreement between the model’s predictions and the actual labels. It is calculated as: \par
+\begin{equation}
+    K = \frac{p_o - p_e}{1 - p_e}
+\end{equation}
+\noindent
+where, \newline
+$p_o: \text{Observed agreement} \\ p_e: \text{Expected agreement}$ \par
+\vspace{\baselineskip}
+\noindent
+Cohens Kappa ranges from -1 to 1, with 1 indicating perfect agreement and 0 indicating agreement by chance. \par
+
 
 \begin{comment}
     	•	Mean Absolute Error (MAE): This metric measures the average magnitude of errors between the predicted and actual values, without considering their direction. It provides a straightforward indication of how close the predictions are to the actual values.
