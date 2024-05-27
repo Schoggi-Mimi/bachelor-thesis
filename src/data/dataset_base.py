@@ -18,7 +18,7 @@ class BaseDataset(Dataset):
                  root: str = "images",
                  crop: bool = True,
                  phase: str = "train",
-                 num_distortions: int = 10):
+                 num_distortions: int = 1):
         super().__init__()
         self._root = Path(root)
         self.to_crop = crop
@@ -49,6 +49,9 @@ class BaseDataset(Dataset):
             mapped_values = map_distortion_values(distort_functions, distort_values)
             img = transforms.ToPILImage()(img)
             img_ds = transforms.ToPILImage()(img_ds)
+
+            #path = os.path.join(self._root, f"distorted/{img_idx}.png")
+            #img.save(path)
 
         elif self.phase == "test":
             filename = os.path.basename(img_path)

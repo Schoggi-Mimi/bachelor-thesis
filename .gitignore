@@ -401,3 +401,5 @@ playground/SCIN_v2
 playground/test_folder
 playground/scin_regressor_0.21544346900318834.pkl
 **/.DS_Store
+src/combined
+*.pkl

@@ -74,10 +74,16 @@ After completing the training, the models are evaluated using independent test d
 
 \subsection{Evaluation Metrics}
 \label{sub:EvaluationMetrics}
-The evaluation is conducted using defined metrics such as Mean Absolute Error (MAE), R-squared (R\^2), Spearman’s Rank Order Correlation Coefficient (SRCC), and Cohen’s Kappa. The results of this evaluation provide valuable insights into the strengths and weaknesses of the image quality assessment models and serve as a basis for further improvements or adjustments. \par \todo{check this subsection again}
+The evaluation is conducted using defined metrics such as Mean Absolute Error (MAE), R-squared (R²), Spearman’s Rank Order Correlation Coefficient (SRCC), and Cohen’s Kappa. These metrics help understand the strengths and weaknesses of the models and guide further improvements or adjustments. \par
+\vspace{\baselineskip}
+\noindent
+MAE measures the average difference between the predicted image quality scores and the actual scores. It helps in understanding how accurate the model’s predictions are on average. R-squared indicates how well the predicted scores match the actual data. It tells us how much of the variance in the actual scores is explained by the model’s predictions. A higher R² means better model performance. \par
+\vspace{\baselineskip}
+\noindent
+Using MAE and R² together gives a clear picture of the model’s accuracy and how well it fits the actual data.
 \subsubsection{Spearmans Rank Order Correlation Coefficient (SRCC)}
 \label{subsub:SRCC}
-SRCC checks how well the predicted rankings of image quality match the actual rankings. It is calculated as: \par
+SRCC measures the strength and direction of the association between two ranked variables. In simpler terms, it evaluates how well the predicted rankings of image quality match the actual rankings. For example, if the model predicts the severity of distortions in the same order as the actual severity, it will have a high SRCC. SRCC is calculated as: \par
 \begin{equation}
     SRCC = 1 - \frac{6 \sum_{i=1}^n (d_i^2)}{n(n^2 - 1)}
 \end{equation}
@@ -86,10 +92,10 @@ where, \newline
 $n: \text{Number of images} \\ d_i: \text{Difference in ranks between predicted and actual scores for image } i$ \par
 \vspace{\baselineskip}
 \noindent
-An SRCC of 1 means perfect rank correlation, and -1 means perfect negative correlation. \par
+An SRCC of 1 means perfect rank correlation, and -1 means perfect negative correlation. This metric is crucial because, in many cases, getting the rank order correct is more important than predicting the exact value. For example, if images are ranked correctly in terms of severity, even if the predicted values are not exact, the model can still be useful in prioritizing cases for further review. \par
 \subsubsection{Cohens Kappa}
 \label{subsub:CohensKappa}
-Cohens Kappa is used to measure the agreement between the model’s predictions and the actual labels. It is calculated as: \par
+Cohen’s Kappa measures how well the model’s predictions agree with the actual labels. Unlike SRCC, which focuses on ranking, Cohen’s Kappa evaluates the exact agreement between predictions and actual labels. Also unlike simple accuracy, which only looks at the proportion of correct predictions, Cohen’s Kappa accounts for the possibility that some agreement might occur by chance. It is calculated as: \par
 \begin{equation}
     K = \frac{p_o - p_e}{1 - p_e}
 \end{equation}
@@ -99,16 +105,6 @@ $p_o: \text{Observed agreement} \\ p_e: \text{Expected agreement}$ \par
 \vspace{\baselineskip}
 \noindent
 Cohens Kappa ranges from -1 to 1, with 1 indicating perfect agreement and 0 indicating agreement by chance. \par
-
-
-\begin{comment}
-    	•	Mean Absolute Error (MAE): This metric measures the average magnitude of errors between the predicted and actual values, without considering their direction. It provides a straightforward indication of how close the predictions are to the actual values.
-	•	R^2 (Coefficient of Determination): R^2 indicates how well the model’s predictions approximate the actual data. A value closer to 1 implies a better fit of the model to the data.
-	•	Spearman’s Rank Order Correlation Coefficient (SRCC): SRCC assesses how well the relationship between two variables can be described using a monotonic function. It is useful for measuring the strength and direction of the association between the predicted and actual image quality scores.
-	•	Cohen’s Kappa: This statistic measures inter-rater agreement for categorical items, indicating how much better the model’s predictions agree with the actual labels compared to chance. It is particularly useful for evaluating classification models.
-
-By using these metrics, the performance of the image quality assessment models can be comprehensively evaluated, providing insights into their accuracy, reliability, and overall effectiveness in assessing image quality in teledermatology.
-\end{comment}
 
 \subsection{Discussion and Further Development}
 \label{sub:DiscussionDevelopment}

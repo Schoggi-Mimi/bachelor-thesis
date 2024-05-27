@@ -173,11 +173,11 @@ def color_block(x: torch.Tensor, amount: float) -> torch.Tensor:
     if amount == 0:
         return x
     skin_mask = skin_segmentation(x)
-    background_mean = 1 - skin_mask.mean().item()  # Estimate of background area
-    if background_mean < 0.05:  # Only apply distortion if significant background is present
+    background_proportion = 1 - skin_mask.mean().item()  # Estimate of background area
+    if background_proportion < 0.05:  # Only apply distortion if significant background is present
         return x
     x_new = x * ~skin_mask
-    amount = amount * background_mean
+    amount = amount * background_proportion
     _, h, w = x_new.shape
     exclusion_ratio = 0.2  # Exclude central region from distortion
     patch_size = [int(max(32, min(h / 10 * amount, h))), int(max(32, min(w / 10 * amount, w)))]

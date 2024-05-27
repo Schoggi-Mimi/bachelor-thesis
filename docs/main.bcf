@@ -3083,23 +3083,24 @@
     <bcf:citekey order="22" intorder="1">SCIN</bcf:citekey>
     <bcf:citekey order="23" intorder="1">F17K</bcf:citekey>
     <bcf:citekey order="24" intorder="1">ARNIQA</bcf:citekey>
-    <bcf:citekey order="25" intorder="1">ARNIQA</bcf:citekey>
-    <bcf:citekey order="26" intorder="1">LIVE</bcf:citekey>
-    <bcf:citekey order="27" intorder="1">TID2008</bcf:citekey>
-    <bcf:citekey order="28" intorder="1">TID2013</bcf:citekey>
-    <bcf:citekey order="29" intorder="1">TID2008</bcf:citekey>
-    <bcf:citekey order="30" intorder="1">CSIQ</bcf:citekey>
-    <bcf:citekey order="31" intorder="1">A57</bcf:citekey>
-    <bcf:citekey order="32" intorder="1">WED</bcf:citekey>
-    <bcf:citekey order="33" intorder="1">LIVEMD</bcf:citekey>
-    <bcf:citekey order="34" intorder="1">MDID2013</bcf:citekey>
-    <bcf:citekey order="35" intorder="1">MDID2016</bcf:citekey>
-    <bcf:citekey order="36" intorder="1">SIQAD</bcf:citekey>
-    <bcf:citekey order="37" intorder="1">SCIQ</bcf:citekey>
-    <bcf:citekey order="38" intorder="1">CCT</bcf:citekey>
-    <bcf:citekey order="39" intorder="1">HSNID</bcf:citekey>
-    <bcf:citekey order="40" intorder="1">LIVE_Wild</bcf:citekey>
-    <bcf:citekey order="41" intorder="1">CID2013</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">KADID10k</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">ARNIQA</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">LIVE</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">TID2008</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">TID2013</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">TID2008</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">CSIQ</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">A57</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">WED</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">LIVEMD</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">MDID2013</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">MDID2016</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">SIQAD</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">SCIQ</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">CCT</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">HSNID</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">LIVE_Wild</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">CID2013</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="apa">

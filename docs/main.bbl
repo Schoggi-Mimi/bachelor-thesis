@@ -1195,6 +1195,75 @@
       \verb https://ieeexplore.ieee.org/document/8333693/
       \endverb
     \endentry
+    \entry{KADID10k}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=354a5cc8e9a752ddf12fa422f806501c}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Hanhe},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff167415765c7271a2978e834e79143e}{%
+           family={Hosu},
+           familyi={H\bibinitperiod},
+           given={Vlad},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3585b44617dbef13b850eb74764b6ed2}{%
+           family={Saupe},
+           familyi={S\bibinitperiod},
+           given={Dietmar},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Germany}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{e44f2935ab2dd528840a38de106138d8}
+      \strng{fullhash}{e9e27d556b41c9d98f3e6eee988c35f3}
+      \strng{bibnamehash}{e9e27d556b41c9d98f3e6eee988c35f3}
+      \strng{authorbibnamehash}{e9e27d556b41c9d98f3e6eee988c35f3}
+      \strng{authornamehash}{e44f2935ab2dd528840a38de106138d8}
+      \strng{authorfullhash}{e9e27d556b41c9d98f3e6eee988c35f3}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Current artificially distorted image quality assessment (IQA) databases are small in size and limited in content. Larger IQA databases that are diverse in content could benefit the development of deep learning for IQA. We create two datasets, the Konstanz Artificially Distorted Image quality Database (KADID-10k) and the Konstanz Artificially Distorted Image quality Set (KADIS-700k). The former contains 81 pristine images, each degraded by 25 distortions in 5 levels. The latter has 140,000 pristine images, with 5 degraded versions each, where the distortions are chosen randomly. We conduct a subjective IQA crowdsourcing study on KADID-10k to yield 30 degradation category ratings (DCRs) per image. We believe that the annotated set KADID-10k, together with the unlabelled set KADIS-700k, can enable the full potential of deep learning based IQA methods by means of weakly-supervised learning.}
+      \field{eventtitle}{2019 {{Eleventh International Conference}} on {{Quality}} of {{Multimedia Experience}} ({{QoMEX}})}
+      \field{isbn}{978-1-5386-8212-8}
+      \field{journaltitle}{2019 {{Eleventh International Conference}} on {{Quality}} of {{Multimedia Experience}} ({{QoMEX}})}
+      \field{langid}{english}
+      \field{month}{6}
+      \field{shorttitle}{{{KADID-10k}}}
+      \field{title}{{{KADID-10k}}: {{A Large-scale Artificially Distorted IQA Database}}}
+      \field{urlday}{29}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 3}
+      \range{pages}{3}
+      \verb{doi}
+      \verb 10.1109/QoMEX.2019.8743252
+      \endverb
+      \verb{file}
+      \verb /Users/choekyelnyungmartsang/Zotero/storage/L26VZBXL/Lin et al. - 2019 - KADID-10k A Large-scale Artificially Distorted IQ.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/8743252/
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/8743252/
+      \endverb
+    \endentry
     \entry{WED}{article}{}
       \name{author}{7}{}{%
         {{un=0,uniquepart=base,hash=79f9b1044b245e49f7e431dfc1b96bbd}{%
@@ -3475,6 +3544,75 @@
       \endverb
       \verb{url}
       \verb https://ieeexplore.ieee.org/document/8333693/
+      \endverb
+    \endentry
+    \entry{KADID10k}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=354a5cc8e9a752ddf12fa422f806501c}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Hanhe},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff167415765c7271a2978e834e79143e}{%
+           family={Hosu},
+           familyi={H\bibinitperiod},
+           given={Vlad},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3585b44617dbef13b850eb74764b6ed2}{%
+           family={Saupe},
+           familyi={S\bibinitperiod},
+           given={Dietmar},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Germany}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{e44f2935ab2dd528840a38de106138d8}
+      \strng{fullhash}{e9e27d556b41c9d98f3e6eee988c35f3}
+      \strng{bibnamehash}{e9e27d556b41c9d98f3e6eee988c35f3}
+      \strng{authorbibnamehash}{e9e27d556b41c9d98f3e6eee988c35f3}
+      \strng{authornamehash}{e44f2935ab2dd528840a38de106138d8}
+      \strng{authorfullhash}{e9e27d556b41c9d98f3e6eee988c35f3}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Current artificially distorted image quality assessment (IQA) databases are small in size and limited in content. Larger IQA databases that are diverse in content could benefit the development of deep learning for IQA. We create two datasets, the Konstanz Artificially Distorted Image quality Database (KADID-10k) and the Konstanz Artificially Distorted Image quality Set (KADIS-700k). The former contains 81 pristine images, each degraded by 25 distortions in 5 levels. The latter has 140,000 pristine images, with 5 degraded versions each, where the distortions are chosen randomly. We conduct a subjective IQA crowdsourcing study on KADID-10k to yield 30 degradation category ratings (DCRs) per image. We believe that the annotated set KADID-10k, together with the unlabelled set KADIS-700k, can enable the full potential of deep learning based IQA methods by means of weakly-supervised learning.}
+      \field{eventtitle}{2019 {{Eleventh International Conference}} on {{Quality}} of {{Multimedia Experience}} ({{QoMEX}})}
+      \field{isbn}{978-1-5386-8212-8}
+      \field{journaltitle}{2019 {{Eleventh International Conference}} on {{Quality}} of {{Multimedia Experience}} ({{QoMEX}})}
+      \field{langid}{english}
+      \field{month}{6}
+      \field{shorttitle}{{{KADID-10k}}}
+      \field{title}{{{KADID-10k}}: {{A Large-scale Artificially Distorted IQA Database}}}
+      \field{urlday}{29}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 3}
+      \range{pages}{3}
+      \verb{doi}
+      \verb 10.1109/QoMEX.2019.8743252
+      \endverb
+      \verb{file}
+      \verb /Users/choekyelnyungmartsang/Zotero/storage/L26VZBXL/Lin et al. - 2019 - KADID-10k A Large-scale Artificially Distorted IQ.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/8743252/
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/8743252/
       \endverb
     \endentry
     \entry{WED}{article}{}

@@ -9,44 +9,50 @@
 \newlabel{sec:ImgSelectLabel}{{4.1}{21}{Image Selection and Labeling Process}{section.4.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Image Filtering and Selection}{21}{subsection.4.1.1}\protected@file@percent }
 \newlabel{sub:ImgFilterSelect}{{4.1.1}{21}{Image Filtering and Selection}{subsection.4.1.1}{}}
-\@writefile{tdo}{\contentsline {todo}{maybe include some pictures in appendix}{21}{section*.17}\protected@file@percent }
+\@writefile{tdo}{\contentsline {todo}{maybe include some pictures in appendix}{21}{section*.16}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Labeling of the Test Set}{21}{subsection.4.1.2}\protected@file@percent }
 \newlabel{sub:LabelingTestSet}{{4.1.2}{21}{Labeling of the Test Set}{subsection.4.1.2}{}}
-\@writefile{tdo}{\contentsline {todo}{correct this later}{21}{section*.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\nonumberline Visualization of Label Distribution for the Test Set}{22}{subsubsection*.20}\protected@file@percent }
-\newlabel{subsub:LabelDist}{{4.1.2}{22}{Visualization of Label Distribution for the Test Set}{subsubsection*.20}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Histograms showing the distribution of distortion scores for each quality criterion.}}{22}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:DistTestCriteria}{{4.1}{22}{Histograms showing the distribution of distortion scores for each quality criterion}{figure.caption.21}{}}
+\@writefile{tdo}{\contentsline {todo}{correct this later}{21}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\nonumberline Visualization of Label Distribution for the Test Set}{22}{subsubsection*.19}\protected@file@percent }
+\newlabel{subsub:LabelDist}{{4.1.2}{22}{Visualization of Label Distribution for the Test Set}{subsubsection*.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Histograms showing the distribution of distortion scores for each quality criterion.}}{22}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:DistTestCriteria}{{4.1}{22}{Histograms showing the distribution of distortion scores for each quality criterion}{figure.caption.20}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.2}Distortion Pipeline}{22}{section.4.2}\protected@file@percent }
 \newlabel{sec:DistPipeline}{{4.2}{22}{Distortion Pipeline}{section.4.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Histograms showing the distribution of distortion scores for each quality criterion.}}{23}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:DistTestCriteria2}{{4.2}{23}{Histograms showing the distribution of distortion scores for each quality criterion}{figure.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Histograms showing the distribution of distortion scores for each quality criterion.}}{23}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:DistTestCriteria2}{{4.2}{23}{Histograms showing the distribution of distortion scores for each quality criterion}{figure.caption.21}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Distortion Types}{23}{subsection.4.2.1}\protected@file@percent }
 \newlabel{sub:DistTypes}{{4.2.1}{23}{Distortion Types}{subsection.4.2.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Distortion Implementation Process}{24}{section.4.3}\protected@file@percent }
 \newlabel{sec:DistProcess}{{4.3}{24}{Distortion Implementation Process}{section.4.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Distortion pipeline for generating training images with varying levels of distortion.}}{24}{figure.caption.23}\protected@file@percent }
-\newlabel{fig:DistPipeline}{{4.3}{24}{Distortion pipeline for generating training images with varying levels of distortion}{figure.caption.23}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Architecture.}}{25}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:Architecture}{{4.4}{25}{Architecture}{figure.caption.24}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Feature Extraction with SimCLR}{25}{section.4.4}\protected@file@percent }
-\newlabel{sec:FeatureExtraction}{{4.4}{25}{Feature Extraction with SimCLR}{section.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Distortion pipeline for generating training images with different levels of distortion. (a) shows the original image and its downscaled version. (b) illustrates the distortion pipeline where a type of distortion and a random level for each criterion are selected, with the corresponding mapped values shown at the bottom. (c) shows the output where the distorted original image and the distorted downscaled image are resized to 224x224 pixels, along with the 7 distortion values for the image.}}{25}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:DistPipeline}{{4.3}{25}{Distortion pipeline for generating training images with different levels of distortion. (a) shows the original image and its downscaled version. (b) illustrates the distortion pipeline where a type of distortion and a random level for each criterion are selected, with the corresponding mapped values shown at the bottom. (c) shows the output where the distorted original image and the distorted downscaled image are resized to 224x224 pixels, along with the 7 distortion values for the image}{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Feature Extraction with the ARNIQA Backbone}{25}{section.4.4}\protected@file@percent }
+\newlabel{sec:FeatureExtraction}{{4.4}{25}{Feature Extraction with the ARNIQA Backbone}{section.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Overview of the entire process for training and evaluating the image quality assessment model. (a) shows the album of input images. (b) depicts the distortion pipeline that randomly distorts images across seven criteria at five severity levels. (c) illustrates the feature extraction using the backbone from ARNIQA, which uses the SimCLR framework. (d) shows a scatter plot representing the model training process, with a diagonal red line indicating the fit. (e) presents the prediction results, comparing the model’s output to the actual labels.}}{26}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:Architecture}{{4.4}{26}{Overview of the entire process for training and evaluating the image quality assessment model. (a) shows the album of input images. (b) depicts the distortion pipeline that randomly distorts images across seven criteria at five severity levels. (c) illustrates the feature extraction using the backbone from ARNIQA, which uses the SimCLR framework. (d) shows a scatter plot representing the model training process, with a diagonal red line indicating the fit. (e) presents the prediction results, comparing the model’s output to the actual labels}{figure.caption.23}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.5}Model Selection and Training}{26}{section.4.5}\protected@file@percent }
 \newlabel{sec:ModelTraining}{{4.5}{26}{Model Selection and Training}{section.4.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Performance Metrics}{26}{subsection.4.5.1}\protected@file@percent }
-\newlabel{sub:PerfMetrics}{{4.5.1}{26}{Performance Metrics}{subsection.4.5.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Model Testing}{26}{section.4.6}\protected@file@percent }
-\newlabel{sec:ModelTesting}{{4.6}{26}{Model Testing}{section.4.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Testing with Labeled Test Set}{26}{subsection.4.6.1}\protected@file@percent }
-\newlabel{sub:TestLabeledSet}{{4.6.1}{26}{Testing with Labeled Test Set}{subsection.4.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Hyperparameter Configuration}{28}{subsection.4.5.1}\protected@file@percent }
+\newlabel{sub:HyperparamConfig}{{4.5.1}{28}{Hyperparameter Configuration}{subsection.4.5.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Hyperparameter Configurations for XGB Models}}{28}{table.caption.24}\protected@file@percent }
+\newlabel{table:xgb_hyperparams}{{4.1}{28}{Hyperparameter Configurations for XGB Models}{table.caption.24}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Hyperparameter Configurations for MLP Models}}{28}{table.caption.25}\protected@file@percent }
+\newlabel{table:mlp_hyperparams}{{4.2}{28}{Hyperparameter Configurations for MLP Models}{table.caption.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Performance Metrics and Visualization}{28}{subsection.4.5.2}\protected@file@percent }
+\newlabel{sub:PerfMetrics}{{4.5.2}{28}{Performance Metrics and Visualization}{subsection.4.5.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Model Testing}{29}{section.4.6}\protected@file@percent }
+\newlabel{sec:ModelTesting}{{4.6}{29}{Model Testing}{section.4.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Visualizing the Tests}{29}{subsection.4.6.1}\protected@file@percent }
+\newlabel{sub:VizModelPerformance}{{4.6.1}{29}{Visualizing the Tests}{subsection.4.6.1}{}}
 \@setckpt{chapters/04_implementation}{
-\setcounter{page}{27}
+\setcounter{page}{31}
 \setcounter{equation}{0}
 \setcounter{enumi}{7}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
 \setcounter{enumiv}{0}
-\setcounter{footnote}{1}
+\setcounter{footnote}{8}
 \setcounter{mpfootnote}{4}
 \setcounter{part}{0}
 \setcounter{chapter}{4}
@@ -56,7 +62,7 @@
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
 \setcounter{figure}{4}
-\setcounter{table}{0}
+\setcounter{table}{2}
 \setcounter{caption@flags}{2}
 \setcounter{continuedfloat}{0}
 \setcounter{subfigure}{0}
@@ -77,7 +83,7 @@
 \setcounter{citetotal}{0}
 \setcounter{multicitecount}{0}
 \setcounter{multicitetotal}{0}
-\setcounter{instcount}{25}
+\setcounter{instcount}{26}
 \setcounter{maxnames}{2}
 \setcounter{minnames}{1}
 \setcounter{maxitems}{999}
@@ -194,7 +200,7 @@
 \setcounter{bbx:relatedtotal}{0}
 \setcounter{section@level}{2}
 \setcounter{Item}{26}
-\setcounter{Hfootnote}{10}
+\setcounter{Hfootnote}{17}
 \setcounter{bookmark@seq@number}{0}
 \setcounter{myequations}{0}
 \setcounter{equdepth}{1}
@@ -208,7 +214,7 @@
 \setcounter{legalviii}{0}
 \setcounter{legalix}{0}
 \setcounter{legalx}{0}
-\setcounter{@todonotes@numberoftodonotes}{5}
+\setcounter{@todonotes@numberoftodonotes}{4}
 \setcounter{lstnumber}{1}
 \setcounter{float@type}{8}
 \setcounter{FBl@b}{0}
