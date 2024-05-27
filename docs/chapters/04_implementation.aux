@@ -33,20 +33,40 @@
 \newlabel{fig:Architecture}{{4.4}{26}{Overview of the entire process for training and evaluating the image quality assessment model. (a) shows the album of input images. (b) depicts the distortion pipeline that randomly distorts images across seven criteria at five severity levels. (c) illustrates the feature extraction using the backbone from ARNIQA, which uses the SimCLR framework. (d) shows a scatter plot representing the model training process, with a diagonal red line indicating the fit. (e) presents the prediction results, comparing the model’s output to the actual labels}{figure.caption.23}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.5}Model Selection and Training}{26}{section.4.5}\protected@file@percent }
 \newlabel{sec:ModelTraining}{{4.5}{26}{Model Selection and Training}{section.4.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Overall SRCC for XGB Regressor and MLP Regressor with different numbers of distortions. The x-axis shows the time it took to train, and the y-axis shows the SRCC values, demonstrating better performance with larger datasets.}}{27}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:NumDistReg}{{4.5}{27}{Overall SRCC for XGB Regressor and MLP Regressor with different numbers of distortions. The x-axis shows the time it took to train, and the y-axis shows the SRCC values, demonstrating better performance with larger datasets}{figure.caption.24}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Spearman's Rank Correlation Coefficient (SRCC) of Different Models on SCIN and F17K Datasets}}{27}{table.caption.26}\protected@file@percent }
+\newlabel{table:srcc_results}{{4.1}{27}{Spearman's Rank Correlation Coefficient (SRCC) of Different Models on SCIN and F17K Datasets}{table.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Overall SRCC for XGB Classifier and MLP Classifier with different numbers of distortions. Similar to \autoref {fig:NumDistReg}, this figure shows improved performance with larger datasets.}}{28}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:NumDistCls}{{4.6}{28}{Overall SRCC for XGB Classifier and MLP Classifier with different numbers of distortions. Similar to \autoref {fig:NumDistReg}, this figure shows improved performance with larger datasets}{figure.caption.25}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Hyperparameter Configuration}{28}{subsection.4.5.1}\protected@file@percent }
 \newlabel{sub:HyperparamConfig}{{4.5.1}{28}{Hyperparameter Configuration}{subsection.4.5.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Hyperparameter Configurations for XGB Models}}{28}{table.caption.24}\protected@file@percent }
-\newlabel{table:xgb_hyperparams}{{4.1}{28}{Hyperparameter Configurations for XGB Models}{table.caption.24}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Hyperparameter Configurations for MLP Models}}{28}{table.caption.25}\protected@file@percent }
-\newlabel{table:mlp_hyperparams}{{4.2}{28}{Hyperparameter Configurations for MLP Models}{table.caption.25}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Performance Metrics and Visualization}{28}{subsection.4.5.2}\protected@file@percent }
-\newlabel{sub:PerfMetrics}{{4.5.2}{28}{Performance Metrics and Visualization}{subsection.4.5.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Model Testing}{29}{section.4.6}\protected@file@percent }
-\newlabel{sec:ModelTesting}{{4.6}{29}{Model Testing}{section.4.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Visualizing the Tests}{29}{subsection.4.6.1}\protected@file@percent }
-\newlabel{sub:VizModelPerformance}{{4.6.1}{29}{Visualizing the Tests}{subsection.4.6.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Parallel coordinate plot showing the best SRCC values for the four different models across the seven criteria and the overall SRCC. This plot highlights the performance of the MLP Regressor.}}{29}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:ModelSRCC}{{4.7}{29}{Parallel coordinate plot showing the best SRCC values for the four different models across the seven criteria and the overall SRCC. This plot highlights the performance of the MLP Regressor}{figure.caption.27}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Hyperparameter Configurations for XGB Models}}{30}{table.caption.28}\protected@file@percent }
+\newlabel{table:xgb_hyperparams}{{4.2}{30}{Hyperparameter Configurations for XGB Models}{table.caption.28}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Hyperparameter Configurations for MLP Models}}{30}{table.caption.29}\protected@file@percent }
+\newlabel{table:mlp_hyperparams}{{4.3}{30}{Hyperparameter Configurations for MLP Models}{table.caption.29}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Performance Metrics and Visualization}{30}{subsection.4.5.2}\protected@file@percent }
+\newlabel{sub:PerfMetrics}{{4.5.2}{30}{Performance Metrics and Visualization}{subsection.4.5.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Performance Metrics for Each Distortion Criteria}}{31}{table.caption.30}\protected@file@percent }
+\newlabel{table:performance_metrics}{{4.4}{31}{Performance Metrics for Each Distortion Criteria}{table.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Confusion matrices for the MLP Regressor model evaluated on the 475 images from the Fitzpatrick dataset. Each matrix corresponds to a specific distortion criterion and shows the actual scores on the y-axis and the predicted scores on the x-axis. Darker shades indicate higher counts, highlighting where the model's predictions match the actual values and where discrepancies occur.}}{31}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:confusion_matrix}{{4.8}{31}{Confusion matrices for the MLP Regressor model evaluated on the 475 images from the Fitzpatrick dataset. Each matrix corresponds to a specific distortion criterion and shows the actual scores on the y-axis and the predicted scores on the x-axis. Darker shades indicate higher counts, highlighting where the model's predictions match the actual values and where discrepancies occur}{figure.caption.31}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Model Testing}{31}{section.4.6}\protected@file@percent }
+\newlabel{sec:ModelTesting}{{4.6}{31}{Model Testing}{section.4.6}{}}
+\newlabel{fig:scin_hept}{{4.9a}{32}{Filtered SCIN Images}{figure.caption.32}{}}
+\newlabel{sub@fig:scin_hept}{{a}{32}{Filtered SCIN Images}{figure.caption.32}{}}
+\newlabel{fig:f17k_hept}{{4.9b}{32}{Filtered Fitzpatrick Images}{figure.caption.32}{}}
+\newlabel{sub@fig:f17k_hept}{{b}{32}{Filtered Fitzpatrick Images}{figure.caption.32}{}}
+\newlabel{fig:comb_hept}{{4.9c}{32}{Combined Images}{figure.caption.32}{}}
+\newlabel{sub@fig:comb_hept}{{c}{32}{Combined Images}{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Radar charts on the mean distortion levels and standard deviations across seven quality criteria for the 475 good quality SCIN, Fitzpatrick17k, and combined images.}}{32}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:hept}{{4.9}{32}{Radar charts on the mean distortion levels and standard deviations across seven quality criteria for the 475 good quality SCIN, Fitzpatrick17k, and combined images}{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Visualizing the Tests}{32}{subsection.4.6.1}\protected@file@percent }
+\newlabel{sub:VizModelPerformance}{{4.6.1}{32}{Visualizing the Tests}{subsection.4.6.1}{}}
 \@setckpt{chapters/04_implementation}{
-\setcounter{page}{31}
+\setcounter{page}{33}
 \setcounter{equation}{0}
 \setcounter{enumi}{7}
 \setcounter{enumii}{0}
@@ -61,11 +81,11 @@
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{4}
-\setcounter{table}{2}
-\setcounter{caption@flags}{2}
+\setcounter{figure}{9}
+\setcounter{table}{4}
+\setcounter{caption@flags}{6}
 \setcounter{continuedfloat}{0}
-\setcounter{subfigure}{0}
+\setcounter{subfigure}{3}
 \setcounter{subtable}{0}
 \setcounter{AM@survey}{0}
 \setcounter{lofdepth}{1}
