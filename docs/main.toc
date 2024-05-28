@@ -1,0 +1,55 @@
+\thispagestyle {empty}
+\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background and Problem Statement}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Objectives of the Thesis}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Organisation of this Thesis}{3}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Literature Review}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Image Evaluation}{5}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Subjective Quality Assessment}{5}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Objective Quality Assessment}{6}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Common Distortions in Image Quality Assessment}{7}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Benchmark Datasets for IQA}{9}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}State-of-the-Art in Image Quality Assessment}{9}{subsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.1.6}Challenges and Opportunities in Image Quality Assessment}{11}{subsection.2.1.6}%
+\contentsline {section}{\numberline {2.2}Teledermatology}{13}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Introduction to Teledermatology}{13}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Quality Criteria for Teledermatology Images}{13}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Teledermatology Datasets}{15}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Related Work on Image Quality Assessment in Teledermatology}{15}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Challenges and Opportunities in Image Quality Assessment for Teledermatology}{16}{subsection.2.2.5}%
+\contentsline {chapter}{\numberline {3}Methodology}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Explorative Approach}{17}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Project Control}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Research Steps}{18}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Literature Review}{18}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Data Collection and Preparation}{19}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Feature Extraction}{20}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Training and Validation}{20}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Testing and Experiments}{20}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Evaluation Metrics}{20}{subsection.3.3.6}%
+\contentsline {subsubsection}{\nonumberline Understanding the Metrics and Their Importance}{20}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {3.3.7}Discussion and Further Development}{21}{subsection.3.3.7}%
+\contentsline {chapter}{\numberline {4}Implementation}{22}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Image Selection and Labeling Process}{22}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Image Filtering and Selection}{22}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Labeling of the Test Set}{22}{subsection.4.1.2}%
+\contentsline {subsubsection}{\nonumberline Visualization of Label Distribution for the Test Set}{23}{subsubsection*.17}%
+\contentsline {section}{\numberline {4.2}Distortion Pipeline}{23}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Distortion Types}{24}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}Distortion Implementation Process}{25}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Feature Extraction with the ARNIQA Backbone}{26}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Model Selection and Training}{27}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Hyperparameter Configuration}{29}{subsection.4.5.1}%
+\contentsline {section}{\numberline {4.6}Model Testing}{30}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Results and Analysis}{31}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Model Performance}{32}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Visualizing Model Predictions}{33}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Visualizations for Synthetic Distorted Images}{33}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Visualizations for Authentic Images}{34}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.3}Testing on Filtered Images}{34}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Discussion and Conclusion}{36}{chapter.6}%
+\setcounter {tocdepth}{0}
+\contentsline {chapter}{\numberline {A}Supplementary Material}{IV}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Dataset}{VIII}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Degradation Types}{XI}{appendix.C}%
+\contentsline {chapter}{\numberline {D}Code}{XV}{appendix.D}%

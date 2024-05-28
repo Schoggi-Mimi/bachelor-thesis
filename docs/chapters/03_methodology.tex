@@ -46,7 +46,7 @@ First, I began by getting an overview of my research field. As I was new to the 
 \noindent
 I reviewed the titles of the search results and opened the ones that seemed interesting. After that, I read the abstracts to determine their relevance. Depending on the relevance of the abstract and some of the figures, I decided whether to read the full paper. Additionally, for state-of-the-art methods, I focused on finding and reading papers that had published their code and model weights if models were trained. This systematic approach ensured that my literature review was thorough and focused on the most relevant and up-to-date research. \par
 
-\subsection{Data Collection and Preparation}
+\subsection{Data Collection and Preparation} \todo{revisit this section}
 \label{sub:DataCollection}
 In searching for a suitable dataset to evaluate image quality in teledermatology, a major challenge was the lack of Mean Opinion Score (MOS) or Differential Mean Opinion Score (DMOS) in teledermatology datasets, as commonly found in traditional IQA datasets mentioned in \autoref{sub:BenchmarkDatasetsIQA}. This scarcity is due to the resource-intensive nature of labeling images in the medical field. \par
 \vspace{\baselineskip}
@@ -57,7 +57,7 @@ To address this gap, I created a distortion pipeline that synthetically distorts
 Unlike many dermatology datasets that mainly focus on skin cancer diagnostics by classifying malignant and benign tumors, the SCIN dataset covers a broader range of common dermatological conditions, including allergic, inflammatory, and infectious diseases. These conditions are frequently encountered in everyday clinical practice but are underrepresented in existing datasets. The SCIN dataset is particularly valuable because it captures images of early-stage conditions. Over half of the images were taken less than a week from the onset of symptoms, with 30\% captured less than a day after symptoms appeared \autocite{SCIN}.  I chose this dataset because it includes conditions that patients are likely to consult about via teledermatology platforms before visiting traditional healthcare settings. The Fitzpatrick17k dataset contains more clinical setting images, which provide good quality but do not represent the variability seen in typical teledermatology images \autocite{F17K}, so I used the Fitzpatrick17k dataset only for training purposes to complement the SCIN dataset. \par 
 \vspace{\baselineskip}
 \noindent
-In total, I selected 475 high-quality images from the Fitzpatrick17k dataset and another 475 high-quality images from the SCIN dataset for training and evaluation. Additionally, I randomly chose 200 test images from the SCIN dataset and 70 independent high-quality images from SCIN for testing. The 70 high-quality images previously selected from the SCIN dataset are fed through the distortion pipeline to introduce distortions, allowing for a consistent basis to test the model against the same types of distortions. I also labeled 200 test images, scoring each one on the seven quality criteria to ensure the model’s performance can be compared to human evaluation. \par \todo{check this subsectino again}
+In total, I selected 475 high-quality images from the Fitzpatrick17k dataset and another 475 high-quality images from the SCIN dataset for training and evaluation. Additionally, I randomly chose 200 test images from the SCIN dataset and 70 independent high-quality images from SCIN for testing. The 70 high-quality images previously selected from the SCIN dataset are fed through the distortion pipeline to introduce distortions, allowing for a consistent basis to test the model against the same types of distortions. I also labeled 200 test images, scoring each one on the seven quality criteria to ensure the model’s performance can be compared to human evaluation. \par
 
 \subsection{Feature Extraction}
 \label{sub:FeatureExtraction}
@@ -74,16 +74,17 @@ After completing the training, the models are evaluated using independent test d
 
 \subsection{Evaluation Metrics}
 \label{sub:EvaluationMetrics}
-The evaluation is conducted using defined metrics such as Mean Absolute Error (MAE), R-squared (R²), Spearman’s Rank Order Correlation Coefficient (SRCC), and Cohen’s Kappa. These metrics help understand the strengths and weaknesses of the models and guide further improvements or adjustments. \par
+The evaluation is conducted using defined metrics such as Mean Absolute Error (MAE), R-squared (R\textsuperscript{2}), Spearman’s Rank Order Correlation Coefficient (SRCC), and Cohen’s Kappa. These metrics help understand the strengths and weaknesses of the models and guide further improvements or adjustments. \par
+% I want to mention in the subsub section the individual metrics and how the help in evaluating the model.
+\subsubsection{Understanding the Metrics and Their Importance}
+\label{subsub:UnderstandingMetrics}
+\textbf{MAE} measures the average difference between the predicted image quality scores and the actual scores. It helps in understanding how accurate the model’s predictions are on average. A lower MAE indicates better model performance. \par
 \vspace{\baselineskip}
 \noindent
-MAE measures the average difference between the predicted image quality scores and the actual scores. It helps in understanding how accurate the model’s predictions are on average. R-squared indicates how well the predicted scores match the actual data. It tells us how much of the variance in the actual scores is explained by the model’s predictions. A higher R² means better model performance. \par
+\textbf{R\textsuperscript{2}} indicates how well the predicted scores match the actual data. It tells us how much of the variance in the actual scores is explained by the model’s predictions. A higher R\textsuperscript{2} means better model performance. Using MAE and R\textsuperscript{2} together gives a clear picture of the model’s accuracy and how well it fits the actual data. \par
 \vspace{\baselineskip}
 \noindent
-Using MAE and R² together gives a clear picture of the model’s accuracy and how well it fits the actual data.
-\subsubsection{Spearmans Rank Order Correlation Coefficient (SRCC)}
-\label{subsub:SRCC}
-SRCC measures the strength and direction of the association between two ranked variables. In simpler terms, it evaluates how well the predicted rankings of image quality match the actual rankings. For example, if the model predicts the severity of distortions in the same order as the actual severity, it will have a high SRCC. SRCC is calculated as: \par
+\textbf{SRCC} measures the strength and direction of the association between two ranked variables. In simpler terms, it evaluates how well the predicted rankings of image quality match the actual rankings. For example, if the model predicts the severity of distortions in the same order as the actual severity, it will have a high SRCC. SRCC is calculated as: \par
 \begin{equation}
     SRCC = 1 - \frac{6 \sum_{i=1}^n (d_i^2)}{n(n^2 - 1)}
 \end{equation}
@@ -93,11 +94,11 @@ $n: \text{Number of images} \\ d_i: \text{Difference in ranks between predicted 
 \vspace{\baselineskip}
 \noindent
 An SRCC of 1 means perfect rank correlation, and -1 means perfect negative correlation. This metric is crucial because, in many cases, getting the rank order correct is more important than predicting the exact value. For example, if images are ranked correctly in terms of severity, even if the predicted values are not exact, the model can still be useful in prioritizing cases for further review. \par
-\subsubsection{Cohens Kappa}
-\label{subsub:CohensKappa}
-Cohen’s Kappa measures how well the model’s predictions agree with the actual labels. Unlike SRCC, which focuses on ranking, Cohen’s Kappa evaluates the exact agreement between predictions and actual labels. Also unlike simple accuracy, which only looks at the proportion of correct predictions, Cohen’s Kappa accounts for the possibility that some agreement might occur by chance. It is calculated as: \par
+\vspace{\baselineskip}
+\noindent
+\textbf{Cohen’s Kappa} measures how well the model’s predictions agree with the actual labels. Unlike SRCC, which focuses on ranking, Cohen’s Kappa evaluates the exact agreement between predictions and actual labels. Also unlike simple accuracy, which only looks at the proportion of correct predictions, Cohen’s Kappa accounts for the possibility that some agreement might occur by chance. It is calculated as: \par
 \begin{equation}
-    K = \frac{p_o - p_e}{1 - p_e}
+    Kappa = \frac{p_o - p_e}{1 - p_e}
 \end{equation}
 \noindent
 where, \newline

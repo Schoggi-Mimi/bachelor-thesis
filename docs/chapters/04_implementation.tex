@@ -139,7 +139,7 @@ Training was done using an NVIDIA A16 GPU, which has 16GB vRAM, 1280 CUDA Cores,
 \noindent
 \textbf{Data Preparation and Splitting} \par
 \noindent
-The dataset was expanded by multiplying the original images by factors of 4, 8, 16, 32, or 64 to examine how increasing the dataset size affected performance. This approach tested the hypothesis that larger datasets would lead to better performance. Indeed, as shown in \autoref{fig:NumDistReg} and \autoref{fig:NumDistCls}, where the overall SRCC for XGBRegressor and MLP Regressor, as well as XGBClassifier and MLP Classifier, improved with an increasing number of distortions. The dataset was then split into a training set (75\%) and a validation set (25\%). \par
+The dataset was expanded by multiplying the original images by factors of 4, 8, 16, 32, or 64 to examine how increasing the dataset size affected performance. This approach tested the hypothesis that larger datasets would lead to better performance. Indeed, as shown in \autoref{fig:NumDistReg} and \autoref{fig:NumDistCls}, where the overall SRCC for XGBRegressor and MLP Regressor, as well as XGBClassifier and MLP Classifier, improved with an increasing number of distortions. \par
 \vspace{\baselineskip}
 \noindent
 However, it's important to note that larger datasets also require more training time. Even with smaller datasets, it is possible to achieve good performance by finding optimal parameters.  After expanding the dataset, the images were split into training and validation sets, with the training set containing 75\% of the images and the validation set containing the remaining 25\%. This split allowed the model to train on most of the data while still having a separate set for evaluating its performance. \par
@@ -155,90 +155,21 @@ However, it's important to note that larger datasets also require more training 
     \caption{Overall SRCC for XGB Classifier and MLP Classifier with different numbers of distortions. Similar to \autoref{fig:NumDistReg}, this figure shows improved performance with larger datasets.}
     \label{fig:NumDistCls}
 \end{figure}
-
+\vspace{\baselineskip}
 \noindent
 \textbf{Modle Selection} \par
 \noindent
-Three different multi-output models were experimented with: XGBRegressor, XGBClassifier, and both MLP Regressor and MLP Classifier. These models were chosen for their strengths in handling complex relationships and their ability to predict multiple outputs at once. \par
-\vspace{\baselineskip}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|l|c|c|}
-        \hline
-        \textbf{Model} & \textbf{SCIN} & \textbf{F17K} \\
-        \hline
-        Combined MLP Regressor & \underline{0.66} & \underline{0.75} \\
-        Combined XGB Regressor & 0.65 & 0.73 \\
-        Combined XGB Classifier & 0.58 & 0.61 \\
-        Combined MLP Classifier & 0.43 & 0.46 \\
-        \hline
-        F17K MLP Regressor & 0.54 & 0.69 \\
-        SCIN MLP Regressor & 0.62 & 0.49 \\
-        F17K XGB Regressor & 0.53 & 0.67 \\
-        SCIN XGB Regressor & 0.61 & 0.48 \\
-        SCIN MLP Classifier & 0.53 & 0.45 \\
-        F17K MLP Classifier & 0.47 & 0.58 \\
-        SCIN XGB Classifier & 0.54 & 0.43 \\
-        F17K XGB Classifier & 0.46 & 0.59 \\
-        \hline
-    \end{tabular}
-    \caption{Spearman's Rank Correlation Coefficient (SRCC) of Different Models on SCIN and F17K Datasets}
-    \label{table:srcc_results}
-\end{table}
-
-\noindent
-The models were trained individually on the SCIN and Fitzpatrick datasets and on a combination of both datasets to assess performance. The results are summarized in \autoref{table:srcc_results}, showing how each model generalizes across different datasets. The best model, which provided good scores across all seven distortion criteria, was the MLP Regressor on the combined dataset. \par
+Four different multi-output models were experimented with: XGBRegressor, XGBClassifier, and both MLP Regressor and MLP Classifier. These models were chosen for their strengths in handling complex relationships and their ability to predict multiple outputs at once. Multi-output models can predict multiple quality criteria simultaneously, making them particularly suitable for this task, where assessing multiple aspects of image quality is important. \par
 \vspace{\baselineskip}
 \noindent
-A parallel coordinate plot in \autoref{fig:ModelSRCC}, also shows that the MLP Regressor performed the best across all seven criteria and the overall SRCC. This highlights the performance of the MLP Regressor, which consistently outperformed the other models. With that, the MLP Regressor was chosen as the best model for the image quality assessment task.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/Model_SRCC.png}
-    \caption{Parallel coordinate plot showing the best SRCC values for the four different models across the seven criteria and the overall SRCC. This plot highlights the performance of the MLP Regressor.}
-    \label{fig:ModelSRCC}
-\end{figure}
+The models were trained individually on the SCIN and Fitzpatrick datasets and also on a combination of both datasets to assess performance. This approach, known as cross-dataset evaluation, helps to understand how well the models generalize across different datasets. By training on one dataset and evaluating on another, such as training on SCIN and evaluating on Fitzpatrick, the robustness and generalizability of the models can be tested. Combining both datasets and evaluating on each individually further helps in understanding how the models perform with a more diverse set of images, ensuring that the models are not overfitting to a particular dataset. \par 
 \vspace{\baselineskip}
 \noindent
-One important aspect of regressor training is handling continuous scores. If continuous scores were compared directly to fixed numbers from the distortion pipeline, there would always be some minor errors. To minimize these errors and accurately calculate metrics like rank correlation and Cohen's Kappa, the regressor predictions were clipped to the range of 0 to 1. The scores were then categorized into severity levels using a function\footnote{from utils.utils\_data import binarize\_scores} that converts continuous scores to categorical ones based on defined thresholds. This process, known as binarization, helps in effectively categorizing the severity levels and reducing errors in score comparison. \par
+One important aspect of regressor training is handling continuous scores. If continuous scores were compared directly to fixed numbers from the distortion pipeline, there would always be some minor errors. To minimize these errors and accurately calculate metrics like rank correlation and Cohen’s Kappa, the regressor predictions were clipped to the range of 0 to 1. The scores were then categorized into severity levels using a function\footnote{from utils.utils\_data import binarize\_scores} that converts continuous scores to discrete categories based on defined thresholds. This process, known as discretization, helps in effectively categorizing the severity levels and reducing errors in score comparison. Additionally, the discretization function was also used for the classifier models to convert continuous scores to categorical ones because these models require categorical labels as input. \par
 
 \subsection{Hyperparameter Configuration}
 \label{sub:HyperparamConfig}
 To find the best hyperparameters, a hyperparameter sweep was performed using Weights and Biases\footnote{\url{https://wandb.ai/site}}. This process involved randomly searching for the best hyperparameters to maximize the overall Spearman’s Rank Order Correlation Coefficient (SRCC). \par
-\vspace{\baselineskip}
-\noindent
-The following parameters were considered for XGBoost and MLP models: \par
-\vspace{\baselineskip}
-\noindent
-XGB Parameters:
-\begin{itemize} 
-    \item \textit{n\_estimators}: Number of trees in the ensemble.
-    \item \textit{max\_depth}: Maximum depth of each tree.
-    \item \textit{learning\_rate}: Step size shrinkage used to prevent overfitting.
-    \item \textit{subsample}: Fraction of samples used for fitting the individual trees.
-    \item \textit{early\_stopping\_rounds}: Rounds of early stopping.
-    \item \textit{gamma}: Minimum loss reduction required to make a further partition.
-    \item \textit{min\_child\_weight}: Minimum sum of instance weight needed in a child.
-    \item \textit{reg\_alpha}: L1 regularization term on weights (fixed value of 0).
-    \item \textit{reg\_lambda}: L2 regularization term on weights (fixed value of 1).
-    \item \textit{tree\_method}: Algorithm used for learning and training (fixed value 'hist').
-    \item \textit{objective}: Objective function to minimize (specific to XGBRegressor).
-    \item \textit{n\_jobs}: Number of parallel threads used to run XGBoost (specific to XGBRegressor).
-    \item \textit{multi\_strategy}: Strategy for handling multiple outputs (specific to XGBRegressor).
-    \item \textit{booster}: Type of boosting model to use (specific to XGBClassifier).
-    \item \textit{eval\_metric}: Evaluation metric(s) to be used for validation (specific to XGBClassifier).
-\end{itemize}
-\noindent
-MLP Parameters:
-\begin{itemize}
-    \item \textit{hidden\_layer\_sizes}: The number of neurons in the hidden layers.
-    \item \textit{activation}: Activation function for the hidden layer (fixed value 'relu').
-    \item \textit{alpha}: L2 regularization term.
-    \item \textit{solver}: Optimization algorithm for weight optimization (fixed value 'adam').
-    \item \textit{learning\_rate\_init}: Initial learning rate.
-    \item \textit{max\_iter}: Maximum number of iterations.
-    \item \textit{early\_stopping}: Whether to use early stopping to terminate training when validation score is not improving (fixed value True).
-\end{itemize}
 \vspace{\baselineskip}
 \noindent
 The following table shows the configurations used in the hyperparameter sweep: \par
@@ -246,10 +177,34 @@ The following table shows the configurations used in the hyperparameter sweep: \
     \centering
     \begin{tabular}{|l|l|}
         \hline
-        \textbf{XGB Parameter} & \textbf{Values} \\
+        \textbf{MLP Parameter} & \textbf{Sweep Values} \\
+        \hline
+        \textit{model\_type} & [mlp\_reg, mlp\_cls] \\
+        \textit{num\_distortions} & [4, 16, 64] \\
+        \textit{hidden\_layer\_sizes} & [(512,), (1024,), (512, 256), (1024, 512), (512, 512)] \\
+        \textit{alpha} & \{"min": 0.0001, "max": 0.01\} \\
+        \textit{learning\_rate\_init} & \{"min": 0.0001, "max": 0.1\} \\
+        \textit{max\_iter} & [200, 300, 500] \\
+        \hline
+        \textbf{} & \textbf{Fixed Values} \\
+        \hline
+        \textit{batch\_size} & 10 \\
+        \textit{activation} & relu \\
+        \textit{solver} & adam \\
+        \textit{early\_stopping} & True \\
+        \hline
+    \end{tabular}
+    \caption{Hyperparameter Configurations for MLP Models}
+    \label{table:mlp_hyperparams}
+\end{table}
+\vspace{\baselineskip}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{XGB Parameter} & \textbf{Sweep Values} \\
         \hline
         \textit{model\_type} & [xgb\_reg, xgb\_cls] \\
-        \textit{batch\_size} & 10 \\
         \textit{num\_distortions} & [4, 16, 64] \\
         \textit{n\_estimators} & [50, 100, 200, 300] \\
         \textit{learning\_rate} & \{"min": 0.0001, "max": 0.1\} \\
@@ -258,113 +213,34 @@ The following table shows the configurations used in the hyperparameter sweep: \
         \textit{subsample} & [0.5, 0.6, 0.7, 0.8, 0.9, 1.0] \\
         \textit{max\_depth} & [3, 5, 7, 9] \\
         \textit{gamma} & \{"min": 0.001, "max": 0.5\} \\
-        \textit{multi\_strategy} & [one\_output\_per\_tree, multi\_output\_tree] \\
+        \textit{multi\_strategy} & [one\_output\_per\_tree, multi\_output\_tree]\\
+        \hline
+        \textbf{} & \textbf{Fixed Values} \\
+        \hline
+        \textit{batch\_size} & 10 \\
+        \textit{reg\_alpha} & 0.0 \\
+        \textit{reg\_lambda} & 1.0 \\
+        \textit{tree\_method} & hist \\
+        \textit{objective} & reg:pseudohubererror (specific to XGBRegressor)\\
+        \textit{objective} & multi:softprob (specific to XGBClassifier)\\
+        \textit{n\_jobs} & 16 (specific to XGBRegressor)\\
+        \textit{booster} & gbtree (specific to XGBClassifier)\\
+        \textit{eval\_metric} & ['mlogloss', 'merror', 'auc'] (specific to XGBClassifier)\\
         \hline
     \end{tabular}
     \caption{Hyperparameter Configurations for XGB Models}
     \label{table:xgb_hyperparams}
 \end{table}
-
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|l|l|}
-        \hline
-        \textbf{MLP Parameter} & \textbf{Values} \\
-        \hline
-        \textit{model\_type} & [mlp\_reg, mlp\_cls] \\
-        \textit{batch\_size} & 10 \\
-        \textit{num\_distortions} & [4, 16, 64] \\
-        \textit{hidden\_layer\_sizes} & [(512,), (1024,), (512, 256), (1024, 512), (512, 512)] \\
-        \textit{activation} & relu \\
-        \textit{alpha} & \{"min": 0.0001, "max": 0.01\} \\
-        \textit{learning\_rate\_init} & \{"min": 0.0001, "max": 0.1\} \\
-        \textit{max\_iter} & [200, 300, 500] \\
-        \hline
-    \end{tabular}
-    \caption{Hyperparameter Configurations for MLP Models}
-    \label{table:mlp_hyperparams}
-\end{table}
 \vspace{\baselineskip}
 \noindent
 L2 regularization and subsampling were used to improve the generalization of the model and prevent it from memorizing the training data. L2 regularization helps to avoid large coefficients, and subsampling trains the model on different subsets of data to reduce variance. \par
 
-\subsection{Performance Metrics and Visualization}
-\label{sub:PerfMetrics}
-To thoroughly understand the model's performance, both overall metrics and individual criteria performance were analyzed\footnote{from utils.visualization import print\_metrics}. \autoref{table:performance_metrics} shows the results for the final MLP regressor model evaluated on the 475 Fitzpatrick images, which were distorted via the distortion pipeline to introduce consistent types of distortions. This table helps in identifying which specific quality criteria the model handles well and which ones it struggles with. These metrics give a comprehensive view of the model’s strengths and weaknesses, highlighting areas that may need improvement. \par
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|l|c|c|c|c|}
-        \hline
-        \textbf{Criteria} & \textbf{MAE} & \textbf{R\textsuperscript{2}} & \textbf{SRCC} & \textbf{Cohen's Kappa} \\
-        \hline
-        Background & 0.9684 & 0.2595 & 0.5422 & 0.4399 \\
-        Lighting & 0.5726 & 0.6440 & 0.8028 & 0.7913 \\
-        Focus & 0.4042 & 0.7385 & 0.8622 & 0.8568 \\
-        Orientation & 0.9895 & 0.1824 & 0.4735 & 0.4102 \\
-        Color calibration & 0.4905 & 0.7334 & 0.8622 & 0.8583 \\
-        Resolution & 0.3642 & 0.7656 & 0.8722 & 0.8726 \\
-        Field of view & 0.5474 & 0.5976 & 0.7710 & 0.7660 \\
-        \hline
-        \textbf{Overall} & \textbf{0.6195} & \textbf{0.5646} & \textbf{0.7507} & \textbf{0.7396} \\
-        \hline
-    \end{tabular}
-    \caption{Performance Metrics for Each Distortion Criteria}
-    \label{table:performance_metrics}
-\end{table}
-
-\vspace{\baselineskip}
-\noindent
-In addition to numerical metrics, visual tools were used to provide a clearer understanding of the model's performance. For each criterion, a confusion matrix\footnote{from utils.visualization import plot\_all\_confusion\_matrices} was created. This matrix as plotted in \autoref{fig:confusion_matrix} shows where the model makes correct predictions and where it makes mistakes, showing a detailed view of its accuracy for each type of distortion. The confusion matrix also shows the comparison between the actual scores and the predicted scores.
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/Confusion_matrix.png}
-    \caption{Confusion matrices for the MLP Regressor model evaluated on the 475 images from the Fitzpatrick dataset. Each matrix corresponds to a specific distortion criterion and shows the actual scores on the y-axis and the predicted scores on the x-axis. Darker shades indicate higher counts, highlighting where the model's predictions match the actual values and where discrepancies occur.}
-    \label{fig:confusion_matrix}
-\end{figure}
-
 \section{Model Testing}
 \label{sec:ModelTesting}
-The best model, the MLP Regressor, was tested on two specific sets of images to evaluate its performance. The first set had 70 images that were deliberately distorted using a pipeline to introduce consistent types of distortions. This helped see how well the model handled known distortions. The second set consisted of 200 images that had authentic distortions, allowing for a comparison of the model’s performance with my manual evaluations.\par
+The best model was tested on two specific sets of images to evaluate its performance. The first set included 70 good quality images that were synthetically distorted using a pipeline to introduce consistent types of distortions. This helped assess how well the model handled controlled distortions. The second set consisted of 200 images with authentic distortions, allowing for a comparison of the model’s performance with my manual evaluations.\par
 \vspace{\baselineskip}
 \noindent
-The test images went through similar preprocessing steps as during training. They were half-scaled, resized to 224x224 pixels, and normalized. These preprocessed images were then passed through the ARNIQA backbone to extract features before being evaluated by the final model. The only step not performed was distorting the images. Instead, the scores for the 200 images were loaded from a JSON\footnote{src/test\_200/scores.json} file, and the scores for the 70 images were loaded from a \textit{scores.npy}\footnote{src/test\_70/embeddings/scores.npy} file. \par
+For the 200 authentic images, they were half-scaled, resized to 224x224 pixels, and normalized. These preprocessed images were then passed through the ARNIQA backbone to extract features, and their scores were taken from a JSON\footnote{src/test\_200/scores.json} file where my labels were stored. For the 70 synthetically distorted images, features were extracted from the backbone, and the scores and features were saved in a \textit{.npy}\footnote{src/test\_70/embeddings} file to ensure reproducibility and easier comparison across different tests. \par
 \vspace{\baselineskip}
 \noindent
 In addition to testing the model, I also validated the effectiveness of my approach by using ARNIQA itself to score both sets of images. ARNIQA provided quality scores ranging from 0 to 1, where higher scores meant better image quality. This comparison helped verify whether adding  synthetic distortions improved the model’s performance. \par
-\vspace{\baselineskip}
-\noindent
-Furthermore, the final model was tested on the original training images that were filtered as good quality images. This test was done to confirm that the images are indeed of good quality. \autoref{fig:hept} shows radar charts for the mean distortion levels and standard deviations across seven quality criteria for the 475 good quality SCIN, Fitzpatrick17k, and combined images. These charts provide a visual representation of the distortion levels across the seven criteria, with values ranging from 0 (center) to 1 (outer edge). The standard deviations indicate the variability in distortion levels for each criterion. \par
-\vspace{\baselineskip}
-\noindent
-The radar charts reveal that the SCIN images has more distortion compared to the Fitzpatrick17k images, with the combined images falling in between. This suggests that the SCIN images have more distortions than the Fitzpatrick17k images, which is expected since the Fitzpatrick17k images were taken in a controlled environment. Additionally, both the SCIN and Fitzpatrick17k images show no distortion in resolution and focus, confirming that the filtering process was effective in selecting good quality images. \par
-\begin{figure}[ht]
-    \centering
-    \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{img/SCIN_hept.png}
-        \caption{Filtered SCIN Images}
-        \label{fig:scin_hept}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{img/F17K_hept.png}
-        \caption{Filtered Fitzpatrick Images}
-        \label{fig:f17k_hept}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{img/COMB_hept.png}
-        \caption{Combined Images}
-        \label{fig:comb_hept}
-    \end{subfigure}
-    \caption{Radar charts on the mean distortion levels and standard deviations across seven quality criteria for the 475 good quality SCIN, Fitzpatrick17k, and combined images.}
-    \label{fig:hept}
-\end{figure}
-\subsection{Visualizing the Tests}
-\label{sub:VizModelPerformance}
-To better understand the model’s performance, I created visualizations\footnote{from utils.visualization import plot\_results} for the test images. For the 70 images from the distortion pipeline, a four-column layout was used: the first column showed the original image, the second displayed the distorted image, the third contained the actual labels, and the fourth presented the model’s predictions. This setup makes it easy to compare the model’s predictions with the actual distortions. \par
-\vspace{\baselineskip}
-\noindent
-For the 200 images with authentic distortions, a three-column layout was used: the first column showed the image, the second column displayed the human-labeled scores, and the third column presented the model’s predictions. This comparison helped illustrate how well the model’s predictions aligned with the human evaluations. \par
-\vspace{\baselineskip}
-\noindent
-These visualizations provided a clear and detailed view of the model’s performance, highlighting its strengths and areas for improvement. They were particularly useful for identifying specific cases where the model performed well and where it struggled. \par
