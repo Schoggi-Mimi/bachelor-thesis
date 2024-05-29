@@ -1,17 +1,23 @@
 \chapter{Results and Analysis}
 \label{ch:ResultsAnalysis}
 In this chapter, the performance of the trained models is analyzed and discussed. The main focus is on the final MLP regressor model, which was found to be the best performing model across multiple criteria. The selection of the MLP regressor is supported by the results shown in \autoref{fig:ModelSRCC}, which presents a parallel coordinate plot comparing the best-performing models across all seven criteria and the overall SRCC.\par
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/Model_SRCC.png}
-    \caption{Parallel coordinate plot showing the best SRCC values for the four different models across the seven criteria and the overall SRCC. This plot highlights the performance of the MLP Regressor.}
-    \label{fig:ModelSRCC}
-\end{figure}
-\noindent
 The parallel coordinate plot shows that the MLP regressor consistently performs better than the other models across all criteria. Although all models perform similarly for different criteria, no model stands out in a specific criterion. This could be because the same features were used for every criterion, with only the target labels differing. \par
 \vspace{\baselineskip}
 \noindent
 In addition to the parallel coordinate plot, \autoref{table:srcc_results} summarizes the cross-dataset evaluation results, showing the generalizability of the models. The table lists the models in the left column and their evaluation results on the SCIN and Fitzpatrick (F17K) datasets in the right columns. This table shows how well the models, trained on one dataset, perform when evaluated on another, providing insights into their robustness and adaptability. All data were synthetically distorted through the pipeline to ensure consistent evaluation conditions. \par
+\vspace{\baselineskip}
+\noindent
+Given these findings, the MLP regressor was chosen as the final model for further testing. The following sections will detail the performance of the MLP regressor on the test images, providing a clear analysis of its strengths and weaknesses in assessing image quality in teledermatology. \par
+
+\section{Range of Distortion Values}
+\label{sec:RangeDistortionValues}
+The ranges of values for each distortion type were carefully chosen to reflect realistic scenarios for teledermatology  applications. Each distortion type was visualized individually to make sure they were appropriate. \autoref{sec:Degradation_Types} includes images that show each criterion with different distortion types and five severity levels. \par
+\vspace{\baselineskip}
+\noindent
+It is important to note that images should not be normalized before viewing because normalization can make the images appear overly colorful and unrealistic. However, normalization is necessary during training and testing because the feature extraction backbone from ARNIQA\autocite{ARNIQA} was trained on ResNet50 with ImageNet images. This step helps the model accurately extract relevant features from the images. \par
+\section{Model Performance}
+\label{sec:ModelPerformance}
+To fully understand the performance of the four different models with different architectures, a cross-dataset evaluation was done. \autoref{table:srcc_results} summarizes the overall Spearman’s Rank Correlation Coefficient (SRCC) on the synthetically distorted SCIN and Fitzpatrick datasets. This evaluation highlights how well the models generalize across different datasets. Note that the Fitzpatrick dataset is referred to as F17K for simplicity. \par 
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|c|c|}
@@ -36,12 +42,19 @@ In addition to the parallel coordinate plot, \autoref{table:srcc_results} summar
     \caption{Spearman’s Rank Correlation Coefficient (SRCC) of Different Models on SCIN and F17K Datasets. F17K refers to the Fitzpatrick17k dataset.}
     \label{table:srcc_results}
 \end{table}
-\noindent
-Given these findings, the MLP regressor was chosen as the final model for further testing. The following sections will detail the performance of the MLP regressor on the test images, providing a clear analysis of its strengths and weaknesses in assessing image quality in teledermatology. \par
+\subsection{Parallel Coordinate Plot}
+\label{subsec:ParallelCoordinatePlot}
+\autoref{fig:ModelSRCC}, a parallel coordinate presents a visual comparison of the model performances across different criteria and the overall SRCC. \par
+\begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio,width=15cm]{img/Model_SRCC.png}
+    \caption{Parallel coordinate plot showing the best SRCC values for the four different models across the seven criteria and the overall SRCC. This plot highlights the performance of the MLP Regressor.}
+    \label{fig:ModelSRCC}
+\end{figure}
 
-\section{Model Performance}
-\label{sec:ModelPerformance}
-To fully understand the model’s performance, both overall metrics and individual criteria performance were analyzed\footnote{from utils.visualization import print\_metrics}. \autoref{table:performance_metrics} shows the results for the final MLP regressor model evaluated on the 475 good quality Fitzpatrick images, which were synthetically distorted using the distortion pipeline. The results indicate that the model performs very well on focus, color calibration, and resolution, with low MAE, high R\textsuperscript{2}, SRCC, and Cohen’s Kappa values. However, the most problematic criteria are background and orientation. These metrics provide a comprehensive view of the model’s strengths and weaknesses, highlighting areas that may need improvement. \par
+\subsection{Performance Metrics}
+\label{subsec:PerformanceMetrics}
+The performance of the final MLP regressor model on individual criteria is shown in \autoref{table:performance_metrics}. This table provides a comprehensive view of the model’s strengths and weaknesses, highlighting areas for improvement. The model was evaluated on 475 good quality Fitzpatrick images that were synthetically distorted using the distortion pipeline. \par
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|c|c|c|c|}
@@ -63,9 +76,11 @@ To fully understand the model’s performance, both overall metrics and individu
     \label{table:performance_metrics}
 \end{table}
 
+\clearpage
+\subsection{Confusion Matrices}
+\label{subsec:ConfusionMatrices}
+In addition to numerical metrics, confusion matrices\footnote{from utils.visualization import plot\_all\_confusion\_matrices} were created for each criterion, as shown in \autoref{fig:confusion_matrices}. These matrices display where the model makes correct predictions and where it makes mistakes, showing a detailed view of its accuracy for each type of distortion. The comparison between actual and predicted scores helps identify specific areas where the model performs well and areas that need improvement. Furthermore, the confusion matrices also reveal any biases the model might have toward certain severity ranges, indicating whether it tends to predict only low or high severity levels, or if its predictions are skewed in some way. \par
 \vspace{\baselineskip}
-\noindent
-In addition to numerical metrics, visual tools were used to gain a clearer understanding of the model’s performance. For each criterion, a confusion matrix\footnote{from utils.visualization import plot\_all\_confusion\_matrices} was created. As shown in \autoref{fig:confusion_matrices} these matrices display where the model makes correct predictions and where it makes mistakes, showing a detailed view of its accuracy for each type of distortion. The confusion matrix also shows the comparison between the actual scores and the predicted scores. \par
 \begin{figure}[ht]
     \centering
     \begin{subfigure}[b]{0.32\textwidth}
@@ -114,61 +129,129 @@ In addition to numerical metrics, visual tools were used to gain a clearer under
 \end{figure}
 \vspace{\baselineskip}
 \noindent
-Examining the confusion plots shows that the bottom row (Figure~\ref{fig:cm_foc} to~\ref{fig:cm_fov}) shows good performance, where the diagonal indicate correct predictions with only minor fluctuations. In contrast, the top row (Figure~\ref{fig:cm_bg} to~\ref{fig:cm_orient}) has more noticeable issues. For instance, \autoref{fig:cm_bg} shows that there are rarely predictions on the higher severity for background distortion. This is because, in the distortion pipeline, if the background proportion is less than 10\%, no color blocks are added, resulting in a 0 value for background distortion. This indicates many images were given a 0 for background distortion. Improving the training dataset to include more images with background could address this issue. \par
-\vspace{\baselineskip}
-\noindent
-Orientation predictions, as shown in \autoref{fig:cm_orient}, is generally unsure and tend to cluster in the middle. This might be due to the various perspective changes (top, bottom, right, left) applied, making the model predict around the middle as it detects perspective distortions but not precisely which way and how strong. \par
-\vspace{\baselineskip}
-\noindent
-Lighting predictions, as shown in \autoref{fig:cm_light}, are reasonably accurate, but errors may occur because the criteria include two opposite types of distortion: brightening and darkening the image. This could lead to mispredictions as the inherent distortions look opposite but have the same values for the criteria. \par
-\vspace{\baselineskip}
-\noindent
-These observations highlight the strengths of using a combined dataset, making the model more robust. Testing with datasets containing more background, such as the SCIN dataset, shows higher background scores, validating this hypothesis. Conversely, the Fitzpatrick dataset, with images taken in controlled settings or with dermatoscopes, shows better field of view predictions due to less background, supporting the combined dataset's robustness. This detailed analysis helps to understand where the model performs well and where improvements are needed. \par
-\section{Visualizing Model Predictions}
+
+\clearpage
+\section{Model Predictions}
 \label{sec:VisualizingPredictions}
-To better understand the model’s performance, I created visualizations\footnote{from utils.visualization import plot\_results} for the test images. These visualizations provided a clear and detailed view of the model’s performance, highlighting its strengths and areas for improvement. They were particularly useful for identifying specific cases where the model performed well and where it struggled. \par
+To better understand the model’s performance on the two test sets (70 synthetic distorted images and 200 authentic images), radar charts\footnote{from utils.visualization import plot\_results} were created. These charts show the criteria on the outside, with severity ranges going from the center (0) to the outer edge (1), indicating high distortion for each criterion. These visualizations provide a clear and simple view of the model’s performance, showing its strengths and areas for improvement. They help identify specific cases where the model predicted the correct severity and where it struggled. The radar charts also make it easy to see which distortions the model handles well and which need more attention. \par
 \subsection{Visualizations for Synthetic Distorted Images}
 \label{subsec:SyntheticDistortedImages}
-To better understand the model's performance on synthetically distorted images, visualizations were created for 70 test images. These visualizations, as shown in the four-column layout, help to compare the model's predictions with the actual distortions introduced by the pipeline. This approach clearly demonstrates the model's ability to handle various types of distortions. \par
+These visualizations, as shown in \autoref{fig:synthetic}, help to compare the model's predictions with the actual distortions introduced by the pipeline. This approach clearly demonstrates the model's ability to handle various types of distortions. \par
 \vspace{\baselineskip}
 \noindent
 The first column shows the original image, the second displays the distorted image, the third contains the actual labels, and the fourth presents the model’s predictions. This setup makes it easy to compare the model’s predictions with the actual distortions. \par
+\begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio,width=15cm]{img/synthetic.png}
+    \caption{Visualizations for the MLP Regressor model on 70 synthetic distorted images. The four-column layout shows the original image, the distorted image, the actual labels, and the model's predictions.}
+    \label{fig:synthetic}
+\end{figure}
 
 \subsection{Visualizations for Authentic Images}
 \label{subsec:AuthenticImages}
-The visualizations for the 200 images with authentic distortions use a three-column layout to compare the model's predictions with human-labeled scores. This method highlights the model's performance in real-world scenarios, showing its strengths and areas for improvement. \par
+The visualizations, as shown in \autoref{fig:authentic}, compare the model's predictions with human-labeled scores. This method highlights the model's performance in real-world scenarios, showing its strengths and areas for improvement. \par
 \vspace{\baselineskip}
 \noindent
 The first column shows the image, the second column displays the human-labeled scores, and the third column presents the model’s predictions. This comparison helps show how well the model’s predictions align with the human evaluations. \par
-
-\section{Testing on Filtered Images}
-\label{sec:TestingFilteredImages}
-Furthermore, the final model was tested on the original training images filtered for good quality. The radar charts in Figure 4.9 provide a visual representation of distortion levels across seven quality criteria. These charts confirm that the SCIN images exhibit more distortion compared to the Fitzpatrick17k images, which is expected due to the controlled environment in which the Fitzpatrick17k images were taken. The absence of distortion in resolution and focus across both datasets confirms the effectiveness of the filtering process. \par
-\vspace{\baselineskip}
-\noindent
-Furthermore, the final model was tested on the original training images that were filtered as good quality images. This test was done to confirm that the images are indeed of good quality. \autoref{fig:hept} shows radar charts for the mean distortion levels and standard deviations across seven quality criteria for the 475 good quality SCIN, Fitzpatrick17k, and combined images. These charts provide a visual representation of the distortion levels across the seven criteria, with values ranging from 0 (center) to 1 (outer edge). The standard deviations indicate the variability in distortion levels for each criterion. \par
-\vspace{\baselineskip}
-\noindent
-The radar charts reveal that the SCIN images has more distortion compared to the Fitzpatrick17k images, with the combined images falling in between. This suggests that the SCIN images have more distortions than the Fitzpatrick17k images, which is expected since the Fitzpatrick17k images were taken in a controlled environment. Additionally, both the SCIN and Fitzpatrick17k images show no distortion in resolution and focus, confirming that the filtering process was effective in selecting good quality images. \par
 \begin{figure}[ht]
     \centering
-    \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{img/SCIN_hept.png}
+    \includegraphics[keepaspectratio,width=15cm]{img/authentic.png}
+    \caption{Visualizations for the MLP Regressor model on 200 authentic images. The three-column layout shows the image, the human-labeled scores, and the model's predictions.}
+    \label{fig:authentic}
+\end{figure}
+\clearpage
+\section{Assessing Training and Testing Images Quality}
+\label{sec:TestingFilteredImages}
+To verify the quality of the images used for training and see how they change after synthetic distortion, radar charts were created. These charts show the quality of the original training images and how they are affected by the distortions. Additionally, the quality of both the synthetic and authentic test images is assessed using the same method. These radar charts show a simple visual representation of the quality and the level of distortion across the seven criteria. \par
+\subsection{Training Images Quality}
+\label{subsec:TrainingImagesQuality}
+\subsubsection{SCIN Dataset}
+\label{subsubsec:SCINDataset}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{img/hept/SCIN10k.png}
+        \caption{SCIN Images}
+        \label{fig:SCIN10k}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{img/hept/SCIN.png}
         \caption{Filtered SCIN Images}
-        \label{fig:scin_hept}
+        \label{fig:SCIN}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{img/F17K_hept.png}
+    \caption{Radar charts for the SCIN dataset. (a) Original images from the SCIN dataset (10'379 images). (b) Filtered good quality images (475 images).}
+    \label{fig:SF}
+\end{figure}
+\clearpage
+\subsubsection{Fitzpatrick Dataset}
+\label{subsubsec:FitzpatrickDataset}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{img/hept/Fitzpatrick17k.png}
+        \caption{Fitzpatrick Images}
+        \label{fig:Fitzpatrick17K}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{img/hept/F17K.png}
         \caption{Filtered Fitzpatrick Images}
-        \label{fig:f17k_hept}
+        \label{fig:F17K}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{img/COMB_hept.png}
-        \caption{Combined Images}
-        \label{fig:comb_hept}
+    \caption{Radar charts for the Fitzpatrick dataset. (a) Original images from the Fitzpatrick dataset (16'577 images). (b) Filtered good quality images (475 images).}
+    \label{fig:FF}
+\end{figure}
+
+\subsubsection{Combined Dataset}
+\label{subsubsec:CombinedDataset}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{img/hept/combined.png}
+        \caption{Combined SCIN and Fitzpatrick Images}
+        \label{fig:combined}
     \end{subfigure}
-    \caption{Radar charts on the mean distortion levels and standard deviations across seven quality criteria for the 475 good quality SCIN, Fitzpatrick17k, and combined images.}
-    \label{fig:hept}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{img/hept/comb_synthetic.png}
+        \caption{Synthetically Distorted Images}
+        \label{fig:comb_synthetic}
+    \end{subfigure}
+    \hfill
+    \caption{Combined dataset analysis. (a) Combined SCIN and Fitzpatrick images (950 images). (b) Synthetically distorted images.}
+    \label{fig:CF}
+\end{figure}
+\clearpage
+\subsection{Test Images Quality}
+\label{subsec:TestImagesQuality}
+\subsubsection{Synthetic Test Images}
+\label{subsubsec:SyntheticTestImages}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{img/hept/test_70.png}
+        \caption{Filtered Test Images}
+        \label{fig:test_70}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{img/hept/test_70_synthetic.png}
+        \caption{Synthetically Distorted Test Images}
+        \label{fig:test_70_synthetic}
+    \end{subfigure}
+    \hfill
+    \caption{Synthetic test set analysis. (a) Filtered good quality test images (70 images, independent of training set). (b) Synthetically distorted test images.}
+    \label{fig:T1}
+\end{figure}
+
+\subsubsection{Authentic Test Images}
+\label{subsubsec:AuthenticTestImages}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio,width=7cm]{img/hept/test_200.png}
+    \caption{Authentic test set from the SCIN dataset, independent of the training images, showing real-world distortions.}
+    \label{fig:T2}
 \end{figure}

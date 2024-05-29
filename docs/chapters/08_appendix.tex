@@ -14,8 +14,8 @@ Documents and code relevant to the thesis can be downloaded from the following l
 \includepdf[pages=-]{Aufgabenstellung_BAA.pdf}
 \todo{include risk management and project planning pdfs}
 
-\chapter{Dataset}
-\label{ch:Dataset}
+\section{Dataset}
+\label{sec:Dataset}
 Detailed information on image quality assessment (IQA) databases: \par
 \begin{itemize}
     \item \textbf{LIVE} (Laboratory for Image \& Video Engineering) dataset \autocite{LIVE} includes 29 reference images and 779 manually distorted images corrupted by 5 types of distortions: JPEG compression (JPEG), JPEG2000 compression (JP2K), white noise (WN), Gaussian blur (GB), and simulated fast fading Rayleigh channel (FF). Each distortion type contains 5 or 4 distortion levels. Most images are 768 $\times$ 512 pixels in size. Each distorted image in this dataset is associated with a Differential Mean Opinion Score (DMOS), scaled from 0 to 100, where 0 indicates no perceivable distortion. 
@@ -46,8 +46,8 @@ Detailed information on image quality assessment (IQA) databases: \par
     \item \textbf{LIVE in the wild image quality challenge database} \autocite{LIVE_Wild} includes 1162 authentically distorted images captured using a variety of mobile devices. Complex real distortions, which are not well-modeled by the synthetic distortions are included. All images are cropped to the resolution of 500 $\times$ 500. A novel crowdsourcing system was employed to gather over 350,000 opinion scores from 8100 observers, ensuring the objectivity of the MOS values obtained.
     \item \textbf{Camera image database (CID2013)} \autocite{CID2013}: CID2013 is designed to test no-reference IQA algorithms. It includes 480 real images captured from 8 typical scenes using 79 consumer cameras and mobile phones. The images are rated from 5 aspects: the overall quality, sharpness, graininess, lightness, and color saturation scales. The images are scaled to a size of 1600 $\times$ 1200.
 \end{itemize}
-\chapter{Degradation Types}
-\label{ch:Degradation_Types}
+\section{Degradation Types}
+\label{sec:Degradation_Types}
 
 As mentioned in \autoref{sub:QualityCriteriaTeledermatology}, the dataset used in this thesis is augmented with synthetic degradations. The following figures
 \autoref{fig:brightness_change_supplementary}, 
@@ -162,16 +162,3 @@ As mentioned in \autoref{sub:QualityCriteriaTeledermatology}, the dataset used i
     \caption{Visualization of the degradation types belonging to the \textit{Color calibration} group for increasing levels of intensity.}
     \label{fig:color_calibration_supplementary}
 \end{figure*}
-
-
-\chapter{Code}
-\label{ch:Code}
-Anhang, Abkürzungs-, Abbildungs-, Tabellen-, Formel-Verzeichnis, Literaturverzeichnis nicht vergessen!\par
-\textbf{Anhänge}
-
-Projektspezifisch können weitere Dokumentationsteile angefügt werden wie:
-
-Aufgabenstellung, Projektmanagement-Plan/Bericht, Testplan/Testbericht, Bedienungsanleitungen, Details zu Umfragen, detaillierte Anforderungslisten, Referenzen auf projektspezifische Daten in externen Entwicklungs- und Datenverwaltungstools etc.
-\begin{lstlisting}[caption={Caption on PDF}, label={lst:reference_this}, language=Python]
-import numpy as np
-\end{lstlisting}

@@ -1,52 +1,52 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Implementation}{22}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Implementation}{19}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\newlabel{ch:Implementation}{{4}{22}{Implementation}{chapter.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Image Selection and Labeling Process}{22}{section.4.1}\protected@file@percent }
-\newlabel{sec:ImgSelectLabel}{{4.1}{22}{Image Selection and Labeling Process}{section.4.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Image Filtering and Selection}{22}{subsection.4.1.1}\protected@file@percent }
-\newlabel{sub:ImgFilterSelect}{{4.1.1}{22}{Image Filtering and Selection}{subsection.4.1.1}{}}
-\@writefile{tdo}{\contentsline {todo}{maybe include some pictures in appendix}{22}{section*.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Labeling of the Test Set}{22}{subsection.4.1.2}\protected@file@percent }
-\newlabel{sub:LabelingTestSet}{{4.1.2}{22}{Labeling of the Test Set}{subsection.4.1.2}{}}
-\@writefile{tdo}{\contentsline {todo}{correct this later}{22}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\nonumberline Visualization of Label Distribution for the Test Set}{23}{subsubsection*.17}\protected@file@percent }
-\newlabel{subsub:LabelDist}{{4.1.2}{23}{Visualization of Label Distribution for the Test Set}{subsubsection*.17}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Histograms showing the distribution of distortion scores for each quality criterion.}}{23}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:DistTestCriteria}{{4.1}{23}{Histograms showing the distribution of distortion scores for each quality criterion}{figure.caption.18}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Distortion Pipeline}{23}{section.4.2}\protected@file@percent }
-\newlabel{sec:DistPipeline}{{4.2}{23}{Distortion Pipeline}{section.4.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Histograms showing the distribution of distortion scores for each quality criterion.}}{24}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:DistTestCriteria2}{{4.2}{24}{Histograms showing the distribution of distortion scores for each quality criterion}{figure.caption.19}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Distortion Types}{24}{subsection.4.2.1}\protected@file@percent }
-\newlabel{sub:DistTypes}{{4.2.1}{24}{Distortion Types}{subsection.4.2.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Distortion Implementation Process}{25}{section.4.3}\protected@file@percent }
-\newlabel{sec:DistProcess}{{4.3}{25}{Distortion Implementation Process}{section.4.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Distortion pipeline for generating training images with different levels of distortion. (a) shows the original image and its downscaled version. (b) illustrates the distortion pipeline where a type of distortion and a random level for each criterion are selected, with the corresponding mapped values shown at the bottom. (c) shows the output where the distorted original image and the distorted downscaled image are resized to 224x224 pixels, along with the 7 distortion values for the image.}}{26}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:DistPipeline}{{4.3}{26}{Distortion pipeline for generating training images with different levels of distortion. (a) shows the original image and its downscaled version. (b) illustrates the distortion pipeline where a type of distortion and a random level for each criterion are selected, with the corresponding mapped values shown at the bottom. (c) shows the output where the distorted original image and the distorted downscaled image are resized to 224x224 pixels, along with the 7 distortion values for the image}{figure.caption.20}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Feature Extraction with the ARNIQA Backbone}{26}{section.4.4}\protected@file@percent }
-\newlabel{sec:FeatureExtraction}{{4.4}{26}{Feature Extraction with the ARNIQA Backbone}{section.4.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Overview of the entire process for training and evaluating the image quality assessment model. (a) shows the album of input images. (b) depicts the distortion pipeline that randomly distorts images across seven criteria at five severity levels. (c) illustrates the feature extraction using the backbone from ARNIQA, which uses the SimCLR framework. (d) shows a scatter plot representing the model training process, with a diagonal red line indicating the fit. (e) presents the prediction results, comparing the model’s output to the actual labels.}}{27}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:Architecture}{{4.4}{27}{Overview of the entire process for training and evaluating the image quality assessment model. (a) shows the album of input images. (b) depicts the distortion pipeline that randomly distorts images across seven criteria at five severity levels. (c) illustrates the feature extraction using the backbone from ARNIQA, which uses the SimCLR framework. (d) shows a scatter plot representing the model training process, with a diagonal red line indicating the fit. (e) presents the prediction results, comparing the model’s output to the actual labels}{figure.caption.21}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Model Selection and Training}{27}{section.4.5}\protected@file@percent }
-\newlabel{sec:ModelTraining}{{4.5}{27}{Model Selection and Training}{section.4.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Overall SRCC for XGB Regressor and MLP Regressor with different numbers of distortions. The x-axis shows the time it took to train, and the y-axis shows the SRCC values, demonstrating better performance with larger datasets.}}{28}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:NumDistReg}{{4.5}{28}{Overall SRCC for XGB Regressor and MLP Regressor with different numbers of distortions. The x-axis shows the time it took to train, and the y-axis shows the SRCC values, demonstrating better performance with larger datasets}{figure.caption.22}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Overall SRCC for XGB Classifier and MLP Classifier with different numbers of distortions. Similar to \autoref {fig:NumDistReg}, this figure shows improved performance with larger datasets.}}{29}{figure.caption.23}\protected@file@percent }
-\newlabel{fig:NumDistCls}{{4.6}{29}{Overall SRCC for XGB Classifier and MLP Classifier with different numbers of distortions. Similar to \autoref {fig:NumDistReg}, this figure shows improved performance with larger datasets}{figure.caption.23}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Hyperparameter Configuration}{29}{subsection.4.5.1}\protected@file@percent }
-\newlabel{sub:HyperparamConfig}{{4.5.1}{29}{Hyperparameter Configuration}{subsection.4.5.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Hyperparameter Configurations for MLP Models}}{29}{table.caption.24}\protected@file@percent }
-\newlabel{table:mlp_hyperparams}{{4.1}{29}{Hyperparameter Configurations for MLP Models}{table.caption.24}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Hyperparameter Configurations for XGB Models}}{30}{table.caption.25}\protected@file@percent }
-\newlabel{table:xgb_hyperparams}{{4.2}{30}{Hyperparameter Configurations for XGB Models}{table.caption.25}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Model Testing}{30}{section.4.6}\protected@file@percent }
-\newlabel{sec:ModelTesting}{{4.6}{30}{Model Testing}{section.4.6}{}}
+\newlabel{ch:Implementation}{{3}{19}{Implementation}{chapter.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Image Selection and Labeling Process}{19}{section.3.1}\protected@file@percent }
+\newlabel{sec:ImgSelectLabel}{{3.1}{19}{Image Selection and Labeling Process}{section.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Image Filtering and Selection}{19}{subsection.3.1.1}\protected@file@percent }
+\newlabel{sub:ImgFilterSelect}{{3.1.1}{19}{Image Filtering and Selection}{subsection.3.1.1}{}}
+\@writefile{tdo}{\contentsline {todo}{maybe include some pictures in appendix}{19}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Labeling of the Test Set}{19}{subsection.3.1.2}\protected@file@percent }
+\newlabel{sub:LabelingTestSet}{{3.1.2}{19}{Labeling of the Test Set}{subsection.3.1.2}{}}
+\@writefile{tdo}{\contentsline {todo}{correct this later}{19}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\nonumberline Visualization of Label Distribution for the Test Set}{20}{subsubsection*.16}\protected@file@percent }
+\newlabel{subsub:LabelDist}{{3.1.2}{20}{Visualization of Label Distribution for the Test Set}{subsubsection*.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Histograms showing the distribution of distortion scores for each quality criterion.}}{20}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:DistTestCriteria}{{3.1}{20}{Histograms showing the distribution of distortion scores for each quality criterion}{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Distortion Pipeline}{20}{section.3.2}\protected@file@percent }
+\newlabel{sec:DistPipeline}{{3.2}{20}{Distortion Pipeline}{section.3.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Histograms showing the distribution of distortion scores for each quality criterion.}}{21}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:DistTestCriteria2}{{3.2}{21}{Histograms showing the distribution of distortion scores for each quality criterion}{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Distortion Types}{21}{subsection.3.2.1}\protected@file@percent }
+\newlabel{sub:DistTypes}{{3.2.1}{21}{Distortion Types}{subsection.3.2.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Distortion Implementation Process}{22}{section.3.3}\protected@file@percent }
+\newlabel{sec:DistProcess}{{3.3}{22}{Distortion Implementation Process}{section.3.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Distortion pipeline for generating training images with different levels of distortion. (a) shows the original image and its downscaled version. (b) illustrates the distortion pipeline where a type of distortion and a random level for each criterion are selected, with the corresponding mapped values shown at the bottom. (c) shows the output where the distorted original image and the distorted downscaled image are resized to 224x224 pixels, along with the 7 distortion values for the image.}}{23}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:DistPipeline}{{3.3}{23}{Distortion pipeline for generating training images with different levels of distortion. (a) shows the original image and its downscaled version. (b) illustrates the distortion pipeline where a type of distortion and a random level for each criterion are selected, with the corresponding mapped values shown at the bottom. (c) shows the output where the distorted original image and the distorted downscaled image are resized to 224x224 pixels, along with the 7 distortion values for the image}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Feature Extraction with the ARNIQA Backbone}{23}{section.3.4}\protected@file@percent }
+\newlabel{sec:FeatureExtraction}{{3.4}{23}{Feature Extraction with the ARNIQA Backbone}{section.3.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Overview of the entire process for training and evaluating the image quality assessment model. (a) shows the album of input images. (b) depicts the distortion pipeline that randomly distorts images across seven criteria at five severity levels. (c) illustrates the feature extraction using the backbone from ARNIQA, which uses the SimCLR framework. (d) shows a scatter plot representing the model training process, with a diagonal red line indicating the fit. (e) presents the prediction results, comparing the model’s output to the actual labels.}}{24}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:Architecture}{{3.4}{24}{Overview of the entire process for training and evaluating the image quality assessment model. (a) shows the album of input images. (b) depicts the distortion pipeline that randomly distorts images across seven criteria at five severity levels. (c) illustrates the feature extraction using the backbone from ARNIQA, which uses the SimCLR framework. (d) shows a scatter plot representing the model training process, with a diagonal red line indicating the fit. (e) presents the prediction results, comparing the model’s output to the actual labels}{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Model Selection and Training}{24}{section.3.5}\protected@file@percent }
+\newlabel{sec:ModelTraining}{{3.5}{24}{Model Selection and Training}{section.3.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Overall SRCC for XGB Regressor and MLP Regressor with different numbers of distortions. The x-axis shows the time it took to train, and the y-axis shows the SRCC values, demonstrating better performance with larger datasets.}}{25}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:NumDistReg}{{3.5}{25}{Overall SRCC for XGB Regressor and MLP Regressor with different numbers of distortions. The x-axis shows the time it took to train, and the y-axis shows the SRCC values, demonstrating better performance with larger datasets}{figure.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Overall SRCC for XGB Classifier and MLP Classifier with different numbers of distortions. Similar to \autoref {fig:NumDistReg}, this figure shows improved performance with larger datasets.}}{26}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:NumDistCls}{{3.6}{26}{Overall SRCC for XGB Classifier and MLP Classifier with different numbers of distortions. Similar to \autoref {fig:NumDistReg}, this figure shows improved performance with larger datasets}{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Hyperparameter Configuration}{26}{subsection.3.5.1}\protected@file@percent }
+\newlabel{sub:HyperparamConfig}{{3.5.1}{26}{Hyperparameter Configuration}{subsection.3.5.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Hyperparameter Configurations for MLP Models}}{26}{table.caption.23}\protected@file@percent }
+\newlabel{table:mlp_hyperparams}{{3.1}{26}{Hyperparameter Configurations for MLP Models}{table.caption.23}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Hyperparameter Configurations for XGB Models}}{27}{table.caption.24}\protected@file@percent }
+\newlabel{table:xgb_hyperparams}{{3.2}{27}{Hyperparameter Configurations for XGB Models}{table.caption.24}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Model Testing}{27}{section.3.6}\protected@file@percent }
+\newlabel{sec:ModelTesting}{{3.6}{27}{Model Testing}{section.3.6}{}}
 \@setckpt{chapters/04_implementation}{
-\setcounter{page}{31}
+\setcounter{page}{28}
 \setcounter{equation}{0}
 \setcounter{enumi}{7}
 \setcounter{enumii}{0}
@@ -55,7 +55,7 @@
 \setcounter{footnote}{5}
 \setcounter{mpfootnote}{4}
 \setcounter{part}{0}
-\setcounter{chapter}{4}
+\setcounter{chapter}{3}
 \setcounter{section}{6}
 \setcounter{subsection}{0}
 \setcounter{subsubsection}{0}
