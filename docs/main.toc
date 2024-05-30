@@ -1,29 +1,25 @@
 \thispagestyle {empty}
 \contentsline {chapter}{\numberline {1}Results and Analysis}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Range of Distortion Values}{2}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Model Performance}{3}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Parallel Coordinate Plot}{3}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Performance Metrics}{3}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Confusion Matrices}{5}{subsection.1.2.3}%
-\contentsline {section}{\numberline {1.3}Model Predictions}{6}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Visualizations for Synthetic Distorted Images}{6}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Visualizations for Authentic Images}{6}{subsection.1.3.2}%
-\contentsline {section}{\numberline {1.4}Assessing Training and Testing Images Quality}{9}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}Training Images Quality}{9}{subsection.1.4.1}%
-\contentsline {subsubsection}{\nonumberline SCIN Dataset}{9}{subsubsection*.8}%
-\contentsline {subsubsection}{\nonumberline Fitzpatrick Dataset}{10}{subsubsection*.11}%
-\contentsline {subsubsection}{\nonumberline Combined Dataset}{10}{subsubsection*.14}%
-\contentsline {subsection}{\numberline {1.4.2}Test Images Quality}{11}{subsection.1.4.2}%
-\contentsline {subsubsection}{\nonumberline Synthetic Test Images}{11}{subsubsection*.17}%
-\contentsline {subsubsection}{\nonumberline Authentic Test Images}{11}{subsubsection*.20}%
-\contentsline {chapter}{\numberline {2}Discussion}{12}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Interpretation of Results}{12}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Answering the Research Questions}{13}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Comparison with Related Work}{13}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Reflection}{13}{section.2.4}%
-\contentsline {section}{\numberline {2.5}AI Tools Used}{13}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Conclusion and Future Work}{14}{chapter.3}%
-\setcounter {tocdepth}{0}
-\contentsline {chapter}{\numberline {A}Supplementary Material}{III}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Dataset}{VI}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Degradation Types}{VII}{section.A.2}%
+\contentsline {section}{\numberline {1.2}Model Performance}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Cross-Dataset Evaluation}{2}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Parallel Coordinate Plot}{2}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Performance Metrics}{3}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}Confusion Matrices}{6}{subsection.1.2.4}%
+\contentsline {section}{\numberline {1.3}Model Predictions}{7}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Visualizations for Synthetic Distorted Images}{7}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Visualizations for Authentic Images}{7}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Assessing Training and Testing Images Quality}{10}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Training Images Quality}{10}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Test Images Quality}{12}{subsection.1.4.2}%
+\contentsline {section}{\numberline {1.5}Comparison with ARNIQA Predictions}{12}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Discussion}{14}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Interpretation of Results}{14}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Key Model Assumptions and Their Implications}{16}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Reviewing the Objectives of the Thesis}{16}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Comparison with Related Work}{17}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Reflection}{17}{section.2.5}%
+\contentsline {section}{\numberline {2.6}AI Tools Used}{17}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Conclusion and Future Work}{18}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Chapter}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Section}{19}{section.4.1}%

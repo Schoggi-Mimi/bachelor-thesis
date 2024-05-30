@@ -1,30 +1,81 @@
 \chapter{Discussion}
 \label{ch:Discussion}
-
+The chapter on Discussion covers the entire work and, in particular, the results achieved in \autoref{ch:ResultsAnalysis}. In the following sections, the results will be interpreted, the objectives of the thesis will be reviewed, and recommendations for future research in teledermatology image quality assessment will be provided. \par
 \section{Interpretation of Results}
 \label{sec:InterpretationResults}
-Examining the confusion plots shows that the bottom row (Figure~\ref{fig:cm_foc} to~\ref{fig:cm_fov}) shows good performance, where the diagonal indicate correct predictions with only minor fluctuations. In contrast, the top row (Figure~\ref{fig:cm_bg} to~\ref{fig:cm_orient}) has more noticeable issues. For instance, \autoref{fig:cm_bg} shows that there are rarely predictions on the higher severity for background distortion. This is because, in the distortion pipeline, if the background proportion is less than 10\%, no color blocks are added, resulting in a 0 value for background distortion. This indicates many images were given a 0 for background distortion. Improving the training dataset to include more images with background could address this issue. \par
+The differences in model performance shown in \autoref{fig:ModelSRCC} reveal that both classifiers (XGB Classifier and MLP Classifier) were not as effective as the regressors (XGB Regressor and MLP Regressor). This is likely because the task involves predicting continuous severity scores, which are more suited to regression models. Classifiers categorize the severity into fixed levels, which can lead to less precise predictions.\par \todo{check this paragraph}
 \vspace{\baselineskip}
 \noindent
-Orientation predictions, as shown in \autoref{fig:cm_orient}, is generally unsure and tend to cluster in the middle. This might be due to the various perspective changes (top, bottom, right, left) applied, making the model predict around the middle as it detects perspective distortions but not precisely which way and how strong. \par
+The experiments demonstrated that the cross-dataset evaluation showed good generalization. The models performed well not only on the datasets they were trained on but also on previously unseen datasets. This indicates that the models, especially the MLP Regressor, can generalize well to different data distributions and are robust.\par
 \vspace{\baselineskip}
 \noindent
-Lighting predictions, as shown in \autoref{fig:cm_light}, are reasonably accurate, but errors may occur because the criteria include two opposite types of distortion: brightening and darkening the image. This could lead to mispredictions as the inherent distortions look opposite but have the same values for the criteria. \par
+When we analyze the metrics in \autoref{table:performance_metrics} alongside the confusion plots in \autoref{fig:confusion_matrices}, it becomes clear that the criteria for focus, color calibration, and resolution are captured very well by the model. Although there are some fluctuations between the predicted severity and the actual severity, these deviations are typically only by one severity level. This minor difference suggests that the model is making reasonably accurate predictions. This high level of accuracy can be explained by the design of the ARNIQA backbone. When training ARNIQA to extract features, their goal was to assess general image quality, and they focused also on distortions related to focus and color calibration. Since I am using their backbone to extract features, the model performs better in these criteria.\par
 \vspace{\baselineskip}
 \noindent
-These observations highlight the strengths of using a combined dataset, making the model more robust. Testing with datasets containing more background, such as the SCIN dataset, shows higher background scores, validating this hypothesis. Conversely, the Fitzpatrick dataset, with images taken in controlled settings or with dermatoscopes, shows better field of view predictions due to less background, supporting the combined dataset's robustness. This detailed analysis helps to understand where the model performs well and where improvements are needed. \par
+On the other hand, lighting was also one of the distortions that ARNIQA focused on, but this criterion performed only moderately well. This can be reasonably explained by the fact that the lighting criterion includes two opposite types of distortions: brightening and darkening. If the majority of the training images were brightened and the validation set included darkened images, this could negatively impact performance. The model may struggle to accurately predict the lighting severity due to these opposing distortion types.\par
 \vspace{\baselineskip}
 \noindent
-Furthermore, the final model was tested on the original training images filtered for good quality. The radar charts in Figure 4.9 provide a visual representation of distortion levels across seven quality criteria. These charts confirm that the SCIN images exhibit more distortion compared to the Fitzpatrick17k images, which is expected due to the controlled environment in which the Fitzpatrick17k images were taken. The absence of distortion in resolution and focus across both datasets confirms the effectiveness of the filtering process. \par
+For the background criterion, it is clear from the confusion plot that there are rarely predictions on the higher severity levels. This is because, in the distortion pipeline, if the background proportion is less than 10\% relative to the skin, no color blocks are added, resulting in a 0 value for background distortion. This indicates that many images were given a 0 value for background distortion. Additionally, when looking at the radar chart of the combined synthetically distorted images in \autoref{fig:comb_synthetic}, the median value for background distortion is lower than that of other criteria, indicating fewer strong severity values. This hypothesis that including more images with significant background presence can improve the model’s performance is supported when examining the radar charts of filtered SCIN and filtered Fitzpatrick images in \autoref{fig:SF} and \autoref{fig:FF}. The median severity for SCIN images is lower compared to the Fitzpatrick dataset. Moreover, the predictions for individual datasets also show differences. For example, \autoref{table:background_metrics} compares the metrics for background distortion between SCIN and Fitzpatrick using an MLP regressor. This table shows that the regressor trained on synthetically distorted SCIN images performs better on background. This further indicates that enhancing the training dataset with more background inclusive images could address this issue effectively.\par
 \vspace{\baselineskip}
 \noindent
-Furthermore, the final model was tested on the original training images that were filtered as good quality images. This test was done to confirm that the images are indeed of good quality. Fig xx shows radar charts for the mean distortion levels and standard deviations across seven quality criteria for the 475 good quality SCIN, Fitzpatrick17k, and combined images. These charts provide a visual representation of the distortion levels across the seven criteria, with values ranging from 0 (center) to 1 (outer edge). The standard deviations indicate the variability in distortion levels for each criterion. \par
+The confusion plot also shows that the orientation criterion is generally uncertain in its predictions, tending to cluster around the middle severity levels. This might be due to the various perspective changes (top, bottom, right, left) applied during training. As a result, the model detects that there is some perspective distortion but cannot precisely determine the direction or severity, leading to predictions that hover around the middle severity levels.\par
 \vspace{\baselineskip}
 \noindent
-The radar charts reveal that the SCIN images has more distortion compared to the Fitzpatrick17k images, with the combined images falling in between. This suggests that the SCIN images have more distortions than the Fitzpatrick17k images, which is expected since the Fitzpatrick17k images were taken in a controlled environment. Additionally, both the SCIN and Fitzpatrick17k images show no distortion in resolution and focus, confirming that the filtering process was effective in selecting good quality images. \par
-\section{Answering the Research Questions}
-\label{sec:AnsweringResearchQuestions}
+For the last distortion, the field of view distortion, this criterion was the most experimental because this type of distortion is not as applicable to the general image domain. For teledermatology, it is crucial to have the lesion or area of interest centered in the image. However, in general photography, different rules like the golden ratio apply, where the subject is often placed off-center to create a more aesthetically pleasing composition. And, since ARNIQA is trained for general image quality assessment, it might have difficulties extracting features for field of view distortions specific to teledermatology. \par
+\vspace{\baselineskip}
+\noindent 
+I applied field of view distortions by cropping the upper left corner of the image in different scales, shifting the centered lesion to the bottom right corner. This method can introduce problems, such as having too much background in the upper left corner or not showing the lesion or skin at all in the image. This hypothesis can be validated by comparing the metrics between SCIN and Fitzpatrick images. The \autoref{table:fov_metrics} show that Fitzpatrick images perform better in field of view distortion than SCIN images. This can be explained by the fact that SCIN images contain more background than Fitzpatrick images. Therefore, the field of view distortion criterion requires further refinement and targeted data collection to ensure the model can effectively handle these distortions. \par
+ \begin{table}[ht]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        \textbf{Dataset} & \textbf{MAE} & \textbf{R\textsuperscript{2}} & \textbf{SRCC} & \textbf{Cohen's Kappa} \\
+        \hline
+        SCIN (synthetically distorted) & 1.20 & 0.05 & 0.23 & 0.08 \\
+        F17K (synthetically distorted) & 0.63 & 0.50 & 0.72 & 0.71 \\
+        \hline
+    \end{tabular}
+    \caption{Performance metrics for field of view distortion using an MLP regressor on synthetically distorted SCIN and F17K images. F17K refers to the Fitzpatrick17k images.}
+    \label{table:fov_metrics}
+\end{table}
+% Background     |   1.1246   |   0.1010   |   0.3377   |     0.2654
+% Field of view    |   1.2020   |   0.0513   |   0.2293   |     0.0845 
 
+% Background     |   1.1439   |   0.1742   |   0.4573   |     0.3024 
+% Field of view    |   0.6288   |   0.5081   |   0.7175   |     0.7064
+\noindent
+These observations highlight the strengths of using a combined dataset. By integrating diverse images from different sources, the model benefits from a wider variety of distortions and scenarios, enhancing its ability to generalize and perform well across different conditions. \par
+\section{Key Model Assumptions and Their Implications}
+\label{sec:KeyModelAssumptions}
+The models assume that the features extracted by ARNIQA’s backbone are comprehensive enough to capture the key distortions in teledermatology images. This assumption holds true for lighting, focus, color calibration, and resolution, covering 4 out of the 7 criteria. The remaining criteria: background, orientation, and field of view need further experimentation and fine-tuning. While the current performance indicates some level of effectiveness, more targeted data collection and model adjustments are necessary to fully validate these assumptions.\par
+\vspace{\baselineskip}
+\noindent
+If the assumption that ARNIQA’s backbone can capture all key distortions is not entirely correct, it would mean that the model might not perform well in real-world scenarios where these distortions are prevalent. To ensure these assumptions are valid, additional experiments with varied datasets and real-world images should be conducted. By expanding the variety of images used in training, particularly those with significant background presence, the model can be better equipped to handle real-world distortions. This is crucial for improving the model’s robustness and generalizability.\par
+\vspace{\baselineskip}
+\noindent
+While the backbone has proven effective for certain distortions, the uncertainties with background and orientation distortions highlight the need for further refinement. Addressing these uncertainties through targeted data collection and further model tuning can enhance the overall performance and reliability of the image quality assessment in teledermatology. Overall, the ARNIQA backbone shows great potential for teledermatology applications, but continuous improvement and validation are essential to achieve the best possible performance.\par
+
+\section{Reviewing the Objectives of the Thesis}
+\label{sec:ReviewingObjectives}
+At the beginning of this thesis, the specific objectives were detailed:
+
+\begin{itemize}
+    \item An extensive review of the literature on image quality assessment (IQA) methods, focusing on their application in teledermatology.
+    \item Identifying and selecting image quality metrics that are most suitable for assessing the quality of dermatological images.
+    \item Evaluate the performance of selected image quality metrics on dermatological datasets to determine their effectiveness in assessing image quality.
+    \item Develop a reproducible repository of image quality assessment tools and methodologies for teledermatology applications.
+\end{itemize}
+\noindent
+The first objective involved carrying out an in-depth review of the literature on image quality assessment methods and their application in teledermatology. This took a lot of time but was very important for the rest of the work. Through this review, key concepts such as IQA, teledermatology, ARNIQA, and related works were explored and documented. \par
+\vspace{\baselineskip}
+\noindent
+The second objective was achieved during the literature review process. In this phase, the seven quality criteria from ISIC were identified and chosen as the best metrics for assessing the quality of dermatological images. This selection was critical for the next steps. \par
+\vspace{\baselineskip}
+\noindent
+For the third objective, the performance of the selected image quality metrics was evaluated on dermatological datasets. These evaluations were thorough, involving tests on independent images not included in the model training. The datasets included both synthetically distorted images and images with authentic distortions, ensuring a complete assessment of how well the metrics worked. \par
+\vspace{\baselineskip}
+\noindent
+The final objective was to develop a reproducible repository of image quality assessment tools and methods for teledermatology applications. This was successfully accomplished, making it possible for further experiments and research to build on this thesis. The repository provides a solid framework for future work in this field, ensuring that the methods and tools developed here can be effectively used and expanded upon. \par
 \section{Comparison with Related Work}
 \label{sec:ComparisonRelatedWork}
 
