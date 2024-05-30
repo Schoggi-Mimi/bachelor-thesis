@@ -16,5 +16,134 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{apa/apasortcite//global/global}
+    \entry{ARNIQA}{online}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=aa83122097905bf500be2f88e74d627f}{%
+           family={Agnolucci},
+           familyi={A\bibinitperiod},
+           given={Lorenzo},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=653187c5fa949d389d18b815f0493cc6}{%
+           family={Galteri},
+           familyi={G\bibinitperiod},
+           given={Leonardo},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=71c3126324af7ecd81c3870d46cd25b7}{%
+           family={Bertini},
+           familyi={B\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=20db68b33ce9530f55f14524fbfb14a2}{%
+           family={Del\bibnamedelima Bimbo},
+           familyi={D\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={Alberto},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2a62fec986d80f4d681fb14a8ad424a9}
+      \strng{fullhash}{8aebff667f68a289b6c628110e185b00}
+      \strng{bibnamehash}{8aebff667f68a289b6c628110e185b00}
+      \strng{authorbibnamehash}{8aebff667f68a289b6c628110e185b00}
+      \strng{authornamehash}{2a62fec986d80f4d681fb14a8ad424a9}
+      \strng{authorfullhash}{8aebff667f68a289b6c628110e185b00}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{No-Reference Image Quality Assessment (NR-IQA) aims to develop methods to measure image quality in alignment with human perception without the need for a high-quality reference image. In this work, we propose a self-supervised approach named ARNIQA (leArning distoRtion maNifold for Image Quality Assessment) for modeling the image distortion manifold to obtain quality representations in an intrinsic manner. First, we introduce an image degradation model that randomly composes ordered sequences of consecutively applied distortions. In this way, we can synthetically degrade images with a large variety of degradation patterns. Second, we propose to train our model by maximizing the similarity between the representations of patches of different images distorted equally, despite varying content. Therefore, images degraded in the same manner correspond to neighboring positions within the distortion manifold. Finally, we map the image representations to the quality scores with a simple linear regressor, thus without fine-tuning the encoder weights. The experiments show that our approach achieves state-of-the-art performance on several datasets. In addition, ARNIQA demonstrates improved data efficiency, generalization capabilities, and robustness compared to competing methods. The code and the model are publicly available at https://github.com/ miccunifi/ARNIQA.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{langid}{english}
+      \field{shorttitle}{{{ARNIQA}}}
+      \field{title}{{{ARNIQA}}: {{Learning Distortion Manifold}} for {{Image Quality Assessment}}}
+      \verb{eprint}
+      \verb 2310.14918
+      \endverb
+      \verb{file}
+      \verb /Users/choekyelnyungmartsang/Zotero/storage/FT9WTHT5/Agnolucci et al. - 2023 - ARNIQA Learning Distortion Manifold for Image Qua.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2310.14918
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2310.14918
+      \endverb
+      \keyw{Computer Science - Computer Vision and Pattern Recognition}
+      \warn{\item online entry 'ARNIQA' (references.bib): Invalid format '2023-11-04' of date field 'date' - ignoring}
+      \warn{\item online entry 'ARNIQA' (references.bib): Invalid format '2024-04-23' of date field 'urldate' - ignoring}
+    \endentry
+  \enddatalist
+  \datalist[entry]{apa/global//global/global}
+    \entry{ARNIQA}{online}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=aa83122097905bf500be2f88e74d627f}{%
+           family={Agnolucci},
+           familyi={A\bibinitperiod},
+           given={Lorenzo},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=653187c5fa949d389d18b815f0493cc6}{%
+           family={Galteri},
+           familyi={G\bibinitperiod},
+           given={Leonardo},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=71c3126324af7ecd81c3870d46cd25b7}{%
+           family={Bertini},
+           familyi={B\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=20db68b33ce9530f55f14524fbfb14a2}{%
+           family={Del\bibnamedelima Bimbo},
+           familyi={D\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={Alberto},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2a62fec986d80f4d681fb14a8ad424a9}
+      \strng{fullhash}{8aebff667f68a289b6c628110e185b00}
+      \strng{bibnamehash}{8aebff667f68a289b6c628110e185b00}
+      \strng{authorbibnamehash}{8aebff667f68a289b6c628110e185b00}
+      \strng{authornamehash}{2a62fec986d80f4d681fb14a8ad424a9}
+      \strng{authorfullhash}{8aebff667f68a289b6c628110e185b00}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{No-Reference Image Quality Assessment (NR-IQA) aims to develop methods to measure image quality in alignment with human perception without the need for a high-quality reference image. In this work, we propose a self-supervised approach named ARNIQA (leArning distoRtion maNifold for Image Quality Assessment) for modeling the image distortion manifold to obtain quality representations in an intrinsic manner. First, we introduce an image degradation model that randomly composes ordered sequences of consecutively applied distortions. In this way, we can synthetically degrade images with a large variety of degradation patterns. Second, we propose to train our model by maximizing the similarity between the representations of patches of different images distorted equally, despite varying content. Therefore, images degraded in the same manner correspond to neighboring positions within the distortion manifold. Finally, we map the image representations to the quality scores with a simple linear regressor, thus without fine-tuning the encoder weights. The experiments show that our approach achieves state-of-the-art performance on several datasets. In addition, ARNIQA demonstrates improved data efficiency, generalization capabilities, and robustness compared to competing methods. The code and the model are publicly available at https://github.com/ miccunifi/ARNIQA.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{langid}{english}
+      \field{shorttitle}{{{ARNIQA}}}
+      \field{title}{{{ARNIQA}}: {{Learning Distortion Manifold}} for {{Image Quality Assessment}}}
+      \verb{eprint}
+      \verb 2310.14918
+      \endverb
+      \verb{file}
+      \verb /Users/choekyelnyungmartsang/Zotero/storage/FT9WTHT5/Agnolucci et al. - 2023 - ARNIQA Learning Distortion Manifold for Image Qua.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2310.14918
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2310.14918
+      \endverb
+      \keyw{Computer Science - Computer Vision and Pattern Recognition}
+      \warn{\item online entry 'ARNIQA' (references.bib): Invalid format '2023-11-04' of date field 'date' - ignoring}
+      \warn{\item online entry 'ARNIQA' (references.bib): Invalid format '2024-04-23' of date field 'urldate' - ignoring}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 
