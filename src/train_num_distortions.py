@@ -21,7 +21,7 @@ from scipy import stats
 from models.multioutput_xgb import MultiOutputXGBClassifier, train_xgbclassifier, sweep_train
 from models.multioutput_xgbregressor import MultiOutputXGBRegressor
 from utils.visualization import print_metrics, plot_all_confusion_matrices, plot_prediction_scores
-from utils.utils_data import binarize_scores, get_features_scores
+from utils.utils_data import discretization, get_features_scores
 from data import BaseDataset
 
 def train():
@@ -30,7 +30,7 @@ def train():
     embed_dir = os.path.join(config.root, "embeddings")
     feats_file = os.path.join(embed_dir, f"features_{config.num_distortions}.npy")
     scores_file = os.path.join(embed_dir, f"scores_{config.num_distortions}.npy")
-    dataset = BaseDataset(root=config.root, crop=config.crop, phase="train", num_distortions=config.num_distortions)
+    dataset = BaseDataset(root=config.root, phase="train", num_distortions=config.num_distortions)
     
     if os.path.exists(feats_file) and os.path.exists(scores_file):
         features = np.load(feats_file)
@@ -38,14 +38,13 @@ def train():
         print(f'Loaded features from {feats_file}')
         print(f'Loaded scores from {scores_file}')
     else:
-        dataloader = DataLoader(dataset, batch_size=config.batch_size, shuffle=True, num_workers=1, pin_memory=True, drop_last=True)
+        dataloader = DataLoader(dataset, batch_size=config.batch_size, shuffle=True, num_workers=1, pin_memory=True)
         device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
         arniqa = torch.hub.load(repo_or_dir="miccunifi/ARNIQA", source="github", model="ARNIQA")
         arniqa.eval().to(device)
-        features, scores = get_features_scores(arniqa, dataloader, device, config.crop)
+        features, scores = get_features_scores(arniqa, dataloader, device)
         if not os.path.exists(embed_dir):
             os.makedirs(embed_dir)
-            
         np.save(feats_file, features)
         np.save(scores_file, scores)
         print(f'Saved features to {feats_file}')
@@ -94,8 +93,8 @@ def train():
 
     elif config.model_type == 'xgb_cls':
         params.update({'booster': 'gbtree', 'objective': 'multi:softprob', 'eval_metric': ['mlogloss', 'merror', 'auc']})
-        train_scores = binarize_scores(train_scores)
-        val_scores = binarize_scores(val_scores)
+        train_scores = discretization(train_scores)
+        val_scores = discretization(val_scores)
 
         classifier = MultiOutputXGBClassifier(params=params, num_class=5)
         classifier.fit(train_features, train_scores, eval_set=(val_features, val_scores))
@@ -112,8 +111,8 @@ def train():
         log_srocc(val_scores, predictions)
 
     elif config.model_type == 'mlp_cls':
-        train_scores = binarize_scores(train_scores)
-        val_scores = binarize_scores(val_scores)
+        train_scores = discretization(train_scores)
+        val_scores = discretization(val_scores)
         mlp = MLPClassifier(**params)
         
         multioutput_classifier = MultiOutputClassifier(mlp, n_jobs=-1)

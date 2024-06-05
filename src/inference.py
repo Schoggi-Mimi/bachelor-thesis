@@ -1,5 +1,5 @@
 # inference.py
-
+# python inference.py --model_path combined_mlp_reg.pkl --images_path test_70 --csv_path predictions.csv --batch_size 10 --num_workers 1
 import os
 import pickle
 import numpy as np
@@ -12,6 +12,8 @@ from torch.utils.data import DataLoader, Dataset
 from PIL import Image
 from torchvision import transforms
 from utils.utils_data import resize_crop
+
+# torch.backends.cudnn.enabled = False
 
 class InferenceDataset(Dataset):
     def __init__(self, root: str = "images"):
@@ -51,7 +53,7 @@ def get_features(arniqa, dataloader, device):
             img_orig = batch["img"].to(device)
             img_ds = batch["img_ds"].to(device)
             image_paths.extend(batch["path"])
-            with torch.cuda.amp.autocast(), torch.no_grad():
+            with torch.no_grad():
                 _, f = arniqa(img_orig, img_ds, return_embedding=True)
             feats = np.concatenate((feats, f.cpu().numpy()), 0)
             progress_bar.update(1)
@@ -63,8 +65,8 @@ def make_predictions(model, features):
     return np.round(predictions, 4)
 
 def save_predictions_to_csv(image_paths, predictions, output_csv):
-    df = pd.DataFrame(predictions, columns=["Background", "Lighting", "Focus", "Orientation", "Color Calibration", "Resolution", "Field of View"])
-    df['Image_Path'] = image_paths
+    df = pd.DataFrame(predictions, columns=["background", "lighting", "focus", "orientation", "color_calibration", "resolution", "field_of_view"])
+    df['image_path'] = image_paths
     df.to_csv(output_csv, index=False)
 
 def main(model_path, images_folder, output_csv, batch_size, num_workers):
@@ -76,7 +78,11 @@ def main(model_path, images_folder, output_csv, batch_size, num_workers):
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers, pin_memory=True, drop_last=False)
     
     features, image_paths = get_features(arniqa, dataloader, device)
-    
+
+    if features.shape[0] == 0:
+        print("No features were extracted. Exiting.")
+        return
+        
     predictions = make_predictions(model, features)
     save_predictions_to_csv(image_paths, predictions, output_csv)
     

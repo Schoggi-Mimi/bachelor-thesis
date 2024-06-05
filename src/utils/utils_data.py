@@ -227,7 +227,7 @@ def map_predictions_to_intervals(predictions):
     mapped_predictions = bins[interval_indices - 1] + 0.125
     return mapped_predictions
 
-def binarize_scores(scores):
+def discretization(scores):
     """Convert continuous scores to categorical by defined thresholds."""
     thresholds = [-0.125, 0.125, 0.375, 0.625, 0.875, 1.125]
     categories = np.digitize(scores, thresholds, right=True) - 1
@@ -289,24 +289,16 @@ def resize_crop(img: PILImage, crop_size: int = 224, downscale_factor: int = 1) 
 def get_features_scores(model: torch.nn.Module,
                         dataloader: DataLoader,
                         device: torch.device,
-                        crop: bool,
                        ) -> Tuple[np.ndarray, np.ndarray]:        
     feats = np.zeros((0, model.encoder.feat_dim * 2))   # Double the features because of the original and downsampled image (0, 4096)
     scores = np.zeros((0, 7))
-
     with tqdm(total=len(dataloader), desc="Extracting features", leave=False) as progress_bar:
         for _, batch in enumerate(dataloader):
             img_orig = batch["img"].to(device)
             img_ds = batch["img_ds"].to(device)
+            label = batch["label"]
 
-            if crop:
-                label = batch["label"].repeat(5, 1) # repeat label for each crop
-                img_orig = rearrange(img_orig, "b n c h w -> (b n) c h w")
-                img_ds = rearrange(img_ds, "b n c h w -> (b n) c h w")
-            elif crop is False:
-                label = batch["label"]
-
-            with torch.cuda.amp.autocast(), torch.no_grad():
+            with torch.no_grad():
                 _, f = model(img_orig, img_ds, return_embedding=True)
     
             feats = np.concatenate((feats, f.cpu().numpy()), 0)

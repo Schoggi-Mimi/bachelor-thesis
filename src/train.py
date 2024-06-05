@@ -27,18 +27,16 @@ from scipy import stats
 
 from models.multioutput_xgb import MultiOutputXGBClassifier, train_xgbclassifier
 from models.multioutput_xgbregressor import MultiOutputXGBRegressor
-from utils.utils_data import map_predictions_to_intervals, binarize_scores, get_features_scores
+from utils.utils_data import map_predictions_to_intervals, discretization, get_features_scores
 from utils.visualization import print_metrics, plot_all_confusion_matrices, plot_prediction_scores
 from data import BaseDataset
 
 def train_model(
     root: str = "SCIN",
     num_distortions: int = 10,
-    crop: bool = True,
     batch_size: int = 32,
     num_workers: int = 4,
-    model_type: str = 'reg',
-    track: bool = False,
+    model_type: str = 'xgb_reg',
 ):
     seed_it_all()
     assert model_type in ["xgb_reg", "xgb_cls", "mlp_reg", "mlp_cls"], "phase must be in ['xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls']"
@@ -47,21 +45,20 @@ def train_model(
     feats_file = os.path.join(embed_dir, f"features_{num_distortions}.npy")
     scores_file = os.path.join(embed_dir, f"scores_{num_distortions}.npy")
     
-    dataset = BaseDataset(root=root, crop=crop, phase="train", num_distortions=num_distortions)
+    dataset = BaseDataset(root=root, phase="train", num_distortions=num_distortions)
     if os.path.exists(feats_file) and os.path.exists(scores_file):
         features = np.load(feats_file)
         scores = np.load(scores_file)
         print(f'Loaded features from {feats_file}')
         print(f'Loaded scores from {scores_file}')
     else:
-        dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers, pin_memory=True, drop_last=True)
+        dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers, pin_memory=True)
         device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
         arniqa = torch.hub.load(repo_or_dir="miccunifi/ARNIQA", source="github", model="ARNIQA")
         arniqa.eval().to(device)
-        features, scores = get_features_scores(arniqa, dataloader, device, crop)
+        features, scores = get_features_scores(arniqa, dataloader, device)
         if not os.path.exists(embed_dir):
             os.makedirs(embed_dir)
-            
         np.save(feats_file, features)
         np.save(scores_file, scores)
         print(f'Saved features to {feats_file}')
@@ -69,16 +66,11 @@ def train_model(
 
     image_indices = np.arange(len(dataset))
     train_img_indices, val_img_indices = train_test_split(image_indices, test_size=0.25, random_state=42, shuffle=True)
-    if crop:
-        train_img_indices = np.repeat(train_img_indices * 5, 5) + np.tile(np.arange(5), len(train_img_indices))
-        val_img_indices = np.repeat(val_img_indices * 5, 5) + np.tile(np.arange(5), len(val_img_indices))
 
     train_features = features[train_img_indices]
     train_scores = scores[train_img_indices]
     val_features = features[val_img_indices]
     val_scores = scores[val_img_indices]
-    if crop:
-        val_scores = val_scores[::5]  # Scores are repeated for each crop, so we only keep the first one
         
     if model_type == 'xgb_reg':
         params = { # num_distortions = 16
@@ -117,16 +109,16 @@ def train_model(
         regressor.fit(train_features, train_scores, eval_set=[(val_features, val_scores)], verbose=False)
         predictions = regressor.predict(val_features)
         predictions = np.clip(predictions, 0, 1)
-        bin_pred = binarize_scores(predictions)
-        bin_val = binarize_scores(val_scores)
+        bin_pred = discretization(predictions)
+        bin_val = discretization(val_scores)
         plot_prediction_scores(val_scores, predictions)
         plot_all_confusion_matrices(bin_val, bin_pred)
         print_metrics(bin_val, bin_pred)
         return regressor
 
     elif model_type == 'xgb_cls':
-        train_scores = binarize_scores(train_scores)
-        val_scores = binarize_scores(val_scores)
+        train_scores = discretization(train_scores)
+        val_scores = discretization(val_scores)
         params = {
             'booster': 'gbtree',
             'n_estimators': 300,
@@ -151,25 +143,25 @@ def train_model(
         return classifier
         
     elif model_type == 'mlp_reg':
-        params1 = { # num_distortion = 32
+        params = { # num_distortion = 10, F17K
             'hidden_layer_sizes': (1024,),
             'activation': 'relu',
             'solver': 'adam',
-            'alpha': 0.008267,
-            'learning_rate_init': 0.09256,
-            'max_iter': 500,
-            'early_stopping': True,
-        }
-        params1 = { # num_distortion = 64
-            'hidden_layer_sizes': (512,),
-            'activation': 'relu',
-            'solver': 'adam',
-            'alpha': 0.001446,
-            'learning_rate_init': 0.01646,
+            'alpha': 0.002845,
+            'learning_rate_init': 0.007211,
             'max_iter': 300,
             'early_stopping': True,
         }
-        params = { # num_distortion = 64
+        params_scin = { # num_distortion = 10, SCIN
+            'hidden_layer_sizes': (512,256),
+            'activation': 'relu',
+            'solver': 'adam',
+            'alpha': 0.008064,
+            'learning_rate_init': 0.001917,
+            'max_iter': 200,
+            'early_stopping': True,
+        }
+        params_comb = { # num_distortion = 64
             'hidden_layer_sizes': (512,256),
             'activation': 'relu',
             'solver': 'adam',
@@ -183,8 +175,8 @@ def train_model(
         multioutput_regressor.fit(train_features, train_scores)
         predictions = multioutput_regressor.predict(val_features)
         predictions = np.clip(predictions, 0, 1)
-        bin_pred = binarize_scores(predictions)
-        bin_val = binarize_scores(val_scores)
+        bin_pred = discretization(predictions)
+        bin_val = discretization(val_scores)
         plot_prediction_scores(val_scores, predictions)
         plot_all_confusion_matrices(bin_val, bin_pred)
         print_metrics(bin_val, bin_pred)
@@ -200,8 +192,8 @@ def train_model(
             'max_iter': 500,
             'early_stopping': True,
         }
-        train_scores = binarize_scores(train_scores)
-        val_scores = binarize_scores(val_scores)
+        train_scores = discretization(train_scores)
+        val_scores = discretization(val_scores)
         mlp = MLPClassifier(**params)
         multioutput_classifier = MultiOutputClassifier(mlp, n_jobs=-1)
         multioutput_classifier.fit(train_features, train_scores)

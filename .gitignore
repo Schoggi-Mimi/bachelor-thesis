@@ -403,3 +403,6 @@ playground/scin_regressor_0.21544346900318834.pkl
 **/.DS_Store
 src/combined
 *.pkl
+test_70
+test_200
+csv

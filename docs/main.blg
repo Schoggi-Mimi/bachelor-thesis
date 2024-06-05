@@ -1,0 +1,31 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'main.blg'
+[44] biber-darwin:340> INFO - === Fri May 31, 2024, 11:43:07
+[55] Biber.pm:419> INFO - Reading 'main.bcf'
+[121] Biber.pm:979> INFO - Found 5 citekeys in bib section 0
+[134] Biber.pm:4419> INFO - Processing section 0
+[142] Biber.pm:4610> INFO - Looking for bibtex file 'references.bib' for section 0
+[147] bibtex.pm:1713> INFO - LaTeX decoding ...
+[189] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
+[255] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[255] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[255] Biber.pm:4239> INFO - Sorting list 'apa/apasortcite//global/global' of type 'entry' with template 'apa' and locale 'en-US'
+[255] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[267] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[270] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[271] Biber.pm:4239> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'en-US'
+[271] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[281] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[304] bbl.pm:763> INFO - Output to main.bbl
+[304] Biber.pm:131> WARN - book entry 'DesignThinking' (references.bib): Invalid format '2016' of date field 'date' - ignoring
+[304] Biber.pm:131> WARN - book entry 'DesignThinking' (references.bib): Invalid format '2024-04-29' of date field 'urldate' - ignoring
+[304] Biber.pm:131> WARN - ISBN '978-3-658-07166-0 978-3-658-07167-7' in entry 'DesignThinking' is invalid - run biber with '--validate_datamodel' for details.
+[304] Biber.pm:131> WARN - online entry 'SCIN' (references.bib): Invalid format '2024-02-28' of date field 'date' - ignoring
+[304] Biber.pm:131> WARN - online entry 'SCIN' (references.bib): Invalid format '2024-04-28' of date field 'urldate' - ignoring
+[304] Biber.pm:131> WARN - online entry 'F17K' (references.bib): Invalid format '2021-04-20' of date field 'date' - ignoring
+[304] Biber.pm:131> WARN - online entry 'F17K' (references.bib): Invalid format '2024-04-28' of date field 'urldate' - ignoring
+[304] Biber.pm:131> WARN - online entry 'ARNIQA' (references.bib): Invalid format '2023-11-04' of date field 'date' - ignoring
+[304] Biber.pm:131> WARN - online entry 'ARNIQA' (references.bib): Invalid format '2024-04-23' of date field 'urldate' - ignoring
+[304] Biber.pm:131> WARN - article entry 'KADID10k' (references.bib): Invalid format '2019-06' of date field 'date' - ignoring
+[304] Biber.pm:131> WARN - article entry 'KADID10k' (references.bib): Invalid format '2024-04-29' of date field 'urldate' - ignoring
+[304] Biber.pm:133> INFO - WARNINGS: 11
