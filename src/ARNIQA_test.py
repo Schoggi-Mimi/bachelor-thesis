@@ -1,5 +1,5 @@
-# ARNIQA_tset.py
-# python ARNIQA_test.py --root temp --regressor_dataset kadid10k --output_csv output.csv
+# arniqa_test.py
+# Run: python arniqa_test.py --config_path config.yaml
 import os
 import csv
 import torch
@@ -8,6 +8,7 @@ from PIL import Image
 from torchvision import transforms
 from argparse import ArgumentParser
 from tqdm import tqdm
+import yaml
 
 from utils.utils_data import center_corners_crop
 
@@ -24,7 +25,6 @@ def process_images(root: str, regressor_dataset: str, output_csv: str):
         writer = csv.writer(file)
         writer.writerow(['image_path', 'quality_score'])
 
-        # Iterate through all images in the root directory
         for filename in tqdm(os.listdir(root)):
             if filename.endswith(('.png', '.jpg', '.jpeg')):
                 img_path = os.path.join(root, filename)
@@ -37,16 +37,11 @@ def process_images(root: str, regressor_dataset: str, output_csv: str):
 
                 img = [transforms.ToTensor()(crop) for crop in img]
                 img = torch.stack(img, dim=0)
-                #img = transforms.ToTensor()(img)
-                #img = normalize(img).unsqueeze(0).to(device)
                 img = normalize(img).to(device)
                 img_ds = [transforms.ToTensor()(crop) for crop in img_ds]
                 img_ds = torch.stack(img_ds, dim=0)
-                #img_ds = transforms.ToTensor()(img_ds)
-                #img_ds = normalize(img_ds).unsqueeze(0).to(device)
                 img_ds = normalize(img_ds).to(device)
 
-                # Compute the quality score
                 with torch.no_grad():
                     score = model(img, img_ds, return_embedding=False, scale_score=True)
                     score = np.round(score.mean(0).item(), 4)
@@ -55,9 +50,11 @@ def process_images(root: str, regressor_dataset: str, output_csv: str):
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument("--root", type=str, required=True, help="Root folder containing the images to be evaluated")
-    parser.add_argument("--regressor_dataset", type=str, default="kadid10k", choices=["live", "csiq", "tid2013", "kadid10k", "flive", "spaq"], help="Dataset used to train the regressor")
-    parser.add_argument("--output_csv", type=str, required=True, help="Output CSV file to save the quality predictions")
+    parser.add_argument("--config_path", type=str, required=True, help="Path to the config.yaml file")
+
     args = parser.parse_args()
 
-    process_images(args.root, args.regressor_dataset, args.output_csv)
+    with open(args.config_path, 'r') as file:
+        config = yaml.safe_load(file)
+
+    process_images(config['arniqa_test']['root'], config['arniqa_test']['regressor_dataset'], config['arniqa_test']['output_csv'])

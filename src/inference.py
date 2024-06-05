@@ -1,5 +1,5 @@
 # inference.py
-# python inference.py --model_path combined_mlp_reg.pkl --images_path test_70 --csv_path predictions.csv --batch_size 10 --num_workers 1
+# Run: python inference.py --config_path config.yaml
 import os
 import pickle
 import numpy as np
@@ -7,13 +7,12 @@ import pandas as pd
 import torch
 from tqdm import tqdm
 import argparse
+import yaml
 
 from torch.utils.data import DataLoader, Dataset
 from PIL import Image
 from torchvision import transforms
 from utils.utils_data import resize_crop
-
-# torch.backends.cudnn.enabled = False
 
 class InferenceDataset(Dataset):
     def __init__(self, root: str = "images"):
@@ -69,13 +68,16 @@ def save_predictions_to_csv(image_paths, predictions, output_csv):
     df['image_path'] = image_paths
     df.to_csv(output_csv, index=False)
 
-def main(model_path, images_folder, output_csv, batch_size, num_workers):
+def main(config_path):
+    with open(config_path, 'r') as file:
+        config = yaml.safe_load(file)
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     arniqa = torch.hub.load(repo_or_dir="miccunifi/ARNIQA", source="github", model="ARNIQA")
     arniqa.eval().to(device)
-    model = load_model(model_path)
-    dataset = InferenceDataset(root=images_folder)
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers, pin_memory=True, drop_last=False)
+    model = load_model(config['inference']['model_path'])
+    dataset = InferenceDataset(root=config['inference']['images_path'])
+    dataloader = DataLoader(dataset, batch_size=config['inference']['batch_size'], shuffle=False, num_workers=config['inference']['num_workers'], pin_memory=True, drop_last=False)
     
     features, image_paths = get_features(arniqa, dataloader, device)
 
@@ -84,24 +86,14 @@ def main(model_path, images_folder, output_csv, batch_size, num_workers):
         return
         
     predictions = make_predictions(model, features)
-    save_predictions_to_csv(image_paths, predictions, output_csv)
+    save_predictions_to_csv(image_paths, predictions, config['inference']['csv_path'])
     
-    print(f"Predictions saved to {output_csv}")
+    print(f"Predictions saved to {config['inference']['csv_path']}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Inference script for image quality assessment")
-    parser.add_argument('--model_path', type=str, required=True, help='Path to the model.pkl file')
-    parser.add_argument('--images_path', type=str, required=True, help='Path to the folder containing images')
-    parser.add_argument('--csv_path', type=str, required=True, help='Path to save the output CSV file')
-    parser.add_argument('--batch_size', type=int, default=10, help='Batch size for DataLoader')
-    parser.add_argument('--num_workers', type=int, default=1, help='Number of workers for DataLoader')
+    parser.add_argument('--config_path', type=str, required=True, help='Path to the config.yaml file')
 
     args = parser.parse_args()
 
-    main(
-        model_path=args.model_path,
-        images_folder=args.images_path,
-        output_csv=args.csv_path,
-        batch_size=args.batch_size,
-        num_workers=args.num_workers
-    )
+    main(config_path=args.config_path)
