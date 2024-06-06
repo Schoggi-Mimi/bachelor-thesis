@@ -1,13 +1,8 @@
 import os
-import random
-import numpy as np
-import torch
-import json
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
 from pathlib import Path
-from typing import List
 
 from utils.utils_data import resize_crop
 

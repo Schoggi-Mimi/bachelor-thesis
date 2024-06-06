@@ -1,5 +1,5 @@
-# test_single_image.py
-# Run: python test_single_image.py --config_path config.yaml
+# single_image_inference.py
+# Run: python single_image_inference.py --config_path config.yaml
 import argparse
 import pickle
 from typing import Any, Optional
@@ -56,7 +56,7 @@ def plot_results(original_img, scores):
     angles = np.linspace(0, 2 * np.pi, num_criteria, endpoint=False).tolist()
     angles += angles[:1]
 
-    fig, ax = plt.subplots(1, 2, figsize=(6, 3))
+    fig, ax = plt.subplots(1, 2, figsize=(12, 6))
     
     ax[0].imshow(np.array(original_img))
     ax[0].axis('off')

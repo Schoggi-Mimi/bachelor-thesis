@@ -10,7 +10,6 @@ import torchvision.transforms.functional as TF
 from PIL.Image import Image as PILImage
 from torchvision import transforms
 from tqdm import tqdm
-from einops import rearrange
 from torch.utils.data import DataLoader
 
 from utils.distortions import *

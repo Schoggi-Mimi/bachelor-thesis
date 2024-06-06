@@ -1,9 +1,13 @@
-import numpy as np
-from sklearn.metrics import mean_absolute_error, mean_squared_error, precision_score, recall_score, classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay, r2_score, cohen_kappa_score
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
-
 from scipy import stats
+from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score,
+                             classification_report, cohen_kappa_score,
+                             confusion_matrix, mean_absolute_error,
+                             mean_squared_error, precision_score, r2_score,
+                             recall_score)
+
 
 def print_metrics(val, pred):
     criteria = ['Background', 'Lighting', 'Focus', 'Orientation', 'Color calibration', 'Resolution', 'Field of view']
@@ -86,7 +90,7 @@ def plot_prediction_scores(val_scores, predictions):
     plt.show()
 
 
-def plot_results(original_images, distorted_images, actuals, predictions, num_plots=1):
+def plot_results(original_images, distorted_images, actuals, predictions, num_plots=5):
     criteria_names = ["Background", "Lighting", "Focus", "Orientation", "Color calibration", "Resolution", "Field of view"]
     num_criteria = len(criteria_names)
     angles = np.linspace(0, 2 * np.pi, num_criteria, endpoint=False).tolist()
@@ -99,7 +103,7 @@ def plot_results(original_images, distorted_images, actuals, predictions, num_pl
 
     for i in range(num_plots):
         # Original Image
-        axs[i, 0].imshow(original_images[i])
+        axs[i, 0].imshow(np.array(original_images[i]))
         axs[i, 0].set_title('Original Image', fontsize=15, fontweight='bold')
         axs[i, 0].axis('off')
 

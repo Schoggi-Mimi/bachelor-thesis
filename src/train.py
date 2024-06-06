@@ -1,22 +1,26 @@
 # train.py
 # Run: python train.py --config_path config.yaml
 
-import os
-import random
 import argparse
-import yaml
+import os
+import pickle
+import random
+
 import numpy as np
 import torch
 import wandb
 import xgboost as xgb
-from sklearn.multioutput import MultiOutputRegressor, MultiOutputClassifier
-from sklearn.neural_network import MLPRegressor, MLPClassifier
-from torch.utils.data import DataLoader
+import yaml
 from sklearn.model_selection import train_test_split
-from models.multioutput_xgb import train_xgbclassifier
-from utils.visualization import print_metrics, plot_all_confusion_matrices, plot_prediction_scores
-from utils.utils_data import discretization, get_features_scores
+from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
+from sklearn.neural_network import MLPClassifier, MLPRegressor
+from torch.utils.data import DataLoader
+
 from data import BaseDataset
+from utils.utils_data import discretization, get_features_scores
+from utils.visualization import (plot_all_confusion_matrices,
+                                 plot_prediction_scores, print_metrics)
+
 
 def train_model(config):
     seed_it_all()
@@ -71,12 +75,9 @@ def train_model(config):
         regressor.fit(train_features, train_scores, eval_set=[(val_features, val_scores)], verbose=False)
         predictions = regressor.predict(val_features)
         predictions = np.clip(predictions, 0, 1)
-        bin_pred = discretization(predictions)
-        bin_val = discretization(val_scores)
-        plot_prediction_scores(val_scores, predictions)
-        plot_all_confusion_matrices(bin_val, bin_pred)
-        print_metrics(bin_val, bin_pred)
-        return regressor
+        evaluate_model(val_scores, predictions, config)
+        if 'model_save_path' in config:
+            save_model(regressor, config['model_save_path'])
 
     elif config['model_type'] == 'xgb_cls':
         train_scores = discretization(train_scores)
@@ -91,18 +92,18 @@ def train_model(config):
             'objective': 'multi:softprob',
             'random_state': 42,
             'eval_metric': ['mlogloss', 'merror', 'auc'],
-            'early_stopping_rounds': config.get('early_stopping_rounds', 10),
             'reg_alpha': 0,
             'reg_lambda': 1,
             'gamma': config.get('gamma', 0),
             'tree_method': 'hist',
             'device': 'cpu'
         }
-        classifier, predictions, val_scores = train_xgbclassifier(train_features, train_scores, val_features, val_scores, params, use_wandb=config['logging']['use_wandb'], use_sweep=False)
-        plot_all_confusion_matrices(val_scores, predictions)
-        plot_prediction_scores(val_scores, predictions)
-        print_metrics(val_scores, predictions)
-        return classifier
+        classifier = MultiOutputClassifier(xgb.XGBClassifier(**params), n_jobs=-1)
+        classifier.fit(train_features, train_scores)
+        predictions = classifier.predict(val_features)
+        evaluate_model(val_scores, predictions, config)
+        if 'model_save_path' in config:
+            save_model(classifier, config['model_save_path'])
         
     elif config['model_type'] == 'mlp_reg':
         params = {
@@ -119,12 +120,9 @@ def train_model(config):
         multioutput_regressor.fit(train_features, train_scores)
         predictions = multioutput_regressor.predict(val_features)
         predictions = np.clip(predictions, 0, 1)
-        bin_pred = discretization(predictions)
-        bin_val = discretization(val_scores)
-        plot_prediction_scores(val_scores, predictions)
-        plot_all_confusion_matrices(bin_val, bin_pred)
-        print_metrics(bin_val, bin_pred)
-        return multioutput_regressor
+        evaluate_model(val_scores, predictions, config)
+        if 'model_save_path' in config:
+            save_model(multioutput_regressor, config['model_save_path'])
     
     elif config['model_type'] == 'mlp_cls':
         params = {
@@ -142,10 +140,9 @@ def train_model(config):
         multioutput_classifier = MultiOutputClassifier(mlp, n_jobs=-1)
         multioutput_classifier.fit(train_features, train_scores)
         predictions = multioutput_classifier.predict(val_features)
-        plot_all_confusion_matrices(val_scores, predictions)
-        plot_prediction_scores(val_scores, predictions)
-        print_metrics(val_scores, predictions)
-        return multioutput_classifier
+        evaluate_model(val_scores, predictions, config)
+        if 'model_save_path' in config:
+            save_model(multioutput_classifier, config['model_save_path'])
     
 
 def seed_it_all(seed=42):
@@ -158,6 +155,24 @@ def seed_it_all(seed=42):
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
 
+def evaluate_model(val_scores, predictions, config):
+    if config['model_type'] in ['xgb_reg', 'mlp_reg']:
+        bin_pred = discretization(predictions)
+        bin_val = discretization(val_scores)
+    else:
+        bin_pred = predictions
+        bin_val = val_scores
+
+    if config['plot_results']:
+        # plot_prediction_scores(val_scores, predictions)
+        plot_all_confusion_matrices(bin_val, bin_pred)
+    print_metrics(bin_val, bin_pred)
+
+def save_model(model, path):
+    with open(path, 'wb') as model_file:
+        pickle.dump(model, model_file)
+    print(f"Model saved to {path}")
+
 def sweep_train():
     wandb.init(reinit=True)
     config = wandb.config
@@ -165,7 +180,7 @@ def sweep_train():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Training script for image quality assessment")
-    parser.add_argument('–config_path', type=str, required=True, help='Path to the config.yaml file')
+    parser.add_argument('--config_path', type=str, required=True, help='Path to the config.yaml file')
                         
     args = parser.parse_args()
 

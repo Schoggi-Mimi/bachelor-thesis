@@ -1,6 +1,5 @@
 # test.py
 # Run: python test.py --config_path config.yaml
-
 import argparse
 import json
 import os
@@ -14,9 +13,32 @@ from PIL import Image
 from torch.utils.data import DataLoader
 
 from data import BaseDataset
-from utils.utils_data import get_features_scores
-from utils.visualization import plot_results
+from utils.utils_data import discretization, get_features_scores
+from utils.visualization import plot_results, print_metrics
 
+
+def load_and_sort_images(root: str):
+    image_paths = sorted([os.path.join(root, filename) for filename in os.listdir(root) if filename.endswith(('.png', '.jpg', 'jpeg'))])
+    original_images = [Image.open(path).convert("RGB") for path in image_paths]
+    return image_paths, original_images
+
+def load_and_sort_scores(json_path: str, image_paths: list):
+    with open(json_path, "r") as json_file:
+        scores_data = json.load(json_file)
+
+    criteria_order = ['background', 'lighting', 'focus', 'orientation', 'color_calibration', 'resolution', 'field_of_view']
+    test_scores = []
+    matched_image_paths = []
+
+    for img_path in image_paths:
+        filename = os.path.basename(img_path)
+        if filename in scores_data:
+            matched_image_paths.append(img_path)
+            test_scores.append([scores_data[filename].get(key, 0.0) for key in criteria_order])
+        else:
+            print(f"Warning: No score found for {filename}")
+    
+    return np.array(test_scores, dtype=np.float32), matched_image_paths
 
 def test(
     root: str,
@@ -25,9 +47,8 @@ def test(
     model: Optional[Any],
     data_type: str
 ):
-    image_paths = [os.path.join(root, filename) for filename in os.listdir(root) if filename.endswith(('.png', '.jpg', 'jpeg'))]
-    original_images = [Image.open(path).convert("RGB") for path in image_paths]
-
+    image_paths, original_images = load_and_sort_images(root)
+    
     embed_dir = os.path.join(root, "embeddings")
     feats_file = os.path.join(embed_dir, f"features.npy")
     scores_file = os.path.join(embed_dir, f"scores.npy")
@@ -53,25 +74,30 @@ def test(
         print(f'Saved scores to {scores_file}')
 
     if data_type == 'a':
-        with open(os.path.join(root, "scores.json"), "r") as json_file:
-            scores_data = json.load(json_file)
-            
-        criteria_order = ['background', 'lighting', 'focus', 'orientation', 'color_calibration', 'resolution', 'field_of_view']
-        test_scores = []
-        for img_path in image_paths:
-            filename = os.path.basename(img_path)
-            test_scores.append([scores_data.get(filename, {}).get(key, 0.0) for key in criteria_order])
-        test_scores = np.array(test_scores, dtype=np.float32)
+        test_scores, matched_image_paths = load_and_sort_scores(os.path.join(root, "scores.json"), image_paths)
+        original_images = [Image.open(path).convert("RGB") for path in matched_image_paths]
         distorted_images = None
-    
     elif data_type == 's':
         distorted_dir = os.path.join(root, "distorted")
-        distorted_image_paths = [i for i in image_paths]
-        distorted_images = [Image.open(os.path.join(distorted_dir, os.path.basename(path))).convert("RGB") for path in distorted_image_paths]
+        distorted_image_paths = [os.path.join(distorted_dir, os.path.basename(path)) for path in image_paths]
+        distorted_images = [Image.open(path).convert("RGB") for path in distorted_image_paths]
 
     predictions = model.predict(features)
+    bin_pred = discretization(predictions)
+    bin_test = discretization(test_scores)
+    #plot_prediction_scores(test_scores, predictions)
+    #plot_all_confusion_matrices(bin_test, bin_pred)
+    print_metrics(bin_test, bin_pred)
     predictions = np.clip(predictions, 0, 1)
-    plot_results(original_images, distorted_images, predictions, predictions)
+
+    # Validation step: Log/print some details
+    print("Validation - Check matching of images, scores, and predictions")
+    for i in range(min(5, len(predictions))):  # Print first 5 for validation
+        print(f"Image Path: {matched_image_paths[i]}")
+        print(f"Actual Scores: {test_scores[i]}")
+        print(f"Predictions: {predictions[i]}")
+
+    plot_results(original_images, distorted_images, test_scores, predictions)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Test script for image quality assessment")

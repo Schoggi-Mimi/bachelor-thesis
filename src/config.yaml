@@ -1,37 +1,39 @@
 ssim_inference:
-  original_path: "../data/test_70"
-  distorted_path: "../data/test_70/distorted"
+  original_path: "../datas/test_70"
+  distorted_path: "../datas/test_70/distorted"
   csv_path: "./csv/ssim_scores.csv"
 
 arniqa_test:
-  root: "../data/test_200"
+  root: "../datas/test_200"
   regressor_dataset: "kadid10k" # or "live", "csiq", "tid2013", "flive", "spaq"
   output_csv: "./csv/quality_scores.csv"
 
 inference:
-  model_path: "../model/combined_mlp_reg.pkl"
-  images_path: "../data/test_200"
+  model_path: "../models/combined_mlp_reg.pkl"
+  images_path: "../datas/test_200"
   csv_path: "./csv/predictions.csv"
   batch_size: 10
   num_workers: 1
 
 single_image_inference:
-  image_path: "path/to/image.jpg"
-  model_path: "../model/combined_mlp_reg.pkl"
+  image_path: "../datas/ood/I81.png"
+  model_path: "../models/combined_mlp_reg.pkl"
 
 test:
-  root: "../data/test_70"
+  root: "../datas/test_200"
   batch_size: 10
   num_workers: 1
-  model_path: "../model/combined_mlp_reg.pkl"
-  data_type: "s"  # 's' for synthetic, 'a' for authentic
+  model_path: "../models/combined_mlp_reg.pkl"
+  data_type: "a"  # 's' for synthetic, 'a' for authentic
 
 train:
-  root: "./data/COMB"
-  num_distortions: 64
+  root: "../datas/F17K" # change to COMB
+  model_save_path: "../models/final_model.pkl"
+  num_distortions: 1 # chagen to 64
+  plot_results: true  # New parameter to control plotting
   batch_size: 10
   num_workers: 1
-  model_type: "mlp_reg"  # 'xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls'
+  model_type: "mlp_cls"  # 'xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls'
   sweep: false  # Set to true to perform hyperparameter sweeping
   sweep_count: 50 
   # Default training parameters
@@ -70,9 +72,9 @@ train:
       alpha: {"min": 0.0001, "max": 0.01}
       learning_rate_init: {"min": 0.0001, "max": 0.1}
       max_iter: {"values": [200, 300, 500]}
+  logging:
+    use_wandb: False   # if True, use wandb for logging
+    wandb:
+      project: "choekyel-hslu"   # wandb project name
+      entity: "BAA"    # wandb entity name
 
-logging:
-  use_wandb: true   # if True, use wandb for logging
-  wandb:
-    project: ""   # wandb project name
-    entity: ""    # wandb entity name

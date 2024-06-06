@@ -25,9 +25,8 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from scipy import stats
 
-from models.multioutput_xgb import MultiOutputXGBClassifier, train_xgbclassifier
-from models.multioutput_xgbregressor import MultiOutputXGBRegressor
-from utils.utils_data import map_predictions_to_intervals, discretization, get_features_scores
+from models.multioutput_xgb import train_xgbclassifier
+from utils.utils_data import discretization, get_features_scores
 from utils.visualization import print_metrics, plot_all_confusion_matrices, plot_prediction_scores
 from data import BaseDataset
 

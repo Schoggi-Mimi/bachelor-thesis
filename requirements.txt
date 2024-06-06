@@ -6,3 +6,7 @@ tqdm
 torch
 torchvision
 pyyaml
+kornia 
+opencv-python 
+xgboost
+matplotlib

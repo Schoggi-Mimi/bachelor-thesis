@@ -37,7 +37,7 @@ chmod +x requirements.sh
 
 #### Data Preparation
 
-For the filtered good quality images, contact me and place them under the `data` directory.
+For the filtered good quality images, contact me and place them under the `datas` directory.
 
 For the original images, they can be downloaded from here:
 1. [**SCIN**](https://github.com/google-research-datasets/scin)
@@ -46,7 +46,7 @@ For the original images, they can be downloaded from here:
 At the end, the directory structure should look like this:
 
 ```
-├── data
+├── datas
 |    ├── COMB
 |    |   ├── embeddings
 |    ├── F17K
@@ -148,4 +148,3 @@ Parameters:
 - `--regressor_dataset`: Dataset used to train the regressor.
 - `--output_csv`: Output CSV file to save the quality predictions.
 </details>
-```

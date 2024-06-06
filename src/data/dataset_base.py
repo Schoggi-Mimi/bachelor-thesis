@@ -1,16 +1,12 @@
 import os
-import random
-import numpy as np
+from pathlib import Path
+
 import torch
-import json
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
-from pathlib import Path
-from typing import List
 
-from utils.utils_data import (center_corners_crop, distort_images,
-                              map_distortion_values, resize_crop)
+from utils.utils_data import distort_images, map_distortion_values, resize_crop
 
 
 class BaseDataset(Dataset):
