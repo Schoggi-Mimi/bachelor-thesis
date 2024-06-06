@@ -1,58 +1,37 @@
+# train.py
+# Run: python train.py --config_path config.yaml
+
 import os
 import random
-from typing import Tuple
-
+import argparse
+import yaml
 import numpy as np
 import torch
-from einops import rearrange
-import xgboost as xgb
-from xgboost import XGBRegressor, XGBClassifier
 import wandb
-from wandb.integration.xgboost import WandbCallback
-from sklearn.preprocessing import StandardScaler
+import xgboost as xgb
 from sklearn.multioutput import MultiOutputRegressor, MultiOutputClassifier
 from sklearn.neural_network import MLPRegressor, MLPClassifier
-from sklearn.svm import SVR
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.pipeline import make_pipeline
-from sklearn.linear_model import LinearRegression, SGDRegressor
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error, precision_score, recall_score, classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
-from sklearn.model_selection import train_test_split, cross_val_score
-from torch.optim.lr_scheduler import LRScheduler
 from torch.utils.data import DataLoader
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-from scipy import stats
-
-from models.multioutput_xgb import MultiOutputXGBClassifier, train_xgbclassifier
-from models.multioutput_xgbregressor import MultiOutputXGBRegressor
-from utils.utils_data import map_predictions_to_intervals, discretization, get_features_scores
+from sklearn.model_selection import train_test_split
+from models.multioutput_xgb import train_xgbclassifier
 from utils.visualization import print_metrics, plot_all_confusion_matrices, plot_prediction_scores
+from utils.utils_data import discretization, get_features_scores
 from data import BaseDataset
 
-def train_model(
-    root: str = "SCIN",
-    num_distortions: int = 10,
-    batch_size: int = 32,
-    num_workers: int = 4,
-    model_type: str = 'xgb_reg',
-):
+def train_model(config):
     seed_it_all()
-    assert model_type in ["xgb_reg", "xgb_cls", "mlp_reg", "mlp_cls"], "phase must be in ['xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls']"
-
-    embed_dir = os.path.join(root, "embeddings")
-    feats_file = os.path.join(embed_dir, f"features_{num_distortions}.npy")
-    scores_file = os.path.join(embed_dir, f"scores_{num_distortions}.npy")
+    embed_dir = os.path.join(config['root'], "embeddings")
+    feats_file = os.path.join(embed_dir, f"features_{config['num_distortions']}.npy")
+    scores_file = os.path.join(embed_dir, f"scores_{config['num_distortions']}.npy")
     
-    dataset = BaseDataset(root=root, phase="train", num_distortions=num_distortions)
+    dataset = BaseDataset(root=config['root'], phase="train", num_distortions=config['num_distortions'])
     if os.path.exists(feats_file) and os.path.exists(scores_file):
         features = np.load(feats_file)
         scores = np.load(scores_file)
         print(f'Loaded features from {feats_file}')
         print(f'Loaded scores from {scores_file}')
     else:
-        dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers, pin_memory=True)
+        dataloader = DataLoader(dataset, batch_size=config['batch_size'], shuffle=True, num_workers=config['num_workers'], pin_memory=True)
         device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
         arniqa = torch.hub.load(repo_or_dir="miccunifi/ARNIQA", source="github", model="ARNIQA")
         arniqa.eval().to(device)
@@ -72,40 +51,23 @@ def train_model(
     val_features = features[val_img_indices]
     val_scores = scores[val_img_indices]
         
-    if model_type == 'xgb_reg':
-        params = { # num_distortions = 16
+    if config['model_type'] == 'xgb_reg':
+        params = {
             'tree_method': "hist",
-            'n_estimators': 50,
+            'n_estimators': config.get('n_estimators', 100),
             'n_jobs': 16,
-            'max_depth': 7,
-            'min_child_weight': 81,
-            'learning_rate': 0.06891,
-            'subsample': 0.9,
-            'early_stopping_rounds': 30,
+            'max_depth': config.get('max_depth', 6),
+            'min_child_weight': config.get('min_child_weight', 1),
+            'learning_rate': config.get('learning_rate', 0.01),
+            'subsample': config.get('subsample', 1.0),
+            'early_stopping_rounds': config.get('early_stopping_rounds', 10),
             'reg_alpha': 0,
             'reg_lambda': 1,
-            'gamma': 0.1289,
+            'gamma': config.get('gamma', 0),
             'objective': "reg:pseudohubererror",
-            'multi_strategy': "one_output_per_tree", # one_output_per_tree, multi_output_tree
+            'multi_strategy': config.get('multi_strategy', "one_output_per_tree"),
         }
-        params0 = { # Gaussian, 30
-            'tree_method': "hist",
-            'n_estimators': 300,
-            'n_jobs': 16,
-            'max_depth': 9,
-            'min_child_weight': 149,
-            'learning_rate': 0.07046,
-            'subsample': 0.8,
-            'early_stopping_rounds': 30,
-            'reg_alpha': 0,
-            'reg_lambda': 1,
-            "gamma": 0.2615,
-            'objective': "reg:pseudohubererror",
-        }
-        #regressor = MultiOutputXGBRegressor(params=params)
-        #regressor.fit(train_features, train_scores, eval_set=(val_features, val_scores))
         regressor = xgb.XGBRegressor(**params)
-        #regressor = MultiOutputRegressor(regressor)
         regressor.fit(train_features, train_scores, eval_set=[(val_features, val_scores)], verbose=False)
         predictions = regressor.predict(val_features)
         predictions = np.clip(predictions, 0, 1)
@@ -116,58 +78,40 @@ def train_model(
         print_metrics(bin_val, bin_pred)
         return regressor
 
-    elif model_type == 'xgb_cls':
+    elif config['model_type'] == 'xgb_cls':
         train_scores = discretization(train_scores)
         val_scores = discretization(val_scores)
         params = {
             'booster': 'gbtree',
-            'n_estimators': 300,
-            'max_depth': 9,
-            'min_child_weight': 44,
-            'learning_rate': 0.2775,
-            'subsample': 0.8,
+            'n_estimators': config.get('n_estimators', 300),
+            'max_depth': config.get('max_depth', 6),
+            'min_child_weight': config.get('min_child_weight', 1),
+            'learning_rate': config.get('learning_rate', 0.01),
+            'subsample': config.get('subsample', 1.0),
             'objective': 'multi:softprob',
             'random_state': 42,
             'eval_metric': ['mlogloss', 'merror', 'auc'],
-            'early_stopping_rounds': 30,
+            'early_stopping_rounds': config.get('early_stopping_rounds', 10),
             'reg_alpha': 0,
             'reg_lambda': 1,
-            'gamma': 0.2738,
+            'gamma': config.get('gamma', 0),
             'tree_method': 'hist',
             'device': 'cpu'
         }
-        classifier, predictions, val_scores = train_xgbclassifier(train_features, train_scores, val_features, val_scores, params, use_wandb=track, use_sweep=False)
+        classifier, predictions, val_scores = train_xgbclassifier(train_features, train_scores, val_features, val_scores, params, use_wandb=config['logging']['use_wandb'], use_sweep=False)
         plot_all_confusion_matrices(val_scores, predictions)
         plot_prediction_scores(val_scores, predictions)
         print_metrics(val_scores, predictions)
         return classifier
         
-    elif model_type == 'mlp_reg':
-        params = { # num_distortion = 10, F17K
-            'hidden_layer_sizes': (1024,),
-            'activation': 'relu',
+    elif config['model_type'] == 'mlp_reg':
+        params = {
+            'hidden_layer_sizes': tuple(config.get('hidden_layer_sizes', [100])),
+            'activation': config.get('activation', 'relu'),
             'solver': 'adam',
-            'alpha': 0.002845,
-            'learning_rate_init': 0.007211,
-            'max_iter': 300,
-            'early_stopping': True,
-        }
-        params_scin = { # num_distortion = 10, SCIN
-            'hidden_layer_sizes': (512,256),
-            'activation': 'relu',
-            'solver': 'adam',
-            'alpha': 0.008064,
-            'learning_rate_init': 0.001917,
-            'max_iter': 200,
-            'early_stopping': True,
-        }
-        params_comb = { # num_distortion = 64
-            'hidden_layer_sizes': (512,256),
-            'activation': 'relu',
-            'solver': 'adam',
-            'alpha': 0.00234,
-            'learning_rate_init': 0.002089,
-            'max_iter': 500,
+            'alpha': config.get('alpha', 0.0001),
+            'learning_rate_init': config.get('learning_rate_init', 0.001),
+            'max_iter': config.get('max_iter', 200),
             'early_stopping': True,
         }
         mlp = MLPRegressor(**params)
@@ -181,15 +125,15 @@ def train_model(
         plot_all_confusion_matrices(bin_val, bin_pred)
         print_metrics(bin_val, bin_pred)
         return multioutput_regressor
-
-    elif model_type == 'mlp_cls':
+    
+    elif config['model_type'] == 'mlp_cls':
         params = {
-            'hidden_layer_sizes': (100,),
-            'activation': 'relu',
+            'hidden_layer_sizes': tuple(config.get('hidden_layer_sizes', [100])),
+            'activation': config.get('activation', 'relu'),
             'solver': 'adam',
-            'alpha': 0.008267,
-            'learning_rate_init': 0.09256,
-            'max_iter': 500,
+            'alpha': config.get('alpha', 0.0001),
+            'learning_rate_init': config.get('learning_rate_init', 0.001),
+            'max_iter': config.get('max_iter', 200),
             'early_stopping': True,
         }
         train_scores = discretization(train_scores)
@@ -201,9 +145,9 @@ def train_model(
         plot_all_confusion_matrices(val_scores, predictions)
         plot_prediction_scores(val_scores, predictions)
         print_metrics(val_scores, predictions)
-        return multioutput_regressor
-        
-        
+        return multioutput_classifier
+    
+
 def seed_it_all(seed=42):
     """ Attempt to be Reproducible """
     random.seed(seed)
@@ -213,3 +157,29 @@ def seed_it_all(seed=42):
     os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
+
+def sweep_train():
+    wandb.init(reinit=True)
+    config = wandb.config
+    train_model(config)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Training script for image quality assessment")
+    parser.add_argument('–config_path', type=str, required=True, help='Path to the config.yaml file')
+                        
+    args = parser.parse_args()
+
+    with open(args.config_path, 'r') as file:
+        config = yaml.safe_load(file)['train']
+
+    if config['sweep']:
+        sweep_id = wandb.sweep(config['sweep_config'], project=config['logging']['wandb']['project'], entity=config['logging']['wandb']['entity'])
+        wandb.agent(sweep_id, sweep_train, count=config['sweep_count'])
+        wandb.finish()
+    else:
+        if config['logging']['use_wandb']:
+            wandb.init(project=config['logging']['wandb']['project'], entity=config['logging']['wandb']['entity'])
+            train_model(config)
+            wandb.finish()
+        else:
+            train_model(config)

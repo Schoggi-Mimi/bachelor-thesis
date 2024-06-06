@@ -1,30 +1,29 @@
-import os
-import random
-import json
-import pandas as pd
-from typing import Optional, Tuple, Any
+# test.py
+# Run: python test.py --config_path config.yaml
 
-import matplotlib.pyplot as plt
+import argparse
+import json
+import os
+import pickle
+from typing import Any, Optional
+
 import numpy as np
 import torch
-from einops import rearrange
-from scipy import stats
-from sklearn.metrics import mean_absolute_error, mean_squared_error, precision_score, recall_score, classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-from torch.utils.data import DataLoader
-from tqdm import tqdm
+import yaml
 from PIL import Image
+from torch.utils.data import DataLoader
 
-from utils.utils_data import discretization, get_features_scores
-from utils.visualization import print_metrics, plot_all_confusion_matrices, plot_prediction_scores, plot_results
 from data import BaseDataset
+from utils.utils_data import get_features_scores
+from utils.visualization import plot_results
+
 
 def test(
-    root: str = "SCIN",
-    batch_size: int = 32,
-    num_workers: int = 4,
-    model: Optional[Any] = None,
-    data_type: str = 's',
+    root: str,
+    batch_size: int,
+    num_workers: int,
+    model: Optional[Any],
+    data_type: str
 ):
     image_paths = [os.path.join(root, filename) for filename in os.listdir(root) if filename.endswith(('.png', '.jpg', 'jpeg'))]
     original_images = [Image.open(path).convert("RGB") for path in image_paths]
@@ -70,14 +69,26 @@ def test(
         distorted_image_paths = [i for i in image_paths]
         distorted_images = [Image.open(os.path.join(distorted_dir, os.path.basename(path))).convert("RGB") for path in distorted_image_paths]
 
-
     predictions = model.predict(features)
     predictions = np.clip(predictions, 0, 1)
-    bin_pred = discretization(predictions)
-    #bin_test = discretization(test_scores)
-    #plot_prediction_scores(test_scores, predictions)
-    #plot_all_confusion_matrices(bin_test, bin_pred)
-    #print_metrics(bin_test, bin_pred)
-    #plot_results(original_images, distorted_images, test_scores, predictions)
     plot_results(original_images, distorted_images, predictions, predictions)
-    
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Test script for image quality assessment")
+    parser.add_argument('--config_path', type=str, required=True, help='Path to the config.yaml file')
+
+    args = parser.parse_args()
+
+    with open(args.config_path, 'r') as file:
+        config = yaml.safe_load(file)
+
+    with open(config['test']['model_path'], 'rb') as file:
+        model = pickle.load(file)
+
+    test(
+        root=config['test']['root'],
+        batch_size=config['test']['batch_size'],
+        num_workers=config['test']['num_workers'],
+        model=model,
+        data_type=config['test']['data_type']
+    )
