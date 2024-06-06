@@ -28,9 +28,9 @@ git clone https://github.com/Schoggi-Mimi/bachelor-thesis
 2. Install Python dependencies
 
 ```sh
-conda create -n ARNIQA -y python=3.10
-conda activate ARNIQA
-cd ARNIQA
+conda create -n IQA -y python=3.10
+conda activate IQA
+cd IQA
 chmod +x requirements.sh
 ./requirements.sh
 ```
@@ -87,8 +87,6 @@ To train the model, run the following command:
 python train.py --config_path config.yaml
 ```
 
-### Config File Explanation
-
 Parameters:
 - `--root`: Path to the dataset folder.
 - `--num_distortions`: Number of distortions to use.
@@ -111,8 +109,6 @@ To manually test a model, run the following command:
 python test.py --config_path config.yaml
 ```
 
-### Config File Explanation
-
 Parameters:
 - `--root`: Path to the dataset folder.
 - `--batch_size`: Batch size for DataLoader.
@@ -124,7 +120,8 @@ Parameters:
 
 </details>
 
-## Additional Scripts
+<details>
+<summary><h3>Additional Scripts</h3></summary>
 
 ### Inference Script
 
@@ -150,10 +147,5 @@ Parameters:
 - `--root`: Root folder containing the images to be evaluated.
 - `--regressor_dataset`: Dataset used to train the regressor.
 - `--output_csv`: Output CSV file to save the quality predictions.
-
-### Single Image Inference Script
-
-**Parameters:**
-- `--image_path`: Path to the image to be evaluated.
-- `--model_path`: Path to the model .pkl file.
+</details>
 ```
