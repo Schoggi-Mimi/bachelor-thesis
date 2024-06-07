@@ -11,7 +11,7 @@ The methodology involved a detailed review of existing IQA methods, followed by 
 The results showed that the automated IQA methods can assess image quality in the context of teledermatology, closely matching human evaluations and therefore providing reliable feedback on image quality. The final model achieved good performance across multiple dermatology quality criteria, improving the reliability and effectiveness of teledermatology services. This research highlights the potential of automated IQA systems to improve the accuracy of diagnoses and patient care in remote dermatological consultations.
 
 <p align="center">
-  <img src="docs/img/Architecture.png" width="75%" alt="Overview of the proposed framework for automated image quality assessment in the context of teledermatology.">
+  <img src="docs/img/Architecture.png" width="100%" alt="Overview of the proposed framework for automated image quality assessment in the context of teledermatology.">
 </p>
 
 ## Usage
