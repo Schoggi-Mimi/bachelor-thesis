@@ -25,7 +25,7 @@ I recommend using the [**Anaconda**](https://www.anaconda.com/) package manager 
 git clone https://github.com/Schoggi-Mimi/bachelor-thesis
 ```
 
-2. Install Python dependencies
+2. Create a conda environment and install Python dependencies
 
 ```sh
 conda create -n IQA -y python=3.10
@@ -36,41 +36,44 @@ chmod +x install_requirements.sh
 
 #### Data Preparation
 
-For the filtered good quality images, contact me and place them under the `datas` directory.
+Prepare the dataset by organizing it into the `datas` directory. This directory should contain subdirectories for different datasets and their respective embeddings.
 
-For the original images, they can be downloaded from here:
-1. [**SCIN**](https://github.com/google-research-datasets/scin)
-2. [**Fitzpatrick17k**](https://github.com/mattgroh/fitzpatrick17k)
+1. **Filtered good quality images**: These images are available upon request and should be placed under the `datas` directory.
 
-At the end, the directory structure should look like this:
+2. **Original images**: Download the datasets from the following sources:
+   - [**SCIN**](https://github.com/google-research-datasets/scin)
+   - [**Fitzpatrick17k**](https://github.com/mattgroh/fitzpatrick17k)
 
-```
-├── datas
-|    ├── COMB
-|    |   ├── embeddings
-|    |   ├── ... (950 good quality images)
-|    ├── F17K
-|    |   ├── embeddings
-|    |   ├── ... (475 good quality images)
-|    ├── SCIN
-|    |   ├── embeddings
-|    |   ├── ... (475 good quality images)
-|    ├── test_70 (synthetic test set)
-|    |   ├── distorted
-|    |   ├── embeddings
-|    |   ├── ... (70 good quality images)
-|    ├── test_200 (authentic test set)
-|    |   ├── embeddings
-|    |   ├── scores.json
-|    |   ├── ... (200 images)
-|    ├── ood
-```
+   After downloading, organize the data as follows:
+
+   ```
+   ├── datas
+   |    ├── COMB
+   |    |   ├── embeddings
+   |    |   ├── ... (950 good quality images)
+   |    ├── F17K
+   |    |   ├── embeddings
+   |    |   ├── ... (475 good quality images)
+   |    ├── SCIN
+   |    |   ├── embeddings
+   |    |   ├── ... (475 good quality images)
+   |    ├── test_70 (synthetic test set)
+   |    |   ├── distorted
+   |    |   ├── embeddings
+   |    |   ├── ... (70 good quality images)
+   |    ├── test_200 (authentic test set)
+   |    |   ├── embeddings
+   |    |   ├── scores.json
+   |    |   ├── ... (200 images)
+   |    ├── ood
+   ```
 
 </details>
 
 <details>
 <summary><h3>Single Image Inference</h3></summary>
-To perform inference on a single image, run the following command:
+
+To perform inference on a single image and assess its quality, run the following command:
 
 ```sh
 python single_image_inference.py --config_path config.yaml
@@ -78,14 +81,14 @@ python single_image_inference.py --config_path config.yaml
 
 **Parameters:**
 - `--image_path`: Path to the image to be evaluated.
-- `--model_path`: Path to the model.
+- `--model_path`: Path to the pre-trained model file.
 
 </details>
 
 <details>
 <summary><h3>Training</h3></summary>
 
-To train the model, run the following command:
+To train a new model using the provided configuration file, run the following command:
 
 ```sh
 python train.py --config_path config.yaml
@@ -93,35 +96,38 @@ python train.py --config_path config.yaml
 
 **Parameters:**
 - `--root`: Path to the dataset folder.
-- `--num_distortions`: Number of distortions to use.
-- `--batch_size`: Batch size for DataLoader.
-- `--num_workers`: Number of workers for DataLoader.
-- `--model_type`: Model type to use ('xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls').
-- `--sweep`: Set to true for hyperparameter sweep.
-- `--sweep_count`: Number of sweeps to perform.
-- `--model_save`: Set to true to save the trained model.
-- `--model_save_path`: Path to save the final model.
-- `--plot_results`: Set to true to enable plotting of results.
-- `--logging`: Configuration for logging, including the use of wandb.
+- `--num_distortions`: Number of distortions to apply during training.
+- `--batch_size`: Batch size for the DataLoader.
+- `--num_workers`: Number of worker threads for the DataLoader.
+- `--model_type`: Type of model to train (`xgb_reg`, `xgb_cls`, `mlp_reg`, `mlp_cls`).
+- `--sweep`: Set to `true` to enable hyperparameter sweeping.
+- `--sweep_count`: Number of sweeps to perform during hyperparameter tuning.
+- `--model_save`: Set to `true` to save the trained model.
+- `--model_save_path`: Path where the final trained model should be saved.
+- `--plot_results`: Set to `true` to enable plotting of results.
+- `--logging`: Configuration for logging, including the use of wandb for monitoring training.
 
-**Note:** For logging, make sure to set `project` and `entity` under `wandb` in the config file.
+**Note:** If using wandb for logging, make sure the `project` and `entity` fields are correctly set in the `config.yaml` file under `wandb`.
+
+This process trains the model on the specified dataset, applying the given distortions, and evaluates its performance based on the chosen criteria.
 
 </details>
 
 <details>
 <summary><h3>Testing</h3></summary>
-To test the model and print the radar plot, run the following command:
+
+To test the trained model and generate performance metrics and visualizations, use the following command:
 
 ```sh
 python test.py --config_path config.yaml
 ```
 
 **Parameters:**
-- `--root`: Path to the dataset folder.
-- `--batch_size`: Batch size for DataLoader.
-- `--num_workers`: Number of workers for DataLoader.
-- `--model_path`: Path to the model .pkl file.
-- `--data_type`: 's' for synthetic, 'a' for authentic.
+- `--root`: Path to the dataset folder for testing.
+- `--batch_size`: Batch size for the DataLoader.
+- `--num_workers`: Number of worker threads for the DataLoader.
+- `--model_path`: Path to the trained model `.pkl` file.
+- `--data_type`: Specify `'s'` for synthetic data or `'a'` for authentic data.
 
 **Note:** If `data_type == 'a'`, the script will test the authentic test set (change also `root` to `test_200`). If `data_type == 's'`, the script will test the synthetic dataset (change `root` to `test_70`).
 
@@ -135,43 +141,74 @@ python test.py --config_path config.yaml
 This script is used to perform inference on a folder containing images and save the results in a CSV file.
 
 **Parameters:**
-- `--model_path`: Path to the model .pkl file.
-- `--images_path`: Path to the folder containing images.
-- `--csv_path`: Path to save the output CSV file.
-- `--batch_size`: Batch size for DataLoader.
-- `--num_workers`: Number of workers for DataLoader.
+- `--model_path`: Path to the trained model `.pkl` file.
+- `--images_path`: Path to the directory containing images for batch inference.
+- `--csv_path`: Path to save the results in a CSV file.
+- `--batch_size`: Batch size for processing images.
+- `--num_workers`: Number of worker threads for processing.
 
 ### Structural Similarity Index Measure (SSIM) Script
 
-This script is used to calculate the SSIM between two folders containing original and distorted images. The scores are saved in a CSV file. The scores are inverted to match the quality scores used in the research.
+This script calculates the Structural Similarity Index (SSIM) between two sets of images, typically an original and its distorted version. Results are saved in a CSV file.
 
 **Parameters:**
-- `--original_path`: Path to the folder containing original images.
-- `--distorted_path`: Path to the folder containing distorted images.
-- `--csv_path`: Path to save the output CSV file.
+- `--original_path`: Path to the folder with original images.
+- `--distorted_path`: Path to the folder with distorted images.
+- `--csv_path`: Path to save the SSIM scores in a CSV file.
 - `--batch_size`: Batch size for processing (not used in current implementation).
-- `--num_workers`: Number of workers for processing (not used in current implementation).
+- `--num_workers`: Number of worker threads for processing (not used in current implementation).
 
 ### ARNIQA Script
 
-This script runs the ARNIQA model on a folder containing images and saves the scores in a CSV file. The score are inverted to match the quality scores used in the research.
+This script runs the ARNIQA model on a set of images and saves the predicted quality scores in a CSV file.
 
 **Parameters:**
-- `--root`: Root folder containing the images to be evaluated.
-- `--regressor_dataset`: Dataset used to train the regressor.
-- `--output_csv`: Output CSV file to save the quality predictions.
+- `--root`: Path to the folder containing the images.
+- `--regressor_dataset`: Dataset used for training the regressor.
+- `--output_csv`: Path to save the predicted quality scores in a CSV file.
 </details>
 
 <details>
 <summary><h3>Playground Notebooks</h3></summary>
 
 #### `create_distortions.ipynb`
-This notebook is used to create synthetic distortions based on the seven dermatology quality criteria. It allows you to select a folder containing good quality images and apply various distortions to create a wide range of training datasets. The distorted images are saved in the same folder for later use in training and evaluation.
+This notebook allows you to generate synthetic distortions on images based on the seven dermatology quality criteria. You can select a folder of good quality images and apply various distortions to create training datasets. The distorted images are saved in the same folder and are used for training and evaluation.
 
 #### `create_labels.ipynb`
-In this notebook, you can manually assign distortion scores to a range of images. It prompts you to rate each of the seven dermatology criteria from 0 (no distortion) to 1 (high distortion). The scores are saved in a JSON file for later use in training and evaluation.
+In this notebook, you can manually assign distortion scores to images. It prompts you to rate each image on the seven dermatology criteria from 0 (no distortion) to 1 (high distortion). The scores are saved in a JSON file for later use in training and evaluation.
 
 #### `create_plots.ipynb`
-This notebook is used for generating several plots to visualize model performance and comparison. It includes tools for plotting results that are crucial for understanding how well the models are performing.
+This notebook provides tools for generating various plots to visualize and compare model performance. It helps in understanding the effectiveness of the models in assessing image quality.
 
 </details>
+
+## File Descriptions
+
+### Source Code
+- **`train.py`**: Script for training the image quality assessment models. Takes configuration from `config.yaml`.
+- **`test.py`**: Script for testing the trained models and generating performance metrics.
+- **`single_image_inference.py`**: Performs inference on a single image to assess its quality.
+- **`utils/`**: Contains utility scripts for data processing, visualization, and model evaluation.
+- **`data/`**: Directory with scripts related to dataset handling and preprocessing.
+- **`models/`**: Directory containing model definitions and training procedures for various machine learning models used.
+
+### Notebooks
+- **`playground/create_distortions.ipynb`**: Notebook to create synthetic distortions for training data.
+- **`playground/create_labels.ipynb`**: Tool for manually labeling image quality based on dermatology criteria.
+- **`playground/create_plots.ipynb`**: Used for generating plots to visualize model performance and compare results.
+
+### Configuration
+- **`config.yaml`**: Configuration file for setting parameters for training, testing, and model evaluation.
+
+### Data
+- **`datas/`**: Directory where all image datasets and related files are stored.
+  - **`COMB/`**: Combined dataset used for model training.
+  - **`F17K/`**: Fitzpatrick17k dataset used for specific training and evaluation.
+  - **`SCIN/`**: SCIN dataset containing various dermatology images.
+  - **`test_70/`**: Synthetic test set for model validation.
+  - **`test_200/`**: Authentic test set for model validation.
+  - **`ood/`**: Directory for out-of-distribution testing images.
+
+### Documentation
+- **`README.md`**: This document, providing an overview of the project and instructions for usage.
+- **`explanation.txt`**: Quick reference guide for understanding the purpose of each file.
