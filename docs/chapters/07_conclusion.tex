@@ -1,0 +1,15 @@
+\chapter{Conclusion and Future Research}
+\label{ch:Conclusion}
+This thesis has shown that assessing image quality in teledermatology is possible using the proposed approach. The main findings highlight the model’s strength and ability to handle different types of distortions well, especially in areas like lighting, focus, color calibration, and resolution. The innovative distortion pipeline played a key role in creating a comprehensive dataset, which greatly improved the model’s performance. By generating multiple synthetic distortions, the model was trained on a wide range of image variations, improving its accuracy in assessing image quality in the context of teledermatology. \par
+\vspace{\baselineskip}
+\noindent
+The MLP regressor stood out as the best-performing model, consistently achieving better SRCC scores than the other models on the combined dataset across all seven criteria. However, the research also found that the model had difficulties with certain criteria, such as background, orientation, and field of view. These areas had higher errors and less accurate predictions, indicating a need for further improvement and specific data collection. \par
+\vspace{\baselineskip}
+\noindent
+Future research should focus on expanding the dataset with more diverse and representative images of teledermatology, particularly those that address the challenging criteria. Adding more varied background conditions and different perspectives will be important. Improving the labeling process by collaborating with dermatologists to help filter and label images will reduce human error and increase accuracy. Finding new methods for creating synthetic distortions that better reflect real-world scenarios will help refine the model further. \par
+\vspace{\baselineskip}
+\noindent
+Another promising direction for future research is to make the model more understandable. Techniques like GradCam can be used to show which parts of an image the model focuses on when making predictions. This would help in understanding the model’s decision-making process and in identifying areas where the model might be making mistakes. \par
+\vspace{\baselineskip}
+\noindent
+The reproducible repository developed in this research allows for ongoing exploration and development. It provides a strong foundation for future experiments, allowing researchers to build upon and improve the methods and tools developed in this thesis. Improving image quality assessment in the context of teledermatology can greatly improve remote consultations, making sure that dermatologists can rely on good quality images for accurate diagnoses and effective treatment. \par

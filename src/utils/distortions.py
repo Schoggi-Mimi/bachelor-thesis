@@ -132,7 +132,6 @@ def crop_image(image: torch.Tensor, level: int) -> torch.Tensor:
     new_height = int(height * (1 - crop_ratio / 2))
     new_width = int(width * (1 - crop_ratio / 2))
 
-    # Crop the image towards the bottom-right corner
     cropped_image = image[:, :new_height, :new_width]
     return cropped_image
 
@@ -145,10 +144,8 @@ def crop_image1(image: torch.Tensor, level: int) -> torch.Tensor:
     new_height = int(height * (1 - crop_ratio / 2))
     new_width = int(width * (1 - crop_ratio / 2))
 
-    # Crop the image towards the bottom-right corner
     cropped_image = image[:, :new_height, :new_width]
 
-    # Resize cropped image back to the original dimensions if necessary
     if new_height != height or new_width != width:
         cropped_image = F.interpolate(cropped_image.unsqueeze(0), size=(height, width), mode='bilinear', align_corners=False).squeeze(0)
 
@@ -184,13 +181,11 @@ def color_block(x: torch.Tensor, amount: float) -> torch.Tensor:
     
     y = x_new.clone()
 
-    # Convert numpy mask to torch tensor
     mask_tensor = torch.from_numpy(~skin_mask).float()
 
     h_max = h - patch_size[0]
     w_max = w - patch_size[1]
 
-    # Define central exclusion zone
     central_height = int(h * exclusion_ratio)
     central_width = int(w * exclusion_ratio)
     central_top = (h - central_height) // 2
@@ -206,7 +201,6 @@ def color_block(x: torch.Tensor, amount: float) -> torch.Tensor:
                 break
             px = random.randint(0, w_max)
             py = random.randint(0, h_max)
-            # Check if the selected area is in the background and outside the central exclusion zone
             if not (central_left < px < central_right and central_top < py < central_bottom):
                 patch_area = mask_tensor[py:py + patch_size[0], px:px + patch_size[1]]
                 if torch.all(patch_area == 1):  # Ensure the entire patch is within the background
@@ -217,43 +211,3 @@ def color_block(x: torch.Tensor, amount: float) -> torch.Tensor:
             attempts += 1
     
     return y + (x * skin_mask)
-
-# def color_block(x: torch.Tensor, amount: float) -> torch.Tensor:
-#     if amount == 0.0:
-#         return x
-#     skin_mask = skin_segmentation(x)
-#     background_mean = 1 - skin_mask.mean().item()  # Estimate of background area
-#     if background_mean < 0.05:  # Only apply distortion if significant background is present
-#         return x
-#     x_new = x * ~skin_mask
-#     amount = amount * background_mean
-#     _, h, w = x_new.shape
-#     patch_size = [int(max(32, min(h / 10 * amount, h))), int(max(32, min(w / 10 * amount, w)))]
-    
-#     y = x_new.clone()
-
-#     # Convert numpy mask to torch tensor
-#     mask_tensor = torch.from_numpy(~skin_mask).float()
-
-#     h_max = h - patch_size[0]
-#     w_max = w - patch_size[1]
-
-#     num_patches = max(1, int(amount * 10))
-#     attempts = 0
-#     for _ in range(num_patches):
-#         while True:
-#             if h_max <= 0 or w_max <= 0 or attempts > 100:  # Avoid infinite loop by limiting attempts
-#                 break
-#             px = random.randint(0, w_max)
-#             py = random.randint(0, h_max)
-#             # Ensure the selected area is in the background
-#             if px + patch_size[1] <= w and py + patch_size[0] <= h:
-#                 patch_area = mask_tensor[py:py + patch_size[0], px:px + patch_size[1]]
-#                 if torch.all(patch_area == 1):  # Ensure the entire patch is within the background
-#                     color = np.random.rand(3)
-#                     patch = torch.ones((3, patch_size[0], patch_size[1]), dtype=torch.float32) * torch.tensor(color, dtype=torch.float32).view(3, 1, 1)
-#                     y[:, py:py + patch_size[0], px:px + patch_size[1]] = patch
-#                     break
-#             attempts += 1
-    
-#     return y + (x * skin_mask)

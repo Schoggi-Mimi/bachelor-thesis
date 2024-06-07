@@ -1,5 +1,6 @@
 # test.py
 # Run: python test.py --config_path config.yaml
+
 import argparse
 import json
 import os
@@ -89,13 +90,6 @@ def test(
     #plot_all_confusion_matrices(bin_test, bin_pred)
     print_metrics(bin_test, bin_pred)
     predictions = np.clip(predictions, 0, 1)
-
-    # Validation step: Log/print some details
-    # print("Validation - Check matching of images, scores, and predictions")
-    # for i in range(min(5, len(predictions))):  # Print first 5 for validation
-    #     print(f"Image Path: {matched_image_paths[i]}")
-    #     print(f"Actual Scores: {test_scores[i]}")
-    #     print(f"Predictions: {predictions[i]}")
 
     plot_results(original_images, distorted_images, test_scores, predictions)
 

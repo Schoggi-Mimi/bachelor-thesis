@@ -78,7 +78,6 @@ def train_model(config):
             'gamma': config.get('gamma', 0),
             'tree_method': 'hist',
             'device': 'cpu',
-            # 'callbacks': [wandb.integration.xgboost.WandbCallback()],
         }
 
     

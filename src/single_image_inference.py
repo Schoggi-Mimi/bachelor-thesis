@@ -1,5 +1,6 @@
 # single_image_inference.py
 # Run: python single_image_inference.py --config_path config.yaml
+
 import argparse
 import pickle
 from typing import Any, Optional

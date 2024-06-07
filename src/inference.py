@@ -1,5 +1,6 @@
 # inference.py
 # Run: python inference.py --config_path config.yaml
+
 import os
 import pickle
 import numpy as np

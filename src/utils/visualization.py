@@ -57,21 +57,17 @@ def plot_prediction_scores(val_scores, predictions):
     fig, axes = plt.subplots(1, len(distortion_criteria), figsize=(20, 4), sharey=True, sharex=True)
     
     for i, ax in enumerate(axes):
-        # Prepare data for mean and std deviation
         unique_actuals = np.unique(val_scores[:, i])
         mean_predictions = [np.mean(predictions[val_scores[:, i] == x]) for x in unique_actuals]
         std_predictions = [np.std(predictions[val_scores[:, i] == x]) for x in unique_actuals]
 
-        # Mean prediction line
         ax.plot(unique_actuals, mean_predictions, 'b-', label='Mean Predictions')
         
-        # Standard deviation shading
         ax.fill_between(unique_actuals, 
                         np.array(mean_predictions) - np.array(std_predictions),
                         np.array(mean_predictions) + np.array(std_predictions), 
                         color='blue', alpha=0.2, label='±1 Std Dev')
 
-        # Diagonal line for perfect predictions
         ax.plot([val_scores.min(), val_scores.max()], [val_scores.min(), val_scores.max()], 'r--', lw=2, label='Perfect Fit')
         ax.set_xlim(val_scores.min(), val_scores.max())
         ax.set_ylim(val_scores.min(), val_scores.max())
@@ -82,7 +78,6 @@ def plot_prediction_scores(val_scores, predictions):
     axes[0].set_ylabel('Predicted Scores')
     plt.tight_layout()
 
-    # Central legend
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 1.05), ncol=3, fontsize='small')
 
@@ -112,10 +107,8 @@ def plot_results(original_images, distorted_images, actuals, predictions, num_pl
             axs[i, 1].set_title('Distorted Image', fontsize=15, fontweight='bold')
             axs[i, 1].axis('off')
 
-            # Actual Radar chart
             ax_actual = plt.subplot(num_plots, 4, 4 * i + 3, polar=True)
         else:
-            # Actual Radar chart
             ax_actual = plt.subplot(num_plots, 3, 3 * i + 2, polar=True)
 
         ax_actual.set_theta_offset(np.pi / 2)
@@ -133,10 +126,8 @@ def plot_results(original_images, distorted_images, actuals, predictions, num_pl
         #plt.title(f'Actual Radar Chart {i+1}', size=12, y=1.1)
 
         if distorted_images is not None:
-            # Prediction Radar chart
             ax_pred = plt.subplot(num_plots, 4, 4 * i + 4, polar=True)
         else:
-            # Prediction Radar chart
             ax_pred = plt.subplot(num_plots, 3, 3 * i + 3, polar=True)
 
         ax_pred.set_theta_offset(np.pi / 2)

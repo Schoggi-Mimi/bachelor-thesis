@@ -3,74 +3,75 @@
 
 \section{Image Evaluation}
 \label{sec:ImageEvaluation}
-There are three ways to evaluate an image: assessing its quality, aesthetics, or fidelity. Each method focuses on different aspects of image evaluation and has unique applications. \par
+There are three ways to evaluate an image: assessing its quality, aesthetics, or fidelity \autocite{D}. Each method focuses on different aspects of image evaluation and has unique applications. \par
 \vspace{\baselineskip}
 \noindent
-\textbf{Image Quality Assessment} (IQA) measures the degradation of an image. This involves comparing an original, undistorted image with a processed version that has undergone changes such as compression, noise addition, or artifact introduction. The goal is to quantify how much the image quality has declined due to these changes.\par
+\textbf{Image Quality Assessment (IQA)} measures the degradation of an image. This involves comparing an original, undistorted image with a processed version that has undergone changes such as compression, noise addition, or artifact introduction. The goal is to quantify how much the image quality has declined due to these changes.\par
 \vspace{\baselineskip}
 \noindent
 \textbf{Image Aesthetics Assessment} focuses on the visual appeal of an image. It evaluates how pleasing an image is to the human eye, considering factors like composition, color, and overall aesthetic impact. While related to IQA, since both involve human judgment, this area is not the focus of this thesis because it deals more with subjective perceptions of beauty rather than measurable quality degradations. \par
 \vspace{\baselineskip}
 \noindent
-\textbf{Image Fidelity Assessment} deals with how accurately an image represents the original scene or view. This is especially relevant in applications involving multiple views or stereo cameras, assessing the correctness of image reconstruction. However, this thesis will also not cover image fidelity assessment, as it pertains more to the accuracy of recreating an image rather than evaluating its quality after processing. \par
+\textbf{Image Fidelity Assessment} deals with how accurately an image represents the original scene or view. This is especially relevant in applications involving multiple views or stereo cameras, assessing the correctness of image reconstruction. However, this thesis will also not cover image fidelity assessment, as it relates more to the accuracy of recreating an image rather than evaluating its quality after processing. \par
 \vspace{\baselineskip}
 \noindent
-The primary focus of this thesis is on image quality assessment, specifically looking at various types of image degradation. The following subsections will discuss common distortions, datasets that contain these distortions, and the state-of-the-art (SOTA) methods in IQA. But first, the two ways to assess quality are mentioned. \par
-
-
-\subsection{Subjective Quality Assessment}
-\label{sub:SubjectiveQualityAssessment}
+The primary focus of this thesis is on image quality assessment, specifically looking at different types of image degradation. \par
+\clearpage
+\subsection{Methods of Image Quality Assessment}
+\label{sub:MethodsImageQualityAssessment}
+There are two main approaches to assess image quality: subjective and objective methods \autocite{D}. \par
+\subsubsection{Subjective Quality Assessment}
+\label{subsub:SubjectiveQualityAssessment}
 Subjective quality assessment involves human observers evaluating the quality of images based on their visual perception. This method is essential for understanding how humans perceive image quality in real-world situations, especially when technical measurements might not fully capture what people actually see and experience. There are two primary methods used in subjective quality assessment:\par
 \begin{itemize}
-    \item Absolute Categorical Rating:  In this approach, human observers are presented with a unlabeled image and asked to rate its quality based on predefined categories. Each observer evaluates the image independently, without comparing it to any reference image. This method allows evaluators to provide a direct judgment on the image’s quality based on their subjective experience.
-    \item Paired Comparison:  In this method, human observers are presented with two images: a unlabeled image and a reference image. Observers then assess the quality of the unlabeled image by comparing it directly to the reference image, assigning a score based on the perceived differences in quality.
+    \item Absolute Categorical Rating:   In this approach, human observers are presented with an unlabeled image and asked to rate its quality based on predefined categories. Each observer evaluates the image independently, without comparing it to any reference image. This method allows evaluators to provide a direct judgment on the image’s quality based on their subjective experience.
+    \item Paired Comparison:  In this method, human observers are presented with two images: an unlabeled image and a reference image. Observers then assess the quality of the unlabeled image by comparing it directly to the reference image, assigning a score based on the perceived differences in quality.
 \end{itemize}
-Subjective quality assessment is highly valued for its ability to accurately reflect human perception of image quality. However, this method is also resource-intensive, requiring significant time and effort from human evaluators. Additionally, subjective assessments can be influenced by variability and biases introduced by individual scorers. For example, differences in monitor color calibration, the scorer’s domain knowledge, and personal preferences can affect the consistency and reliability of the evaluations. Despite these challenges, subjective quality assessment remains a critical component of comprehensive image quality evaluation, particularly in applications where the human response to an image is the ultimate measure of its quality. \par
+Subjective quality assessment is highly valued for its ability to accurately reflect human perception of image quality \autocite{D}. However, this method is also resource-intensive, requiring significant time and effort from human evaluators. Additionally, subjective assessments can be influenced by variability and biases introduced by individual scorers. For example, differences in monitor color calibration, domain knowledge, and personal preferences can affect the consistency and reliability of the evaluations. Despite these challenges, subjective quality assessment remains a critical component of comprehensive image quality evaluation, particularly in applications where how a human perceives the image is the final measure of its quality. \par
 
-\subsection{Objective Quality Assessment}
-\label{sub:ObjectiveQualityAssessment}
-Objective quality assessment relies on mathematical algorithms rather than human judgment to evaluate image quality. This approach uses our understanding of human vision system attributes to develop mathematical equations that measure quality, even though not all methods rely on these attributes. Essentially, it involves comparing data points or features extracted from images to determine quality. This assessment is mainly categorized into three methods based on the reference data used: Full-Reference IQA (FR-IQA), Reduced-Reference IQA (RR-IQA), and No-Reference IQA (NR-IQA). \par
+\subsubsection{Objective Quality Assessment}
+\label{subsub:ObjectiveQualityAssessment}
+Objective quality assessment uses mathematical algorithms to evaluate image quality instead of relying on human judgment. These algorithms are often based on our understanding of how the human vision system works. However, not all methods directly simulate human vision. Some methods use different techniques to measure quality by comparing specific features or data points extracted from images. This type of assessment is mainly categorized into three methods based on the amount of reference data used: Full-Reference IQA (FR-IQA), Reduced-Reference IQA (RR-IQA), and No-Reference IQA (NR-IQA) \autocite{D}. \par
 \vspace{\baselineskip}
+\noindent
+\textbf{Full-Reference IQA} (FR-IQA) involves a detailed comparison between a distorted image and a reference image (see \autoref{fig:FRIQA}). Features are extracted from both images, and their differences are quantitatively analyzed to compute a quality score. While FR-IQA offers detailed assessments, it requires a reference image for every distorted image evaluated, which can limit its practicality. \par
+\clearpage
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/FRIQA.jpg}
+    \includegraphics[keepaspectratio,width=12cm]{img/FRIQA.jpg}
     \caption{General framework of FR-IQA algorithms. Features are extracted from both images, and then the feature distance is calculated.}
     \label{fig:FRIQA}
 \end{figure}
 \noindent
-\textbf{Full-Reference IQA} (FR-IQA) involves a comprehensive comparison between a distorted image and a reference image (see \autoref{fig:FRIQA}). Features are extracted from both images, and their differences are quantitatively analyzed to compute a quality score. While FR-IQA offers detailed assessments, it requires a reference image for every distorted image evaluated, which can limit its practicality. \par
-\vspace{\baselineskip}
+\textbf{Reduced-Reference IQA} (RR-IQA) operates similarly to FR-IQA but does not need the complete reference image. Instead, it uses a reduced set of features extracted from both the distorted and reference images (see \autoref{fig:RRIQA}). This method balances the detailed comparison of FR-IQA with the independence of NR-IQA (which will be discussed later), reducing computational requirements while still providing meaningful quality assessments based on partial reference data. \par
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/RRIQA.jpg}
+    \includegraphics[keepaspectratio,width=12cm]{img/RRIQA.jpg}
     \caption{General framework of RR-IQA algorithms. Features of the reference and distorted images are extracted and used collectively to compute the quality.}
     \label{fig:RRIQA}
 \end{figure}
 \noindent
-\textbf{Reduced-Reference IQA} (RR-IQA) operates similarly to FR-IQA but does not need the complete reference image. Instead, it uses a reduced set of features extracted from both the distorted and reference images (see \autoref{fig:RRIQA}). This method balances the thorough comparison of FR-IQA and the independence of NR-IQA, which will be mentioned later, reducing computational demands while still providing meaningful quality assessments based on partial reference data. \par
-\vspace{\baselineskip}
-\noindent
-Both FR-IQA and RR-IQA utilize two methods to analyze quality:
+Both FR-IQA and RR-IQA use two methods to analyze image quality \autocite{D}:
 \begin{itemize}
-    \item Spatial-Based Analysis: This method compares images pixel by pixel or region by region, offering straightforward interpretation and efficient computation. However, it may not fully align with how humans process images, lacking robustness in some scenarios.
-    \item Transform-Based Analysis: This approach transforms images into a different domain (such as the frequency domain) that more closely mimics how humans process images. While robust, it is complex and computationally intensive.
+    \item Spatial-Based Analysis: This method compares images pixel by pixel or region by region. It offers straightforward interpretation and efficient computation. However, it may not fully align with how humans process images and can lack robustness in some scenarios.
+    \item Transform-Based Analysis: This approach transforms images into a different domain (such as the frequency domain) that more closely mimics how humans process images. While this method is robust, it is complex and computationally intensive.
 \end{itemize}
 \vspace{\baselineskip}
+\noindent
+\textbf{No-Reference IQA} (NR-IQA) does not rely on any reference image. Instead, it analyzes the distorted image alone by extracting features indicative of quality (see \autoref{fig:NRIQA}). This method is particularly useful when no reference images are available, such as in many practical applications of teledermatology. NR-IQA can be customized to target specific types of distortions or created for general-purpose quality assessment, making it adaptable for different fields. \par
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/NRIQA.jpg}
+    \includegraphics[keepaspectratio,width=12cm]{img/NRIQA.jpg}
     \caption{General framework of NR-IQA algorithms.}
     \label{fig:NRIQA}
 \end{figure}
-\noindent
-\textbf{No-Reference IQA} (NR-IQA) does not rely on any reference image. Instead, it analyzes the distorted image alone by extracting features indicative of quality (see \autoref{fig:NRIQA}). This method is particularly useful when no reference images are available, such as in many practical applications of teledermatology. NR-IQA can be tailored to address specific types of distortions or designed for general-purpose quality assessment, providing versatility across various domains. \par
-\vspace{\baselineskip}
+\clearpage
 \noindent
 For this thesis, the focus will be on no-reference image quality assessment because it is especially relevant for evaluating teledermatology images where reference images are usually not available. Since IQA measures distortions and NR-IQA can handle various types, it is important to identify the most common distortions encountered. The next subsection will discuss these distortions in detail. \par
 
 \subsection{Common Distortions in Image Quality Assessment}
 \label{sub:CommonDistortionsIQA}
-Image Quality Assessment (IQA) must address various distortions that can significantly affect the perceived quality of images. Understanding these common distortions is crucial for developing effective IQA algorithms, particularly in contexts like teledermatology, where accurate image assessment is critical. \autoref{fig:distortions} shows the common distortions typically considered in IQA, with a reference image shown first for better comparison. \par
+IQA must address various distortions that can significantly affect the perceived quality of images. Understanding these common distortions is crucial for developing effective IQA algorithms, particularly in contexts like teledermatology, where accurate image assessment is critical. \autoref{fig:distortions} shows the common distortions typically considered in IQA, with a reference image shown first for better comparison \autocite{ARNIQA}. \par
 \vspace{\baselineskip}
 \noindent
 The common distortions are:
@@ -126,19 +127,19 @@ The common distortions are:
     \label{fig:distortions}
 \end{figure}
 \begin{enumerate}
-    \item \textbf{Blur}: Blurred images lack sharpness and clarity, often resulting from motion during capturing, incorrect focus settings, or imperfections in the camera lens. See \autoref{fig:blur} for an example of a blurred image.
-    \item \textbf{Sharpness}: Sharpness refers to how well-defined the edges and fine details in an image appear. High sharpness indicates clear, crisp images, while low sharpness makes an image look soft and unclear. See \autoref{fig:sharpness} for an example of a sharpened image.
-    \item \textbf{Noise}: Noise appears as random variations in brightness or color and is often due to the limitations of the camera’s sensor, particularly under low light conditions or at high ISO settings. See \autoref{fig:noise} for an example of a noisy image.
-    \item \textbf{Color Accuracy}:  Color accuracy refers to how faithfully colors are reproduced in an image. Distortions in color accuracy can lead to inaccurate or unrealistic color representation. See \autoref{fig:color_accuracy} for an example of a color distorted image.
-    \item \textbf{Brightness \& Contrast}: Brightness is the overall light level of an image, while contrast refers to the range between its darkest and lightest areas. Proper balance of both is crucial for maintaining image visibility and detail. Excessive or insufficient brightness and contrast can make an image unusable for detailed analysis. See \autoref{fig:brightness_contrast} for an example of an image with altered brightness.
-    \item \textbf{Artifacts}: Artifacts are unwanted visual anomalies introduced during image acquisition or processing, such as halos, or jagged edges. See \autoref{fig:artifacts} for an example of an image with artifacts.
-    \item \textbf{Compression}: When images are compressed to reduce file size, this often results in lost detail and visible quality degradation. See \autoref{fig:compression} for an example of a compressed image.
+    \item \textbf{Blur}: Blurred images lack sharpness and clarity, often resulting from motion during capturing, incorrect focus settings, or imperfections in the camera lens. (See \autoref{fig:blur} for an example of a blurred image.)
+    \item \textbf{Sharpness}: Sharpness refers to how well-defined the edges and fine details in an image appear. High sharpness indicates clear, crisp images, while low sharpness makes an image look soft and unclear. (See \autoref{fig:sharpness} for an example of a sharpened image.)
+    \item \textbf{Noise}: Noise appears as random variations in brightness or color and is often due to the limitations of the camera’s sensor, particularly under low light conditions or at high ISO settings. (See \autoref{fig:noise} for an example of a noisy image.)
+    \item \textbf{Color Accuracy}:  Color accuracy refers to how faithfully colors are reproduced in an image. Distortions in color accuracy can lead to inaccurate or unrealistic color representation. (See \autoref{fig:color_accuracy} for an example of a color distorted image.)
+    \item \textbf{Brightness \& Contrast}: Brightness is the overall light level of an image, while contrast refers to the range between its darkest and lightest areas. Proper balance of both is crucial for maintaining image visibility and detail. Excessive or insufficient brightness and contrast can make an image unusable for detailed analysis. (See \autoref{fig:brightness_contrast} for an example of an image with altered brightness.)
+    \item \textbf{Artifacts}: Artifacts are unwanted visual anomalies introduced during image acquisition or processing, such as halos, or jagged edges. (See \autoref{fig:artifacts} for an example of an image with artifacts.)
+    \item \textbf{Compression}: When images are compressed to reduce file size, this often results in lost detail and visible quality degradation. (See \autoref{fig:compression} for an example of a compressed image.)
 \end{enumerate}
-Each type of distortion affects the visual quality and perceived accuracy of images, influencing the effectiveness of IQA methodologies in assessing image quality. Understanding these distortions is essential for developing robust quality assessment algorithms and improving image clarity in various applications, including teledermatology. \par
+Each type of distortion affects the visual quality and perceived accuracy of images, influencing the effectiveness of IQA methodologies in assessing image quality. Understanding these distortions is essential for developing robust quality assessment algorithms and improving image clarity in different applications, including teledermatology. \par
 
-\subsection{Benchmark Datasets for IQA}
+\subsection{Benchmark Datasets for Image Quality Assessment}
 \label{sub:BenchmarkDatasetsIQA}
-Benchmark datasets play an important role in advancing Image Quality Assessment (IQA). They provide standardized and diverse image sets with known distortions and corresponding quality annotations, which researchers use to evaluate and improve IQA algorithms. These annotations, often in the form of Mean Opinion Score (MOS) and Differential Mean Opinion Score (DMOS),  are used to assess image quality. \par
+Benchmark datasets play an important role in advancing IQA. They provide standardized and diverse image sets with known distortions and corresponding quality annotations, which researchers use to evaluate and improve IQA algorithms. These annotations, often in the form of Mean Opinion Score (MOS) and Differential Mean Opinion Score (DMOS),  are used to assess image quality \autocite{D}. \par
 \vspace{\baselineskip}
 \noindent
 \textbf{Mean Opinion Score (MOS)} is calculated by averaging ratings from human observers who judge the quality of images on a predefined scale. This score reflects the overall perceptual quality as seen by typical viewers and is widely used to compare the performance of different IQA methods against human visual judgment. \par
@@ -147,7 +148,7 @@ Benchmark datasets play an important role in advancing Image Quality Assessment 
 \textbf{Differential Mean Opinion Score (DMOS)}, on the other hand, is derived from MOS and measures the perceived difference in quality between a reference image and a distorted version. This score is particularly useful for understanding the impact of specific distortions on image quality. \par
 \vspace{\baselineskip}
 \noindent
-An overview of IQA databases is provided in \autoref{tab:iqa_databases}, and more detailed descriptions can be found in \autoref{sec:Dataset}. These datasets enable researchers to thoroughly test the robustness, accuracy, and generalization capabilities of different IQA methods. They also help in developing new algorithms by providing reliable quality scores, which are essential for ensuring reproducible. \par
+An overview of IQA databases is provided in \autoref{tab:iqa_databases}, and more detailed descriptions can be found in \autoref{sec:Dataset}. These datasets enable researchers to thoroughly test the robustness, accuracy, and generalization capabilities of different IQA methods. They also help in developing new algorithms by providing reliable quality scores, which are essential for ensuring reproducibility and consistency in research. \par
 
 \begin{table*}[!t]
     \centering
@@ -201,73 +202,61 @@ An overview of IQA databases is provided in \autoref{tab:iqa_databases}, and mor
 
 \subsection{State-of-the-Art in Image Quality Assessment}
 \label{sub:SOTA_IQA}
-The current state-of-the-art in Image Quality Assessment (IQA) is ARNIQA \autocite{ARNIQA}, with version 2 released on November 4, 2023. ARNIQA (leArning distoRtion maNifold for Image Quality Assessment) represents a major advancement in NR-IQA. This technology aims to measure image quality based on human perception, even without a reference image. \par
+The current state-of-the-art in IQA is ARNIQA \autocite{ARNIQA}, with version 2 released in late 2023. ARNIQA, which stands for “leArning distoRtion maNifold for Image Quality Assessment,” represents a significant advancement in No-Reference Image Quality Assessment (NR-IQA). This technology aims to measure image quality based on human perception, even without a reference image. \par
 \vspace{\baselineskip}
-\noindent
-\textbf{Overview}: ARNIQA is developed using a self-supervised learning approach. It learns a comprehensive model of all possible image distortions, focusing on the types and quality of distortions rather than the content of the images themselves. This makes it highly adaptable across various domains where image content can differ significantly. \par
 \vspace{\baselineskip}
-\noindent
-\textbf{Key Features}:
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
 \begin{figure}[ht]
     \centering
     \includegraphics[keepaspectratio,width=15cm]{img/method_SimCLR.jpg}
     \caption{Overview of the training strategy for ARNIQA. Two pristine images are cropped and equally degraded. The model maximizes the similarity of their embeddings while minimizing the similarity to embeddings from degraded crops of half-scale versions of the original images. This process creates hard negative examples by introducing downsample distortion, demonstrating how original and half-scale degraded crops differ despite identical degradation. \autocite{ARNIQA}.}
     \label{fig:SimCLR}
 \end{figure}
-\begin{enumerate}
-    \item Image Degradation Model: ARNIQA can synthetically degrade images through up to 1.9 billion distinct degradation patterns. This model can apply up to seven different types of distortions simultaneously, covering a wide range of real-world scenarios. Training with such diverse distortions ensures that ARNIQA can accurately assess image quality across various conditions and avoid the need for large labeled datasets.
-    \item SimCLR Framework: At the core of ARNIQA is the SimCLR (Simple Framework for Contrastive Learning) framework. This framework  learns meaningful representations of image quality by comparing different versions of the same image and focusing on their similarities and differences. SimCLR constructs positive pairs by applying the same distortion settings to two different images, ensuring that the model concentrates on the distortions rather than the content. To further enhance  the model’s ability to distinguish between different types of distortions, SimCLR introduces subtle variations by downsampling images before cropping and applying distortions, creating hard negative examples. These examples help the model differentiate between similar-looking images with different types of degradation. By using this approach, the SimCLR framework ensures that ARNIQA effectively learns to recognize and assess various distortions, improving its ability to provide accurate image quality assessments (see \autoref{fig:SimCLR}).
-    \item Linear Regressor: A Linear Regressor maps the features extracted from the backbone to a qualtiy score ranging from 0 to 1. This score reflects the relative quality of the image based on the distortions present.
-\end{enumerate}
+\noindent
+ARNIQA is developed using a self-supervised learning approach, allowing it to learn a comprehensive model of different image distortions. Instead of focusing on the content of the images, ARNIQA focuses on understanding the types and qualities of distortions. This characteristic makes it highly adaptable across different domains where image content can vary significantly. \par
+\vspace{\baselineskip}
 \vspace{\baselineskip}
 \noindent
-\textbf{Training Strategy}: ARNIQA’s training strategy involves two main phases: \par
-\begin{enumerate}
-    \item Encoder Pre-training: The model is first trained on a large set of unlabeled images that are synthetically degraded. This helps the encoder learn features related to different types and levels of image degradation.
-    \item Regressor Training:In the second phase, a specific regressor is trained using the Mean Opinion Scores (MOS) of images. This step translates the learned features into actual quality scores.
-\end{enumerate}
+One of the key strengths of ARNIQA is its ability to synthetically degrade images through up to 1.9 billion distinct degradation patterns. It can apply up to seven different types of distortions simultaneously, covering a wide range of real-world scenarios. This extensive training with a wide variety of distortions ensures that ARNIQA can accurately assess image quality in different conditions and avoid the need for large labeled datasets. \par
 \vspace{\baselineskip}
 \noindent
-\textbf{Advantages}: ARNIQA achieves high performance with only up to 0.5\% of the data needed for training compared to other SOTA methods because of its focus on distortion patterns rather than image content. It provides reliable and consistent quality assessments across a wide range of distortions and severities, demonstrating its robustness. Additionally, ARNIQA is particularly suitable for teledermatology as it can handle varying image quality resulting from different lighting conditions, camera quality, and patient handling. \par
-
-\subsection{Challenges and Opportunities in Image Quality Assessment} 
-\label{sub:ChallengesOpportunitiesIQA} \todo{maybe combine it with the other challenges and opportunities section}
-One major challenge in IQA is that assessing image quality can be very subjective. Different people can have different opinions on what looks good or bad, making it hard to create standard measures. This is especially important in teledermatology, where the quality of images directly affects medical diagnoses. Another challenge is that images can have many types of problems, like blurring, noise, compression artifacts, and color issues. Each problem affects the image in a different way, and it’s tough to develop IQA methods that can handle all these issues accurately. Additionally, in many real-world applications, including teledermatology, we often don’t have high-quality reference images to compare against. This makes it difficult to evaluate the quality of distorted images. Therefore, developing methods that don’t need reference images (NR-IQA) is essential.\par
+At the core of ARNIQA is the SimCLR (Simple Framework for Contrastive Learning) framework. This framework helps ARNIQA learn meaningful representations of image quality by comparing different versions of the same image and focusing on their similarities and differences. By constructing positive pairs through the application of the same distortion settings to different images, SimCLR makes sure the model focuses on the distortions rather than the content. To improve the model’s ability to distinguish between different types of distortions, SimCLR introduces slight variations by downsampling images before cropping and applying distortions, creating hard negative examples. These examples help the model differentiate between similar-looking images with different types of degradation, thereby improving its ability to provide accurate image quality assessments (see \autoref{fig:SimCLR}). \par
 \vspace{\baselineskip}
 \noindent
-A big opportunity in IQA is the advancement of self-supervised learning techniques. These methods, like those used in ARNIQA, allow models to learn from large amounts of data without needing a lot of labeled examples. This approach saves time and money because it reduces the need for manually labeled data. It also makes it possible to develop high-quality IQA models that can work well even without reference images. \par
+A linear regressor is then used to map the features extracted from the backbone to a quality score ranging from 0 to 1. This score reflects the relative quality of the image based on the distortions.\par
 \vspace{\baselineskip}
 \noindent
-By addressing these challenges and leveraging the opportunities, we can significantly improve how we assess image quality. \par
-\clearpage
+ARNIQA achieves high performance with only up to 0.5\% of the data needed for training compared to other state-of-the-art methods because it focuses on distortion patterns rather than image content. It provides reliable and consistent quality assessments across a wide range of distortions and severities, showing its robustness. This makes ARNIQA particularly suitable for teledermatology, as it can handle different image quality resulting from different lighting conditions, camera quality, and patient handling \autocite{ARNIQA}. \par
+\vspace{\baselineskip}
+\noindent
+By leveraging the feature extraction backbone from ARNIQA, this thesis aims to use its advanced capabilities to enhance the assessment of image quality in teledermatology. \par
 
 \section{Teledermatology}
 \label{sec:Teledermatology}
-This section covers teledermatology and highlights the importance of image quality in remote skin evaluations. It starts by explaining what teledermatology is and then discusses why having high-quality images is crucial for accurate diagnoses and treatment. \par
-\vspace{\baselineskip}
-\noindent
-Next, the quality standards needed for teledermatology images are reviewed, along with public datasets available for research. Different methods used to assess image quality in teledermatology, based on previous studies, are briefly examined. Finally, the challenges and opportunities in the field are explored, focusing on how to improve image quality assessment. This approach helps in understanding the current state of teledermatology and finding ways to enhance it. \par
+This section explains what teledermatology is and discusses why having high-quality images is crucial for accurate diagnoses and treatment. It reviews the quality standards needed for teledermatology images, along with public datasets available for research. Additionally, it examines different methods used to assess image quality in teledermatology based on previous studies. In the final section, the challenges and opportunities in the field are explored, focusing on how to improve image quality assessment. This approach helps in understanding the current state of teledermatology and finding ways to enhance it. \par
 
 \subsection{Introduction to Teledermatology}
 \label{sub:IntroductionTeledermatology}
-Teledermatology is a branch of telemedicine that allows dermatologists to provide remote consultations and treatment using telecommunications technology. This is especially helpful for patients in remote areas, ensuring they get timely and effective skin care. There are two main methods used in teledermatology: real-time (synchronous) and store-and-forward (asynchronous).\par
+Teledermatology is a branch of telemedicine that allows dermatologists to provide remote consultations and treatments using telecommunications technology. This is especially beneficial for patients in remote areas, making sure they receive timely and effective skin care. There are two main methods used in teledermatology: real-time (synchronous) and store-and-forward (asynchronous) \autocite{SaF}.\par
 \vspace{\baselineskip}
 \noindent
-\textbf{Real-time} teledermatology involves live video consultations between the dermatologist and the patient. This allows for immediate interaction and feedback, making it useful for urgent cases. However, it requires both the patient and the dermatologist to be available at the same time, which can be a limitation. \par
+\textbf{Real-time} teledermatology involves live video consultations between the dermatologist and the patient. It allows for immediate interaction and feedback, making it useful for urgent cases. However, it requires both the patient and the dermatologist to be available at the same time, which can be a limitation. \par
 \vspace{\baselineskip}
 \noindent
-\textbf{Store-and-forward} teledermatology involves sending medical information, including images and patient history, to dermatologists who review it later. This method offers more flexibility since it doesn’t require the patient and dermatologist to be available simultaneously \autocite{SaF}. \par
+\textbf{Store-and-forward} teledermatology involves sending medical information, including images and patient history, to dermatologists who review it later. This approach offers more flexibility since it doesn’t require the patient and dermatologist to be available simultaneously \autocite{SaF}. \par
 \vspace{\baselineskip}
 \noindent
-Since store-and-forward teledermatology is the focus, it is important to note that high-quality images are critical in this method. High-quality images are vital in teledermatology because they directly impact the accuracy of remote diagnoses. Poor image quality can lead to incorrect diagnoses or delayed treatment, reducing the benefits of teledermatology. Therefore, ensuring that images meet specific quality standards is crucial for successful teledermatology services.
+Given that store-and-forward teledermatology is the focus, it is important to note that high-quality images are essential in this method. The accuracy of remote diagnoses depends directly on the quality of the images provided. Poor image quality can lead to incorrect diagnoses or delayed treatment, thereby reducing the effectiveness of teledermatology. Therefore, ensuring that images meet specific quality standards is crucial for the success of teledermatology services. \par
 
 \subsection{Quality Criteria for Teledermatology Images}
 \label{sub:QualityCriteriaTeledermatology}
-The International Skin Imaging Collaboration (ISIC) has set guidelines for standardizing images in terms of lighting, background color, field of view for dermoscopic images, image orientation, focus and depth of field, resolution, scale and measurement, color calibration, and image storage. Out of these nine recommended criteria, this thesis will focus on seven key criteria that directly impact image quality. The other two, “Scale and Measurement” and “Image Storage,” are not relevant because they are not directly related to image quality. “Scale and Measurement” is less important in this context because it focuses on providing a reference for size within the image, which is not crucial for quality assessment. “Image Storage” deals more with regulations than with image quality \autocite{TDCriteria}. \par
+The International Skin Imaging Collaboration (ISIC) has set guidelines to standardize images based on lighting, background color, field of view for dermoscopic images, image orientation, focus and depth of field, resolution, scale and measurement, color calibration, and image storage. This thesis will focus on seven key criteria from the original nine guidelines that directly impact image quality. The other two criteria, scale and measurement and image storage, are excluded as they do not directly affect image quality. Scale and Measurement are less important here as it involves providing a reference for size within the image, which is not crucial for quality assessment. Image Storage deals more with regulations than with image quality \autocite{TDCriteria}. \par
 \vspace{\baselineskip}
 \noindent
-The seven key criteria for teledermatology images, shown in \autoref{fig:quality_criteria}, along with recommendations on how to meet each criterion, are as follows: \par
-\vspace{\baselineskip}
+Throughout this thesis, the term “distortion” refers to any changes or issues with the seven dermatology quality criteria. This includes problems with lighting, background, field of view, orientation, focus, resolution, and color calibration. These seven key criteria for teledermatology images, along with recommendations on how to meet each criterion, are as follows: \par
+\clearpage
 \begin{figure}[ht]
     \centering
     \begin{subfigure}[b]{0.24\textwidth}
@@ -324,46 +313,51 @@ The seven key criteria for teledermatology images, shown in \autoref{fig:quality
     \item \textbf{Background}:  The background should be plain and uncluttered to keep the focus on the skin issue. A simple, non-reflective background like white or gray works best. \textit{Use a plain, non-reflective background to minimize distractions and keep the focus on the skin lesion.}
     \item \textbf{Field of View}: The image should include the entire lesion and some surrounding skin. This helps provide context for a more accurate diagnosis. \textit{Make sure the lesion is centered and fully visible in the frame.}
     \item \textbf{Orientation}: The image should be taken from the correct angle to match standard anatomical positions. This helps the dermatologist understand where the lesion is on the body. \textit{Keep the camera straight and aligned with the lesion.}
-    \item \textbf{Focus \& Depth of Field}: The image should be in sharp focus, with the entire lesion clear and detailed. Adjust the camera settings to ensure the lesion is not blurry. \textit{Ensure the camera is in focus and adjust the aperture to achieve sufficient depth of field.}
+    \item \textbf{Focus \& Depth of Field}: The image should be in sharp focus, with the entire lesion clear and detailed. Adjust the camera settings to ensure the lesion is not blurry. \textit{Make sure the camera is in focus and adjust the aperture to achieve sufficient depth of field.}
     \item \textbf{Resolution}: High resolution is important to show fine details. Use a camera with good resolution settings to capture clear and detailed images of the skin. \textit{Adjust the camera settings to the highest resolution possible to ensure clarity and precision in the image.}
     \item \textbf{Color Calibration}:  Accurate colors are necessary to assess the skin lesion correctly. Make sure the colors in the image match real life. \textit{Use a color reference chart or adjust the white balance settings on the camera to ensure accurate color reproduction.}
 \end{enumerate}
-By following these guidelines, teledermatology practitioners can ensure their images are of high quality, leading to better diagnoses and patient care.
+By following these guidelines, patients can make sure their images are of high quality, leading to better diagnoses and patient care. \par
 
 
 \subsection{Teledermatology Datasets}
 \label{sub:DatasetsTD}
-In teledermatology, having high-quality image datasets is crucial for developing and testing methods to assess image quality. While many datasets exist for dermatology, they are not always designed specifically for teledermatology. The main difference is that dermatology datasets often include more professional images taken in clinical settings, including close-up dermoscopic images which provide detailed views of the skin. In teledermatology, images might be taken by patients using their mobile devices, resulting in more varied quality. However, there are several datasets that can still be useful for teledermatology depending on the specific use case. Here are seven public datasets that can be used for teledermatology: \par
+In teledermatology, having high-quality image datasets is crucial for developing and testing methods to assess image quality. While many datasets exist for dermatology, they are not always designed specifically for teledermatology. Dermatology datasets often include professional images taken in clinical settings, such as close-up dermoscopic images that provide detailed views of the skin. In contrast, teledermatology images might be taken by patients using their mobile devices, resulting in more inconsistent quality. However, several datasets can still be useful for teledermatology, depending on the specific use case. Here are four public datasets that can be used for teledermatology: \par
 \begin{itemize}
-    \item \textbf{ACNE04}: This dataset focuses on acne severity and lesion counting, containing 1,457 images with detailed annotations for training and testing purposes \autocite{ACNE04}.
-    \item \textbf{DDI}: Provides 656 high-quality images curated by dermatologists for detailed skin tone evaluation and diagnostic accuracy \autocite{DDI}.
-    \item \textbf{Derm7pt}: Utilizes 1,011 lesion cases to train a neural network for classifying skin lesions and melanoma using the 7-point checklist \autocite{Derm7pt}.
-    \item \textbf{Fitzpatrick17k}: Includes 16,577 images annotated for Fitzpatrick skin type across 114 different skin conditions \autocite{F17K}.
-    \item \textbf{Monkeypox Dataset 2022}: Contains approximately 1,905 images focused on monkeypox, useful for developing diagnostic tools \autocite{Monkeypox}.
-    \item \textbf{PAD-UFES-20}: Comprises 2,298 clinical images from smartphones, enriched with clinical metadata for comprehensive research \autocite{PAD-UFES-20}.
-    \item \textbf{SCIN}: Emerged from a crowdsourcing initiative, this dataset contains 10,408 images capturing a broad spectrum of dermatological conditions \autocite{SCIN}.
+    \item \textbf{DDI} \autocite{DDI}: This dataset provides 656 high-quality images curated by dermatologists for detailed skin tone evaluation and diagnostic accuracy.
+    \item \textbf{Fitzpatrick17k} \autocite{F17K}: This dataset includes 16'577 images annotated for Fitzpatrick skin type \autocite{Fitzpatrick} across 114 different skin conditions. It is valuable for studying a wide range of skin conditions and their presentations across different skin types.
+    \item \textbf{Monkeypox Dataset 2022} \autocite{Monkeypox}: This dataset contains approximately 1'905 images focused on monkeypox, useful for developing diagnostic tools.
+    \item \textbf{SCIN} \autocite{SCIN}: The Skin Condition Image Network emerges from a crowdsourcing initiative. This dataset contains 10'408 images capturing a broad spectrum of dermatological conditions. Unlike many dermatology datasets that mainly focus on skin cancer diagnostics by classifying malignant and benign tumors, the SCIN dataset covers a broader range of common dermatological conditions, including allergic, inflammatory, and infectious diseases. These conditions are frequently encountered in everyday clinical practice but are underrepresented in existing datasets. The SCIN dataset is particularly valuable because it captures images of early-stage conditions. Over half of the images were taken less than a week from the onset of symptoms, with 30\% captured less than a day after symptoms appeared. This dataset includes conditions that patients are likely to consult about via teledermatology platforms before visiting traditional healthcare settings.
 \end{itemize}
 \noindent
-These datasets provide valuable images and annotations that help develop and test image quality assessment methods for teledermatology. \par 
-
+For this thesis, the Fitzpatrick17k and SCIN datasets will be particularly important. These datasets provide extensive and diverse image collections that will be used to develop and test image quality assessment methods in teledermatology. The Fitzpatrick17k dataset contains more clinical setting images, which provide good quality but do not represent the variability seen in typical teledermatology images \autocite{F17K}. Therefore, the Fitzpatrick17k dataset will be used primarily for training purposes to complement the SCIN dataset, which better represents the real-world scenarios encountered in teledermatology. \par 
+\clearpage
 \subsection{Related Work on Image Quality Assessment in Teledermatology}
 \label{sub:ApproachesIQAinTeledermatology}
 In teledermatology, two key methods for detecting image quality have been highlighted in previous studies: TrueImage \autocite{TrueImage} and ImageQX \autocite{ImageQX}. Both methods work closely with dermatologists to ensure their models understand what is needed for accurate diagnoses. \par
 \vspace{\baselineskip}
 \noindent
-\textbf{TrueImage} (A Machine Learning Algorithm to Improve the Quality of Telehealth Photos), introduced in 2021, uses an automated machine learning system to detect poor-quality dermatology images and help patients take better images.This method was developed in response to the disruption caused by many low-quality images submitted by patients in clinical workflows. TrueImage uses a semantic segmentation algorithm to identify skin areas, then generates features and classifies the quality. It focuses on common issues like blur, poor lighting, and zoom problems. TrueImage is efficient enough to run on older smartphones and is easy to understand, making it reliable across different skin tones. It was trained on a diverse dataset, including images from Google Images and Stanford Health Care. However, it has limitations: it cannot handle cases where only the background is blurry or poorly lit, it cannot detect framing issues (problems with how the image is composed, such as when the skin area is not centered or properly aligned), and it cannot discard images that do not contain skin \autocite{TrueImage}. Another limitation is that it only considers three common distortions. \par
+\textbf{TrueImage} (A Machine Learning Algorithm to Improve the Quality of Telehealth Photos), introduced in 2020, uses an automated machine learning system to detect poor-quality dermatology images and help patients take better images. TrueImage uses a semantic segmentation algorithm to identify skin areas, then generates features and classifies the quality. It focuses on common issues like blur, poor lighting, and zoom problems. TrueImage is efficient enough to run on older smartphones and is easy to understand, making it reliable across different skin tones. It was trained on a diverse dataset, including images from Google Images and Stanford Health Care. However, it has limitations: it cannot handle cases where only the background is blurry or poorly lit, it cannot detect framing issues (problems with how the image is arranged, such as when the skin area is not centered or properly aligned), and it cannot discard images that do not contain skin \autocite{TrueImage}. \par
 \vspace{\baselineskip}
 \noindent
-Released in January 2023, \textbf{ImageQX} (Explainable Image Quality Assessments in Teledermatological Photography)
-is a convolutional neural network that automatically assesses the quality of dermatology images. It focuses on issues like bad framing, poor lighting, blur, low resolution, and distance problems. ImageQX was trained on 26,635 photos and validated on 9,874 photos, each annotated by up to 12 board-certified dermatologists. Its main innovation is providing explanations for poor quality, guiding patients on how to take better images. ImageQX is lightweight, only 15 MB, and can be easily used on mobile devices. It achieves a macro F1-score of 0.73, showing its effectiveness in real-world applications.  However, it has limitations in handling certain quality issues, like explaining blurry images, and relies heavily on dermatologist-annotated images, highlighting the need for a diverse and high-quality training dataset \autocite{ImageQX}.
+\textbf{ImageQX} (Explainable Image Quality Assessments in Teledermatological Photography), released in January 2023, is a convolutional neural network that automatically assesses the quality of dermatology images. It focuses on issues like bad framing, poor lighting, blur, low resolution, and distance problems. ImageQX was trained on 26'635 images and validated on 9'c874 images, each annotated by up to 12 board-certified dermatologists. Its main innovation is providing explanations for poor quality and guiding patients on how to take better images. ImageQX is also lightweight, only 15 MB, and can be easily used on mobile devices. It achieves a macro F1-score of 0.73, showing its effectiveness in real-world applications. However, it has limitations in handling certain quality issues, like explaining blurry images, and relies heavily on dermatologist-annotated images, highlighting the need for a diverse and high-quality training dataset \autocite{ImageQX}.
 \par
 \vspace{\baselineskip}
 \noindent
-Both ImageQX and TrueImage make significant contributions to automated image quality assessment in teledermatology. They both address common issues like blur and poor lighting. ImageQX excels in providing detailed feedback on how to improve image quality, while TrueImage focuses on being computationally efficient and interpretable, making it suitable for older smartphones. From these methods, it is clear that lightweight models, providing actionable feedback to users, and using a diverse training dataset to ensure robustness are important. However, there is still room for improvement in handling complex lighting conditions and ensuring accurate zoom detection. \par
+Both ImageQX and TrueImage make significant contributions to automated image quality assessment in teledermatology. TrueImage primarily focuses on issues like focus, lighting, and field of view, while ImageQX addresses additional factors such as resolution and distance (e.g., if the skin is too far away in the image). Both methods perform well on detecting blur and lighting issues but have room for improvement in handling field of view, resolution, and distance. Specifically, ImageQX has F1-scores of 0.37 for field of view, 0.61 for lighting, 0.70 for focus, 0.52 for resolution, and 0.42 for distance \autocite{ImageQX}. From these methods, it is clear that lightweight models, providing actionable feedback to users, and using a diverse training dataset to ensure robustness are important. \par
+\clearpage
+\section{Challenges and Opportunities in Image Quality Assessment for Teledermatology}
+\label{sec:ChallengesOpportunitiesTeledermatology}
+\vspace{\baselineskip}
 
-\subsection{Challenges and Opportunities in Image Quality Assessment for Teledermatology}
-\label{sub:ChallengesOpportunitiesTeledermatology}
-Teledermatology faces several challenges similar to those in \autoref{sub:ChallengesOpportunitiesIQA}. A major issue is the subjectivity of image quality assessment. Different dermatologists might have different opinions on what makes a good image, making standardization difficult. This variability can affect the accuracy of medical diagnoses since the quality of images is crucial. Common problems in teledermatology images include blurring, poor lighting, compression artifacts, and color issues. Each problem affects the image differently, making it hard to develop methods that handle all these issues well. Additionally, high-quality reference images are often unavailable, making it tough to evaluate the quality of patient-taken images accurately. Patients also use various devices and capture images under different conditions, adding to the complexity. \par
+\subsection{Challenges}
+One major challenge in IQA is that evaluating image quality can be very subjective. This means that different people might have different opinions on what makes an image look good or bad. This subjectivity makes it hard to create standard measures that everyone agrees on. In teledermatology, where image quality directly affects medical diagnoses, this becomes a significant issue \autocite{D}. \par
 \vspace{\baselineskip}
 \noindent
-Despite these challenges, there are significant opportunities to improve teledermatology. Collaboration with dermatologists, as seen in methods like ImageQX and TrueImage, can improve IQA models by ensuring they meet the needs of medical professionals. These models can provide real-time, actionable feedback to patients on how to take better images, improving the quality of images submitted for remote consultations.
+Another challenge is the variety of problems that can affect image quality. In teledermatology specifically, patients use different devices under different conditions, leading to inconsistencies in image quality. This variability adds another layer of complexity to developing effective IQA methods. Additionally, in many real-world applications, we often do not have high-quality reference images to compare against. This absence makes it difficult to evaluate the quality of images taken by patients. Therefore, developing methods that do not need reference images (No-Reference IQA or NR-IQA) is essential. \par
+
+\subsection{Opportunities}
+Despite these challenges, there are significant opportunities to improve IQA in teledermatology. One promising area is the advancement of self-supervised learning techniques. These methods, like those used in ARNIQA \autocite{ARNIQA}, allow models to learn from large amounts of data without needing extensive labeled examples. This approach saves time and money because it reduces the need for manually labeled data. It also enables the development of high-quality IQA models that can work well even without reference images. \par
+\vspace{\baselineskip}
+\noindent
+Another opportunity lies in collaborating closely with dermatologists. Methods like ImageQX \autocite{ImageQX} and TrueImage \autocite{TrueImage} have shown the benefits of such collaboration, ensuring that IQA models meet the specific needs of medical professionals. These models can provide real-time, useful guidance to patients on how to take better images, thereby improving the quality of images submitted for remote consultations. \par

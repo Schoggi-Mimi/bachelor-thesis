@@ -22,7 +22,6 @@ distortion_groups = {
     "focus": ["gaussian_blur", "lens_blur", "motion_blur"],
     "orientation": ["perspective_top", "perspective_bottom", "perspective_left", "perspective_right"],
     "color_calibration": ["color_saturation1", "color_saturation2"],
-    #"background": ["color_block"],
     "resolution": ["change_resolution"],
     "field_of_view": ["crop_image"],
 }
@@ -212,20 +211,6 @@ def map_distortion_values(distort_functions, distort_values):
         else:
             mapped_values.append(val)
     return torch.tensor(mapped_values, dtype=torch.float32)
-
-def map_predictions_to_intervals(predictions):
-    """
-    Map continuous predictions into discrete intervals.
-    Args:
-        predictions (np.array): Array of predicted values.
-    
-    Returns:
-        np.array: Array of mapped values.
-    """
-    bins = np.array([-0.125, 0.125, 0.375, 0.625, 0.875, 1.125])
-    interval_indices = np.digitize(predictions, bins, right=True)
-    mapped_predictions = bins[interval_indices - 1] + 0.125
-    return mapped_predictions
 
 def discretization(scores):
     """Convert continuous scores to categorical by defined thresholds."""

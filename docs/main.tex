@@ -3,7 +3,7 @@
 \documentclass[a4paper, top=2cm, bottom=2cm, left=2.5cm, right=2.5cm, chapterprefix=true, numbers=noenddot]{scrreprt}
 
 %%% PACKAGES %%%
-
+\usepackage[a-1b]{pdfx}  % Add this line for PDF/A-1b compliance
 \RedeclareSectionCommand[beforeskip=60pt, afterskip=40pt, font=\fontsize{25}{50}\selectfont\bfseries]{chapter}
 
 % Define chapter and section title format
@@ -203,7 +203,10 @@
 \captionsetup{
   labelfont = bf, % Make bold
 }
-
+\tolerance=9999
+\emergencystretch=10pt
+\hyphenpenalty=10000
+\exhyphenpenalty=100
 
 %%% Image Placement %%%
 \usepackage{floatrow}
@@ -212,24 +215,26 @@
 %%% DOCUMENT %%%
 \begin{document}
 
-%\include{chapters/00_titlepage}
+\include{chapters/00_titlepage}
 
 \pagenumbering{Roman}
 
-%\chapter*{Abstract}
-%Text \par
+\chapter*{Abstract}
+This research focuses on developing and evaluating automated methods to assess image quality in the context of teledermatology. Teledermatology, a growing field within telemedicine, allows patients to receive dermatological consultations remotely by sending photos of their skin conditions to dermatologists. However, the success of these remote consultations largely depends on the quality of the images provided. Poor-quality images can lead to misdiagnosis or require patients to resend images, causing delays and frustration. This research examines different image quality assessment (IQA) techniques for teledermatology. The goal is to make sure that only good quality images are sent to dermatologists, thereby improving their ability to make accurate medical diagnoses. By implementing these IQA techniques, the aim is to simplify the process, reduce back-and-forth communication, and make teledermatology more efficient and reliable. \par
+\vspace{\baselineskip}
+\noindent
+The methodology involved a detailed review of existing IQA methods, followed by the development of a synthetic distortion pipeline to create a wide range of training datasets from good quality dermatological images. These images were gathered from the Fitzpatrick17k and SCIN datasets. For feature extraction, the state-of-the-art approach called ARNIQA was used, and different machine learning models, including XGBRegressor, XGBClassifier, MLP Regressor, and MLP Classifier, were trained to assess image quality based on seven dermatology quality criteria: lighting, background, field of view, orientation, focus, resolution, and color calibration. The models were trained on synthetic distortions and validated on both synthetically distorted and real-world dermatology images. Performance metrics such as Mean Absolute Error (MAE), R-squared (R\textsuperscript{2}), Spearman’s Rank Order Correlation Coefficient (SRCC), and Cohen’s Kappa were used for evaluation. \par
+\vspace{\baselineskip}
+\noindent
+The results showed that the automated IQA methods can assess image quality in the context of teledermatology, closely matching human evaluations and therefore providing reliable feedback on image quality. The final model achieved good performance across multiple dermatology quality criteria, improving the reliability and effectiveness of teledermatology services. This research highlights the potential of automated IQA systems to improve the accuracy of diagnoses and patient care in remote dermatological consultations. \par
 
-%\clearpage
+\clearpage
 
 \pagestyle{empty}
 \tableofcontents
 
 %\glsaddallunused 
-% \printglossary[title={List of Abbreviations}] \clearpage
-
-% \listoffigures \clearpage
-
-% \listoftables \clearpage
+\printglossary[title={List of Abbreviations}] \clearpage
 
 \pagestyle{fancy}
 
@@ -237,7 +242,7 @@
 
 \include{chapters/01_introduction}
 
-%\include{chapters/02_literature}
+\include{chapters/02_literature}
 
 \include{chapters/03_methodology}
 
@@ -245,10 +250,10 @@
 
 \include{chapters/05_results}
 
-\include{chapters/06_1_discussion}
-\include{chapters/06_conclusion}
+%\include{chapters/06_1_discussion}
+\include{chapters/06_discussion}
 
-\include{chapters/07_reflection}
+\include{chapters/07_conclusion}
 
 \newpage
 
@@ -260,41 +265,13 @@
 
 %\printglossary
 
+\listoffigures \clearpage
+
+\listoftables \clearpage
+
+\include{chapters/08_appendix}
+
 %\listofmyequations \pagebreak
 \printbibliography
 
-%\include{chapters/08_appendix}
-
 \end{document}
-
-\begin{comment}
-@book{DesignThinking,
-  title = {Business {{Innovation}}: {{Das St}}. {{Galler Modell}}},
-  shorttitle = {Business {{Innovation}}},
-  editor = {Hoffmann, Christian Pieter and Lennerts, Silke and Schmitz, Christian and St{\"o}lzle, Wolfgang and Uebernickel, Falk},
-  year = {2016},
-  publisher = {Springer Fachmedien Wiesbaden},
-  address = {Wiesbaden},
-  doi = {10.1007/978-3-658-07167-7},
-  urldate = {2024-04-29},
-  copyright = {https://www.springernature.com/gp/researchers/text-and-data-mining},
-  isbn = {978-3-658-07166-0 978-3-658-07167-7},
-  langid = {english},
-  file = {/Users/choekyelnyungmartsang/Zotero/storage/EAEZ5T5N/Hoffmann et al. - 2016 - Business Innovation Das St. Galler Modell.pdf}
-}
-
-@book{DesignThinking,
-  title = {Business {{Innovation}}: {{Das St}}. {{Galler Modell}}},
-  shorttitle = {Business {{Innovation}}},
-  editor = {Hoffmann, Christian Pieter and Lennerts, Silke and Schmitz, Christian and Stölzle, Wolfgang and Uebernickel, Falk},
-  date = {2016},
-  publisher = {Springer Fachmedien Wiesbaden},
-  location = {Wiesbaden},
-  doi = {10.1007/978-3-658-07167-7},
-  url = {https://link.springer.com/10.1007/978-3-658-07167-7},
-  urldate = {2024-04-29},
-  isbn = {978-3-658-07166-0 978-3-658-07167-7},
-  langid = {english},
-  file = {/Users/choekyelnyungmartsang/Zotero/storage/EAEZ5T5N/Hoffmann et al. - 2016 - Business Innovation Das St. Galler Modell.pdf}
-}
-\end{comment}

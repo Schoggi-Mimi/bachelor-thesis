@@ -1,50 +1,32 @@
 \chapter{Implementation}
 \label{ch:Implementation}
-This chapter explains the detailed implementation of the methods described in \autoref{ch:Methodology}. It covers the specific processes, experiments, and analyses conducted. This includes the practical steps taken to prepare images, apply distortions, extract features, and train the models to assess image quality in teledermatology. \par
+This chapter explains the detailed implementation of the methods described in \autoref{ch:Methodology}. It covers the specific processes, experiments, and analyses done during the research. This includes the practical steps taken to prepare images, apply distortions, extract features, and train the models to assess image quality in teledermatology. \par
 
 \section{Image Selection and Labeling Process}
 \label{sec:ImgSelectLabel}
-This section describes the initial stages of the implementation, focusing on the selection and preparation of the image datasets used in the study. \par
+This section describes the first stages of the implementation, focusing on the selection and preparation of the image datasets used in the research. The images considered for this research were in JPG and PNG formats. \par
 
 \subsection{Image Filtering and Selection}
 \label{sub:ImgFilterSelect}
-The first step in preparing the images involves carefully choosing good quality pictures from the SCIN and Fitzpatrick17k datasets. This selection is done manually to ensure that each image is clear and useful for clinical purposes. The primary focus during selection is on images that are well-framed and free of any distortions that might affect their usefulness in diagnosis. \par
+The first step in preparing the images involves carefully selecting good quality images from the SCIN \autocite{SCIN} and Fitzpatrick17k datasets \autocite{F17K}. This manual selection process makes sure that no mistakes are made and only clear images are included in the training set. The focus during selection is on images that are well-framed and free from distortions that could affect their usefulness for making accurate medical diagnoses. \par
 \vspace{\baselineskip}
 \noindent
-Each selected image is checked to ensure it is not blurred, as clear images are crucial for accurate diagnosis. Additionally, it is important that the images have proper lighting and true contrast, meaning they should not be too bright or too dark. Proper lighting and contrast help in accurately showing the skin’s condition. Lastly, the images must represent realistic skin tones and colors because accurate color representation is critical for correct diagnoses. Some pictures from the dataset are included in the appendix for reference (see Appendix).\todo{maybe include some pictures in appendix} \par
+Key criteria for selecting good quality images include clarity, proper lighting, and accurate color representation. Clear images are important for accurate diagnosis, as they allow for detailed examination of the skin condition. A good indication of clarity is the visibility of fine details like hair follicles, which shows that the image is not blurry. Proper lighting is also necessary, as it helps in accurately displaying the skin’s condition. Images should neither be too bright nor too dark, as this can hide important details. Balanced contrast, where the light and dark areas of the image are evenly distributed, is important for a clear view of the skin’s texture and color. Accurate color representation is another critical factor. The images must realistically represent skin tones and colors, as this is needed for correct diagnosis. Any change in color can lead to misinterpretation of the skin condition. \par
+\vspace{\baselineskip}
+\noindent
+By carefully filtering and selecting images based on these criteria, the dataset is prepared with good quality images that are appropriate for further analysis and training in the context of teledermatology. \par
 
 \subsection{Labeling of the Test Set}
 \label{sub:LabelingTestSet}
-The labeling process involves manually scoring 200 images from the SCIN dataset. Of these 200, around 50 are good quality images, which I wanted to represent in the test set as well. Each image is scored on a scale from 0 to 1 for each criterion, where 0 indicates no distortion and 1 indicates extreme distortion. This manual labeling is done using a custom Python script \footnote{src/create\_labels.ipynb} \todo{correct this later}, which displays each image and prompts the user to enter scores for each distortion criterion. The scores are collected in a structured format and stored in a JSON file for later analysis. \par
+The labeling process involves manually scoring 200 images from the SCIN \autocite{SCIN} dataset. Among these 200 images, around 50 are of good quality and are also included in the test set. Each image is scored on a scale from 0 to 1 for each dermatology quality criterion, where 0 indicates no distortion and 1 indicates extreme distortion. A custom Python script\footnote{playground/create\_labels.ipynb} is used for this labeling process. The script displays each image and prompts the user to enter scores for each quality criterion. The collected scores are organized in a structured format and stored in a JSON file for later analysis. This method ensures that each image is consistently and thoroughly evaluated. \par
 \vspace{\baselineskip}
 \noindent
-This structured approach ensures consistent and thorough evaluation of each image. I did the labeling myself, using an absolute categorical rating method as described in \autoref{sub:SubjectiveQualityAssessment}. This method is very time consuming and requires significant effort from the evaluator. My labeling process involved scoring 200 images on 7 criteria each, resulting in 1400 labels. To ensure accuracy and avoid rushing, I deliberately spread out the labeling over multiple sessions.\par
-\noindent
-\subsubsection{Visualization of Label Distribution for the Test Set}
-\label{subsub:LabelDist}
-To understand the distribution of labels and how often distortions occur across different criteria, see \autoref{fig:DistTestCriteria}. These histograms are useful for visualizing the prevalence and severity of distortions in the dataset. The histograms are plotted with 5 bins for each criterion, where the first bin indicates no distortion, and the remaining bins represent increasing levels of distortion severity for that type. \par
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/Distribution_test_criteria.png}
-    \caption{Histograms showing the distribution of distortion scores for each quality criterion.}
-    \label{fig:DistTestCriteria}
-\end{figure}
-\noindent
-In \autoref{fig:DistTestCriteria} most criteria show a right-skewed distribution, indicating that higher levels of distortions are less common. This is evident in the criteria such as orientation, color calibration, background, resolution, and field of view. In contrast, the distributions for lighting and focus are more symmetrical, suggesting a more even spread of distortion severity levels. Since an image can have multiple distortions at once, it was difficult to separate them individually. For example, when an image is dark due to lighting issues, it becomes hard to judge other factors like focus, resolution, background, or color accuracy. These findings highlight the need to handle multiple distortions together during model training. They also point out the challenges in accurately labeling and assessing images that have several overlapping distortions. \par
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/Distribution_test_criteria2.png}
-    \caption{Histograms showing the distribution of distortion scores for each quality criterion.}
-    \label{fig:DistTestCriteria2}
-\end{figure}
-\noindent
-\section{Distortion Pipeline}
-\label{sec:DistPipeline}
-The distortion pipeline is central to simulating realistic image quality issues in teledermatology. Each quality criterion has multiple types of distortions, each having five levels of intensity, increasing in severity. All distortion types begin at zero, indicating no distortion applied, and progress to higher values that represent increasing levels of the specified distortion. Visual representations of the types of degradations at different ranges for each quality criterion are provided in \autoref{ch:Supplementary}.  \par
-
-\subsection{Distortion Types}
-\label{sub:DistTypes}
-Here, each distortion type is briefly described, highlighting how they simulate different aspects of image degradation: \par
+The labeling is done using an absolute categorical rating method. This method is time-consuming and requires significant effort from the evaluator. Each of the 200 images is scored on 7 different criteria, resulting in a total of 1400 labels. To maintain accuracy and avoid fatigue, the labeling process is spread out over multiple sessions. This careful and methodical approach helps to ensure that the scores are reliable and that each image is evaluated fairly. \par
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\section{Distortion Types}
+\label{sec:DistTypes}
+Here, each dermatology quality criteria type is briefly described, highlighting how they simulate different aspects of image degradation: \par
 \begin{enumerate}
     \item Lighting:
         \begin{itemize}
@@ -84,10 +66,10 @@ Here, each distortion type is briefly described, highlighting how they simulate 
 \end{enumerate}
 \vspace{\baselineskip}
 \noindent
-The distortions for Lighting, Focus, and Color Calibration were adapted from the ARNIQA \autocite{ARNIQA} image degradation model, which was inspired by the KADID \autocite{KADID10k} dataset. These distortions originally provided an extensive range of severity levels. The severity levels were modified to better fit real-world distortions commonly encountered in teledermatology. The rest of the distortions were designed based on my own observations of real-world image quality issues in teledermatology. \par
+The distortions for Lighting, Focus, and Color Calibration were adapted from the ARNIQA \autocite{ARNIQA} image degradation model, which was inspired by the KADID \autocite{KADID10k} dataset. These distortions originally provided an extensive range of severity levels. The severity levels were modified to better fit real-world distortions commonly encountered in teledermatology. The rest of the distortions were designed based on observations of real-world image quality issues in teledermatology. \par
 \vspace{\baselineskip}
 \noindent
-For the orientation distortion, the perspective of the image is changed to simulate different viewing angles. By tilting, the image appears as if viewed from a higher, lower, left, or right angle. This gives the effect that the camera is not perpendicular to the skin, as if the camera was not held straight. For the resolution distortion, it was done by first downsampling the image to a lower resolution and then upsampling it back to its original size. This process simulates the effect of low-quality images by introducing pixelation and a loss of detail, similar to what happens when a low-resolution image is enlarged. For the field of view distortion, the image is cropped from the left corner to reduce the visible area. Normally, in good quality images, the skin lesion is centered. By cropping the corner, the lesion moves to the bottom right, simulating poor framing or incomplete capture of the lesion area. Lastly, the background distortion involved segmenting the skin from the background and depending on the amount of background present, color blocks are added to create a noisy background. This makes the background look noisy and cluttered, which can distract the model from focusing on the skin. This simulates real-world situations where the background is not clean, causing issues in image quality.\par
+For the orientation distortion, the perspective of the image is changed to simulate different viewing angles. By tilting, the image appears as if viewed from a higher, lower, left, or right angle, giving the effect that the camera is not perpendicular to the skin. The resolution distortion is done by first downsampling the image to a lower resolution and then upsampling it back to its original size. This process introduces pixelation and a loss of detail, simulating the effect of low-quality images when enlarged. The field of view distortion involves cropping the image from the left corner to reduce the visible area. Normally, in good quality images, the skin lesion is centered. By cropping the left corner, the lesion moves to the bottom right, simulating poor framing or incomplete capture of the lesion area. Lastly, the background distortion involves segmenting the skin from the background and adding color blocks to create a noisy and cluttered background. This simulates real-world situations where the background is not clean, causing issues in image quality. \par
 
 \section{Distortion Implementation Process}
 \label{sec:DistProcess}
@@ -95,152 +77,188 @@ For the orientation distortion, the perspective of the image is changed to simul
 \begin{figure}[ht]
     \centering
     \includegraphics[keepaspectratio,width=15cm]{img/Distortion_pipeline.png}
-    \caption{Distortion pipeline for generating training images with different levels of distortion. (a) shows the original image and its downscaled version. (b) illustrates the distortion pipeline where a type of distortion and a random level for each criterion are selected, with the corresponding mapped values shown at the bottom. (c) shows the output where the distorted original image and the distorted downscaled image are resized to 224x224 pixels, along with the 7 distortion values for the image.}
+    \caption{Distortion pipeline for generating training images with different levels of distortion. (a) shows the original image and its downscaled version. (b) shows the distortion pipeline where a type of distortion and a random level for each criterion are selected, with the corresponding mapped values shown at the bottom. (c) shows the output where the distorted original image and the distorted downscaled image are resized to 224x224 pixels, along with the seven distortion values for the image.}
     \label{fig:DistPipeline}
 \end{figure}
 
-The distortion implementation process involves several key steps to create many realistic set of distorted images, which helps train and test the image quality assessment model. \par
+The distortion implementation process for each dermatology quality criteria involves several key steps to create a range of distorted images, which helps train and evaluate the IQA model.
+ \par
 \vspace{\baselineskip}
 \noindent
-For each image, the RGB version is taken and a downsampled version of the image at half the resolution is created. This involves resizing the image to half its original dimensions to simulate lower resolution. Distortions are then applied in a specific sequence (see \autoref{fig:DistPipeline}(b)) to ensure realistic simulation. The background distortion is applied first because it depends on identifying the skin area in the undistorted image. If the images have less than 10\% background in proportion to skin, no color blocks are added in the background. Therefore, the range value of 0 is used as value.  After that, other distortions are applied based on randomly chosen severity ranges. This ensures a variety of distortion levels across the dataset. \par
+For each image, the RGB version is used, and a downsampled version of the image at half the resolution is created. This involves resizing the image to half its original dimensions to simulate lower resolution, following the approach used by ARNIQA’s \autocite{ARNIQA} feature extraction backbone. Distortions are then applied in a specific sequence, as shown in \autoref{fig:DistPipeline}(b). The order matters only for the background distortion, which has to be applied first because it depends on identifying the skin area in the undistorted image. For all other distortions, the order does not matter. If the images have less than 10\% background in proportion to skin, no color blocks are added in the background, and a range value of 0 is used. After that, other distortions are applied based on randomly chosen severity levels. This creates a range of distortion levels across the dataset. \par
 \vspace{\baselineskip}
 \noindent
-Once the distortions are applied, both the original and downsampled images are resized to 224x224 pixels to match the requirements for the backbone of ARNIQA \autocite{ARNIQA}. Following resizing, both images are normalized using the mean and standard deviation values of the ImageNet dataset (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]). This normalization makes sure the images are processed consistently, as the model expects the images to have these properties, even though it might make the images look a bit different. \par
+Once the distortions are applied, both the original and downsampled images are resized to 224x224 pixels to match the requirements for the backbone. Following resizing, both images are normalized using the mean and standard deviation values of the ImageNet dataset (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]). This normalization ensures the images are processed consistently, as the feature extraction backbone expects the images to have these properties. \par
 \vspace{\baselineskip}
 \noindent
-The severity of each applied distortion is mapped to a value between 0 and 1. This is done by taking the minimum and maximum possible values of the distortion and scaling the actual distortion value within this range. This standardized representation allows for consistent training and evaluation of the model later on. \par
+The severity of each applied distortion is mapped to a value between 0 and 1. This is done because the ranges are, for some distortions, integers and for others, floats in different ranges. Standardizing them, by taking the minimum and maximum possible values of the distortion and scaling the actual distortion value within this range, ensures consistency and maintains the correct ratio of severity across different types of distortions. \par
 \vspace{\baselineskip}
 \noindent
-This process can generate 3'750'000 possible combinations of distorted images because of the random selection of distortion types and severity levels. This highlights the robustness and adaptability of the pipeline. By following this detailed and structured approach, the distortion pipeline effectively simulates a wide range of real-world image quality issues in teledermatology, providing a comprehensive dataset for training and evaluating the image quality assessment model. \par
+This process can generate multiple combinations of distorted images because of the random selection of distortion types and severity levels. This significantly increases the number of training images by factors of 4, 8, 16, 32, or 64, though one could experiment with even larger factors. By following this detailed and structured approach, the distortion pipeline effectively simulates a wide range of real-world image quality issues in teledermatology, providing a comprehensive dataset for training and evaluating the image quality assessment model. \par
+\vspace{\baselineskip}
+\noindent
+To make it easier to repeat the experiments, the features and scores from the multiplied images were saved in \textit{.npy} files. These files were named according to the number of distortions, such as \textit{features\_num\_distortions.npy} and \textit{scores\_num\_distortions.npy}. Saving these files means that the exact same sets of distorted images and their related scores can be used again for training and testing different models, allowing for consistent comparisons and evaluations across different tests. By saving these files, there is no need to regenerate the distortions each time, making the experimental process simpler and keeping the evaluation consistent and fair. \par
 
+\clearpage
 \section{Feature Extraction with the ARNIQA Backbone}
 \label{sec:FeatureExtraction}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/Architecture.png}
-    \caption{Overview of the entire process for training and evaluating the image quality assessment model. (a) shows the album of input images. (b) depicts the distortion pipeline that randomly distorts images across seven criteria at five severity levels. (c) illustrates the feature extraction using the backbone from ARNIQA, which uses the SimCLR framework. (d) shows a scatter plot representing the model training process, with a diagonal red line indicating the fit. (e) presents the prediction results, comparing the model’s output to the actual labels.}
-    \label{fig:Architecture}
-\end{figure}
-
-After creating the distortions and their half-scaled versions with mapped labels, the next step is to use the pretrained backbone from ARNIQA, which is loaded via \textit{torch.hub}. This pretrained model has already learned useful features from a large dataset, and these features are transferred to our specific task, a process known as transfer learning. This approach saves time and computational resources while improving the performance of the image quality assessment model. \par
+After creating the distorted images and their half-scaled versions with mapped labels, the next step is to use the pretrained backbone from ARNIQA \autocite{ARNIQA}, which is loaded via \textit{torch.hub}. This pretrained model has already learned useful features from a large dataset, and these features are transferred to this specific task, a process known as transfer learning. This approach saves time and computational resources. \par
 \vspace{\baselineskip}
 \noindent
-The backbone from ARNIQA generates feature vectors that represent the distortion patterns in the images. By using both the original and downscaled images, the model effectively learns to distinguish between different levels of distortion. This dual-input method ensures a comprehensive understanding of image quality variations. \par
+The backbone from ARNIQA generates feature vectors that represent the distortion patterns in the images. By using both the original and downscaled images, the model effectively learns to distinguish between different levels of distortion. This dual-input method provides a comprehensive understanding of image quality variations. \par
 \vspace{\baselineskip}
 \noindent
-The extracted features, which have a shape of (\textit{num\_images}, 4096), and the target labels, representing distortion severity, which have a shape of (\textit{num\_images}, 7) corresponding to the seven distortion criteria, are then used to train the final image quality assessment model. \par
+The extracted features, which have a shape of (\textit{num\_images}, 4096), represent the learned characteristics of the images. The target labels, indicating distortion severity, have a shape of (\textit{num\_images}, 7) corresponding to the seven distortion criteria. These features and labels are then used to train the final image quality assessment model. \par
 
-\section{Model Selection and Training}
+\section{Model Training}
 \label{sec:ModelTraining}
-\textbf{Hardware and Resources} \par
-\noindent
-Training was done using an NVIDIA A16 GPU, which has 16GB vRAM, 1280 CUDA Cores, 40 Tensor Cores, and 512 GB RAM. This setup ensured efficient use of resources and sped up the training process. This information is important because I was limited to using a batch size of 10 for extracting features from the ARNIQA backbone. Larger batch sizes could potentially improve feature extraction quality because the SimCLR framework in ARNIQA benefits from larger batches, but this was not tested due to resource limitations. Nonetheless, I could work with this setup effectively.  \par
+After expanding the dataset with distorted images, the images were divided into training and validation sets. The training set consisted of 75\% of the images, while the validation set contained the remaining 25\%. This split allowed the models to train on the majority of the data while still having a separate set for evaluating their performance.  \par
 \vspace{\baselineskip}
 \noindent
-\textbf{Data Preparation and Splitting} \par
-\noindent
-The dataset was expanded by multiplying the original images by factors of 4, 8, 16, 32, or 64 to examine how increasing the dataset size affected performance. This approach tested the hypothesis that larger datasets would lead to better performance. Indeed, as shown in \autoref{fig:NumDistReg} and \autoref{fig:NumDistCls}, where the overall SRCC for XGBRegressor and MLP Regressor, as well as XGBClassifier and MLP Classifier, improved with an increasing number of distortions. \par
+Four different multi-output models were experimented with: XGBRegressor, XGBClassifier, MLP Regressor, and MLP Classifier. These models were selected because they can handle complex relationships and predict multiple outputs simultaneously, which is essential for assessing various aspects of image quality. These models were imported from well-established libraries: \textit{xgboost} for XGBRegressor and XGBClassifier, and \textit{sklearn.neural\_network} for MLP Regressor and MLP Classifier. Using these pre-built models has several benefits, including access to optimized and tested implementations, extensive documentation, and community support, which saves time and ensures reliability compared to writing custom models from scratch. \par
 \vspace{\baselineskip}
 \noindent
-However, it's important to note that larger datasets also require more training time. Even with smaller datasets, it is possible to achieve good performance by finding optimal parameters.  After expanding the dataset, the images were split into training and validation sets, with the training set containing 75\% of the images and the validation set containing the remaining 25\%. This split allowed the model to train on most of the data while still having a separate set for evaluating its performance. \par
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/num_dist_reg.png}
-    \caption{Overall SRCC for XGB Regressor and MLP Regressor with different numbers of distortions. The x-axis shows the time it took to train, and the y-axis shows the SRCC values, demonstrating better performance with larger datasets.}
-    \label{fig:NumDistReg}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio,width=15cm]{img/num_dist_cls.png}
-    \caption{Overall SRCC for XGB Classifier and MLP Classifier with different numbers of distortions. Similar to \autoref{fig:NumDistReg}, this figure shows improved performance with larger datasets.}
-    \label{fig:NumDistCls}
-\end{figure}
+Training was conducted using an NVIDIA A16 GPU, equipped with 16GB of vRAM, 1280 CUDA Cores, 40 Tensor Cores, and 512 GB of RAM. This setup made efficient use of resources and sped up the training process. \par
 \vspace{\baselineskip}
 \noindent
-\textbf{Modle Selection} \par
-\noindent
-Four different multi-output models were experimented with: XGBRegressor, XGBClassifier, and both MLP Regressor and MLP Classifier. These models were chosen for their strengths in handling complex relationships and their ability to predict multiple outputs at once. Multi-output models can predict multiple quality criteria simultaneously, making them particularly suitable for this task, where assessing multiple aspects of image quality is important. \par
+The training involved using the SCIN\textsubscript{distorted}, F17K\textsubscript{distorted}, and COMB\textsubscript{distorted} datasets. Each model was trained individually on these datasets. Additionally, cross-dataset evaluations were conducted to test how well the models generalized across different datasets. For instance, a model trained on SCIN\textsubscript{distorted} was evaluated on F17K\textsubscript{distorted} to assess its robustness and ability to generalize. Combining both datasets and evaluating the models on each dataset individually provided further insights into their performance with a more diverse set of images, ensuring the models did not overfit to a particular dataset. \par
 \vspace{\baselineskip}
 \noindent
-The models were trained individually on the SCIN and Fitzpatrick datasets and also on a combination of both datasets to assess performance. This approach, known as cross-dataset evaluation, helps to understand how well the models generalize across different datasets. By training on one dataset and evaluating on another, such as training on SCIN and evaluating on Fitzpatrick, the robustness and generalizability of the models can be tested. Combining both datasets and evaluating on each individually further helps in understanding how the models perform with a more diverse set of images, ensuring that the models are not overfitting to a particular dataset. \par 
+During training, the loss curve was evaluated with early stopping to monitor the model’s performance and prevent overfitting. Early stopping stops the training process if the model’s performance on the validation set does not improve after a certain number of iterations, ensuring the model does not learn noise from the training data. \par
+
+\subsection{Handling Continuous Scores and Discretization}
+\label{sub:ContScore}
+An important aspect of training the regressors is handling continuous scores. Directly comparing continuous scores to fixed numbers from the distortion pipeline can lead to minor errors. To minimize these errors and accurately calculate metrics like rank correlation and Cohen’s Kappa, the regressor predictions were clipped to the range of 0 to 1 and then categorized into severity levels using a discretization function\footnote{from utils.utils\_data import discretization} that converts continuous scores to discrete categories based on defined thresholds. This process effectively categorizes the severity levels and reduces errors in score comparison.\par
 \vspace{\baselineskip}
 \noindent
-One important aspect of regressor training is handling continuous scores. If continuous scores were compared directly to fixed numbers from the distortion pipeline, there would always be some minor errors. To minimize these errors and accurately calculate metrics like rank correlation and Cohen’s Kappa, the regressor predictions were clipped to the range of 0 to 1. The scores were then categorized into severity levels using a function\footnote{from utils.utils\_data import binarize\_scores} that converts continuous scores to discrete categories based on defined thresholds. This process, known as discretization, helps in effectively categorizing the severity levels and reducing errors in score comparison. Additionally, the discretization function was also used for the classifier models to convert continuous scores to categorical ones because these models require categorical labels as input. \par
+The function ensures that the continuous scores are mapped correctly to discrete categories, providing a standardized way to handle various severity levels. Additionally, the discretization function was used for the classifier models to convert continuous scores to categorical ones, as these models require categorical labels as input. This approach ensured that the models could effectively predict and categorize the severity of distortions in the images. \par
 
 \subsection{Hyperparameter Configuration}
 \label{sub:HyperparamConfig}
-To find the best hyperparameters, a hyperparameter sweep was performed using Weights and Biases\footnote{\url{https://wandb.ai/site}}. This process involved randomly searching for the best hyperparameters to maximize the overall Spearman’s Rank Order Correlation Coefficient (SRCC). \par
+To find the best hyperparameters, a hyperparameter sweep was performed using Weights and Biases\footnote{\url{https://wandb.ai/site}}. This process involved randomly searching for the best hyperparameters to maximize the overall Spearman’s Rank Order Correlation Coefficient (SRCC). The \autoref{table:mlp_hyperparams} and \autoref{table:xgb_hyperparams} shows the configurations used in the hyperparameter sweep. \par
 \vspace{\baselineskip}
 \noindent
-The following table shows the configurations used in the hyperparameter sweep: \par
- \begin{table}[ht]
-    \centering
-    \begin{tabular}{|l|l|}
-        \hline
-        \textbf{MLP Parameter} & \textbf{Sweep Values} \\
-        \hline
-        \textit{model\_type} & [mlp\_reg, mlp\_cls] \\
-        \textit{num\_distortions} & [4, 16, 64] \\
-        \textit{hidden\_layer\_sizes} & [(512,), (1024,), (512, 256), (1024, 512), (512, 512)] \\
-        \textit{alpha} & \{"min": 0.0001, "max": 0.01\} \\
-        \textit{learning\_rate\_init} & \{"min": 0.0001, "max": 0.1\} \\
-        \textit{max\_iter} & [200, 300, 500] \\
-        \hline
-        \textbf{} & \textbf{Fixed Values} \\
-        \hline
-        \textit{batch\_size} & 10 \\
-        \textit{activation} & relu \\
-        \textit{solver} & adam \\
-        \textit{early\_stopping} & True \\
-        \hline
-    \end{tabular}
-    \caption{Hyperparameter Configurations for MLP Models}
-    \label{table:mlp_hyperparams}
-\end{table}
-\vspace{\baselineskip}
- \begin{table}[ht]
-    \centering
-    \begin{tabular}{|l|l|}
-        \hline
-        \textbf{XGB Parameter} & \textbf{Sweep Values} \\
-        \hline
-        \textit{model\_type} & [xgb\_reg, xgb\_cls] \\
-        \textit{num\_distortions} & [4, 16, 64] \\
-        \textit{n\_estimators} & [50, 100, 200, 300] \\
-        \textit{learning\_rate} & \{"min": 0.0001, "max": 0.1\} \\
-        \textit{min\_child\_weight} & \{"min": 1, "max": 150\} \\
-        \textit{early\_stopping\_rounds} & [10, 20, 30, 40] \\
-        \textit{subsample} & [0.5, 0.6, 0.7, 0.8, 0.9, 1.0] \\
-        \textit{max\_depth} & [3, 5, 7, 9] \\
-        \textit{gamma} & \{"min": 0.001, "max": 0.5\} \\
-        \textit{multi\_strategy} & [one\_output\_per\_tree, multi\_output\_tree]\\
-        \hline
-        \textbf{} & \textbf{Fixed Values} \\
-        \hline
-        \textit{batch\_size} & 10 \\
-        \textit{reg\_alpha} & 0.0 \\
-        \textit{reg\_lambda} & 1.0 \\
-        \textit{tree\_method} & hist \\
-        \textit{objective} & reg:pseudohubererror (specific to XGBRegressor)\\
-        \textit{objective} & multi:softprob (specific to XGBClassifier)\\
-        \textit{n\_jobs} & 16 (specific to XGBRegressor)\\
-        \textit{booster} & gbtree (specific to XGBClassifier)\\
-        \textit{eval\_metric} & ['mlogloss', 'merror', 'auc'] (specific to XGBClassifier)\\
-        \hline
-    \end{tabular}
-    \caption{Hyperparameter Configurations for XGB Models}
-    \label{table:xgb_hyperparams}
-\end{table}
+The hyperparameter sweep aimed to prevent overfitting and help the models perform well on new data. Key parameters were chosen for their ability to control model complexity and improve generalization. \par
 \vspace{\baselineskip}
 \noindent
-L2 regularization and subsampling were used to improve the generalization of the model and prevent it from memorizing the training data. L2 regularization helps to avoid large coefficients, and subsampling trains the model on different subsets of data to reduce variance. \par
+The batch size was set to 10 due to hardware limitations. L2 regularization (reg\_lambda) and subsampling (subsample) were used to help the model generalize better. L2 regularization prevents the model from having large coefficients, and subsampling exposes the model to different subsets of data, reducing the chance of overfitting. \par
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{MLP Parameter} & \textbf{Sweep Values} \\
+\hline
+\textit{model\_type} & [mlp\_reg, mlp\_cls] \\
+\textit{num\_distortions} & [4, 16, 64] \\
+\textit{hidden\_layer\_sizes} & [(512,), (1024,), (512, 256), (1024, 512), (512, 512)] \\
+\textit{alpha} & \{"min": 0.0001, "max": 0.01\} \\
+\textit{learning\_rate\_init} & \{"min": 0.0001, "max": 0.1\} \\
+\textit{max\_iter} & [200, 300, 500] \\
+\hline
+\textbf{} & \textbf{Fixed Values} \\
+\hline
+\textit{batch\_size} & 10 \\
+\textit{activation} & relu \\
+\textit{solver} & adam \\
+\textit{early\_stopping} & True \\
+\hline
+\end{tabular}
+\clearpage
+\caption{Hyperparameter Configurations for MLP Models}
+\label{table:mlp_hyperparams}
+\end{table}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{XGB Parameter} & \textbf{Sweep Values} \\
+\hline
+\textit{model\_type} & [xgb\_reg, xgb\_cls] \\
+\textit{num\_distortions} & [4, 16, 64] \\
+\textit{n\_estimators} & [50, 100, 200, 300] \\
+\textit{learning\_rate} & \{"min": 0.0001, "max": 0.1\} \\
+\textit{min\_child\_weight} & \{"min": 1, "max": 150\} \\
+\textit{early\_stopping\_rounds} & [10, 20, 30, 40] \\
+\textit{subsample} & [0.5, 0.6, 0.7, 0.8, 0.9, 1.0] \\
+\textit{max\_depth} & [3, 5, 7, 9] \\
+\textit{gamma} & \{"min": 0.001, "max": 0.5\} \\
+\textit{multi\_strategy} & [one\_output\_per\_tree, multi\_output\_tree]\\
+\hline
+\textbf{} & \textbf{Fixed Values} \\
+\hline
+\textit{batch\_size} & 10 \\
+\textit{reg\_alpha} & 0.0 \\
+\textit{reg\_lambda} & 1.0 \\
+\textit{tree\_method} & hist \\
+\textit{objective} & reg:pseudohubererror (specific to XGBRegressor), \\
+\textit{} & multi:softprob (specific to XGBClassifier)\\
+\textit{n\_jobs} & 16 (specific to XGBRegressor)\\
+\textit{booster} & gbtree (specific to XGBClassifier)\\
+\textit{eval\_metric} & ['mlogloss', 'merror', 'auc'] (specific to XGBClassifier)\\
+\hline
+\end{tabular}
+\caption{Hyperparameter Configurations for XGB Models}
+\label{table:xgb_hyperparams}
+\end{table}
 
+\noindent
+For the XGB models, the min child weight (min\_child\_weight) parameter was adjusted to make sure each tree leaf had a minimum number of instances, preventing the trees from becoming too complex. The gamma parameter added a constraint on tree growth, which helped to further avoid overfitting by regulating how trees expand during training. \par
+\vspace{\baselineskip}
+\noindent
+By carefully tuning these parameters, the models were designed to balance complexity and generalization, resulting in robust performance on both the training and validation datasets.\par
+
+\subsection{Interpreting Model Performance with Plots}
+To understand the models’ performance, several metrics and visual tools were used. Including Mean Absolute Error (MAE), R-squared (R\textsuperscript{2}), Spearman’s Rank Order Correlation Coefficient (SRCC), and Cohen’s Kappa, for each of the seven dermatology quality criteria. These metrics provided detailed insights into where the model performs well and captures distortions effectively and where it does not. An overall score was also calculated to provide a overview of the model’s performance. \par
+\vspace{\baselineskip}
+\noindent
+In addition to numerical metrics, Confusion matrices\footnote{from utils.visualization import plot\_all\_confusion\_matrices} were used for each criterion to show where the model makes correct predictions and where it makes mistakes. These matrices help visualize the accuracy for each type of distortion. They also reveal any biases the model might have, such as predicting only low or high severity levels, or if its predictions are skewed in some way. This detailed view helps identify areas where the model needs improvement and provides insights into its decision-making process. \par
+
+\clearpage
 \section{Model Testing}
 \label{sec:ModelTesting}
-The best model was tested on two specific sets of images to evaluate its performance. The first set included 70 good quality images that were synthetically distorted using a pipeline to introduce consistent types of distortions. This helped assess how well the model handled controlled distortions. The second set consisted of 200 images with authentic distortions, allowing for a comparison of the model’s performance with my manual evaluations.\par
+The best model was tested on two specific sets of images to evaluate its performance. The first set, referred to as SCIN\textsubscript{synthetic}, included 70 good quality images that were synthetically distorted using a pipeline to introduce consistent types of distortions. This helped assess how well the model handled controlled distortions. The second set, referred to as SCIN\textsubscript{authentic}, consisted of 200 images with authentic distortions, allowing for a comparison of the model’s performance with human labels. \par
 \vspace{\baselineskip}
 \noindent
-For the 200 authentic images, they were half-scaled, resized to 224x224 pixels, and normalized. These preprocessed images were then passed through the ARNIQA backbone to extract features, and their scores were taken from a JSON\footnote{src/test\_200/scores.json} file where my labels were stored. For the 70 synthetically distorted images, features were extracted from the backbone, and the scores and features were saved in a \textit{.npy}\footnote{src/test\_70/embeddings} file to ensure reproducibility and easier comparison across different tests. \par
+For the SCIN\textsubscript{authentic} images, they were first downscaled to half their size, resized to 224x224 pixels, and normalized. These preprocessed images were then passed through the ARNIQA backbone to extract features, and their actual scores were retrieved from a JSON\footnote{src/test\_200/scores.json} file where the labels were stored. For the SCIN\textsubscript{synthetic} images, the features and scores were saved after extraction from the backbone, and these were stored in a \textit{.npy}\footnote{src/test\_70/embeddings/features.npy} file to allow reproducibility and easier comparison across different tests. \par
 \vspace{\baselineskip}
 \noindent
-In addition to testing the model, I also validated the effectiveness of my approach by using ARNIQA itself to score both sets of images. ARNIQA provided quality scores ranging from 0 to 1, where higher scores meant better image quality. This comparison helped verify whether adding  synthetic distortions improved the model’s performance. \par
+To visualize the predictions and test scores, radar charts\footnote{from utils.visualization import plot\_results} were used to observe the model’s strengths and weaknesses across different dermatology quality criteria. For SCIN\textsubscript{synthetic}, a four-column layout was used to present the original image, the distorted image, the actual labels, and the model’s predictions. For SCIN\textsubscript{authentic}, a three-column layout displayed the image, the human-labeled scores, and the model’s predictions. \par
+
+\section{Baseline Comparison}
+\label{sec:Baseline}
+To evaluate the performance of the proposed image quality assessment model, a baseline comparison was done using both traditional and state-of-the-art methods on the two test sets. The synthetic test set included comparisons with SSIM, ARNIQA, the model’s predictions, and actual scores. The authentic test set included comparisons with ARNIQA, the model’s predictions, and human-labeled scores. This comparison shows how well the proposed model compares to known image quality assessment techniques. \par
+\vspace{\baselineskip}
+\noindent
+Before diving into the details of the individual methods, it is important to understand how the predictions and actual scores were converted into a single quality score. This process makes sure of a consistent and fair comparison. \par
+\vspace{\baselineskip}
+\noindent
+To do this, a weighted average\footnote{playground/create\_labels.ipynb} method was used to give more importance to higher distortion values, which have a bigger effect on overall image quality. The function calculates the average of the seven distortion scores by first creating weights based on how severe each distortion is. This means that higher distortion scores will have a bigger impact on the final quality score. The scores are squared to highlight higher distortion values, and these squared scores are then normalized by dividing each by the sum of all the squared scores. This step makes sure that the weights add up to 1, keeping the balance between the different scores. \par
+\vspace{\baselineskip}
+\noindent
+The function then uses these normalized weights to compute the weighted average of the distortion scores. This results in a single score ranging from 0 to 1, where 0 indicates good quality (no distortion) and 1 indicates poor quality (high distortion). This method makes sure that the final quality score accurately shows the severity of the distortions in the image. \par
+
+\subsection{Traditional Image Quality Assessment (SSIM)}
+For the SSIM (Structural Similarity Index) implementation, the SCIN\textsubscript{synthetic} and SCIN\textsubscript{synthetic} ,before distortion, were first converted to RGB format and then resized to 224x224 pixels to match the size used in the model. The SSIM\footnote{src/ssim\_inference.py} was calculated for each pair of images, and the scores were saved in a CSV file for later comparison. \par
+\vspace{\baselineskip}
+\noindent
+It is important to note that SSIM values range from -1 to 1, where 1 indicates perfect similarity, 0 indicates no similarity, and -1 indicates perfect anti-correlation. However, since the quality assessment scores in this research work inversely, with higher values indicating worse quality, the SSIM scores were inverted. This adjustment ensures that the SSIM values can be compared directly to the predicted and actual scores. \par
+
+
+\subsection{No-Reference  Image Quality Assessment Model (ARNIQA)}
+For the ARNIQA\autocite{ARNIQA} implementation, the \textit{single\_image\_inference.py} script from the ARNIQA codebase was referenced and adapted\footnote{src/ARNIQA\_test.py}. The preprocessing steps were done similarly to the model training, involving downscaling, resizing, and normalizing the images. A key difference in this implementation was the need to specify a regressor. ARNIQA provides six different regressors for image evaluation, and for this comparison, the default \textit{KADID10K} regressor was used. Additionally, the \textit{"scale\_score=True"} parameter was set for the model. \par
+\vspace{\baselineskip}
+\noindent
+Similar to the SSIM adjustment, the ARNIQA scores had to be inverted. This is because ARNIQA predicts quality on a scale where 1 indicates good quality and 0 indicates bad quality, which is opposite to the scoring system used in this research. This inversion allows for a direct comparison of ARNIQA scores with the predicted and actual scores from the model. \par
+\vspace{\baselineskip}
+\noindent
+Finally, a line plot was created to compare the different scores from the proposed model, SSIM, and ARNIQA to the actual scores. Additionally, the SRCC values were also calculated to see how well the scores matched the actual quality scores. \par
+
+\subsection{Out of Distribution Testing}
+\label{subsec:OOD}
+In addition to these comparisons, out-of-distribution testing was done. The script\footnote{src/single\_image\_inference.py} used the same preprocessing and inference steps as in testing the model. This script processes an image and generates a two-column layout, with the image on the left side and a radar chart showing the seven quality criteria for that image on the right side. \par
+\vspace{\baselineskip}
+\noindent
+Different images were chosen from the KADID10K \autocite{KADID10k} dataset, which are different from teledermatology images. For example, images with known distortions such as brightened images were included to check if the model recognizes the brightening, along with color-calibrated images and some good quality images for comparison. This method shows how the model assesses image quality outside its usual teledermatology context. \par
+\vspace{\baselineskip}
+\noindent
+This approach allows for comparing the model’s predictions to see if it identifies distortions correctly. If not, it helps identify limitations, such as difficulties in assessing distortions in general image domains. \par

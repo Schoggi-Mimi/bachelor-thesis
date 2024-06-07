@@ -8,11 +8,13 @@ The following pages contain the supplementary material for this thesis. This sec
     \item Risk Management
     \item Project Planning
 \end{itemize}
-Documents and code relevant to the thesis can be downloaded from the following link:\par 
-\textbf{\url{https://github.com/Schoggi-Mimi/bachelor-thesis}}.
+\vspace{\baselineskip}
+\noindent
+Additionally, the appendix contains detailed information on the IQA databases from the general image domain, showcases the different dermatology quality criteria and their types across five severity ranges, and provides an overview of the proposed framework for automated IQA in teledermatology. \par
 
 \includepdf[pages=-]{Aufgabenstellung_BAA.pdf}
-\todo{include risk management and project planning pdfs}
+\includepdf[pages=-]{challenges.pdf}
+\includepdf[pages=-]{Gantt_BAA.pdf}
 
 \section{Dataset}
 \label{sec:Dataset}
@@ -22,7 +24,7 @@ Detailed information on image quality assessment (IQA) databases: \par
     \item \textbf{TID2008} (Tampere image database 2008) dataset \autocite{TID2008} includes 25 reference images and 1700 distorted images corrupted by 17 types of distortions, with 4 levels for each distortion type. All images have a fixed resolution of 512 $\times$ 384. This dataset provides MOS values and their standard deviations, with MOS ranging from 0 to 9, where 9 signifies a distortion-free image.
     \item \textbf{TID2013} (Tampere image database 2013) dataset \autocite{TID2013} is extended from TID2008 \autocite{TID2008} by increasing the number of distortion levels to 5, and the number of distortion types to 24. Therefore, 3000 distorted images are generated from 25 pristine images. The subjective testing and data processing steps are similar to that of TID2008. DMOS values for this dataset were derived from over half a million ratings given by nearly a thousand observers, with values ranging from 0 to 9, where higher values denote poorer image quality.
     \item \textbf{CSIQ} (Categorical subjective image quality (CSIQ) database) \autocite{CSIQ} contains 30 pristine images and 866 distorted images corrupted by JPEG, JP2K, WN, GB, additive pink Gaussian noise, and global contrast decrements, with 5 or 4 levels for each distortion type. The resolution is 512 $\times$ 512. Each image in CSIQ is associated with DMOS values obtained from subjective ratings by 25 testers, with DMOS values scaled from 0 to 1, where higher values indicate worse quality.
-    \item \textbf{A57} \autocite{A57} includes 3 pristine images and 54 distorted images corrupted by 6 types of distortions, with 3 levels for each distortion type. All images are in gray scale. The resolution is 512 $\times$ 512. \todo{search database and maybe add KonIQ-10k and other from ARNIQA!}
+    \item \textbf{A57} \autocite{A57} includes 3 pristine images and 54 distorted images corrupted by 6 types of distortions, with 3 levels for each distortion type. All images are in gray scale. The resolution is 512 $\times$ 512.
     \item \textbf{WED} (Waterloo exploration database) \autocite{WED} includes 4744 pristine natural images and 94880 distorted images corrupted by JPEG, JP2K, GB, and WN, with 5 levels for each distortion type. The images have various resolutions. No human opinion score is provided, but the authors introduce several alternative test criteria to evaluate the IQA models.
 \end{itemize}
 
@@ -46,19 +48,12 @@ Detailed information on image quality assessment (IQA) databases: \par
     \item \textbf{LIVE in the wild image quality challenge database} \autocite{LIVE_Wild} includes 1162 authentically distorted images captured using a variety of mobile devices. Complex real distortions, which are not well-modeled by the synthetic distortions are included. All images are cropped to the resolution of 500 $\times$ 500. A novel crowdsourcing system was employed to gather over 350,000 opinion scores from 8100 observers, ensuring the objectivity of the MOS values obtained.
     \item \textbf{Camera image database (CID2013)} \autocite{CID2013}: CID2013 is designed to test no-reference IQA algorithms. It includes 480 real images captured from 8 typical scenes using 79 consumer cameras and mobile phones. The images are rated from 5 aspects: the overall quality, sharpness, graininess, lightness, and color saturation scales. The images are scaled to a size of 1600 $\times$ 1200.
 \end{itemize}
+
+\clearpage
 \section{Degradation Types}
 \label{sec:Degradation_Types}
-%\autoref{sub:QualityCriteriaTeledermatology}
-As mentioned in xxx, the dataset used in this thesis is augmented with synthetic degradations. The following figures
-\autoref{fig:brightness_change_supplementary}, 
-\autoref{fig:background_supplementary}, 
-\autoref{fig:field_of_view_supplementary}, 
-\autoref{fig:orientation_supplementary}, 
-\autoref{fig:focus_supplementary}, 
-\autoref{fig:resolution_supplementary}, 
-\autoref{fig:color_calibration_supplementary}
-  show the different levels of intensity for the degradations of each distortion group. 
-\begin{figure*}
+The dataset used in this thesis is augmented with synthetic degradations. The following figures below show the different levels of intensity for the degradations of each distortion group. \par
+\begin{figure*}[ht]
     \centering
     \setlength{\tabcolsep}{1pt}
     \Large
@@ -73,7 +68,7 @@ As mentioned in xxx, the dataset used in this thesis is augmented with synthetic
     \label{fig:brightness_change_supplementary}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure*}[ht]
     \centering
     \setlength{\tabcolsep}{1pt}
     \Large
@@ -87,7 +82,7 @@ As mentioned in xxx, the dataset used in this thesis is augmented with synthetic
     \label{fig:background_supplementary}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure*}[ht]
     \centering
     \setlength{\tabcolsep}{1pt}
     \Large
@@ -101,7 +96,7 @@ As mentioned in xxx, the dataset used in this thesis is augmented with synthetic
     \label{fig:field_of_view_supplementary}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure*}[ht]
     \centering
     \setlength{\tabcolsep}{1pt}
     \Large
@@ -118,7 +113,7 @@ As mentioned in xxx, the dataset used in this thesis is augmented with synthetic
     \label{fig:orientation_supplementary}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure*}[ht]
     \centering
     \setlength{\tabcolsep}{1pt}
     \Large
@@ -134,7 +129,7 @@ As mentioned in xxx, the dataset used in this thesis is augmented with synthetic
     \label{fig:focus_supplementary}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure*}[ht]
     \centering
     \setlength{\tabcolsep}{1pt}
     \Large
@@ -148,7 +143,7 @@ As mentioned in xxx, the dataset used in this thesis is augmented with synthetic
     \label{fig:resolution_supplementary}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure*}[ht]
     \centering
     \setlength{\tabcolsep}{1pt}
     \Large
@@ -162,3 +157,15 @@ As mentioned in xxx, the dataset used in this thesis is augmented with synthetic
     \caption{Visualization of the degradation types belonging to the \textit{Color calibration} group for increasing levels of intensity.}
     \label{fig:color_calibration_supplementary}
 \end{figure*}
+
+
+\clearpage
+\section{Proposed Framework for Automated Image Quality Assessment in Teledermatology}
+\label{sec:framework}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio,width=5.2cm]{img/Architecture.png}
+    \caption{Overview of the proposed framework for automated image quality assessment in teledermatology. It starts with good quality input images, which go through a distortion pipeline covering seven dermatology quality criteria. The ARNIQA backbone extracts features, and a multi-output regressor predicts the seven quality criteria. The final predictions are visualized with radar charts.}
+    \label{fig:Architecture}
+\end{figure}
+
