@@ -185,31 +185,32 @@ This notebook provides tools for generating various plots to visualize and compa
 ## File Descriptions
 
 ### Source Code **`src/`**
-- **`config.yaml`**: Configuration file for setting parameters for training, testing, and model evaluation.
-- **`train.py`**: Script for training the image quality assessment models. Takes configuration from `config.yaml`.
-- **`test.py`**: Script for testing the trained models and generating performance metrics.
-- **`single_image_inference.py`**: Performs inference on a single image to assess its quality.
-- **`ssim_inference.py`**: Script for calculating the Structural Similarity Index between two sets of images.
-- **`inference.py`**: Script for performing inference on a folder of images and saving the results in a CSV file.
-- **`ARNIQA_test.py`**: Script for running the ARNIQA model on a set of images and saving the predicted quality scores in a CSV file.
-- **`utils/`**: Contains utility scripts for data processing, visualization, and model evaluation.
-  - **`distortions.py`**: Scripts for generating synthetic distortions on images.
-  - **`utils_distortions.py`**: Functions for applying distortions to images used with distortions.py.
-  - **`utils_data.py`**: Distortion pipeline and data processing functions.
-  - **`visualization.py`**: Function for plotting results and visualizing model performance.
-- **`data/`**: Directory with scripts related to dataset handling and preprocessing.
-  - **`dataset_base.py`**: Base class for dataset handling.
-  - **`dataset_gqi.py`**: Dataset class used for inference and testing.
-- **`csv/`**: Directory containing CSV files with distortion scores for training and evaluation.
+- **`src/`**:
+  - **`config.yaml`**: Configuration file for setting parameters for training, testing, and model evaluation.
+  - **`train.py`**: Script for training the image quality assessment models. Takes configuration from `config.yaml`.
+  - **`test.py`**: Script for testing the trained models and generating performance metrics.
+  - **`single_image_inference.py`**: Performs inference on a single image to assess its quality.
+  - **`ssim_inference.py`**: Script for calculating the Structural Similarity Index between two sets of images.
+  - **`inference.py`**: Script for performing inference on a folder of images and saving the results in a CSV file.
+  - **`ARNIQA_test.py`**: Script for running the ARNIQA model on a set of images and saving the predicted quality scores in a CSV file.
+  - **`utils/`**: Contains utility scripts for data processing, visualization, and model evaluation.
+    - **`distortions.py`**: Scripts for generating synthetic distortions on images.
+    - **`utils_distortions.py`**: Functions for applying distortions to images used with distortions.py.
+    - **`utils_data.py`**: Distortion pipeline and data processing functions.
+    - **`visualization.py`**: Function for plotting results and visualizing model performance.
+  - **`data/`**: Directory with scripts related to dataset handling and preprocessing.
+    - **`dataset_base.py`**: Base class for dataset handling.
+    - **`dataset_gqi.py`**: Dataset class used for inference and testing.
+  - **`csv/`**: Directory containing CSV files with distortion scores for training and evaluation.
 
 ### Models
 - **`models/`**: Directory containing model definitions and training procedures for various machine learning models used.
 
-### Notebooks **`playground/`**
+### Notebooks
 - **`playground/`**: 
   - **`create_distortions.ipynb`**: Notebook to create synthetic distortions for training data.
   - **`create_labels.ipynb`**: Tool for manually labeling image quality based on dermatology criteria.
-    - **`create_plots.ipynb`**: Used for generating plots to visualize model performance and compare results.
+  - **`create_plots.ipynb`**: Used for generating plots to visualize model performance and compare results.
 
 ### Data
 - **`datas/`**: Directory where all image datasets and related files are stored.
@@ -219,7 +220,3 @@ This notebook provides tools for generating various plots to visualize and compa
   - **`test_70/`**: Synthetic test set for model validation.
   - **`test_200/`**: Authentic test set for model validation.
   - **`ood/`**: Directory for out-of-distribution testing images.
-
-### Documentation
-- **`README.md`**: This document, providing an overview of the project and instructions for usage.
-- **`explanation.txt`**: Quick reference guide for understanding the purpose of each file.
