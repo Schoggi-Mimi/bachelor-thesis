@@ -6,9 +6,13 @@
 
 This research focuses on developing and evaluating automated methods to assess image quality in the context of teledermatology. Teledermatology, a growing field within telemedicine, allows patients to receive dermatological consultations remotely by sending photos of their skin conditions to dermatologists. However, the success of these remote consultations largely depends on the quality of the images provided. Poor-quality images can lead to misdiagnosis or require patients to resend images, causing delays and frustration. This research examines different image quality assessment (IQA) techniques for teledermatology. The goal is to make sure that only good quality images are sent to dermatologists, thereby improving their ability to make accurate medical diagnoses. By implementing these IQA techniques, the aim is to simplify the process, reduce back-and-forth communication, and make teledermatology more efficient and reliable.
 
-The methodology involved a detailed review of existing IQA methods, followed by the development of a synthetic distortion pipeline to create a wide range of training datasets from good quality dermatological images. These images were gathered from the Fitzpatrick17k and SCIN datasets. For feature extraction, the state-of-the-art approach called ARNIQA was used, and different machine learning models, including XGBRegressor, XGBClassifier, MLP Regressor, and MLP Classifier, were trained to assess image quality based on seven dermatology quality criteria: lighting, background, field of view, orientation, focus, resolution, and color calibration. The models were trained on synthetic distortions and validated on both synthetically distorted and real-world dermatology images. Performance metrics such as Mean Absolute Error (MAE), R-squared ($R^{2}$), Spearmans Rank Order Correlation Coefficient (SRCC), and Cohens Kappa were used for evaluation.
+The methodology involved a detailed review of existing IQA methods, followed by the development of a synthetic distortion pipeline to create a wide range of training datasets from good quality dermatological images. These images were gathered from the Fitzpatrick17k and SCIN datasets. For feature extraction, the state-of-the-art approach called [ARNIQA](https://github.com/miccunifi/ARNIQA) was used, and different machine learning models, including XGBRegressor, XGBClassifier, MLP Regressor, and MLP Classifier, were trained to assess image quality based on seven dermatology quality criteria: lighting, background, field of view, orientation, focus, resolution, and color calibration. The models were trained on synthetic distortions and validated on both synthetically distorted and real-world dermatology images. Performance metrics such as Mean Absolute Error (MAE), R-squared ($R^{2}$), Spearmans Rank Order Correlation Coefficient (SRCC), and Cohens Kappa were used for evaluation.
 
 The results showed that the automated IQA methods can assess image quality in the context of teledermatology, closely matching human evaluations and therefore providing reliable feedback on image quality. The final model achieved good performance across multiple dermatology quality criteria, improving the reliability and effectiveness of teledermatology services. This research highlights the potential of automated IQA systems to improve the accuracy of diagnoses and patient care in remote dermatological consultations.
+
+<p align="center">
+  <img src="docs/img/Architecture.png" width="75%" alt="Overview of the proposed framework for automated image quality assessment in the context of teledermatology.">
+</p>
 
 ## Usage
 
@@ -149,7 +153,7 @@ This script is used to perform inference on a folder containing images and save 
 
 ### Structural Similarity Index Measure (SSIM) Script
 
-This script calculates the Structural Similarity Index (SSIM) between two sets of images, typically an original and its distorted version. Results are saved in a CSV file.
+This script calculates the Structural Similarity Index (SSIM) between two folder of images, typically an original and its distorted version. Results are saved in a CSV file.
 
 **Parameters:**
 - `--original_path`: Path to the folder with original images.
@@ -160,26 +164,12 @@ This script calculates the Structural Similarity Index (SSIM) between two sets o
 
 ### ARNIQA Script
 
-This script runs the ARNIQA model on a set of images and saves the predicted quality scores in a CSV file.
+This script runs the ARNIQA model on a folder of images and saves the predicted quality scores in a CSV file.
 
 **Parameters:**
 - `--root`: Path to the folder containing the images.
 - `--regressor_dataset`: Dataset used for training the regressor.
 - `--output_csv`: Path to save the predicted quality scores in a CSV file.
-</details>
-
-<details>
-<summary><h3>Playground Notebooks</h3></summary>
-
-#### `create_distortions.ipynb`
-This notebook allows you to generate synthetic distortions on images based on the seven dermatology quality criteria. You can select a folder of good quality images and apply various distortions to create training datasets. The distorted images are saved in the same folder and are used for training and evaluation.
-
-#### `create_labels.ipynb`
-In this notebook, you can manually assign distortion scores to images. It prompts you to rate each image on the seven dermatology criteria from 0 (no distortion) to 1 (high distortion). The scores are saved in a JSON file for later use in training and evaluation.
-
-#### `create_plots.ipynb`
-This notebook provides tools for generating various plots to visualize and compare model performance. It helps in understanding the effectiveness of the models in assessing image quality.
-
 </details>
 
 ## File Descriptions
@@ -190,12 +180,12 @@ This notebook provides tools for generating various plots to visualize and compa
   - **`train.py`**: Script for training the image quality assessment models. Takes configuration from `config.yaml`.
   - **`test.py`**: Script for testing the trained models and generating performance metrics.
   - **`single_image_inference.py`**: Performs inference on a single image to assess its quality.
-  - **`ssim_inference.py`**: Script for calculating the Structural Similarity Index between two sets of images.
+  - **`ssim_inference.py`**: Script for calculating the Structural Similarity Index between two sets of folders containing images.
   - **`inference.py`**: Script for performing inference on a folder of images and saving the results in a CSV file.
-  - **`ARNIQA_test.py`**: Script for running the ARNIQA model on a set of images and saving the predicted quality scores in a CSV file.
+  - **`ARNIQA_test.py`**: Script for running the ARNIQA model on a folder of images and saving the predicted quality scores in a CSV file.
   - **`utils/`**: Contains utility scripts for data processing, visualization, and model evaluation.
     - **`distortions.py`**: Scripts for generating synthetic distortions on images.
-    - **`utils_distortions.py`**: Functions for applying distortions to images used with distortions.py.
+    - **`utils_distortions.py`**: Functions for applying distortions to images used with `distortions.py`.
     - **`utils_data.py`**: Distortion pipeline and data processing functions.
     - **`visualization.py`**: Function for plotting results and visualizing model performance.
   - **`data/`**: Directory with scripts related to dataset handling and preprocessing.
