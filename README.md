@@ -30,9 +30,8 @@ git clone https://github.com/Schoggi-Mimi/bachelor-thesis
 ```sh
 conda create -n IQA -y python=3.10
 conda activate IQA
-cd IQA
-chmod +x requirements.sh
-./requirements.sh
+chmod +x install_requirements.sh
+./install_requirements.sh
 ```
 
 #### Data Preparation

@@ -1,17 +1,13 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
 from scipy import stats
-from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score,
-                             classification_report, cohen_kappa_score,
-                             confusion_matrix, mean_absolute_error,
-                             mean_squared_error, precision_score, r2_score,
-                             recall_score)
+from sklearn.metrics import (ConfusionMatrixDisplay, cohen_kappa_score,
+                             confusion_matrix, mean_absolute_error, r2_score)
 
-if not plt.isinteractive():
-    matplotlib.use('Agg')
-    
+# if not plt.isinteractive():
+#     matplotlib.use('Agg')
+
 def print_metrics(val, pred):
     criteria = ['Background', 'Lighting', 'Focus', 'Orientation', 'Color calibration', 'Resolution', 'Field of view']
     print(f"\n{'Criteria':^18} | {'MAE':^10} | {'R^2':^10} | {'SRCC':^10} | {'Cohens Kappa':^14} |")

@@ -31,12 +31,12 @@ train:
   model_save_path: "../models/final_model.pkl"
   model_save: false
   num_distortions: 1 # chagen to 64
-  plot_results: False  # set to false if sweep is true
+  plot_results: True  # set to false if sweep is true
   batch_size: 10
   num_workers: 1
   model_type: "mlp_reg"  # 'xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls'
-  sweep: True  # Set to true to perform hyperparameter sweeping
-  sweep_count: 2
+  sweep: False  # Set to true to perform hyperparameter sweeping
+  sweep_count: 10
   # Default training parameters
   n_estimators: 100
   max_depth: 6
@@ -57,7 +57,7 @@ train:
     metric: {'name': 'overall_srocc', 'goal': 'maximize'}
     parameters:
       root: {'value': '../datas/F17K'} # 'SCIN', 'F17K'
-      model_type: {'values': ['mlp_reg', 'mlp_cls']} # ['xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls']
+      model_type: {'values': ['xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls']} 
       batch_size: {'value': 10}
       num_distortions: {'values': [10, 1]}
       n_estimators: {'values': [50, 100, 200, 300]}
@@ -74,8 +74,8 @@ train:
       learning_rate_init: {"min": 0.0001, "max": 0.1}
       max_iter: {"values": [200, 300, 500]}
   logging:
-    use_wandb: true   # if True, use wandb for logging
+    use_wandb: False   # if True, use wandb for logging
     wandb:
-      project: "BAA"   # wandb project name
-      entity: "choekyel-hslu"    # wandb entity name
+      project: ""   # wandb project name
+      entity: ""    # wandb entity name
 
