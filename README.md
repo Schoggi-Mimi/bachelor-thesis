@@ -55,11 +55,11 @@ At the end, the directory structure should look like this:
 |    ├── SCIN
 |    |   ├── embeddings
 |    |   ├── ... (475 good quality images)
-|    ├── test_70
+|    ├── test_70 (synthetic test set)
 |    |   ├── distorted
 |    |   ├── embeddings
 |    |   ├── ... (70 good quality images)
-|    ├── test_200
+|    ├── test_200 (authentic test set)
 |    |   ├── embeddings
 |    |   ├── scores.json
 |    |   ├── ... (200 images)
@@ -76,7 +76,7 @@ To perform inference on a single image, run the following command:
 python single_image_inference.py --config_path config.yaml
 ```
 
-Parameters:
+**Parameters:**
 - `--image_path`: Path to the image to be evaluated.
 - `--model_path`: Path to the model.
 
@@ -91,7 +91,7 @@ To train the model, run the following command:
 python train.py --config_path config.yaml
 ```
 
-Parameters:
+**Parameters:**
 - `--root`: Path to the dataset folder.
 - `--num_distortions`: Number of distortions to use.
 - `--batch_size`: Batch size for DataLoader.
@@ -116,7 +116,7 @@ To test the model and print the radar plot, run the following command:
 python test.py --config_path config.yaml
 ```
 
-Parameters:
+**Parameters:**
 - `--root`: Path to the dataset folder.
 - `--batch_size`: Batch size for DataLoader.
 - `--num_workers`: Number of workers for DataLoader.
@@ -133,6 +133,7 @@ Parameters:
 ### Inference Script
 
 This script is used to perform inference on a folder containing images and save the results in a CSV file.
+
 **Parameters:**
 - `--model_path`: Path to the model .pkl file.
 - `--images_path`: Path to the folder containing images.
@@ -143,6 +144,7 @@ This script is used to perform inference on a folder containing images and save 
 ### Structural Similarity Index Measure (SSIM) Script
 
 This script is used to calculate the SSIM between two folders containing original and distorted images. The scores are saved in a CSV file. The scores are inverted to match the quality scores used in the research.
+
 **Parameters:**
 - `--original_path`: Path to the folder containing original images.
 - `--distorted_path`: Path to the folder containing distorted images.
@@ -153,6 +155,7 @@ This script is used to calculate the SSIM between two folders containing origina
 ### ARNIQA Script
 
 This script runs the ARNIQA model on a folder containing images and saves the scores in a CSV file. The score are inverted to match the quality scores used in the research.
+
 **Parameters:**
 - `--root`: Root folder containing the images to be evaluated.
 - `--regressor_dataset`: Dataset used to train the regressor.
