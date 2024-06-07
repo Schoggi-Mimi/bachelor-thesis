@@ -184,8 +184,8 @@ This notebook provides tools for generating various plots to visualize and compa
 
 ## File Descriptions
 
-### Source Code **`src/`**
-- **`src/`**:
+### Source Code
+- **`src/`**: Directory containing the main source code for the project.
   - **`config.yaml`**: Configuration file for setting parameters for training, testing, and model evaluation.
   - **`train.py`**: Script for training the image quality assessment models. Takes configuration from `config.yaml`.
   - **`test.py`**: Script for testing the trained models and generating performance metrics.
@@ -204,10 +204,11 @@ This notebook provides tools for generating various plots to visualize and compa
   - **`csv/`**: Directory containing CSV files with distortion scores for training and evaluation.
 
 ### Models
-- **`models/`**: Directory containing model definitions and training procedures for various machine learning models used.
+- **`models/`**: Directory containing the final trained model for image quality assessment.
+  - **`combined_mlp_reg.pkl`**: Trained MLP Regressor model for image quality assessment.
 
 ### Notebooks
-- **`playground/`**: 
+- **`playground/`**: Directory containing Jupyter notebooks for data processing and visualization.
   - **`create_distortions.ipynb`**: Notebook to create synthetic distortions for training data.
   - **`create_labels.ipynb`**: Tool for manually labeling image quality based on dermatology criteria.
   - **`create_plots.ipynb`**: Used for generating plots to visualize model performance and compare results.

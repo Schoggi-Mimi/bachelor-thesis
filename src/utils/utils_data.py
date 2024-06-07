@@ -133,7 +133,7 @@ def create_distortions_batch(img_path, folder_path, batch_size=10, counter=None)
 
 def distort_images(image: torch.Tensor, distort_functions: list = None, distort_values: list = None, num_levels: int = 5) -> torch.Tensor:
     """
-    Distorts an image using the distortion composition obtained with the image degradation model proposed in the paper
+    Distorts an image using the distortion composition obtained with the image degradation model adapted from the paper
     https://arxiv.org/abs/2310.14918.
 
     Args:
@@ -167,7 +167,7 @@ def distort_images(image: torch.Tensor, distort_functions: list = None, distort_
 
 def get_distortions_composition(num_levels: int = 5):
     """
-    Image Degradation model proposed in the paper https://arxiv.org/abs/2310.14918. Returns a randomly assembled ordered
+    Image Degradation model adapted from the paper https://arxiv.org/abs/2310.14918. Returns a randomly assembled ordered
     sequence of distortion functions and their values.
 
     Args:
@@ -178,8 +178,8 @@ def get_distortions_composition(num_levels: int = 5):
         distort_functions (list): list of the distortion functions to apply to the image
         distort_values (list): list of the values of the distortion functions to apply to the image
     """
-    MEAN = 0
-    STD = 2.5
+    #MEAN = 0
+    #STD = 2.5
 
     distortions = [random.choice(distortion_groups[group]) for group in list(distortion_groups.keys())]
     distort_functions = [distortion_functions[dist] for dist in distortions]

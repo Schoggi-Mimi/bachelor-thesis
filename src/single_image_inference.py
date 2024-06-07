@@ -70,7 +70,10 @@ def plot_results(original_img, scores):
 
     ax[1].set_rscale('linear')
     ax[1].set_ylim(0, 1)
-    ax[1].set_yticklabels([])
+    #ax[1].set_yticklabels([])
+    ax[1].set_ylim(0, 1)
+    ax[1].set_yticks([0, 0.25, 0.5, 0.75, 1])
+    ax[1].set_yticklabels(['0', '0.25', '0.5', '0.75', '1'], fontsize=13, fontweight='bold')
 
     values = scores.tolist()
     if len(values) != num_criteria:

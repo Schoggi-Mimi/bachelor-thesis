@@ -19,7 +19,8 @@ from utils.visualization import plot_results, print_metrics
 
 
 def load_and_sort_images(root: str):
-    image_paths = sorted([os.path.join(root, filename) for filename in os.listdir(root) if filename.endswith(('.png', '.jpg', 'jpeg'))])
+    #image_paths = sorted([os.path.join(root, filename) for filename in os.listdir(root) if filename.endswith(('.png', '.jpg', 'jpeg'))])
+    image_paths = [os.path.join(root, filename) for filename in os.listdir(root) if filename.endswith(('.png', '.jpg', 'jpeg'))]
     original_images = [Image.open(path).convert("RGB") for path in image_paths]
     return image_paths, original_images
 

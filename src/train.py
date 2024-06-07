@@ -162,7 +162,7 @@ def evaluate_model(val_scores, predictions, config):
     else:
         bin_pred = predictions
         bin_val = val_scores
-    # plot_prediction_scores(val_scores, predictions)
+    plot_prediction_scores(val_scores, predictions)
     plot_all_confusion_matrices(bin_val, bin_pred)
     print_metrics(bin_val, bin_pred)
 

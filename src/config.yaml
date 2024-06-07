@@ -20,11 +20,11 @@ single_image_inference:
   model_path: "../models/combined_mlp_reg.pkl"
 
 test:
-  root: "../datas/test_200"
+  root: "../datas/test_70"
   batch_size: 10
   num_workers: 1
   model_path: "../models/combined_mlp_reg.pkl"
-  data_type: "a"  # 's' for synthetic, 'a' for authentic
+  data_type: "s"  # 's' for synthetic, 'a' for authentic
 
 train:
   root: "../datas/F17K" # change to COMB

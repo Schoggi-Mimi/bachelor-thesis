@@ -84,7 +84,7 @@ def plot_prediction_scores(val_scores, predictions):
     plt.show()
 
 
-def plot_results(original_images, distorted_images, actuals, predictions, num_plots=5):
+def plot_results1(original_images, distorted_images, actuals, predictions, num_plots=5):
     criteria_names = ["Background", "Lighting", "Focus", "Orientation", "Color calibration", "Resolution", "Field of view"]
     num_criteria = len(criteria_names)
     angles = np.linspace(0, 2 * np.pi, num_criteria, endpoint=False).tolist()
@@ -144,6 +144,78 @@ def plot_results(original_images, distorted_images, actuals, predictions, num_pl
         ax_pred.plot(angles, pred_values, linewidth=4, linestyle='solid', label='Prediction', color='blue')
         ax_pred.fill(angles, pred_values, 'b', alpha=0.1)
         #plt.title(f'Prediction Radar Chart {i+1}', size=12, y=1.1)
+
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_results(original_images, distorted_images, actuals, predictions, num_plots=5):
+    """
+    Plots the images along with their actual and predicted scores in radar charts.
+    
+    :param original_images: List of original images.
+    :param distorted_images: List of distorted images (optional, can be None).
+    :param actuals: Array of actual scores for each image.
+    :param predictions: Array of predicted scores for each image.
+    :param num_plots: Number of images to plot.
+    """
+    criteria_names = ["Background", "Lighting", "Focus", "Orientation", "Color calibration", "Resolution", "Field of view"]
+    num_criteria = len(criteria_names)
+    angles = np.linspace(0, 2 * np.pi, num_criteria, endpoint=False).tolist()
+    angles += angles[:1]  # Complete the loop
+
+    # Determine number of columns based on whether distorted images are provided
+    if distorted_images is not None:
+        fig, axs = plt.subplots(num_plots, 4, figsize=(20, num_plots * 5))  # 4 columns: Original Image, Distorted Image, Actual Radar, Prediction Radar
+    else:
+        fig, axs = plt.subplots(num_plots, 3, figsize=(15, num_plots * 5))  # 3 columns: Original Image, Actual Radar, Prediction Radar
+
+    for i in range(num_plots):
+        # Original Image
+        axs[i, 0].imshow(np.array(original_images[i]))
+        axs[i, 0].set_title('Original Image', fontsize=15, fontweight='bold')
+        axs[i, 0].axis('off')
+
+        if distorted_images is not None:
+            # Distorted Image
+            axs[i, 1].imshow(distorted_images[i])
+            axs[i, 1].set_title('Distorted Image', fontsize=15, fontweight='bold')
+            axs[i, 1].axis('off')
+
+            ax_actual = plt.subplot(num_plots, 4, 4 * i + 3, polar=True)
+        else:
+            ax_actual = plt.subplot(num_plots, 3, 3 * i + 2, polar=True)
+
+        ax_actual.set_theta_offset(np.pi / 2)
+        ax_actual.set_theta_direction(-1)
+        plt.xticks(angles[:-1], criteria_names, fontsize=13, fontweight='bold')
+
+        ax_actual.set_ylim(0, 1)
+        ax_actual.set_yticks([0, 0.25, 0.5, 0.75, 1])
+        ax_actual.set_yticklabels(['0', '0.25', '0.5', '0.75', '1'], fontsize=13, fontweight='bold')
+
+        actual_values = actuals[i].tolist()
+        actual_values += actual_values[:1]
+        ax_actual.plot(angles, actual_values, linewidth=4, linestyle='solid', label='Actual', color='red')
+        ax_actual.fill(angles, actual_values, 'r', alpha=0.1)
+
+        if distorted_images is not None:
+            ax_pred = plt.subplot(num_plots, 4, 4 * i + 4, polar=True)
+        else:
+            ax_pred = plt.subplot(num_plots, 3, 3 * i + 3, polar=True)
+
+        ax_pred.set_theta_offset(np.pi / 2)
+        ax_pred.set_theta_direction(-1)
+        plt.xticks(angles[:-1], criteria_names, fontsize=13, fontweight='bold')
+
+        ax_pred.set_ylim(0, 1)
+        ax_pred.set_yticks([0, 0.25, 0.5, 0.75, 1])
+        ax_pred.set_yticklabels(['0', '0.25', '0.5', '0.75', '1'], fontsize=13, fontweight='bold')
+
+        pred_values = predictions[i].tolist()
+        pred_values += pred_values[:1]
+        ax_pred.plot(angles, pred_values, linewidth=4, linestyle='solid', label='Prediction', color='blue')
+        ax_pred.fill(angles, pred_values, 'b', alpha=0.1)
 
     plt.tight_layout()
     plt.show()
