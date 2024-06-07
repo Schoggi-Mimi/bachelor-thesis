@@ -7,10 +7,11 @@ from typing import List, Tuple
 import numpy as np
 import torch
 import torchvision.transforms.functional as TF
+from PIL import Image
 from PIL.Image import Image as PILImage
+from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
-from torch.utils.data import DataLoader
 
 from utils.distortions import *
 from utils.utils_distortions import skin_segmentation

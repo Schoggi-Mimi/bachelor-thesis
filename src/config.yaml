@@ -29,13 +29,14 @@ test:
 train:
   root: "../datas/F17K" # change to COMB
   model_save_path: "../models/final_model.pkl"
+  model_save: false
   num_distortions: 1 # chagen to 64
-  plot_results: true  # New parameter to control plotting
+  plot_results: False  # set to false if sweep is true
   batch_size: 10
   num_workers: 1
-  model_type: "mlp_cls"  # 'xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls'
-  sweep: false  # Set to true to perform hyperparameter sweeping
-  sweep_count: 50 
+  model_type: "mlp_reg"  # 'xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls'
+  sweep: True  # Set to true to perform hyperparameter sweeping
+  sweep_count: 2
   # Default training parameters
   n_estimators: 100
   max_depth: 6
@@ -44,7 +45,7 @@ train:
   early_stopping_rounds: 10
   gamma: 0
   min_child_weight: 1
-  hidden_layer_sizes: [100]
+  hidden_layer_sizes: [512]
   activation: "relu"
   alpha: 0.0001
   learning_rate_init: 0.001
@@ -55,10 +56,10 @@ train:
     method: 'random'
     metric: {'name': 'overall_srocc', 'goal': 'maximize'}
     parameters:
-      root: {'value': 'COMB'} # 'SCIN', 'F17K'
-      model_type: {'values': ['xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls']}
-      batch_size: {'values': [10, 32]}
-      num_distortions: {'values': [10, 16]}
+      root: {'value': '../datas/F17K'} # 'SCIN', 'F17K'
+      model_type: {'values': ['mlp_reg', 'mlp_cls']} # ['xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls']
+      batch_size: {'value': 10}
+      num_distortions: {'values': [10, 1]}
       n_estimators: {'values': [50, 100, 200, 300]}
       learning_rate: {"min": 0.0001, "max": 0.1}
       min_child_weight: {"min": 1, "max": 150}
@@ -67,14 +68,14 @@ train:
       max_depth: {"values": [3, 5, 7, 9]}
       gamma: {"min": 0.001, "max": 0.5}
       multi_strategy: {"values": ["one_output_per_tree", "multi_output_tree"]}
-      hidden_layer_sizes: {"values": [(512,), (1024,), (512, 256), (1024, 512), (512, 512)]}
-      activation: {"values": ["relu", "tanh"]}
+      hidden_layer_sizes: {"values": [[512], [1024], [512, 256], [1024, 512], [512, 512]]}
+      activation: {"value": "relu"}
       alpha: {"min": 0.0001, "max": 0.01}
       learning_rate_init: {"min": 0.0001, "max": 0.1}
       max_iter: {"values": [200, 300, 500]}
   logging:
-    use_wandb: False   # if True, use wandb for logging
+    use_wandb: true   # if True, use wandb for logging
     wandb:
-      project: "choekyel-hslu"   # wandb project name
-      entity: "BAA"    # wandb entity name
+      project: "BAA"   # wandb project name
+      entity: "choekyel-hslu"    # wandb entity name
 

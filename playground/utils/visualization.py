@@ -1,154 +1,162 @@
-from sklearn.manifold import TSNE
-import plotly.graph_objects as go
-import torch
-import torch.nn as nn
+import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
-from numba.core.errors import NumbaDeprecationWarning
-import warnings
-warnings.simplefilter('ignore', category=NumbaDeprecationWarning)
-from umap import UMAP
+import seaborn as sns
+from scipy import stats
+from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score,
+                             classification_report, cohen_kappa_score,
+                             confusion_matrix, mean_absolute_error,
+                             mean_squared_error, precision_score, r2_score,
+                             recall_score)
+
+if not plt.isinteractive():
+    matplotlib.use('Agg')
+    
+def print_metrics(val, pred):
+    criteria = ['Background', 'Lighting', 'Focus', 'Orientation', 'Color calibration', 'Resolution', 'Field of view']
+    print(f"\n{'Criteria':^18} | {'MAE':^10} | {'R^2':^10} | {'SRCC':^10} | {'Cohens Kappa':^14} |")
+    print("----------------------------------------------------------------------------")
+
+    for i in range(pred.shape[1]):
+        mae_value = mean_absolute_error(val[:, i], pred[:, i])
+        r2_value = r2_score(val[:, i], pred[:, i])
+        spearman_corr, _ = stats.spearmanr(val[:, i], pred[:, i]) if np.std(val[:, i]) > 0 and np.std(pred[:, i]) > 0 else (np.nan, np.nan)
+        kappa = cohen_kappa_score(val[:, i].astype(int), pred[:, i].astype(int), weights='quadratic')  # Assuming ordinal scale
+        
+        print(f"{criteria[i]:^18} | {mae_value:^10.4f} | {r2_value:^10.4f} | {spearman_corr:^10.4f} | {kappa:^14.4f} |")
+
+    global_metrics = {
+        'Global MAE': mean_absolute_error(val.flatten(), pred.flatten()),
+        'Global R^2': r2_score(val.flatten(), pred.flatten()),
+        'Global SRCC': stats.spearmanr(val.flatten(), pred.flatten())[0] if np.std(val.flatten()) > 0 and np.std(pred.flatten()) > 0 else np.nan,
+        'Global Cohens Kappa': cohen_kappa_score(val.flatten().astype(int), pred.flatten().astype(int), weights='quadratic')
+    }
+
+    print(f"\n{'MAE':^10} | {'R^2':^10} | {'SRCC':^10} | {'Cohens Kappa':^14} |")
+    print("-------------------------------------------------------")
+    print(f"{global_metrics['Global MAE']:^10.4f} | {global_metrics['Global R^2']:^10.4f} | {global_metrics['Global SRCC']:^10.4f} | {global_metrics['Global Cohens Kappa']:^14.4f} |")
 
 
-def visualize_tsne_umap_mos(model: nn.Module, dataloader: torch.utils.data.DataLoader, tsne_args: dict, umap_args: dict,
-                            device: torch.device) -> dict[go.Figure]:
-    """
-    Visualize the features extracted by the model using t-SNE and UMAP with the corresponding distortion levels and MOS scores.
-    Supports only the KADID10K dataset.
+def plot_all_confusion_matrices(y_true, y_pred):
+    criteria = ['Background', 'Lighting', 'Focus', 'Orientation', 'Color calibration', 'Resolution', 'Field of view']
+    fig, axes = plt.subplots(1, 7, figsize=(35, 5), sharey=True)
+    for i, ax in enumerate(axes.flatten()):
+        cm = confusion_matrix(y_true[:, i], y_pred[:, i])
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot(ax=ax, cmap='Blues', colorbar=False)
+        ax.set_title(criteria[i], fontsize=17)
+        ax.set_xlabel('Predicted Scores', fontsize=17)
+        ax.set_ylabel('Actual Scores', fontsize=17)
+        # Set ticks and labels explicitly if needed
+        ticks = np.arange(cm.shape[0])
+        ax.set_xticks(ticks)
+        ax.set_yticks(ticks)
+        ax.set_xticklabels(ticks)
+        ax.set_yticklabels(ticks)
+    plt.tight_layout()
+    plt.show()
 
-    Args:
-        model (torch.nn.Module): the model to extract embeddings from
-        dataloader (torch.utils.data.DataLoader): the data loader to use
-        tsne_args (dict): the arguments for t-SNE
-        umap_args (dict): the arguments for UMAP
-        device (torch.device): the device to use for training
+def plot_prediction_scores(val_scores, predictions):
+    distortion_criteria = ["Background", "Lighting", "Focus", "Orientation", "Color calibration", "Resolution", "Field of view"]
+    fig, axes = plt.subplots(1, len(distortion_criteria), figsize=(20, 4), sharey=True, sharex=True)
+    
+    for i, ax in enumerate(axes):
+        # Prepare data for mean and std deviation
+        unique_actuals = np.unique(val_scores[:, i])
+        mean_predictions = [np.mean(predictions[val_scores[:, i] == x]) for x in unique_actuals]
+        std_predictions = [np.std(predictions[val_scores[:, i] == x]) for x in unique_actuals]
 
-    Returns:
-        dict with keys:
-            - T-SNE  (go.Figure): Distortions visualization with t-SNE features
-            - UMAP (go.Figure): Distortions visualization with UMAP features
-            - MOS_T-SNE (go.Figure): MOS visualization with t-SNE features
-            - MOS_UMAP (go.Figure): MOS visualization with UMAP features
-    """
-    print("Generating visualizations...")
+        # Mean prediction line
+        ax.plot(unique_actuals, mean_predictions, 'b-', label='Mean Predictions')
+        
+        # Standard deviation shading
+        ax.fill_between(unique_actuals, 
+                        np.array(mean_predictions) - np.array(std_predictions),
+                        np.array(mean_predictions) + np.array(std_predictions), 
+                        color='blue', alpha=0.2, label='±1 Std Dev')
 
-    methods = ["T-SNE", "UMAP"]
+        # Diagonal line for perfect predictions
+        ax.plot([val_scores.min(), val_scores.max()], [val_scores.min(), val_scores.max()], 'r--', lw=2, label='Perfect Fit')
+        ax.set_xlim(val_scores.min(), val_scores.max())
+        ax.set_ylim(val_scores.min(), val_scores.max())
+        ax.set_title(distortion_criteria[i])
+        ax.set_xlabel('Actual Scores')
+        ax.grid(True)
 
-    # Define the colors and shades for each distortion type and level
-    dist_color_maps = {"blur": "0, 80, 239",
-                       "color_distortion": "227, 200, 0",
-                       "jpeg": "216, 9, 168",
-                       "noise": "245, 0, 56",
-                       "brightness_change": "0, 204, 204",
-                       "spatial_distortion": "160, 82, 45",
-                       "sharpness_contrast": "96, 169, 23"}
+    axes[0].set_ylabel('Predicted Scores')
+    plt.tight_layout()
 
-    dist_shades = {1: 0.2, 2: 0.4, 3: 0.6, 4: 0.8, 5: 1.0}
+    # Central legend
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 1.05), ncol=3, fontsize='small')
 
-    mos_color_map = "138, 10, 10"
-    mos_shades = {1: 0.2, 2: 0.4, 3: 0.6, 4: 0.8, 5: 1.0}
+    plt.show()
 
-    # Extract features and labels from the validation dataloader
-    features = torch.zeros((0, model.encoder.feat_dim))
-    dist_colors = []
-    mos_colors = []
-    for i, batch in enumerate(dataloader, 0):
-        img = batch["img"].to(device=device, non_blocking=True)
-        img = img[:, 0]     # Consider only the center crop
-        dist_group = batch["dist_group"]
-        dist_level = batch["dist_level"]
-        mos_score = batch["mos"]
 
-        with torch.cuda.amp.autocast(), torch.no_grad():
-            output_features, _ = model(img)
-        features = torch.cat((features, output_features.float().detach().cpu()), 0)
+def plot_results(original_images, distorted_images, actuals, predictions, num_plots=5):
+    criteria_names = ["Background", "Lighting", "Focus", "Orientation", "Color calibration", "Resolution", "Field of view"]
+    num_criteria = len(criteria_names)
+    angles = np.linspace(0, 2 * np.pi, num_criteria, endpoint=False).tolist()
+    angles += angles[:1]  # Complete the loop
 
-        # Determine the color and shade for the marker based on the class and level
-        for d_group, d_level, mos in zip(dist_group, dist_level, mos_score):
-            mos_colors.append(f"rgba({mos_color_map}, {mos_shades[round(mos.item())]})")
-            marker_color = dist_color_maps[d_group]
-            marker_shade = dist_shades[d_level.item()]
-            dist_colors.append(f"rgba({marker_color}, {marker_shade})")
+    if distorted_images is not None:
+        fig, axs = plt.subplots(num_plots, 4, figsize=(20, num_plots * 5))  # 4 columns: Original Image, Distorted Image, Actual Radar, Prediction Radar
+    else:
+        fig, axs = plt.subplots(num_plots, 3, figsize=(15, num_plots * 5))  # 3 columns: Original Image, Actual Radar, Prediction Radar
 
-    dist_colors = np.array(dist_colors)
-    mos_colors = np.array(mos_colors)
-    features = features.numpy()
+    for i in range(num_plots):
+        # Original Image
+        axs[i, 0].imshow(np.array(original_images[i]))
+        axs[i, 0].set_title('Original Image', fontsize=15, fontweight='bold')
+        axs[i, 0].axis('off')
 
-    # Generate the figures
-    figures = {}
-    for method in methods:
-        args = tsne_args if method == "T-SNE" else umap_args
-        if method == "UMAP":
-            features_embedded = UMAP(**args).fit_transform(features)
-        elif method == "T-SNE":
-            features_embedded = TSNE(**args).fit_transform(features)
+        if distorted_images is not None:
+            # Distorted Image
+            axs[i, 1].imshow(distorted_images[i])
+            axs[i, 1].set_title('Distorted Image', fontsize=15, fontweight='bold')
+            axs[i, 1].axis('off')
+
+            # Actual Radar chart
+            ax_actual = plt.subplot(num_plots, 4, 4 * i + 3, polar=True)
         else:
-            raise NotImplementedError(f"Method {method} not implemented")
+            # Actual Radar chart
+            ax_actual = plt.subplot(num_plots, 3, 3 * i + 2, polar=True)
 
-        ### Degradations visualization
-        fig = go.Figure()
+        ax_actual.set_theta_offset(np.pi / 2)
+        ax_actual.set_theta_direction(-1)
+        plt.xticks(angles[:-1], criteria_names, fontsize=13, fontweight='bold')
 
-        # Add legend
-        for d_group, color in dist_color_maps.items():
-            placeholder = features_embedded[np.where(dist_colors == f"rgba({color}, 1.0)")[0][0]]    # Needed to create the legend correctly. Store the coordinates of a point with max opacity for each class
-            if args["n_components"] == 2:
-                trace = go.Scatter(x=[placeholder[0]], y=[placeholder[1]], mode='markers',
-                                   marker=dict(size=5, color=f"rgba({color}, 1.0)"),
-                                   name=d_group)
+        ax_actual.set_ylim(0, 1)
+        ax_actual.set_yticks([0, 0.25, 0.5, 0.75, 1])
+        ax_actual.set_yticklabels(['0', '0.25', '0.5', '0.75', '1'], fontsize=13, fontweight='bold')
 
-            elif args["n_components"] == 3:
-                trace = go.Scatter3d(x=[placeholder[0]], y=[placeholder[1]], z=[placeholder[2]], mode='markers',
-                                     marker=dict(size=5, color=f"rgba({color}, 1.0)"),
-                                     name=d_group)
-            else:
-                raise ValueError(f"n_components parameter must be in [2, 3].")
+        actual_values = actuals[i].tolist()
+        actual_values += actual_values[:1]
+        ax_actual.plot(angles, actual_values, linewidth=4, linestyle='solid', label='Actual', color='red')
+        ax_actual.fill(angles, actual_values, 'r', alpha=0.1)
+        #plt.title(f'Actual Radar Chart {i+1}', size=12, y=1.1)
 
-            fig.add_trace(trace)
+        if distorted_images is not None:
+            # Prediction Radar chart
+            ax_pred = plt.subplot(num_plots, 4, 4 * i + 4, polar=True)
+        else:
+            # Prediction Radar chart
+            ax_pred = plt.subplot(num_plots, 3, 3 * i + 3, polar=True)
 
-        if args["n_components"] == 2:
-            # Create 2D scatter plot with features
-            fig.add_trace(go.Scatter(x=features_embedded[:, 0], y=features_embedded[:, 1],
-                                    mode='markers', marker=dict(size=5, color=dist_colors), showlegend=False))
-        elif args["n_components"] == 3:
-            # Create 3D scatter plot with features
-            fig.add_trace(go.Scatter3d(x=features_embedded[:, 0], y=features_embedded[:, 1], z=features_embedded[:, 2],
-                                    mode='markers', marker=dict(size=5, color=dist_colors), showlegend=False))
+        ax_pred.set_theta_offset(np.pi / 2)
+        ax_pred.set_theta_direction(-1)
+        plt.xticks(angles[:-1], criteria_names, fontsize=13, fontweight='bold')
 
-        # Update layout
-        fig.update_layout(title=f'{method} KADID10K visualization', scene=dict(xaxis_title='X', yaxis_title='Y', zaxis_title='Z'),
-                          legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)'))
-        figures[method] = fig
+        ax_pred.set_ylim(0, 1)
+        ax_pred.set_yticks([0, 0.25, 0.5, 0.75, 1])
+        ax_pred.set_yticklabels(['0', '0.25', '0.5', '0.75', '1'], fontsize=13, fontweight='bold')
 
-        ### MOS visualization
-        fig = go.Figure()
 
-        # Add legend
-        for mos, opacity in mos_shades.items():
-            placeholder = features_embedded[np.where(mos_colors == f"rgba({mos_color_map}, {opacity})")[0][0]]  # Needed to create the legend correctly. Store the coordinates of a point for each class
-            if args["n_components"] == 2:
-                trace = go.Scatter(x=[placeholder[0]], y=[placeholder[1]], mode='markers',
-                                   marker=dict(size=5, color=f"rgba({mos_color_map}, {opacity})"),
-                                   name=mos)
-            elif args["n_components"] == 3:
-                trace = go.Scatter3d(x=[placeholder[0]], y=[placeholder[1]], z=[placeholder[2]], mode='markers',
-                                        marker=dict(size=5, color=f"rgba({mos_color_map}, {opacity})"),
-                                        name=mos)
-            else:
-                raise ValueError(f"n_components parameter must be in [2, 3].")
-            fig.add_trace(trace)
+        pred_values = predictions[i].tolist()
+        pred_values += pred_values[:1]
+        ax_pred.plot(angles, pred_values, linewidth=4, linestyle='solid', label='Prediction', color='blue')
+        ax_pred.fill(angles, pred_values, 'b', alpha=0.1)
+        #plt.title(f'Prediction Radar Chart {i+1}', size=12, y=1.1)
 
-        if args["n_components"] == 2:
-            # Create 2D scatter plot with features
-            fig.add_trace(go.Scatter(x=features_embedded[:, 0], y=features_embedded[:, 1],
-                                    mode='markers', marker=dict(size=5, color=mos_colors), showlegend=False))
-        elif args["n_components"] == 3:
-            # Create 3D scatter plot with features
-            fig.add_trace(go.Scatter3d(x=features_embedded[:, 0], y=features_embedded[:, 1], z=features_embedded[:, 2],
-                                        mode='markers', marker=dict(size=5, color=mos_colors), showlegend=False))
-
-        # Update layout
-        fig.update_layout(title=f'{method} MOS KADID10K visualization', scene=dict(xaxis_title='X', yaxis_title='Y', zaxis_title='Z'),
-                            legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)'))
-
-        figures[f"MOS_{method}"] = fig
-
-    return figures
+    plt.tight_layout()
+    plt.show()

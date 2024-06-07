@@ -1,24 +1,18 @@
-import torch
-from torchvision.io.image import decode_jpeg, encode_jpeg
-from torchvision import transforms
-import numpy as np
-import random
 import math
-from torch.nn import functional as F
-import io
-from PIL import Image
-import ctypes
+import random
+
 import kornia
+import numpy as np
+import torch
+from torch.nn import functional as F
 
-from utils.utils import PROJECT_ROOT
-from utils.utils_distortions import fspecial, filter2D, curves, imscatter, mapmm
-
-dither_cpp = ctypes.CDLL(PROJECT_ROOT / "utils" / "dither_extension/dither.so").dither
-dither_cpp.argtypes = [ctypes.POINTER(ctypes.c_float), ctypes.POINTER(ctypes.c_float), ctypes.c_int, ctypes.c_int,
-                       ctypes.c_int]
+from utils.utils_distortions import (apply_perspective, curves, filter2D, fspecial,
+                                     skin_segmentation)
 
 
 def gaussian_blur(x: torch.Tensor, blur_sigma: int = 0.1) -> torch.Tensor:
+    if blur_sigma == 0:
+        return x
     fs = 2 * math.ceil(2 * blur_sigma) + 1
     h = fspecial('gaussian', (fs, fs), blur_sigma)
     h = torch.from_numpy(h).float()
@@ -31,6 +25,8 @@ def gaussian_blur(x: torch.Tensor, blur_sigma: int = 0.1) -> torch.Tensor:
 
 
 def lens_blur(x: torch.Tensor, radius: int) -> torch.Tensor:
+    if radius == 0:
+        return x
     h = fspecial('disk', radius)
     h = torch.from_numpy(h).float()
 
@@ -42,6 +38,8 @@ def lens_blur(x: torch.Tensor, radius: int) -> torch.Tensor:
 
 
 def motion_blur(x: torch.Tensor, radius: int, angle: bool = None) -> torch.Tensor:
+    if radius == 0:
+        return x
     if angle is None:
         angle = random.randint(0, 180)
     h = fspecial('motion', radius, angle)
@@ -54,78 +52,10 @@ def motion_blur(x: torch.Tensor, radius: int, angle: bool = None) -> torch.Tenso
     return y
 
 
-def color_diffusion(x: torch.Tensor, amount: int) -> torch.Tensor:
-    blur_sigma = 1.5 * amount + 2
-    scaling = amount
-    x = x[[2, 1, 0], ...]
-    lab = kornia.color.rgb_to_lab(x)
-
-    fs = 2 * math.ceil(2 * blur_sigma) + 1
-    h = fspecial('gaussian', (fs, fs), blur_sigma)
-    h = torch.from_numpy(h).float()
-
-    if len(lab.shape) == 3:
-        lab = lab.unsqueeze(0)
-
-    diff_ab = filter2D(lab[:, 1:3, ...], h.unsqueeze(0))
-    lab[:, 1:3, ...] = diff_ab * scaling
-
-    y = torch.trunc(kornia.color.lab_to_rgb(lab) * 255.) / 255.
-    y = y[:, [2, 1, 0]].squeeze(0)
-    return y
-
-
-def color_shift(x: torch.Tensor, amount: int) -> torch.Tensor:
-    def perc(x, perc):
-        xs = torch.sort(x)
-        i = len(xs) * perc / 100.
-        i = max(min(i, len(xs)), 1)
-        v = xs[round(i - 1)]
-        return v
-
-    gray = kornia.color.rgb_to_grayscale(x)
-    gradxy = kornia.filters.spatial_gradient(gray.unsqueeze(0), 'diff')
-    e = torch.sum(gradxy ** 2, 2) ** 0.5
-
-    fs = 2 * math.ceil(2 * 4) + 1
-    h = fspecial('gaussian', (fs, fs), 4)
-    h = torch.from_numpy(h).float()
-
-    e = filter2D(e, h.unsqueeze(0))
-
-    mine = torch.min(e)
-    maxe = torch.max(e)
-
-    if mine < maxe:
-        e = (e - mine) / (maxe - mine)
-
-    percdev = [1, 1]
-    valuehi = perc(e, 100 - percdev[1])
-    valuelo = 1 - perc(1 - e, 100 - percdev[0])
-
-    e = torch.max(torch.min(e, valuehi), valuelo)
-
-    channel = 1
-    g = x[channel, :, :]
-    a = np.random.random((1, 2))
-    amount_shift = np.round(a / (np.sum(a ** 2) ** 0.5) * amount)[0].astype(int)
-
-    y = F.pad(g, (amount_shift[0], amount_shift[0]), mode='replicate')
-    y = F.pad(y.transpose(1, 0), (amount_shift[1], amount_shift[1]), mode='replicate').transpose(1, 0)
-    y = torch.roll(y, (amount_shift[0], amount_shift[1]), dims=(0, 1))
-
-    if amount_shift[1] != 0:
-        y = y[amount_shift[1]:-amount_shift[1], ...]
-    if amount_shift[0] != 0:
-        y = y[..., amount_shift[0]:-amount_shift[0]]
-
-    yblend = y * e + x[channel, ...] * (1 - e)
-    x[channel, ...] = yblend
-
-    return x
-
-
 def color_saturation1(x: torch.Tensor, factor: int) -> torch.Tensor:
+    factor = 1 - factor
+    if factor == 1:
+        return x
     x = x[[2, 1, 0], ...]
     hsv = kornia.color.rgb_to_hsv(x)
     hsv[1, ...] *= factor
@@ -134,6 +64,8 @@ def color_saturation1(x: torch.Tensor, factor: int) -> torch.Tensor:
 
 
 def color_saturation2(x: torch.Tensor, factor: int) -> torch.Tensor:
+    if factor == 0:
+        return x
     x = x[[2, 1, 0], ...]
     lab = kornia.color.rgb_to_lab(x)
     lab[1:3, ...] = lab[1:3, ...] * factor
@@ -141,96 +73,9 @@ def color_saturation2(x: torch.Tensor, factor: int) -> torch.Tensor:
     return y[[2, 1, 0], ...]
 
 
-def jpeg2000(x: torch.Tensor, ratio: int) -> torch.Tensor:
-    ratio = int(ratio)
-    compression_params = {
-        'quality_mode': 'rates',
-        'quality_layers': [ratio],  # Compression ratio
-        'num_resolutions': 8,  # Number of wavelet decompositions
-        'prog_order': 'LRCP',  # Progression order: Layer-Resolution-Component-Position
-    }
-
-    # Compress the image and save it using the JPEG2000 format
-    x *= 255.
-    x = x.byte().cpu().numpy()
-
-    x = Image.fromarray(x.transpose(1, 2, 0), 'RGB')
-
-    with io.BytesIO() as output:
-        x.save(output, format='JPEG2000', **compression_params)
-        compressed_data = output.getvalue()
-
-    y = Image.open(io.BytesIO(compressed_data))
-    y = transforms.ToTensor()(y)
-
-    return y
-
-
-def jpeg(x: torch.Tensor, quality: int) -> torch.Tensor:
-    x *= 255.
-    y = encode_jpeg(x.byte().cpu(), quality=quality)
-    y = (decode_jpeg(y) / 255.).to(torch.float32)
-    return y
-
-
-def white_noise(x: torch.Tensor, var: float, clip: bool = True, rounds: bool = False) -> torch.Tensor:
-    noise = torch.randn(*x.size(), dtype=x.dtype) * math.sqrt(var)
-
-    y = x + noise
-
-    if clip and rounds:
-        y = torch.clip((y * 255.0).round(), 0, 255) / 255.
-    elif clip:
-        y = torch.clip(y, 0, 1)
-    elif rounds:
-        y = (y * 255.0).round() / 255.
-    return y
-
-
-def white_noise_cc(x: torch.Tensor, var: float, clip: bool = True, rounds: bool = False) -> torch.Tensor:
-    noise = torch.randn(*x.size(), dtype=x.dtype) * math.sqrt(var)
-
-    ycbcr = kornia.color.rgb_to_ycbcr(x)
-    y = ycbcr + noise
-
-    y = kornia.color.ycbcr_to_rgb(y)
-
-    if clip and rounds:
-        y = torch.clip((y * 255.0).round(), 0, 255) / 255.
-    elif clip:
-        y = torch.clip(y, 0, 1)
-    elif rounds:
-        y = (y * 255.0).round() / 255.
-
-    return y
-
-
-def impulse_noise(x: torch.Tensor, d: float, s_vs_p: float = 0.5) -> torch.Tensor:
-    num_sp = int(d * x.shape[0] * x.shape[1] * x.shape[2])
-
-    coords = np.concatenate((np.random.randint(0, 3, (num_sp, 1)),
-                             np.random.randint(0, x.shape[1], (num_sp, 1)),
-                             np.random.randint(0, x.shape[2], (num_sp, 1))), 1)
-
-    num_salt = int(s_vs_p * num_sp)
-
-    coords_salt = coords[:num_salt].transpose(1, 0)
-    coords_pepper = coords[num_salt:].transpose(1, 0)
-
-    x[coords_salt] = 1
-    x[coords_pepper] = 0
-
-    return x
-
-
-def multiplicative_noise(x: torch.Tensor, var: float) -> torch.Tensor:
-    noise = torch.randn(*x.size(), dtype=x.dtype) * math.sqrt(var)
-    y = x + x * noise
-    y = torch.clip(y, 0, 1)
-    return y
-
-
 def brighten(x: torch.Tensor, amount: float) -> torch.Tensor:
+    if amount == 0.0:
+        return x
     x = x[[2, 1, 0]]
     lab = kornia.color.rgb_to_lab(x)
 
@@ -248,6 +93,8 @@ def brighten(x: torch.Tensor, amount: float) -> torch.Tensor:
 
 
 def darken(x: torch.Tensor, amount: float, dolab: bool = False) -> torch.Tensor:
+    if amount == 0.0:
+        return x
     x = x[[2, 1, 0], :, :]
     lab = kornia.color.rgb_to_lab(x)
     if dolab:
@@ -264,145 +111,149 @@ def darken(x: torch.Tensor, amount: float, dolab: bool = False) -> torch.Tensor:
     return y[[2, 1, 0]]
 
 
-def mean_shift(x: torch.Tensor, amount: float) -> torch.Tensor:
-    x = x[[2, 1, 0], :, :]
+def perspective_top(x: torch.Tensor, amount: float = 0.6) -> torch.Tensor:
+    return apply_perspective(x, amount, 'top')
 
-    y = torch.clamp(x + amount, 0, 1)
-    return y[[2, 1, 0]]
+def perspective_bottom(x: torch.Tensor, amount: float = 0.6) -> torch.Tensor:
+    return apply_perspective(x, amount, 'bottom')
 
+def perspective_left(x: torch.Tensor, amount: float = 0.6) -> torch.Tensor:
+    return apply_perspective(x, amount, 'left')
 
-def jitter(x: torch.Tensor, amount: float) -> torch.Tensor:
-    y = imscatter(x, amount, 5)
-    return y
+def perspective_right(x: torch.Tensor, amount: float = 0.6) -> torch.Tensor:
+    return apply_perspective(x, amount, 'right')
 
+def crop_image(image: torch.Tensor, level: int) -> torch.Tensor:
+    _, height, width = image.shape
+    if level == 0:
+        return image  # No cropping for level 0.
+    
+    crop_ratio = level / 5
+    new_height = int(height * (1 - crop_ratio / 2))
+    new_width = int(width * (1 - crop_ratio / 2))
 
-def non_eccentricity_patch(x: torch.Tensor, pnum: int) -> torch.Tensor:
-    y = x
-    patch_size = [16, 16]
-    radius = 16
-    h_min = radius
-    w_min = radius
-    c, h, w = x.shape
+    # Crop the image towards the bottom-right corner
+    cropped_image = image[:, :new_height, :new_width]
+    return cropped_image
 
-    h_max = h - patch_size[0] - radius
-    w_max = w - patch_size[1] - radius
+def crop_image1(image: torch.Tensor, level: int) -> torch.Tensor:
+    _, height, width = image.shape
+    if level == 0:
+        return image  # No cropping for level 0.
 
-    for i in range(pnum):
-        w_start = round(random.random() * (w_max - w_min)) + w_min
-        h_start = round(random.random() * (h_max - h_min)) + h_min
-        patch = y[:, h_start:h_start + patch_size[0], w_start:w_start + patch_size[0]]
+    crop_ratio = level / 5
+    new_height = int(height * (1 - crop_ratio / 2))
+    new_width = int(width * (1 - crop_ratio / 2))
 
-        rand_w_start = round((random.random() - 0.5) * radius + w_start)
-        rand_h_start = round((random.random() - 0.5) * radius + h_start)
-        y[:, rand_h_start:rand_h_start + patch_size[0], rand_w_start:rand_w_start + patch_size[0]] = patch
+    # Crop the image towards the bottom-right corner
+    cropped_image = image[:, :new_height, :new_width]
 
-    return y
+    # Resize cropped image back to the original dimensions if necessary
+    if new_height != height or new_width != width:
+        cropped_image = F.interpolate(cropped_image.unsqueeze(0), size=(height, width), mode='bilinear', align_corners=False).squeeze(0)
 
+    return cropped_image
+    
+def change_resolution(x: torch.Tensor, distortion_level: float) -> torch.Tensor:
+    scale_level = 1 - distortion_level
+    if scale_level == 1:
+        return x
+    _, h, w = x.shape
+    new_h, new_w = max(1, int(h * scale_level)), max(1, int(w * scale_level))
 
-def pixelate(x: torch.Tensor, strength: float) -> torch.Tensor:
-    z = 0.95 - strength ** 0.6
-    c, h, w = x.shape
+    if new_h < 1 or new_w < 1:
+        raise ValueError("Scale level too small, resulting dimensions are less than 1 pixel.")
 
-    ylo = kornia.geometry.transform.resize(x, (int(h * z), int(w * z)), 'nearest')
-    y = kornia.geometry.transform.resize(ylo, (h, w), 'nearest')
+    downsampled = torch.nn.functional.interpolate(x.unsqueeze(0), size=(new_h, new_w), mode='bilinear', align_corners=False)
+    restored = torch.nn.functional.interpolate(downsampled, size=(h, w), mode='bilinear', align_corners=False)
 
-    return y
+    return restored.squeeze(0)
 
+def color_block(x: torch.Tensor, amount: float) -> torch.Tensor:
+    if amount == 0:
+        return x
+    skin_mask = skin_segmentation(x)
+    background_proportion = 1 - skin_mask.mean().item()  # Estimate of background area
+    if background_proportion < 0.05:  # Only apply distortion if significant background is present
+        return x
+    x_new = x * ~skin_mask
+    amount = amount * background_proportion
+    _, h, w = x_new.shape
+    exclusion_ratio = 0.2  # Exclude central region from distortion
+    patch_size = [int(max(32, min(h / 10 * amount, h))), int(max(32, min(w / 10 * amount, w)))]
+    
+    y = x_new.clone()
 
-def quantization(x: torch.Tensor, levels: int) -> torch.Tensor:
-    image = kornia.color.rgb_to_grayscale(x) * 255
-    image = image.cpu().numpy()
-    num_classes = levels
-
-    # minimum variance thresholding
-    hist, bins = np.histogram(image, num_classes, [0, 255])
-
-    return_thresholds = np.zeros(num_classes - 1)
-    for i in range(num_classes - 1):
-        return_thresholds[i] = bins[i + 1]
-
-    # quantize image with thresholds
-    bins = torch.tensor([0] + return_thresholds.tolist() + [256])
-    bins = bins.type(torch.int)
-    image = torch.bucketize(x.contiguous() * 255., bins).to(torch.float32)
-    image = mapmm(image)
-    return image
-
-
-def color_block(x: torch.Tensor, pnum: int) -> torch.Tensor:
-    patch_size = [32, 32]
-
-    c, w, h = x.shape
-
-    y = x
+    # Convert numpy mask to torch tensor
+    mask_tensor = torch.from_numpy(~skin_mask).float()
 
     h_max = h - patch_size[0]
     w_max = w - patch_size[1]
 
-    for i in range(pnum):
-        color = np.random.random(3)
-        px = math.floor(random.random() * w_max)
-        py = math.floor(random.random() * h_max)
-        patch = torch.ones((3, patch_size[0], patch_size[1]))
-        for j in range(3):
-            patch[j, ...] *= color[j]
-        y[:, px:px + patch_size[0], py:py + patch_size[1]] = patch
+    # Define central exclusion zone
+    central_height = int(h * exclusion_ratio)
+    central_width = int(w * exclusion_ratio)
+    central_top = (h - central_height) // 2
+    central_bottom = central_top + central_height
+    central_left = (w - central_width) // 2
+    central_right = central_left + central_width
 
-    return y
+    num_patches = max(1, int(amount * 10))
+    attempts = 0
+    for _ in range(num_patches):
+        while True:
+            if h_max <= 0 or w_max <= 0 or attempts > 100:  # Avoid infinite loop by limiting attempts
+                break
+            px = random.randint(0, w_max)
+            py = random.randint(0, h_max)
+            # Check if the selected area is in the background and outside the central exclusion zone
+            if not (central_left < px < central_right and central_top < py < central_bottom):
+                patch_area = mask_tensor[py:py + patch_size[0], px:px + patch_size[1]]
+                if torch.all(patch_area == 1):  # Ensure the entire patch is within the background
+                    color = np.random.rand(3)
+                    patch = torch.ones((3, patch_size[0], patch_size[1]), dtype=torch.float32) * torch.tensor(color, dtype=torch.float32).view(3, 1, 1)
+                    y[:, py:py + patch_size[0], px:px + patch_size[1]] = patch
+                    break
+            attempts += 1
+    
+    return y + (x * skin_mask)
 
+# def color_block(x: torch.Tensor, amount: float) -> torch.Tensor:
+#     if amount == 0.0:
+#         return x
+#     skin_mask = skin_segmentation(x)
+#     background_mean = 1 - skin_mask.mean().item()  # Estimate of background area
+#     if background_mean < 0.05:  # Only apply distortion if significant background is present
+#         return x
+#     x_new = x * ~skin_mask
+#     amount = amount * background_mean
+#     _, h, w = x_new.shape
+#     patch_size = [int(max(32, min(h / 10 * amount, h))), int(max(32, min(w / 10 * amount, w)))]
+    
+#     y = x_new.clone()
 
-def high_sharpen(x: torch.Tensor, amount: int, radius: int = 3) -> torch.Tensor:
-    x = x[[2, 1, 0], ...]
-    lab = kornia.color.rgb_to_lab(x)
-    l = lab[0:1, ...].unsqueeze(0)
+#     # Convert numpy mask to torch tensor
+#     mask_tensor = torch.from_numpy(~skin_mask).float()
 
-    filt_radius = math.ceil(radius * 2)
-    fs = 2 * filt_radius + 1
-    h = fspecial('gaussian', (fs, fs), filt_radius)
-    h = torch.from_numpy(h).float()
+#     h_max = h - patch_size[0]
+#     w_max = w - patch_size[1]
 
-    sharp_filter = torch.zeros((fs, fs))
-    sharp_filter[filt_radius, filt_radius] = 1
-    sharp_filter = sharp_filter - h
-
-    sharp_filter *= amount
-    sharp_filter[filt_radius, filt_radius] += 1
-
-    l = filter2D(l, sharp_filter.unsqueeze(0))
-
-    lab[0, ...] = l
-
-    if len(lab.shape) == 3:
-        lab = lab.unsqueeze(0)
-
-    y = kornia.color.lab_to_rgb(lab)
-    y = y[:, [2, 1, 0]].squeeze(0)
-    return y
-
-
-def linear_contrast_change(x: torch.Tensor, amount: float) -> torch.Tensor:
-    y = curves(x, [0.25 - amount / 4, 0.75 + amount / 4])
-    return y
-
-
-def non_linear_contrast_change(x: torch.Tensor, output_offset_value: float, output_central_value: float = 0.5,
-                               input_offset_value: float = 0.5, input_central_value: float = 0.5) -> torch.Tensor:
-    low_in = input_central_value - input_offset_value
-    high_in = input_central_value + input_offset_value
-    low_out = output_central_value - output_offset_value
-    high_out = output_central_value + output_offset_value
-
-    # Clip the input image to the specified input range
-    x = np.clip(x, low_in, high_in)
-
-    # Calculate the slope and intercept of the linear transformation
-    slope = (high_out - low_out) / (high_in - low_in)
-    intercept = low_out - slope * low_in
-
-    # Apply the linear transformation to adjust the pixel values
-    y = slope * x + intercept
-
-    # Clip the adjusted image to the specified output range
-    y = np.clip(y, low_out, high_out)
-
-    return y
+#     num_patches = max(1, int(amount * 10))
+#     attempts = 0
+#     for _ in range(num_patches):
+#         while True:
+#             if h_max <= 0 or w_max <= 0 or attempts > 100:  # Avoid infinite loop by limiting attempts
+#                 break
+#             px = random.randint(0, w_max)
+#             py = random.randint(0, h_max)
+#             # Ensure the selected area is in the background
+#             if px + patch_size[1] <= w and py + patch_size[0] <= h:
+#                 patch_area = mask_tensor[py:py + patch_size[0], px:px + patch_size[1]]
+#                 if torch.all(patch_area == 1):  # Ensure the entire patch is within the background
+#                     color = np.random.rand(3)
+#                     patch = torch.ones((3, patch_size[0], patch_size[1]), dtype=torch.float32) * torch.tensor(color, dtype=torch.float32).view(3, 1, 1)
+#                     y[:, py:py + patch_size[0], px:px + patch_size[1]] = patch
+#                     break
+#             attempts += 1
+    
+#     return y + (x * skin_mask)

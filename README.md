@@ -49,16 +49,21 @@ At the end, the directory structure should look like this:
 ├── datas
 |    ├── COMB
 |    |   ├── embeddings
+|    |   ├── ... (950 good quality images)
 |    ├── F17K
 |    |   ├── embeddings
+|    |   ├── ... (475 good quality images)
 |    ├── SCIN
-|    |    ├── embeddings
+|    |   ├── embeddings
+|    |   ├── ... (475 good quality images)
 |    ├── test_70
-|    |    ├── distorted
-|    |    ├── embeddings
+|    |   ├── distorted
+|    |   ├── embeddings
+|    |   ├── ... (70 good quality images)
 |    ├── test_200
-|    |    ├── embeddings
-|    |    ├── scores.json
+|    |   ├── embeddings
+|    |   ├── scores.json
+|    |   ├── ... (200 images)
 |    ├── ood
 ```
 
@@ -66,7 +71,7 @@ At the end, the directory structure should look like this:
 
 <details>
 <summary><h3>Single Image Inference</h3></summary>
-To get the quality score of a single image, run the following command:
+To perform inference on a single image, run the following command:
 
 ```sh
 python single_image_inference.py --config_path config.yaml
@@ -95,6 +100,9 @@ Parameters:
 - `--model_type`: Model type to use ('xgb_reg', 'xgb_cls', 'mlp_reg', 'mlp_cls').
 - `--sweep`: Set to true for hyperparameter sweep.
 - `--sweep_count`: Number of sweeps to perform.
+- `--model_save`: Set to true to save the trained model.
+- `--model_save_path`: Path to save the final model.
+- `--plot_results`: Set to true to enable plotting of results.
 - `--logging`: Configuration for logging, including the use of wandb.
 
 **Note:** For logging, make sure to set `project` and `entity` under `wandb` in the config file.
@@ -103,7 +111,7 @@ Parameters:
 
 <details>
 <summary><h3>Testing</h3></summary>
-To manually test a model, run the following command:
+To test the model and print the radar plot, run the following command:
 
 ```sh
 python test.py --config_path config.yaml
@@ -125,6 +133,7 @@ Parameters:
 
 ### Inference Script
 
+This script is used to perform inference on a folder containing images and save the results in a CSV file.
 **Parameters:**
 - `--model_path`: Path to the model .pkl file.
 - `--images_path`: Path to the folder containing images.
@@ -132,8 +141,9 @@ Parameters:
 - `--batch_size`: Batch size for DataLoader.
 - `--num_workers`: Number of workers for DataLoader.
 
-### SSIM Script
+### Structural Similarity Index Measure (SSIM) Script
 
+This script is used to calculate the SSIM between two folders containing original and distorted images. The scores are saved in a CSV file. The scores are inverted to match the quality scores used in the research.
 **Parameters:**
 - `--original_path`: Path to the folder containing original images.
 - `--distorted_path`: Path to the folder containing distorted images.
@@ -143,8 +153,23 @@ Parameters:
 
 ### ARNIQA Script
 
+This script runs the ARNIQA model on a folder containing images and saves the scores in a CSV file. The score are inverted to match the quality scores used in the research.
 **Parameters:**
 - `--root`: Root folder containing the images to be evaluated.
 - `--regressor_dataset`: Dataset used to train the regressor.
 - `--output_csv`: Output CSV file to save the quality predictions.
+</details>
+
+<details>
+<summary><h3>Playground Notebooks</h3></summary>
+
+#### `create_distortions.ipynb`
+This notebook is used to create synthetic distortions based on the seven dermatology quality criteria. It allows you to select a folder containing good quality images and apply various distortions to create a wide range of training datasets. The distorted images are saved in the same folder for later use in training and evaluation.
+
+#### `create_labels.ipynb`
+In this notebook, you can manually assign distortion scores to a range of images. It prompts you to rate each of the seven dermatology criteria from 0 (no distortion) to 1 (high distortion). The scores are saved in a JSON file for later use in training and evaluation.
+
+#### `create_plots.ipynb`
+This notebook is used for generating several plots to visualize model performance and comparison. It includes tools for plotting results that are crucial for understanding how well the models are performing.
+
 </details>

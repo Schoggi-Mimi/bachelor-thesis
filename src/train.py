@@ -8,14 +8,15 @@ import random
 
 import numpy as np
 import torch
-import wandb
 import xgboost as xgb
 import yaml
+from scipy import stats
 from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
 from sklearn.neural_network import MLPClassifier, MLPRegressor
 from torch.utils.data import DataLoader
 
+import wandb
 from data import BaseDataset
 from utils.utils_data import discretization, get_features_scores
 from utils.visualization import (plot_all_confusion_matrices,
@@ -54,60 +55,10 @@ def train_model(config):
     train_scores = scores[train_img_indices]
     val_features = features[val_img_indices]
     val_scores = scores[val_img_indices]
-        
-    if config['model_type'] == 'xgb_reg':
-        params = {
-            'tree_method': "hist",
-            'n_estimators': config.get('n_estimators', 100),
-            'n_jobs': 16,
-            'max_depth': config.get('max_depth', 6),
-            'min_child_weight': config.get('min_child_weight', 1),
-            'learning_rate': config.get('learning_rate', 0.01),
-            'subsample': config.get('subsample', 1.0),
-            'early_stopping_rounds': config.get('early_stopping_rounds', 10),
-            'reg_alpha': 0,
-            'reg_lambda': 1,
-            'gamma': config.get('gamma', 0),
-            'objective': "reg:pseudohubererror",
-            'multi_strategy': config.get('multi_strategy', "one_output_per_tree"),
-        }
-        regressor = xgb.XGBRegressor(**params)
-        regressor.fit(train_features, train_scores, eval_set=[(val_features, val_scores)], verbose=False)
-        predictions = regressor.predict(val_features)
-        predictions = np.clip(predictions, 0, 1)
-        evaluate_model(val_scores, predictions, config)
-        if 'model_save_path' in config:
-            save_model(regressor, config['model_save_path'])
 
-    elif config['model_type'] == 'xgb_cls':
-        train_scores = discretization(train_scores)
-        val_scores = discretization(val_scores)
+    if config['model_type'] == 'mlp_reg' or config['model_type'] == 'mlp_cls':
         params = {
-            'booster': 'gbtree',
-            'n_estimators': config.get('n_estimators', 300),
-            'max_depth': config.get('max_depth', 6),
-            'min_child_weight': config.get('min_child_weight', 1),
-            'learning_rate': config.get('learning_rate', 0.01),
-            'subsample': config.get('subsample', 1.0),
-            'objective': 'multi:softprob',
-            'random_state': 42,
-            'eval_metric': ['mlogloss', 'merror', 'auc'],
-            'reg_alpha': 0,
-            'reg_lambda': 1,
-            'gamma': config.get('gamma', 0),
-            'tree_method': 'hist',
-            'device': 'cpu'
-        }
-        classifier = MultiOutputClassifier(xgb.XGBClassifier(**params), n_jobs=-1)
-        classifier.fit(train_features, train_scores)
-        predictions = classifier.predict(val_features)
-        evaluate_model(val_scores, predictions, config)
-        if 'model_save_path' in config:
-            save_model(classifier, config['model_save_path'])
-        
-    elif config['model_type'] == 'mlp_reg':
-        params = {
-            'hidden_layer_sizes': tuple(config.get('hidden_layer_sizes', [100])),
+            'hidden_layer_sizes': tuple(config.get('hidden_layer_sizes', [512])),
             'activation': config.get('activation', 'relu'),
             'solver': 'adam',
             'alpha': config.get('alpha', 0.0001),
@@ -115,34 +66,84 @@ def train_model(config):
             'max_iter': config.get('max_iter', 200),
             'early_stopping': True,
         }
+    elif config['model_type'] == 'xgb_reg' or config['model_type'] == 'xgb_cls':
+        params = {
+            'n_estimators': config.get('n_estimators', 100),
+            'max_depth': config.get('max_depth', 6),
+            'min_child_weight': config.get('min_child_weight', 1),
+            'learning_rate': config.get('learning_rate', 0.01),
+            'subsample': config.get('subsample', 1.0),
+            'reg_alpha': 0,
+            'reg_lambda': 1,
+            'gamma': config.get('gamma', 0),
+            'tree_method': 'hist',
+            'device': 'cpu',
+            # 'callbacks': [wandb.integration.xgboost.WandbCallback()],
+        }
+
+    
+    if config['model_type'] == 'xgb_reg':
+        params.update({
+            'n_jobs': 16,
+            'early_stopping_rounds': config.get('early_stopping_rounds', 10),
+            'objective': "reg:pseudohubererror",
+            'multi_strategy': config.get('multi_strategy', "one_output_per_tree"),
+        })
+        regressor = xgb.XGBRegressor(**params)
+        regressor.fit(train_features, train_scores, eval_set=[(val_features, val_scores)], verbose=False)
+        predictions = regressor.predict(val_features)
+        predictions = np.clip(predictions, 0, 1)
+        if config.get('model_save', False) and not config.get('sweep', False):
+            save_model(regressor, config['model_save_path'])
+        if config.get('sweep', True):
+            log_srocc(val_scores, predictions)
+        if config.get('plot_results', False):
+            evaluate_model(val_scores, predictions, config)
+
+    elif config['model_type'] == 'xgb_cls':
+        train_scores = discretization(train_scores)
+        val_scores = discretization(val_scores)
+        params.update({
+            'booster': 'gbtree',
+            'objective': 'multi:softprob',
+            'eval_metric': ['mlogloss', 'merror', 'auc'],
+        })
+        classifier = MultiOutputClassifier(xgb.XGBClassifier(**params), n_jobs=-1)
+        classifier.fit(train_features, train_scores)
+        predictions = classifier.predict(val_features)
+        if config.get('model_save', False) and not config.get('sweep', False):
+            save_model(classifier, config['model_save_path'])
+        if config.get('sweep', True):
+            log_srocc(val_scores, predictions)
+        if config.get('plot_results', False):
+            evaluate_model(val_scores, predictions, config)
+        
+    elif config['model_type'] == 'mlp_reg':
         mlp = MLPRegressor(**params)
         multioutput_regressor = MultiOutputRegressor(mlp, n_jobs=-1)
         multioutput_regressor.fit(train_features, train_scores)
         predictions = multioutput_regressor.predict(val_features)
         predictions = np.clip(predictions, 0, 1)
-        evaluate_model(val_scores, predictions, config)
-        if 'model_save_path' in config:
+        if config.get('model_save', False) and not config.get('sweep', False):
             save_model(multioutput_regressor, config['model_save_path'])
+        if config.get('sweep', True):
+            log_srocc(val_scores, predictions)
+        if config.get('plot_results', False):
+            evaluate_model(val_scores, predictions, config)
     
     elif config['model_type'] == 'mlp_cls':
-        params = {
-            'hidden_layer_sizes': tuple(config.get('hidden_layer_sizes', [100])),
-            'activation': config.get('activation', 'relu'),
-            'solver': 'adam',
-            'alpha': config.get('alpha', 0.0001),
-            'learning_rate_init': config.get('learning_rate_init', 0.001),
-            'max_iter': config.get('max_iter', 200),
-            'early_stopping': True,
-        }
         train_scores = discretization(train_scores)
         val_scores = discretization(val_scores)
         mlp = MLPClassifier(**params)
         multioutput_classifier = MultiOutputClassifier(mlp, n_jobs=-1)
         multioutput_classifier.fit(train_features, train_scores)
         predictions = multioutput_classifier.predict(val_features)
-        evaluate_model(val_scores, predictions, config)
-        if 'model_save_path' in config:
+        if config.get('model_save', False) and not config.get('sweep', False):
             save_model(multioutput_classifier, config['model_save_path'])
+        if config.get('sweep', True):
+            log_srocc(val_scores, predictions)
+        if config.get('plot_results', False):
+            evaluate_model(val_scores, predictions, config)
     
 
 def seed_it_all(seed=42):
@@ -162,16 +163,25 @@ def evaluate_model(val_scores, predictions, config):
     else:
         bin_pred = predictions
         bin_val = val_scores
-
-    if config['plot_results']:
-        # plot_prediction_scores(val_scores, predictions)
-        plot_all_confusion_matrices(bin_val, bin_pred)
+    # plot_prediction_scores(val_scores, predictions)
+    plot_all_confusion_matrices(bin_val, bin_pred)
     print_metrics(bin_val, bin_pred)
 
 def save_model(model, path):
     with open(path, 'wb') as model_file:
         pickle.dump(model, model_file)
     print(f"Model saved to {path}")
+
+def log_srocc(val_scores, predictions):
+    criteria_labels = ['Background', 'Lighting', 'Focus', 'Orientation', 'Color Calibration', 'Resolution', 'Field of View']
+    spearman_scores = []
+    for i, label in enumerate(criteria_labels):
+        spearman_corr = stats.spearmanr(val_scores[:, i], predictions[:, i]).correlation
+        wandb.log({f'srocc_{label}': spearman_corr})
+        spearman_scores.append(spearman_corr)
+
+    overall_srocc = stats.spearmanr(predictions.flatten(), val_scores.flatten()).correlation
+    wandb.log({"overall_srocc": overall_srocc})
 
 def sweep_train():
     wandb.init(reinit=True)
